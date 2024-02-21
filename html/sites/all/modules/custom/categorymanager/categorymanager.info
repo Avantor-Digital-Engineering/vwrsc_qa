@@ -1,0 +1,7 @@
+; $Id: categorymanager.info, Photon; 28-Nov-2011 $
+name = Category Manager
+description = Manages Categories
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = vwr

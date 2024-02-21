@@ -1,0 +1,52 @@
+.select_supplier{
+	height:25px;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+.access_tabs{
+	text-align:center;	
+	height: 30px;
+    margin: 10px 0 20px 250px;
+}
+.path_tab{
+	float:left;
+	text-align:center;
+	font-weight:bold;
+	color:#3F4C6C;
+	background-color:#EAEAEA;	
+	width:100px;
+	height:15px;
+	padding:5px;
+	cursor:pointer;
+	border:1px ridge #111111;
+}
+.no_records{
+	text-align:center;
+	font-size:12px;
+}
+.path_tab.active{
+	color:#FFFFFF;
+	background-color:#3F4C6C;
+}
+.tree{
+	margin:30px 0 0 80px;
+	padding-top:50px;
+	text-align:left;
+}
+.parent{
+	color:#000000;
+	font-size:12px;
+	padding-top: 5px;
+}
+.childExpand {
+	padding-left:30px;
+	display:block;
+} 
+.child {
+	display:none;
+} 
+.operator {
+	color: #005595;
+    cursor: pointer;
+    font-weight: bold;
+}

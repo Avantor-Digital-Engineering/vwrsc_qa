@@ -1,0 +1,314 @@
+/* CSS for Search Page */
+.loader_image{
+	width:20%;
+	margin:auto;
+	padding-top:120px;
+	font-size:10px;
+	text-align:center;
+}
+.search_btn{
+	margin-top:3px;
+}
+.result_head{
+	font-size:17px;
+	/*font-weight:bold;*/
+}	
+.result_keyword{
+	font-size:12px;
+	float: left;
+}
+.search_results{
+	width:100%;
+	margin:10px 0 0 0;
+	padding:0;
+}
+.result_details{
+	width: 100%;
+	float:left;
+	
+}
+.filter_result{
+	width:30%;
+	float:right;
+}
+.file_symbal{
+	width:10%;
+	float:left;
+	margin:5px 0 0;
+	padding-left: 15px;
+	text-align: center;
+}
+.file_details{
+	width:86%;
+	float:left;
+}
+
+.file_title a{
+font-size:13px; text-decoration:underline; color:#004D8F; font-weight:bold;
+}
+.file_title a:hover {
+	text-decoration:none;
+}
+
+.file_author{
+	font-size: 11px;
+	padding:7px 0;
+}
+.file_desc{
+	color: #000000;
+    font-weight: normal;
+    line-height: 16px;
+    font-size: 11px;
+	padding:0 0 5px;
+}
+.file_category{
+	color: #000000;
+    font-size: 11px;
+}
+.file_category a{
+	color: #0000CC;
+    font-size: 11px;
+    font-weight: normal;
+}
+.filter_result select {
+	background:url(../images/txtbox_bg.jpg) bottom repeat-x;
+	border:1px solid #999;
+	font-size:12px;
+	height:20px;
+	width: 70px;
+	/*float: left;*/
+}
+.advanced_search{
+	width:100%;
+	margin:10px 0 0 10px;
+	padding:0;
+}
+.advanced_search_form .search_keyword {
+	background:url(../images/txtbox_bg.jpg) bottom repeat-x;
+	border:1px solid #999;
+	font-size:13px;
+	height:20px;
+	width: 190px;
+	/*float: left;*/
+}
+.advanced_search_form select {
+	background:url(../images/txtbox_bg.jpg) bottom repeat-x;
+	border:1px solid #999;
+	font-size:12px;
+	height:20px;
+	width: 120px;
+	/*float: left;*/
+}
+.advanced_search_form .date_picker{
+	background:url(../images/txtbox_bg.jpg) bottom repeat-x;
+	border:1px solid #999;
+	font-size:12px;
+	height:17px;
+	width: 90px;
+}
+.search_button {
+	background:url(../images/button_bg.jpg) repeat-x;
+	border: 1px solid #183274;
+	color: #FFFFFF;
+	cursor: pointer;
+	float: left;
+	font-weight: bold;
+	height: 25px;
+	margin: 30px 0 0 100px;
+	padding: 0 5px;
+	outline:none;
+}
+.picker_image{
+	margin:5px;
+}
+/*.pagination_search {
+    float: left;
+    margin-top: 13px;
+    padding-left: 150px;
+	width:100%;
+}
+.pagination_search ul li{ display: inline-block;}
+.pagination_search .num{
+	background:url(../images/pagenation_num.png);
+	color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    text-align: center;
+    width: 19px;
+}
+.page_prev, .page_next {
+	background-color: #3F4C6C;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    text-align: center;
+    width: 40px;
+}*/
+
+.paginationstyle{ /*Style for demo pagination divs*/
+width: 250px;
+height: 20px;
+text-align: center;
+padding: 2px 0 2px 550px;
+margin: 10px 0 5px 0;
+float:left;
+}
+
+.paginationstyle select{ /*Style for demo pagination divs' select menu*/
+border: 1px solid navy;
+margin: 0 15px;
+}
+
+.paginationstyle a{ /*Pagination links style*/
+padding: 0 5px;
+text-decoration: none;
+border: 1px solid #000000;
+color: navy;
+background-color: #717A81;
+color:#000000;
+}
+
+.paginationstyle a:hover, .paginationstyle a.selected{
+background-color: #3F4C6C;
+color:#FFFFFF;
+}
+
+.paginationstyle a.disabled, .paginationstyle a.disabled:hover{ /*Style for "disabled" previous or next link*/
+background-color: #FFFFFF;
+color:#000000;
+cursor: default;
+border: 1px solid #000000;
+}
+
+.paginationstyle a.imglinks{ /*Pagination Image links style (class="imglinks") */
+border: 0;
+padding: 0;
+}
+
+.paginationstyle a.imglinks img{
+vertical-align: bottom;
+border: 0;
+}
+
+.paginationstyle a.imglinks a:hover{
+background: none;
+}
+.flatview{
+	height:20px;
+}
+.paginationstyle .flatview a:hover, .paginationstyle .flatview a.selected{ /*Pagination div "flatview" links style*/
+	background-color: #3F4C6C;
+	color:#FFFFFF;
+	font-weight:bold;
+}
+.limit_option{
+	width:20%;
+	float:left;
+}
+.from_date_box{
+	width:22%;
+	float:left;
+}
+.to_date_box{
+	width:30%;
+	float:left;
+}
+/* CSS for Search Page */
+
+/* Right Cont */
+
+.right_cont {
+	border: 1px solid #C3C3C3;
+	float: left;
+	/*margin-top: 8px;*/
+	position:relative;
+	top:-31px;
+	width: 768px;
+	background:#fff;
+}
+.right_cont h3 {
+	/* background:url(../images/heading_bg.jpg) repeat-x; */
+	height:33px;
+	padding-left:7px;
+}
+.drpbx_cont {
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
+    float: left;
+    padding-top: 10px;
+    width: 100%;
+}
+.src_top {
+    border-bottom: 1px solid #DDDDDD;
+    float: left;
+    padding: 10px 0;
+	width:100%;
+  }
+.keywrd{ float:left; padding-left: 11px; }
+.sort{
+    float: right;
+    padding-right:10px;
+
+}
+.drp_cont ul, .drpbx_cont ul {
+	float:left;
+	padding-left: 20px;
+	width:95%;
+}
+.drp_cont ul li, .drpbx_cont ul li{
+	float:left;
+	width:100%;
+	height: 45px;
+}
+.drp_cont ul li a.drop_ico,  .drpbx_cont ul li a.drop_ico {
+	float:left;
+	display:inline-block;
+}
+.drp_cont ul li a.drop_edit, .drpbx_cont ul li a.drop_edit {
+	float:left;
+	display:inline-block;
+	margin-top: 5px;
+}
+.drpbx_cont ul li span {
+	float:left;
+	margin: 8px 10px 0;
+}
+.drp_lst {
+    border-bottom: 1px solid #DDDDDD;
+    height: auto !important;
+    margin-top: 10px;
+    padding-bottom: 12px;
+    width: auto !important;
+}
+.sort label{
+display:inline;
+}
+.drp_dt{ width:95%; float:left;}
+
+.drp_lnk{ width:95%; float:left;}
+.drp_lnk a{ font-size:11px;}
+.drp_txt{ float:left; font-size:11px;}
+.search_cont {
+    width: 90%!important;
+}
+.drp_ttl{ width:95%; float:left;  margin-top: 3px !important;  font-weight:bold; line-height:18px;}
+.drp_ttl a{ font-size:13px; text-decoration:underline; color:#004D8F; line-height:18px;}
+.drp_ttl a:hover{ text-decoration:none; line-height:18px;}
+.kwd_top {
+    float: left;
+    padding: 5px 0 5px 11px;
+    width: 98.5%;
+}
+.document_results {
+    border-top: 1px solid #DDDDDD;
+    float: left;
+    margin-top: 5px;
+    padding-top: 7px;
+    width: 100%;
+}

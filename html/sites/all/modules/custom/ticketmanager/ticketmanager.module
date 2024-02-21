@@ -1,0 +1,761 @@
+<?php // $Id: ticketmanager.module, Photon; 06-Feb-2012 $
+	function ticketmanager_permission()
+	{
+		return array(
+			'Manage Tickets' => array(
+				'title' => t('Manage Tickets'),
+				'description' => t('Permission for manage/edit Submissions'),
+			),
+			'View Tickets' => array(
+				'title' => t('View Tickets'),
+				'description' => t('Permission for view Submissions'),
+			),
+		);
+	}
+
+	/**
+	 * Implements hook_menu 
+	 */
+	function ticketmanager_menu()
+	{
+		$items = array();
+		$items['ticketmanager/ticketsoverview'] = array(
+			'title' => t('Submissions Overview'),
+			'page callback' => 'submissions_overview',
+			'type' => MENU_DEFAULT_LOCAL_TASK,
+			'access arguments' => array('View Tickets'),
+		);
+		$items['ticketmanager/submission-details'] = array(
+			'title' => t('Submissions Details'),
+			'page callback' => 'submissions_details',
+			'type' => MENU_DEFAULT_LOCAL_TASK,
+			'access arguments' => array('View Tickets'),
+		);
+		$items['ticketmanager/viewteam'] = array(
+			'title' => 'Team Overview',
+			'page callback' => 'supplier_workspace_viewteam',
+			'access arguments' => array('View Tickets'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['ticketmanager/actions/%'] = array(
+			'title' => t('Submissions Overview'),
+			'page callback' => 'submissions_ticket_actions',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('View Tickets'),
+		);
+		$items['ticketmanager/deactivate-supplier'] = array(
+			'title' => t('Deactivate User'),
+			'page callback' => 'deactivate_supplier',
+			'access arguments' => array('View Tickets'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['ticketmanager/deactivate-supplier-user'] = array(
+			'title' => t('Deactivate Supplier User'),
+			'page callback' => 'deactivate_supplier_user',
+			'access arguments' => array('View Tickets'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['ticketmanager/team-search'] = array(
+			'title' => 'Team',
+			'page callback' => 'supplier_workspace_team',
+			'access arguments' => array('View Tickets'),
+			'type' => MENU_CALLBACK,
+		);
+
+		/*Submissions Overview Menu:*/
+		$items['ticketmanager/export'] = array(
+			'title'	 => t('Submissions Export'),
+			'page callback' => 'ticket_submissions_export',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('Manage Tickets'),
+		);
+		$items['ticketmanager/managestatus'] = array(
+			'title'	 => t('Manage Status'),
+			'page callback' => 'ticket_submissions_managestatus',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('Manage Tickets'),
+		);
+		$items['ticketmanager/commentspaging'] = array(
+			'title'	 => t('Submission Details'),
+			'page callback' => 'submission_comments_pagination',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('View Tickets'),
+		);
+
+		$items['submission-archive'] = array(
+			'page callback' => 'submission_archive',
+			'type' => MENU_CALLBACK,
+			'access callback' => true,
+		);
+		/* :Submissions Overview Menu.*/
+		return $items;
+	}
+
+	/*Tickets overview:Start*/
+	function submissions_ticket_actions()
+	{
+		if (arg(2) == 'changestatus') {
+			$sub_id = addslashes(strip_tags(trim($_POST['sub_id'])));
+			$status = addslashes(strip_tags(trim($_POST['status'])));
+			if ($sub_id && is_numeric($sub_id) && $status) {
+				$status = $status;
+				global $user;
+				$uid = $user->uid;
+				$user_email = $user->mail;
+				$timestamp = time();
+				$editFields = array();
+				$editFields['submission_id'] = $sub_id;
+				$editFields['created_by'] = $uid;
+				$editFields['created_date'] = $timestamp;
+				$editFields['status'] = $status;
+				$editFields['comments'] = "";
+				$older_status = db_query("SELECT status from {dropbox_files} where submission_id = :sub_id AND deleted = '0'", [':sub_id' => $sub_id])->fetchColumn();
+				if ($older_status != $status) {
+					$editFields['from_status'] = ($older_status) ? $older_status : 'New';
+				}
+				$auto_id = db_insert('submission_comments')->fields($editFields)->execute();
+				if (db_affected_rows && $auto_id) {
+					$editFields = array();
+					$editFields['status'] = $status;
+					$editFields['modified_by'] = $uid;
+					$editFields['modified_date'] = $timestamp;
+					db_update('dropbox_files')->fields($editFields)->condition('submission_id', $sub_id)->execute();
+					if (db_affected_rows) {
+						$status_name = $status_abbr = $status;
+						if (is_numeric($status)) {
+							$status_name = getFullStatusName($status);
+							$status_abbr = getStatusAbbr($status);
+						}
+						echo "success" . "-'" . htmlspecialchars($status_abbr) . "-'" . htmlspecialchars($status_name) . "-'" . htmlspecialchars($user->mail) . "-'" . date('m/d/Y');
+					}
+				}
+			}
+		} else {
+			echo theme('submissions_ticket_actions', array('data' => ''));
+		}
+	}
+
+	function ticket_submissions_export()
+	{
+		$export_tickets = (!empty($_POST['selected_tokens']) ? addslashes(strip_tags(trim($_POST['selected_tokens']))) : '');
+		$excelHeadings = "<table cellspacing='5' cellpadding='5' width='100%' align='center'>
+							<tr style='background-color:#CCCCCC; font-size:12px;'>
+								<th>Submission ID</th>	<th>Title</th>
+								<th>Dropbox</th>	<th>Full Name</th>
+								<th>Vendor No</th>	<th>Supplier</th>
+								<th>Status</th>	<th>Submission Date</th>
+								<th>Modified Date</th>	<th>Last Updated By</th>
+								<th>Workflow Tool Link</th> 
+								<th>Dropbox Region</th> 
+								</tr>";
+		$excelData = "";
+		$filename = "Submissions_Selected_" . date("m-d-Y") . ".xls";
+		if (!empty($export_tickets)) {
+			$ticketslist = "AND drpf.submission_id IN ($export_tickets)";
+		} else {
+			$ticketslist = "";
+		}
+		$sqlregionquery = "select drpr.region_id from {dropbox_regions} as drpr,
+		{dropbox_files} as drpf 
+		where drpr.dropbox_id=drpf.dbox_id
+		and drpf.submission_id > 0 and
+		drpf.deleted='0' $ticketslist ORDER BY drpf.submission_id DESC";
+
+		$getregionquery = db_query($sqlregionquery);
+		$rnamesvwr = '';
+
+		$regiondropboxnames = substr($rnamesvwr, 0, (strlen($rnamesvwr) - 1));
+		$word_array = preg_split('/[\s?:;,.]+/', $regiondropboxnames, -1, PREG_SPLIT_NO_EMPTY);
+		$unique_word_array = array_unique($word_array);
+		$rnamesvwr = implode(',', $unique_word_array);
+		if (!empty($export_tickets)) {
+			$submission_list = db_query("SELECT * FROM {dropbox_files} WHERE submission_id>0 AND deleted=0 AND submission_id IN ($export_tickets) ORDER BY submission_id DESC");
+			foreach ($submission_list as $submission_info) {
+				$dropbox_list = db_query("SELECT title, link_workflow_tool from {dropbox} where id = :dbox_id ", [':dbox_id' => $submission_info->dbox_id])->fetchObject();
+				$user_info = db_query("SELECT u.firstname, u.lastname, so.supplier_org_name FROM {users_info} AS u LEFT JOIN {supplier_organization} AS so ON so.supplier_org_id = u.supplier_org_name WHERE u.uid = :created_by AND so.deleted='0'", [':created_by' => $submission_info->created_by])->fetchObject();
+				$modified_email = '';
+				if ($submission_info->modified_by) {
+					$modified_email = db_query("SELECT email from {users_info} where uid = :modified_by ", [':modified_by' => $submission_info->modified_by])->fetchColumn();
+				}
+				$region_names = db_query("select region_id from {dropbox_regions} where dropbox_id=:dbox_id", [':dbox_id' => $submission_info->dbox_id]);
+				$rnameslist = '';
+				foreach ($region_names as $rnm) {
+					$rnames = db_query("select region_shortname from {manage_regions} where region_id in ($rnm->region_id)");
+					if ($rnames) {
+						foreach ($rnames as $rn) {
+							$rnameslist .= $rn->region_shortname . ",";
+						}
+					}
+				}
+				$rnameslist = implode(',', array_unique(explode(',', $rnameslist)));
+				$excelData .= "<tr align='left'>	<td>ID" . $submission_info->submission_id . "</td>
+								<td>" . $submission_info->title . "</td> <td>" . $dropbox_list->title . "</td>
+								<td>" . (!empty($user_info->firstname) ? $user_info->firstname : 'N/A') . " " . (!empty($user_info->lastname) ? $user_info->lastname : 'N/A')  . "</td>
+								<td>" . (!empty($submission_info->vendor_no) ? $submission_info->vendor_no : 'N/A') . "</td>
+								<td>" . (!empty($user_info->supplier_org_name) ?  $user_info->supplier_org_name : 'N/A') . "</td>
+								<td>" . getFullStatusName($submission_info->status) . "</td>
+								<td>" . date("m/d/Y", $submission_info->created_date) . "</td>
+								<td>" . ($submission_info->modified_date ?  date("m/d/Y", $submission_info->modified_date) : '') . "</td>
+								<td>" . ($modified_email ? $modified_email : 'None') . "</td>
+								<td>" . (($dropbox_list->link_workflow_tool == 1) ? 'Yes' : 'No') . "</td>
+								<td>" .  substr($rnameslist, 0, (strlen($rnameslist) - 1)) . "</td>
+								</tr>";
+			}
+		} else {
+			$submission_list = db_query("SELECT * FROM {dropbox_files} WHERE submission_id >0 AND deleted=0 ORDER BY submission_id DESC limit 30000");
+			foreach ($submission_list as $submission_info) {
+				$dropbox_list = db_query("SELECT title, link_workflow_tool FROM {dropbox} WHERE id = :dbox_id", [':dbox_id' => $submission_info->dbox_id])->fetchObject();
+				$user_info = db_query("SELECT u.firstname, u.lastname, so.supplier_org_name FROM {users_info} AS u LEFT JOIN {supplier_organization} AS so ON so.supplier_org_id = u.supplier_org_name WHERE u.uid = :created_by AND so.deleted=0", [':created_by' => $submission_info->created_by])->fetchObject();
+				$modified_email = '';
+				if ($submission_info->modified_by) {
+					$modified_email = db_query("SELECT email from {users_info} where uid = :modified_by", [':modified_by' => $submission_info->modified_by])->fetchColumn();
+				}
+				$region_names = db_query("select region_id from {dropbox_regions} where dropbox_id=:dbox_id", [':dbox_id' => $submission_info->dbox_id]);
+				$rnameslist = '';
+				foreach ($region_names as $rnm) {
+					$rnames = db_query("select region_shortname from {manage_regions} where region_id in ($rnm->region_id)");
+					if ($rnames) {
+						foreach ($rnames as $rn) {
+							$rnameslist .= $rn->region_shortname . ",";
+						}
+					}
+				}
+				$rnameslist = implode(',', array_unique(explode(',', $rnameslist)));
+				$excelData .= "<tr align='left'>	<td>ID" . $submission_info->submission_id . "</td>
+								<td>" . $submission_info->title . "</td> <td>" . $dropbox_list->title . "</td>
+								<td>" . (!empty($user_info->firstname) ? $user_info->firstname : 'N/A') . " " . (!empty($user_info->lastname) ? $user_info->lastname : 'N/A') . "</td>
+								<td>" . (!empty($submission_info->vendor_no) ? $submission_info->vendor_no : 'N/A') . "</td>
+								<td>" . (!empty($user_info->supplier_org_name) ?  $user_info->supplier_org_name : 'N/A') . "</td>
+								<td>" . getFullStatusName($submission_info->status) . "</td>
+								<td>" . date("m/d/Y", $submission_info->created_date) . "</td>
+								<td>" . ($submission_info->modified_date ?  date("m/d/Y", $submission_info->modified_date) : '') . "</td>
+								<td>" . ($modified_email ? $modified_email : 'None') . "</td>
+								<td>" . (($dropbox_list->link_workflow_tool == 1) ? 'Yes' : 'No') . "</td>	
+								<td>" .  substr($rnameslist, 0, (strlen($rnameslist) - 1)) . "</td></tr>";
+			}
+			$filename = "Submissions_All_" . date("m-d-Y") . ".xls";
+		}
+		$excelFooter = "</table>";
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Content-Type: application/force-download");
+		header("Content-Type: application/octet-stream");
+		header("Content-Disposition: attachment;filename=$filename");
+		header("Content-Transfer-Encoding: binary ");
+		echo $excelHeadings.$excelData.$excelFooter;
+		exit;
+	}
+
+	function getFullStatusName($sub_status)
+	{
+		$status = '';
+		switch (strtolower($sub_status)) {
+			case 'recvd':
+				$status = 'Received';
+				break;
+			case 'inprog':
+				$status = 'In Progress';
+				break;
+			case 'compl':
+				$status = 'Completed';
+				break;
+			case 'cancld':
+				$status = 'Cancelled';
+				break;
+			case 'denied':
+				$status = 'Denied';
+				break;
+			case 'error':
+				$status = 'Error';
+				break;
+			case 'archive':
+				$status = 'Archive';
+				break;
+			case 'supan':
+				$status = 'Supplier Action Needed';
+				break;
+			case '':
+				$status = 'Received';
+				break;
+			case null:
+				$status = 'Received';
+				break;
+			default:
+				$status = $sub_status;
+				break;
+		}
+		if ($sub_status && is_numeric($sub_status)) {
+			$status = db_query("SELECT status_name from {manage_status} where status_id=:sub_status", [':sub_status' => $sub_status]);
+			foreach ($status as $stat) {
+				$status = $stat->status_name;
+			}
+		}
+		return $status;
+	}
+	function getStatusAbbr($statusId)
+	{
+		if ($statusId && is_numeric($statusId)) {
+			$status = db_query("SELECT status_abbr from {manage_status} where status_id=:statusId", [':statusId' => $statusId])->fetchColumn();
+		} else {
+			$status = $statusId;
+		}
+		return $status;
+	}
+	function getStatusId($statusDesc)
+	{
+		$pattern = '%' . $statusDesc . '%';
+		$status_id = db_query("SELECT status_id FROM {manage_status} WHERE status_name LIKE :name", array(':name' => $pattern))->fetchField();
+		return $status_id;
+	}
+
+	function getAllStatusList($data)
+	{
+		$status_list = db_query("SELECT status_id, status_name, status_abbr, status_active  from {manage_status} where deleted='0' ORDER by status_active DESC, status_id ASC");
+		return $status_list;
+	}
+	function getActiveStatusList($data)
+	{
+		$status_list = db_query("SELECT status_id, status_name, status_abbr, status_active  from {manage_status} where deleted='0' AND status_active = '1' ORDER by status_id ASC");
+		return $status_list;
+	}
+
+	function ticket_submissions_managestatus()
+	{
+		$action = trim(arg(2));
+		global $user;
+		if ($action == 'save') {
+			$new_status = addcslashes(strip_tags(trim($_POST['new_status'])));
+			$status_all = explode(',', $new_status);
+			$auto_id = '';
+			foreach ($status_all as $status) {
+				if ($status && $status != '') {
+					$status_str = explode(':', $status);
+					$status_name = trim($status_str[0]);
+					$status_abr = trim($status_str[1]);
+					$status_name_dupl = db_query("SELECT status_name FROM {manage_status} WHERE status_name = :status_name AND deleted = '0'", [':status_name' => $status_name])->fetchField();
+					$status_abr_dupl = db_query("SELECT status_abbr FROM {manage_status} WHERE status_abbr = :status_abr AND deleted = '0'", [':status_abr' => $status_abr])->fetchField();
+					if (trim($status_name_dupl)) {
+						echo 'statusname-' . htmlspecialchars($status_name_dupl);
+						exit;
+					} else if (trim($status_abr_dupl)) {
+						echo 'statusabr-' . htmlspecialchars($status_abr_dupl);
+						exit;
+					}
+				}
+			}
+			foreach ($status_all as $status) {
+				if ($status && $status != '') {
+					$status_str = explode(':', $status);
+					$status_name = trim($status_str[0]);
+					$status_abr = trim($status_str[1]);
+					if ($status_name && $status_abr) {
+						$editFields = array();
+						$editFields['status_name'] = $status_name;
+						$editFields['status_abbr'] = $status_abr;						
+						$editFields['created_by'] = $user->uid;
+						$editFields['created_date'] = time();
+						$auto_id = db_insert('manage_status')->fields($editFields)->execute();
+					}
+				}
+			}
+			if (db_affected_rows) {
+				echo 'success';
+			}
+		} else if ($action == 'update') {
+			$statusId = addslashes(strip_tags(trim($_POST['statusId'])));
+			if ($statusId && is_numeric($statusId)) {
+				$changeStatus = (addslashes(strip_tags(trim($_POST['action']))) == 'deactivate') ? 0 : 1;
+				$editFields = array();
+				$editFields['status_active'] = $changeStatus;
+				$editFields['modified_by'] = $user->uid;
+				$editFields['modified_date'] = time();
+				db_update('manage_status')->fields($editFields)->condition('status_id', $statusId)->execute();
+				if (db_affected_rows) {
+					echo 'success';
+				}
+			}
+		} else {
+			print theme('ticketmanager_manage_status', array('data' => $action));
+		}
+		exit;
+	}
+
+	/*Tickets overview: End*/
+
+	/**
+	 * Submissions Overview
+	 */
+	function submissions_overview()
+	{
+		drupal_set_title('Submissions Overview');
+		$output = theme('ticketmanager_submission_overview', array('data' => $result));
+		return $output;
+	}
+
+	/**
+	 * Submissions Details
+	 */
+	function submissions_details()
+	{
+		$output = theme('ticketmanager_submission_details', array('data' => $result));
+		return $output;
+	}
+
+	/**
+	 * View Team 
+	 */
+	function supplier_workspace_viewteam()
+	{
+		global $user;
+		$uid = $user->uid;
+
+		// sorting
+		$sort = isset($_GET['sort']) ? addslashes(strip_tags($_GET['sort'])) : '';
+		$order = isset($_GET['order']) ? addslashes(strip_tags($_GET['order'])) : '';
+
+		$order_by = '';
+		switch ($order) {
+			case 'fname':
+				$order_by = " ORDER BY ui.firstname $sort";
+				break;
+			case 'lname':
+				$order_by = " ORDER BY ui.lastname $sort";
+				break;
+			case 'email':
+				$order_by = " ORDER BY ui.email $sort";
+				break;
+		}
+
+
+		if ($sort == "Asc")
+			$sort = "Desc";
+		else
+			$sort = "Asc";
+		// get supplier id of the logged in supplier
+		$supplier_org_name = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid = :uid", array(':uid' => $uid))->fetchField();
+		// get users of the supplier from the same supplier organization
+		if ($supplier_org_name) {
+			$query = "SELECT ui.* FROM {users_info} ui INNER JOIN {users} u ON ui.uid = u.uid WHERE ui.uid != :userid AND ui.supplier_org_name = :supplier_org_name  AND u.status = 1" . $order_by;
+			$supplier_users = db_query($query, [':userid' => $uid, ':supplier_org_name' => $supplier_org_name]);
+		}
+		$suppliers = $supplier_users;
+		$team = theme('supplier_workspace_team', array('suppliers' => $suppliers));
+		$output = theme('supplier_workspace_view_team', array('team' => $team, 'sort' => $sort));
+		return $output;
+	}
+
+	/**
+	 * Implements hook_theme 
+	 */
+	function ticketmanager_theme()
+	{
+		return array(
+			'ticketmanager_submission_overview' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'ticketmanager-submission-overview',
+			),
+			'ticketmanager_submission_details' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'submission-view',
+			),
+			'supplier_workspace_view_team' => array(
+				'variables' => array('team' => NULL),
+				'template' => 'supplier-workspace-view-team',
+			),
+			'supplier_workspace_team' => array(
+				'variables' => array('suppliers' => NULL),
+				'template' => 'supplier-workspace-team',
+			),
+			'submissions_ticket_actions' => array(
+				'variables' => array('data' => NULL),
+				'template' => 'submissions-ticket-actions',
+			),
+			'deactivate_supplier_user' => array(
+				'variables' => array('supplier_uid' => NULL),
+				'template' => 'deactivate-supplier-user',
+			),
+			'ticketmanager_manage_status' => array(
+				'variables' => array('data' => NULL),
+				'template' => 'manage-status-list',
+			),
+
+		);
+	}
+
+	/**
+	 * View Team Access 
+	 */
+	function view_team_access($uid)
+	{
+		$access = db_query("SELECT uperm.uid FROM {user_permission_internal} uperm, {permission_list_internal} plist 
+											WHERE uperm.uid=:uid AND uperm.permission_id = plist.permission_id AND plist.permission_title = 'View Team' 
+											AND plist.deleted = 0", [':uid' => $uid])->fetchCol();
+		if ($access) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Deactivate supplier user
+	 */
+	function deactivate_supplier()
+	{
+		$supplier_uid = addslashes(htmlentities($_GET['supplier_uid']));
+		$output = theme('deactivate_supplier_user', array('supplier_uid' => $supplier_uid));
+		echo $output;
+	}
+
+	/**
+	 * Supplier Deactivation Request
+	 */
+	function deactivate_supplier_user()
+	{
+		global $user;
+		$uid = $user->uid;
+
+		$supplier_uid = addslashes(strip_tags($_GET['supplier_uid']));
+		$deactivate_reason = addslashes(strip_tags($_GET['deactivate_reason']));
+		$requested_by = $uid;
+		$requested_date = time();
+
+		$auto_id = db_insert('deactivation_list')
+			->fields(array(
+				'uid' => $supplier_uid,
+				'reason' => $deactivate_reason,
+				'requested_by' => $requested_by,
+				'requested_date' => $requested_date,
+			))->execute();
+
+		if ($auto_id && db_affected_rows) { //send notification email
+			$deactivate_user = db_query("SELECT u.firstname, u.lastname, u.email, so.supplier_org_name FROM {users_info} AS u LEFT JOIN {supplier_organization} AS so ON so.supplier_org_id = u.supplier_org_name WHERE uid=:supplier_uid AND so.deleted=0", [':supplier_uid' => $supplier_uid])->fetchObject();
+			$path = drupal_get_path('theme', 'vwr');
+			$fileName = 'supplier-deactivate-appeal.tpl.php';
+			$body = file_get_contents($path . "/email_templates/$fileName");
+
+			$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+			$body = str_replace("{userfirstname}", $deactivate_user->firstname, $body);
+			$body = str_replace("{userlastname}", $deactivate_user->lastname, $body);
+			$body = str_replace("{useremail}", $deactivate_user->email, $body);
+			$body = str_replace("{usersupplierorg}", $deactivate_user->supplier_org_name, $body);
+
+			$subject = 'VWR Supplier Central - Deactivation Pending Request';
+			mailDeactivateRequests($subject, $body);
+		}
+	}
+	function mailDeactivateRequests($subject, $body)
+	{
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+
+		$result = db_query("SELECT email, firstname, lastname FROM {users_info} AS uf WHERE uf.uid IN (SELECT up.uid FROM {user_permission_internal} AS up LEFT JOIN {users } AS u ON u.uid = up.uid  WHERE up.permission_id = (SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'Confirm/Update User Profiles' AND deleted = 0) AND u.status = 1)");
+
+		foreach ($result as $record) {
+			if (email_notify_check($record->email)) {
+				$mailbody = str_replace("{adminname}", $record->firstname . ' ' . $record->lastname, $body);
+				$mailbody = preg_replace("[\\\]", '', $mailbody);
+				$mail = mail($record->email, $subject, $mailbody, $headers);
+				// email logs
+				$log_msg = 'Deactivation Requests';
+				$log_status = ($mail) ? 1 : 0;
+				$time = time();
+				email_logs('deactivation requests', $record->email, $subject, $log_msg, $log_status, $time);
+			}
+		}
+	}
+
+	/**
+	 * Team Search
+	 */
+	function supplier_workspace_team()
+	{
+		global $user;
+		$uid = $user->uid;
+
+		$team_fname = addslashes(htmlentities($_GET['team_fname']));
+		$team_lname = addslashes(htmlentities($_GET['team_lname']));
+		$team_email = addslashes(htmlentities($_GET['team_email']));
+
+		// get supplier id of the logged in supplier
+		$supplier_org_name = db_select("users_info", "ui")
+			->fields("ui", array("supplier_org_name"))
+			->condition('uid', $uid, '=')
+			->execute();
+		foreach ($supplier_org_name as $supplier_org_n) {
+			$supplier_org_name = $supplier_org_n->supplier_org_name;
+		}
+		// prepare search conditions
+		$condition = '';
+		$query_param = [':userid' => $uid, ':supplier_org_name' => $supplier_org_name];
+		if ($team_fname) {
+			$condition .= " AND ui.firstname LIKE :team_fname '%'";
+			$query_param = array_merge($query_param, [':team_fname' => $team_fname]);
+		}
+		if ($team_lname) {
+			$condition .= " AND ui.lastname LIKE :team_lname '%'";
+			$query_param = array_merge($query_param, [':team_lname' => $team_lname]);
+		}
+		if ($team_email) {
+			$condition .= " AND ui.email LIKE :team_email '%'";
+			$query_param = array_merge($query_param, [':team_email' => $team_email]);
+		}
+		// get users of the supplier from the same supplier organization
+		if ($supplier_org_name) {
+			$supplier_users = db_query("SELECT ui.* FROM {users_info} ui INNER JOIN {users} u ON ui.uid = u.uid WHERE ui.uid != :userid  AND ui.supplier_org_name = :supplier_org_name AND u.status = 1" . $condition, $query_param);
+		}
+		$suppliers = $supplier_users;
+		echo theme('supplier_workspace_team', array('suppliers' => $suppliers));
+	}
+
+
+	function submission_comments_pagination()
+	{
+		$result = '';
+		$dbox_tic_id = addslashes(htmlentities(trim($_POST['sub_id'])));
+		$tot_rec = addslashes(htmlentities(trim($_POST['tot_rec']))); //$level = trim($_POST['level']);
+		$comment_no_count = $start = $starter = 0;
+		if ($_POST['start_entry'] && is_numeric($_POST['start_entry'])) {
+			$starter = addslashes(strip_tags($_POST['start_entry']));
+		}
+		$ender = $end = 5;
+		if ($_POST['last_entry'] && is_numeric($_POST['last_entry'])) {
+			$ender = addslashes(strip_tags($_POST['last_entry']));
+		}
+		if ($_POST['action']) {
+			$action = addslashes(strip_tags(trim($_POST['action'])));
+			if ($action == 'next') {
+				$start = $ender;
+			} else if ($action == 'prev') {
+				$ender = $start = $starter - ($end + 1);
+			} else if ($action == 'first') {
+				$ender = $start = 0;
+			} else if ($action == 'last') {
+				$start = $tot_rec - ($tot_rec % $end);
+				if ($start >= $tot_rec) {
+					$start = $tot_rec - 5;
+				}
+			} else if ($action == 'viewall') {
+				$ender = $start = 0;
+				$end = $tot_rec;
+			}
+		}
+
+		$all_comments = @db_query("SELECT * FROM {submission_comments} WHERE submission_id=:dbox_tic_id AND deleted='0' AND (comments!='' OR from_status!='') ORDER BY id DESC limit $start, $end", [':dbox_tic_id' => $dbox_tic_id]);
+		if ($all_comments) {
+			$theme_path = base_path() . drupal_get_path('theme', 'vwr') . '/';
+			$module_path = base_path() . drupal_get_path('module', 'vwr_dropbox') . '/';
+			$del_access = has_page_access('submissions');
+			$comment_no = $tot_rec - $start;
+			foreach ($all_comments as $comment) {
+				$comment_no_count++;
+				$cid = $comment->id;
+				$created_user = db_query("SELECT firstname, lastname, email, supplier_org_name FROM {users_info} WHERE uid=:created_by", [':created_by' => $comment->created_by]);
+				foreach ($created_user as $user) {
+					$created_user = $user;
+				}
+				$comment_attachments = db_query("SELECT id, file_name FROM {submission_files} WHERE submission_id=:dbox_tic_id AND source='comments' AND comment_id=:cid AND deleted='0'", [':dbox_tic_id' => $dbox_tic_id, ':cid' => $cid]);
+
+				$commented_uname = trim($created_user->firstname . ' ' . $created_user->lastname);
+				$external_email = trim($comment->group_email_id);
+				$group_email_name = '';
+				if ($external_email && $comment->created_by <= 1 && !$commented_uname) {
+					if ($isworkflowlink && $external_email == $workflowEmail) {
+						$group_email_name = 'Admin';
+					} else {
+						$group_email_name = 'VWR';
+					}
+				}
+				$display_uname = $commented_uname ? $commented_uname : ($group_email_name ? $group_email_name : 'VWR');
+				$display_email = trim($created_user->email) ? $created_user->email : ($external_email ? $external_email : 'VWRsuppliercentral@VWRsuppliercentral.com');
+
+				$result .= '<div class="submdet_det_comments">
+				<div class="comment_box">
+					<div class="comment_box_txt">
+						<ul>
+							<li class="title">Comment ' . $comment_no-- . '</li>
+							<li class="normal" title="' . $display_uname . '">';
+				if ($display_uname) {
+					$result .= ((strlen($display_uname) > 22) ? substr($display_uname, 0, 20) . '..' : $display_uname);
+				} else {
+					$result .= 'VWR';
+				}
+				$result .= ' | ';
+				$result .= '</li>
+							<li class="normal" title="' . $display_email . '">';
+				if ($display_email) {
+					$result .= (strlen($display_email) > 32) ? substr($display_email, 0, 30) . '..' : $display_email;
+				} else {
+					$result .= 'vwr@VWRsuppliercentral.com';
+				}
+				$result .= '</li>
+							<li class="normal">' . ($comment->created_date ? ' | ' . date("m/d/Y, G:i:s T", $comment->created_date) : '') . '</li>
+							<li class="flor">
+								<span>';
+				if ($del_access) {
+					$result .=	'<a href="javascript:void(0);" onClick="deleteSubmissionEle(\'' . $cid . '\', \'comment\', \'' . $dbox_tic_id . '\');"><img src="' . $module_path . 'images/ico_8.png" alt="Delete" /></a>';
+				}
+				$result .=	'</span>
+							</li>
+						</ul>
+					</div>
+					<div class="comment_box_txt">
+						<ul>
+							<li class="title">Message</li>
+							<li class="msg">';
+				if (($comment->from_status != $comment->status) && $comment->from_status) {
+					$result .=	($comment->comments ? rtrimStringLines($comment->comments) . "<br /><br />" : "") . "Status changed from " . getFullStatusName($comment->from_status) . " to " . getFullStatusName($comment->status);
+				} else {
+					$result .= rtrimStringLines($comment->comments);
+				}
+				$result .= '</li>
+						</ul>
+					</div>
+					<table class="comments-attached-links">';
+				if ($comment_attachments) {
+					foreach ($comment_attachments  as $comment_attached) {
+						$comment_file_attached = substr($comment_attached->file_name, (stripos($comment_attached->file_name, '_') + 1), strlen($comment_attached->file_name));
+						$result .= '<tr>
+							<td class="file-uploaded-name" href="javascript:void(0);" title="' . $comment_file_attached . '" onClick="downloadAttchedFiles(\'' . $comment_attached->id . '\',\'comments\', \'' . $dbox_tic_id . '\')">' . ((strlen($comment_file_attached) > 50) ? substr($comment_file_attached, 0, 48) . ".." : $comment_file_attached) . '</td>
+							<td>
+								<a href="javascript:void(0);" onClick="downloadAttchedFiles(\'' . $comment_attached->id . '\',\'comments\', \'' . $dbox_tic_id . '\');">
+									<img src="' . $theme_path . 'images/ico_6.png" alt="Download" />
+								</a>
+							</td>
+						</tr>';
+					}
+				}
+				$result .= '</table>
+				</div>
+			</div>';
+			}
+		}
+
+		$comment_starter = $start + 1;
+		$comment_ender = $ender + $comment_no_count;
+		$comment_ender = ($tot_rec < $comment_ender) ? $tot_rec : $comment_ender;
+		$comment_ender = ($comment_starter > $comment_ender) ? $comment_starter + $comment_no_count : $comment_ender;
+		$result .= '<input type="hidden" id="comment_show_count" value="' . $comment_no_count . '" > <input type="hidden" id="comment_starter" value="' . $comment_starter . '" > <input type="hidden" id="comment_ender" value="' . $comment_ender . '" >';
+		print $result;
+		exit;
+	}
+
+	function submission_archive()
+	{
+
+		$result = db_query("SELECT id, submission_id, created_date FROM {dropbox_files} WHERE deleted = '0' AND submission_id > 0  GROUP BY dbox_id");
+
+		$no_of_days = intval(variable_get('cron_archive_submissions', 180));
+		foreach ($result as $rec) {
+			if ((strtotime(date("d-m-Y", $rec->created_date + ($no_of_days * 24 * 60 * 60)))) <=  strtotime(date("d-m-Y"))) {
+				$editFields = array();
+				$editFields['status'] = db_query("SELECT status_id FROM {manage_status} WHERE `status_name` = 'Archive'")->fetchColumn();
+
+				db_update('dropbox_files')
+					->fields($editFields)
+					->condition('id', $rec->id)->execute();
+			}
+		}
+	}

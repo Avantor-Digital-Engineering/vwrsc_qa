@@ -1,0 +1,6 @@
+core = "7.x"
+description = "vwr custom variables configuration module."
+name = "Vwr custom varibles"
+package = vwr
+version = "7.x-1.x-dev"
+configure = admin/config/vwr_variables

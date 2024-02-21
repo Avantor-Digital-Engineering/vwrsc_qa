@@ -1,0 +1,210 @@
+<?php
+	function migration_menu()
+	{
+		$items = array();
+
+		$items['admin/settings/migration'] = array(
+			'title' => t('ERP migration - Connection Settings'),
+			'description' => t('General settings'),
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('migration_default_form'),
+			'access arguments' => array('administer users'),
+			'type' => MENU_NORMAL_ITEM
+		);
+
+		return $items;
+	}
+
+	function migration_default_form()
+	{
+		$form = array();
+		$form['Service_variables'] =
+			array(
+				'#type' => 'fieldset',
+				'#title' => t('ERP migration configuration'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE
+			);
+		$form['Service_variables']['ftp_host']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('FTP Host address'),
+				'#default_value' => variable_get('ftp_host', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['ftp_username']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('FTP Username'),
+				'#default_value' => variable_get('ftp_username', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['ftp_password']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('FTP Password'),
+				'#default_value' => variable_get('ftp_password', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['ftp_file_path']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('FTP File path(with filename and `.txt` extension)'),
+				'#default_value' => variable_get('ftp_file_path', ''),
+				'#maxlength' => '300',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['migrate_file_name']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Migrated file name (without any extension)'),
+				'#default_value' => variable_get('migrate_file_name', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['migration_mailing_address']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Mailing address (comma separated)'),
+				'#default_value' => variable_get('migration_mailing_address', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['Service_variables']['migration_infile_setup']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Infile setup command'),
+				'#default_value' => variable_get('migration_infile_setup', ''),
+				'#maxlength' => '200',
+				'#size' => '100'
+			);
+
+		$form['cron_variables'] =
+			array(
+				'#type' => 'fieldset',
+				'#title' => t('Cron configuration'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE
+			);
+		$form['cron_variables']['cron_mailalert_notloggedusers']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Duration for mail alert not logged users'),
+				'#default_value' => variable_get('cron_mailalert_notloggedusers', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['cron_variables']['cron_deactivate_expiredusers']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Duration for deactivate not logged users'),
+				'#default_value' => variable_get('cron_deactivate_expiredusers', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+		$form['cron_variables']['cron_archive_submissions']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Duration for submission archive'),
+				'#default_value' => variable_get('cron_archive_submissions', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+
+		$form['google_analytics'] =
+			array(
+				'#type' => 'fieldset',
+				'#title' => t('Google Analytics configuration'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE
+			);
+		$form['google_analytics']['google_analytics_UA']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('UA code'),
+				'#default_value' => variable_get('google_analytics_UA', ''),
+				'#maxlength' => '200',
+				'#size' => '100',
+				'#required' => true
+			);
+
+		/* Added in Nov 2012 for Production issues settings */
+		$form['session_timeout'] =
+			array(
+				'#type' => 'fieldset',
+				'#title' => t('Login Session Timeout'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE
+			);
+		$form['session_timeout']['session_timeout_minutes']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Session Timeout Minutes'),
+				'#default_value' => variable_get('session_timeout_minutes', ''),
+				'#maxlength' => '100',
+				'#size' => '100',
+				'#required' => true
+			);
+
+		$form['email_files_size'] =
+			array(
+				'#type' => 'fieldset',
+				'#title' => t('Email Attachment Files Maximum Size'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE
+			);
+		$form['email_files_size']['max_email_file_size']  =
+			array(
+				'#type' => 'textfield',
+				'#title' => t('Maximum Files Size'),
+				'#default_value' => variable_get('max_email_file_size', ''),
+				'#maxlength' => '100',
+				'#size' => '100',
+				'#required' => true,
+				'#description' => "Provide file size in MB, depending on the mail server configurations and limits. (Ex: 30)"
+			);
+
+		$form['submit'] =
+			array(
+				'#type' => 'submit',
+				'#value' => t('Save Configuration'),
+			);
+		return $form;
+	}
+	function migration_default_form_validate(&$form, &$form_state)
+	{
+	}
+
+	function migration_default_form_submit(&$form, &$form_state)
+	{
+		variable_set('ftp_host', $form_state['values']['ftp_host']);
+		variable_set('ftp_username', $form_state['values']['ftp_username']);
+		variable_set('ftp_password', $form_state['values']['ftp_password']);
+		variable_set('ftp_file_path', $form_state['values']['ftp_file_path']);
+		variable_set('migrate_file_name', $form_state['values']['migrate_file_name']);
+		variable_set('migration_mailing_address', $form_state['values']['migration_mailing_address']);
+		variable_set('migration_infile_setup', $form_state['values']['migration_infile_setup']);
+
+		variable_set('cron_mailalert_notloggedusers', $form_state['values']['cron_mailalert_notloggedusers']);
+		variable_set('cron_deactivate_expiredusers', $form_state['values']['cron_deactivate_expiredusers']);
+		variable_set('cron_archive_submissions', $form_state['values']['cron_archive_submissions']);
+
+		variable_set('google_analytics_UA', $form_state['values']['google_analytics_UA']);
+
+		variable_set('session_timeout_minutes', $form_state['values']['session_timeout_minutes']);
+		variable_set('max_email_file_size', $form_state['values']['max_email_file_size']);
+
+		drupal_set_message('ERP configurations saved successfully');
+	}

@@ -1,0 +1,696 @@
+<?php
+
+	/**
+	 * Implements HOOK_menu
+	 */
+	function files_scan_config_menu()
+	{
+		$items = array();
+
+		//file scan scheduler
+		$items['scan_scheduler'] = array(
+			'title' => t('Scan Scheduler'),
+			'description' => t('Scheduler for uploads scan results'),
+			'page callback' => 'file_scan_scheduler',
+			'type'	=> MENU_CALLBACK,
+			'access arguments' => array('access content'),
+		);
+
+		//file scan callback
+		$items['scan/callback'] = array(
+			'title' => t('Scan Callback'),
+			'description' => t('Optional callbackurl which results will POST to'),
+			'page callback' => 'file_scan_callback',
+			'type'	=> MENU_CALLBACK,
+			'access callback' => true,
+			'access arguments' => array('access content'),
+		);
+
+		//file scan clear logs
+		$items['clear/scanlogs'] = array(
+			'title' => t('Scan Clear Logs'),
+			'description' => t('Clear file scan logs'),
+			'page callback' => 'files_scan_clear_logs',
+			'type'	=> MENU_CALLBACK,
+			'access callback' => true,
+			'access arguments' => array('access content'),
+		);
+
+		$items['admin/config/file-scan'] = array(
+			'title' => 'File scan Configuration',
+			'description' => 'Configure file scan settings for metadefender API.',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('files_scan_config_admin_settings'),
+			'access arguments' => array('administer users'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+
+		return $items;
+	}
+
+
+	/***
+	 *  Callback url 
+	 *  we will get a post back to the callback with the following scan result and fileId
+	 */
+
+	function file_scan_callback()
+	{
+		$invoked = "scheduler";
+		$post_data_expected = file_get_contents("php://input");
+		$decoded_data = json_decode($post_data_expected, true);
+		files_scan_logs("\n File Scan Callback : " .date('l, F j, Y - h:i', time()) ." callback received response : " . print_r($decoded_data, true));
+
+		//get file details 
+		$file =  get_file_scan_details($decoded_data['fileID']);
+
+		if ($decoded_data['scanStatus'] == 0 && $decoded_data['statusCode'] == 200) {
+			//there is no threat detected can the scan result API
+			$message = get_scanned_file($decoded_data['fileID']);
+
+			$fsd = update_file_scan_table($file, 'SCAN_COMPLETED', $decoded_data['scanMessage']);
+			if ($fsd) {
+				$moved = move_file_to_vwr_server($file, $message, $invoked);
+				$st = update_submission_table($file, 'SCAN_COMPLETED');
+			}
+		} elseif ($decoded_data['scanStatus'] == 255 || $decoded_data['scanStatus'] == 254) {
+			//no action it is still in progress
+		} else {
+
+			/**
+			 *  Threat has been detected owner need to be notified
+			 *  Update the scan_file_status field for that table w.r.t scan_file_id
+			 *  
+			 */
+			$fsd = update_file_scan_table($file, 'SCAN_FAILED', $decoded_data['scanMessage']);
+			if ($fsd) {
+				$st =  update_submission_table($file, 'SCAN_FAILED');
+			}
+		}
+	}
+
+	/**
+	 *  This method is used to get the scan result for the uploads done in bit bucket.
+	 *  - Get list of upploaded file
+	 *  - Call the scan API for respective fileID
+	 *  - Update Scan Status of file upload
+	 *  - Update status email notification
+	 */
+	function file_scan_scheduler()
+	{
+		$file_list = get_file_list_to_scan();
+		$invoked = "scheduler";
+		if (count($file_list) > 0) {
+			foreach ($file_list as $file) {
+				/**
+				 *  Call the scanResultAPI for gettting the scanStatus and scanned file url
+				 *  establishing API connection
+				 */
+				if ($file['file_id'] != "") {
+					$message = get_scanned_file($file['file_id']);
+
+					if ($message['message'] == 'Bad Request from main call..') {
+						echo "Bad Request for file_id : " . htmlspecialchars($file['file_id']);
+					} else {
+						if ($message['status'] == 0) {
+							//No threat detected
+							echo  "<p style='color:green'>------ " . $message['message'] . "  -----</p>";
+
+
+							echo "<p style='color:darkkhaki'>------------ Updating the table : file_scan_details ------------file_id : " . htmlspecialchars($file['file_id']) . "------</p>";
+							$fsd = update_file_scan_table($file, 'SCAN_COMPLETED', $message['message']);
+
+							if ($fsd) {
+								echo "<p style='color:darkcyan'>------------ Moving the file " . $message['file_uri'] . " ------to vwr service ------------</p>";
+								$moved = move_file_to_vwr_server($file, $message, $invoked);
+								echo "<p style='color:darkkhaki'>------------ Updating the table : vwr_" . htmlspecialchars($file['submission_type']) . " ------------scan_file_id : " . htmlspecialchars($file['file_id']) . "------</p>";
+								$st = update_submission_table($file, 'SCAN_COMPLETED');
+							}
+						} elseif ($message['status'] == 255 || $message['status'] == 254) {
+							//In Progress
+							files_scan_logs("\n Scan Scheduler : " . date('l, F j, Y - h:i', time()) . " Table  vwr_" . $file['submission_type'] . " Scanning in progress " . $message['message'] . " for file_id : " . $file['file_id']);
+							echo  "<p style='color:orange'>------" . htmlspecialchars($file['file_id']) . " Still in proggress from table vwr_" . htmlspecialchars($file['submission_type']) . " wait for the next time scheduler run  -----</p>";
+						} else {
+							/**
+							 *  Threat has been detected owner need to be notified
+							 *  Update the scan_file_status field for that table w.r.t scan_file_id
+							 *  
+							 */
+							echo "<p style='color:red'>------------ Updating the table : file_scan_details ------------file_id : " . htmlspecialchars($file['file_id']) . "------</p>";
+							$fsd = update_file_scan_table($file, 'SCAN_FAILED', $message['message']);
+
+							if ($fsd) {
+								echo  "<p style='color:red'>------ " . htmlspecialchars($message['message']) . "  ---" . htmlspecialchars($file['file_id']) . "--</p>";
+								$st =  update_submission_table($file, 'SCAN_FAILED');
+							}
+							files_scan_logs("\n Scan Scheduler : " . date('l, F j, Y - h:i', time()) . " Table  vwr_" . $file['submission_type'] . " Scan failed " . $message['message'] . " FileID : " . $file['file_id']);
+						}
+					}
+				}
+			}
+			return count($file_list);
+		} else {
+			echo "<p style='color:grey'>No file to process !!!!</p>";
+		}
+	}
+
+	/**
+	 *  Update the respective table scan_file_status field
+	 */
+	function update_submission_table($file, $status)
+	{
+		//check for comment type submission
+		if (strpos($file['submission_type'], '~') === false) {
+			//notfound
+		} else {
+			$submission_type = explode('~', $file['submission_type']);
+			$file['submission_type'] = $submission_type[0]; //for comment type submission
+		}
+		$st = db_update($file['submission_type'])
+			->fields(['scan_file_status' => $status])
+			->condition('scan_file_id', $file['file_id'])
+			->condition('scan_file_id', '', '!=')
+			->execute();
+		files_scan_logs("\n Scan Scheduler : " . date('l, F j, Y - h:i', time()) . " $st Table  vwr_" . $file['submission_type'] . " updated status $status for file_id : " . $file['file_id']);
+		return $st;
+	}
+
+	/**
+	 *  Update the file_scan_details table
+	 */
+	function update_file_scan_table($file, $status, $message)
+	{
+		$fsd = db_update('file_scan_details')
+			->fields(['scan_status' => $status, 'modified_date' => time()])
+			->condition('file_id', $file['file_id'])
+			->condition('file_id', '', '!=')
+			->execute();
+		files_scan_logs("\n Scan Scheduler : " . date('l, F j, Y - h:i', time()) . " Scanning " . $message . " $fsd Table  file_scan_details inserted data status $status for file_id : " . $file['file_id']);
+		return $fsd;
+	}
+
+
+	/**
+	 *  Move the scanned file to vwr server
+	 */
+	function move_file_to_vwr_server($file, $message, $invoked)
+	{
+		//check for comment type submission
+		if (strpos($file['submission_type'], '~') === false) {
+			//notfound
+		} else {
+			$submission_type = explode('~', $file['submission_type']);
+			$file['submission_type'] = $submission_type[1];
+		}
+		switch ($file['submission_type']) {
+			case 'category':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['category_image'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+				$structure = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/category/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['category_image']);
+				if (!file_exists($structure)) {
+					$created = createFolder('category', '');
+				}
+
+				break;
+			case 'topic':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['topic_image'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+	
+				$structure = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/topic/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['topic_image']);
+				if (!file_exists($structure)) {
+					$created = createFolder('topic', '');
+				}
+				break;
+			case 'hyperlinks':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['hyperlink_image'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+				$structure = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['hyperlink_image']);
+				if (!file_exists($structure)) {
+					$created = createFolder('docs', '');
+				}
+				break;
+			case 'upload_documents':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['file_name'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+	
+				$structure = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['file_name']);
+				if (!file_exists($structure)) {
+					$created = createFolder('docs', '');
+				}
+				break;
+			case 'welcomepage_details':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['welcome_image'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+				$structure = variable_get('file_public_path', conf_path()) . '/files/welcome_files/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['welcome_image']);
+				if (!is_dir($structure)) {
+					mkdir($structure, 0777, true);
+				}
+
+				break;
+			case 'submission_files':
+				if ($invoked == "uploadv2") {
+					$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox2/'.$file['submission_id'] . '/';
+					$file_path = $structure . $file['file_name'];
+				}else {
+					$file_name_field = ['file_name','submission_id'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+					$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox2/'.$file_details['submission_id'] . '/';
+					$file_path = $structure . $file_details['file_name'];
+				}
+				if (!is_dir($structure)) {
+					mkdir($structure, 0777, true);
+				} else {
+					chmod($structure, 0777);
+				}
+
+				break;
+			case 'comments':
+				if ($invoked == "uploadv2") {
+					if($file['submission_id'] < 34370){
+						$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox/'.$file['submission_id'] . '/comments/';
+					}
+					else {
+						$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox2/'.$file['submission_id'] . '/comments/';
+					}
+					$file_path = $structure . $file['file_name'];
+				}else {
+					$file_name_field = ['file_name','submission_id'];
+					$file_details = get_file_details('submission_files', $file_name_field, $file['file_id']);
+					if($file_details['submission_id'] < 34370){
+						$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox/'.$file_details['submission_id'] . '/comments/';
+					}
+					else {
+						$structure = $_SERVER['DOCUMENT_ROOT'] . base_path()  . conf_path() . '/files/docs_dropbox2/'.$file_details['submission_id'] . '/comments/';
+					}
+					
+					$file_path = $structure . $file_details['file_name'];
+				}
+				if (!is_dir($structure)) {
+					mkdir($structure, 0777, true);
+				} else {
+					chmod($structure, 0777);
+				}
+
+				break;
+			case 'bulk_upload_list':
+				if ($invoked != "uploadv2") {
+					$file_name_field = ['filename'];
+					$file_details = get_file_details($file['submission_type'], $file_name_field, $file['file_id']);
+				}
+				$structure = $_SERVER['DOCUMENT_ROOT'] . base_path() . conf_path() . '/files/bulk_uploads/';
+				$file_path = $structure . ($invoked == "uploadv2" ? $file['file_name'] : $file_details['file_name']);
+				if (!is_dir($structure)) {
+					mkdir($structure, 0777, true);
+				} else {
+					chmod($structure, 0777);
+				}
+
+				break;
+		}
+
+		// Save file into vwr server
+		$file_uri = $file_path;
+		// Initialize the cURL session to download the file
+		if (copy($message['file_uri'], $file_uri)) {
+			$message = "Copy success!";
+		} else {
+			$message = "Copy failed.";
+		}
+		files_scan_logs("\n " . date('l, F j, Y - h:i',time()) ." File downloaded for " . $file['submission_type'] . " File Path : " . $file_path . " file_id : " . $file['file_id'] );
+		return $message;
+	}
+
+	/**
+	 *  Get the list of fileID whose status is In Progress
+	 */
+	function get_file_list_to_scan()
+	{
+
+		$files = [];
+		$table = 'file_scan_details';
+
+		$query_res = db_select($table)
+			->fields($table, ['file_id', 'submission_type', 'file_name'])
+			->condition('scan_status', 'In Progress', '=')
+			->condition('file_id', '', '!=')
+			->execute();
+		while ($result_file = $query_res->fetchAll()) {
+			foreach ($result_file as $result) {
+				$files[] = ['submission_type' => $result->submission_type, 'file_id' => $result->file_id];
+			}
+		}
+		return $files;
+	}
+
+	/**
+	 *  Get the filename of file whose scan_file_id is resp file_id
+	 */
+	function get_file_details($table, $field, $file_id)
+	{
+		$query_res = db_select($table)
+			->fields($table, $field)
+			->condition('scan_file_id', $file_id, '=')
+			->execute()
+			->fetchAssoc();
+		return $query_res;
+	}
+
+	/**
+	 *  
+	 *  This will be called via scheduler and callback to get the status of the file 
+	 *  @param file_id [string]
+	 *  @return message [string]
+	 * 
+	 */
+	function get_scanned_file($file_id)
+	{
+		$scan_result_url = variable_get('scan_result_url');
+		$x_api_key = variable_get('x_api_key');
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => $scan_result_url . '/' . $file_id,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+			CURLOPT_HTTPHEADER => array(
+				'x-api-key: ' . $x_api_key . ''
+			),
+		));
+
+		$data = curl_exec($curl);
+		$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		curl_close($curl);
+		if ($http_code === 200) {
+			//Got success
+			$response = json_decode($data);
+			files_scan_logs("\n " .date('l, F j, Y - h:i',time()) ." API called $scan_result_url Httpcode : $http_code for $file_id \n Response from scan result API  " . print_r($response, true));	
+			$status_code = $response->scanStatus;
+			if (0 == $status_code) {
+				$message =  ['file_uri' => $response->url, 'message' => $response->scanMessage, 'status' => $response->scanStatus];
+			} else {
+				$message = ['message' => $response->scanMessage, 'status' => $response->scanStatus];
+			}
+		} else {
+			$message = ['message' => "Bad Request from main call..", 'status' => ''];
+		}
+
+		return $message;
+	}
+
+	/**
+	 * This is used by callback method to receive the details by file_id. 
+	 */
+	function get_file_scan_details($file_id)
+	{
+		$query_res = db_select('file_scan_details')
+			->fields('file_scan_details', ['file_name', 'scan_status', 'submission_type', 'file_id'])
+			->condition('file_id', $file_id, '=')
+			->execute()
+			->fetchAssoc();
+		return $query_res;
+	}
+
+	/**
+	 *  Adding the logs for file upload and scanning process
+	 */
+	function files_scan_logs($data)
+	{
+		$file_path = $_SERVER['DOCUMENT_ROOT'] . base_path() . drupal_get_path('module', 'files_scan_config') . '/file_scan_log.log';
+		$file = fopen($file_path, "a") or die("Unable to open file!");
+		fwrite($file, $data);
+		fclose($file);
+	}
+
+	/**
+	 *  Clear files_scan log
+	 */
+	function files_scan_clear_logs(){
+		$file_path = $_SERVER['DOCUMENT_ROOT'] . base_path() . drupal_get_path('module', 'files_scan_config') . '/file_scan_log.log';
+		file_put_contents($file_path, '');
+		echo "Scan Log Cleared!!!";
+	}
+
+	/**
+	 *  Adding the config for file upload and scanning process
+	 */
+	function files_scan_config_admin_settings()
+	{
+		$form['files_scan'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('File scan Configuration'),
+		);
+
+		$form['files_scan']['upload_api_url'] = [
+			'#type' => 'textfield',
+			'#title' => t('Initial Upload API'),
+			'#description' => t('Initiate file upload for virus scanning by third party vendor OPSWAT'),
+			'#default_value' => variable_get('upload_api_url', '')
+		];
+
+		$form['files_scan']['scan_result_url'] = [
+			'#type' => 'textfield',
+			'#title' => t('Get Scanned File'),
+			'#description' => t('Get the scanned file progress and URL to download the file.'),
+			'#default_value' => variable_get('scan_result_url', '')
+		];
+
+		$form['files_scan']['x_api_key'] = [
+			'#type' => 'textfield',
+			'#title' => t('AWS API Key'),
+			'#default_value' => variable_get('x_api_key', '')
+		];
+
+		$form['files_scan']['callbackurl'] = [
+			'#type' => 'textfield',
+			'#title' => t('Optional callbackurl which results will POST to'),
+			'#default_value' => variable_get('callbackurl', '')
+		];
+
+		$form['files_scan']['in_progress'] = [
+			'#type' => 'textfield',
+			'#title' => t('In progress file message'),
+			'#default_value' => variable_get('in_progress', '')
+		];
+
+		$form['files_scan']['threat_detected'] = [
+			'#type' => 'textfield',
+			'#title' => t('Malicious file message'),
+			'#default_value' => variable_get('threat_detected', '')
+		];
+
+		return system_settings_form($form);
+	}
+
+	/**
+ *  This method validates the file for size.
+ *  Additionally it calls for the fileUploadAPI to store
+ *  the file in s3bucket.
+ *
+ *  @param file[File]
+ *  @return message[String]
+ *
+ */
+
+function validate_file($file, $valid_file_type){
+	$mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file['tmp_name']);
+	$maxsize = 500*1024*1024;
+
+	if(in_array($mime, $valid_file_type)){
+		if($file['size'] <= $maxsize) {
+			$result = scan_process($file);
+			$message = $result;
+		}else{
+			$message =  ['msg' => 'Image size should be less than 500MB','statusCode'=> ''];
+		}
+	}else{
+		$extension  = implode(', ',str_replace('image/','',$valid_file_type));
+		$extension = str_replace('jpeg','jpg',$extension);
+		$message =  ['msg' => "Upload $extension format images only",'statusCode'=> ''];
+	}
+    return $message;
+}
+
+/**
+ *  This method validates the file for size.
+ *  Additionally it calls for the fileUploadAPI to store 
+ *  the file in s3bucket.
+ * 
+ *  @param file[File], uploadType[Array]
+ *  @return message[String]
+ * 
+ */
+function validate_doc_file($file, $invalid_file_type){
+	$mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file['tmp_name']);
+
+	$maxsize = 500*1024*1024; 
+	$size = $file['size'];
+    
+	if(!in_array($mime, $invalid_file_type)){
+		if($size <= $maxsize) {
+			$result = scan_process($file);
+			$message = $result; 
+		}else{
+			$message =  ['msg' => 'File size should not exceed 500MB','statusCode'=> ''];
+		}
+	}else{
+		$message =  ['msg' => 'Sorry! uploaded file format is invalid','statusCode'=> '']; // remove status code
+	}
+	
+	return $message;
+}
+/**
+ * 
+ *  This method will be responsible for generating s3bucketurl
+ *  and fileID which will be required to upload the file.
+ *  
+ *  @param file[File]
+ *  @return result[Array]
+ * 
+ */
+function scan_process($file) {
+	global $user;
+	$userid=$user->uid;
+	$filename = $userid .'_'. $file['name'];
+	$s3url = "";
+	$file_id = "";
+
+	$API_response = callToMetadefenderAPI($filename);
+	if($API_response['statusCode'] === 200){
+		//Got success
+		$response = json_decode($API_response['msg']);
+		//we will check the response from step1 
+		$status_code = $response->statusCode;
+		if(200 == $status_code) {
+			//success from Step1 : fileuploadAPI
+			$s3url = $response->url;
+			$file_id = $response->fileID;
+
+			//Step2: upload file to S3 directly for scanning
+			$upload_result = upload_file_to_s3bucket($s3url, $file, $file_id); 
+
+			if($upload_result["statusCode"] == 200) {
+				$result = ['msg'=>$file_id,'statusCode'=> $upload_result["statusCode"]];
+			}else{
+				$result = ['msg' =>$upload_result["msg"], 'statusCode'=> $upload_result["statusCode"]];
+			}
+			
+		}else{
+			$result = ['msg' =>'MetadefenderAPI error','statusCode'=> $status_code ];
+		}
+		
+		
+	}else {
+		$result = ['msg' => 'Curl error', 'statusCode'=> $API_response['statusCode'] ];
+	}
+
+	return $result;
+}
+
+
+/**
+ * 
+ *  This method is used to upload the file to s3bucket for scan.
+ *  @param s3url[String], file[String], file_id[string]
+ *  @return [Array] 
+ * 
+ */
+function upload_file_to_s3bucket($s3url, $file, $file_id) {
+
+	$size = filesize($file['tmp_name']);
+	$real_tmp_path = sys_get_temp_dir().DIRECTORY_SEPARATOR.basename(realpath($file['tmp_name']));
+	// $real_tmp_path = $file['tmp_name'];// required for local
+	if ($real_tmp_path !== false){
+		$file_tmp = fopen($real_tmp_path, 'rb');
+		//upload file
+		$ch = curl_init() or die(curl_error());
+		curl_setopt($ch, CURLOPT_URL, $s3url);
+		curl_setopt($ch, CURLOPT_UPLOAD, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_INFILE, $file_tmp);
+		curl_setopt($ch, CURLOPT_INFILESIZE, $size);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
+		$data = curl_exec($ch);
+		if (curl_errno($ch)) {
+			echo "CURL ERROR - " . curl_error($ch);
+		}
+		fclose($file_tmp);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+		if($http_code == 200) {
+			return ['msg' => $file_id , 'statusCode'=> $http_code];
+		}else{
+			return ['msg' => 'S3BucketUpload error' , 'statusCode'=> $http_code];
+		}
+	}
+}
+
+/**
+ * 
+ *  This method is used to generate the s3 bucket url for uploading the file for scan.
+ *  @param filename[String]
+ *  @return result [json] 
+ * 
+ */
+function callToMetadefenderAPI($filename) {
+	$upload_api_url = variable_get('upload_api_url');
+	$x_api_key = variable_get('x_api_key');
+	$callbackurl = variable_get('callbackurl');
+
+	//Step1 : Call the file upload API
+	$ch = curl_init() or die(curl_error());
+	curl_setopt_array($ch, array(
+			CURLOPT_URL => $upload_api_url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 60000,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_HTTPHEADER => array(
+			  'x-api-key: '.$x_api_key.'',
+			  'filename: '.$filename.'',
+			//   'callbackurl: '.$callbackurl.''
+			),
+		)
+	);
+	$data = curl_exec($ch);
+	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	curl_close($ch);
+	if($http_code === 200){
+		$result = ['msg' => $data, 'statusCode'=> $http_code];
+	}else {
+		$result = ['msg' => 'Curl error', 'statusCode'=> $http_code];//Bad request error
+	}
+
+	return $result;
+}
+
+
+/**
+ *  Implements hook_cron
+ */
+
+ function files_scan_config_cron() {
+	db_query("delete from {file_scan_details} where scan_status = 'SCAN_COMPLETED'");
+	watchdog("file_scan", "Removed scan completed files");
+ }

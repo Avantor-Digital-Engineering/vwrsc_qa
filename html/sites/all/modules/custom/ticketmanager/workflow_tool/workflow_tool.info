@@ -1,0 +1,7 @@
+; $Id: workflow_tool.info, Photon; 27-Feb-2012 $
+name = Workflow Tool Interaction
+description = Interact with workflow tool for Bi-directional Email communication.
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = VWR-II

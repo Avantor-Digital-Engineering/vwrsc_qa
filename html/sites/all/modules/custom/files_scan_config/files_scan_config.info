@@ -1,0 +1,8 @@
+; $Id: files_scan_config.info, Photon; 30-Sep-2022 $
+name = Files Scan Config
+description = Manages configuration required for MetaDefender file scanning process.
+core = 7.x
+configure = admin/config/file-scan
+
+version = "7.x-1.x-dev"
+package = vwr

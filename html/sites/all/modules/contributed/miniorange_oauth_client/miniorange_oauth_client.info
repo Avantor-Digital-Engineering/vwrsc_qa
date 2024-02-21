@@ -1,0 +1,17 @@
+name = miniOrange OAuth 2.0 Client
+description = Login to Drupal site through an external Authentication Server using the OAuth Protocol
+core = 7.x
+configure = admin/config/people/miniorange_oauth_client
+version = 7.x-40.1
+project = "miniorange_oauth_client"
+datestamp = "1583211871"
+package = OAuth / OpenID Connect
+
+files[] = includes/Handler.php
+files[] =  includes/encryption.php
+files[] = includes/customer_setup.php
+files[] = includes/constants.php
+files[] = includes/Utilities.php
+scripts[] = js/testconfig.js
+scripts[] = js/Config.js
+

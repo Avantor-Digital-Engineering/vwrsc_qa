@@ -1,0 +1,10 @@
+name = Vwr Services
+description = Manages the vwr users registration and login system.
+version = VERSION
+core = 7.x
+
+
+version = "7.x-1.x-dev"
+package = vwr
+
+

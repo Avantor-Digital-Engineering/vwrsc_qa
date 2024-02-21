@@ -1,0 +1,2374 @@
+<?php
+	require_once 'includes/password.inc';
+	function vwrServices_permission()
+	{
+		return array(
+			'access vwrServices content' => array(
+				'title' => t('Access Vwr Services'),
+				'description' => t('access vwrServices content'),
+			),
+		);
+	}
+	function vwrServices_menu()
+	{
+		$items = array();
+		$items['vwrServices/vwrinternal/registration'] = array(
+			'title' => 'VWR Internal Registration',
+			'page callback' => 'vwrinternal_registration',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/supplier/registration'] = array(
+			'title' => 'VWR Supplier Registration',
+			'page callback' => 'supplier_registration',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/showdropboxfiles/%'] = array(
+			'title' => 'VWR Dropbox Files',
+			'page callback' => 'show_dropbox_download_files',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/removedropboxfiles'] = array(
+			'title' => 'VWR Remove Experied Dropbox Files after 30 Days',
+			'page callback' => 'remove_dropbox_files',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/searchresults'] = array(
+			'title' => 'VWR Search Results',
+			'page callback' => 'vwr_search_results',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/advancedsearch'] = array(
+			'title' => 'VWR Advanced Search',
+			'page callback' => 'vwr_advanced_search',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/suppliersave'] = array(
+			'page callback' => 'supplier_save',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/vwrinternalsave'] = array(
+			'page callback' => 'vwrinternal_save',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['internal_Regconfirm'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'registration_confirmation',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/reset'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'forget_password',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['forget-confirm'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'forget_confirm',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['email-validate'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'email_validate',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/resetpassword/'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'reset_password',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['reset-store'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'reset_store',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['reset-confirm'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'reset_confirm',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+/* 		$items['myaccount-store'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'myaccount_store',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		); */
+		$items['login-validate'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'login_validate',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['legal-store'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'legal_store',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['welcomepage-edit'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'welcomepage_edit',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['welcome-upload'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'welcome_upload',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['myaccount-validate'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'myaccount_validate',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['trigger/mails'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'trigger_initial_mail_to_all',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['trigger/mails/action'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'trigger_initial_mail_actions',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['db-migrate'] = array(
+			'title' => 'ERP migration',
+			'page callback' => 'vwr_db_migrate',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['forgot-email-validate'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'forgot_email_validate',
+			'access callback' => true,
+			'access arguments' => array('access vwrServices content'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['deactivate-expired-suppliers'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'deactivate_expired_suppliers',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['mailalert-notlogged-suppliers'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'mail_alert_not_logged_suppliers',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/user-settings'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_user_settings',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwrServices/user-email-preferences'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_email_preferences',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwrServices/welcome-page'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_welcome_page',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/forgot-page'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_forgot_page',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/legal-page'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_legal_page',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwrServices/select-type-page'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'page_select_type_page',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['email-notification'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'users_email_notification',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['eu_users'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'users_europe_load',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwrServices/concurrent_users'] = array(
+			'title' => 'VWR Supplier Central',
+			'page callback' => 'concurrent_user_session_limit',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+
+		return $items;
+	}
+
+
+
+	function users_bulkdocument_notify()
+	{
+
+		$ftp_server = trim(variable_get('ftp_host', ''));
+		$conn_id = ftp_connect($ftp_server);
+		$ftp_user_name = trim(variable_get('ftp_username', ''));
+		$ftp_user_pass = trim(variable_get('ftp_password', ''));
+		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+		$contents = ftp_nlist($conn_id, 'bulkdocument');
+		ftp_pasv($conn_id, TRUE);
+		$fileslist = array();
+		$local_path = variable_get('file_public_path', conf_path()) . '/files/supplier_docs/';
+		for ($i = 0; $i < count($contents); $i++) {
+
+
+			$pos = STRPOS($contents[$i], "/");
+			$filename = substr($contents[$i], ($pos + 1), strlen($contents[$i]));
+			$supplier_org_id = explode("-", $filename);
+			$fileslist[] = substr($contents[$i], ($pos + 1), strlen($contents[$i]));
+			$supid = $supplier_org_id[0];
+			$local_file    = $_SERVER['DOCUMENT_ROOT'] . (base_path() ? base_path() : '/') . $local_path . $filename;
+			$server_file   = $contents[$i];
+			if (ftp_get($conn_id, $local_file, $server_file, FTP_ASCII)) {
+
+
+				$suppliers = db_query("select * from {users} u join {users_info} 
+										ui on u.uid=ui.uid and
+										ui.supplier_org_name=:supid", array(':supid' => $supid));
+				foreach ($suppliers as $supdt) {
+					$suppliername = $supdt->firstname . " " . $supdt->lastname;
+					$supemail = $supdt->mail;
+					$currentmonth = date("F");
+					$currentyear = date("Y");
+					$subject = "A New file has been added";
+					$body = "Hi Mike, <br> A New file (" . $filename . ") has been uploaded 
+										for the month of " . $currentmonth . "," . $currentyear . " on Supplier Central Environment.Please login into 
+										Supplier Central with your credentials and click on Supplier Reports Tab on left navigation
+										to download the file";
+
+					// To send HTML mail, the Content-type header must be set
+					$headers  = 'MIME-Version: 1.0' . "\r\n";
+					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+					// Additional headers
+					$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+					$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+					$mail = mail('deepak.dixit@avantorsciences.com,john.suarez-beard@avantorsciences.com,prakash.devendhiran@avantorsciences.com,Sarang_Deshpande@vwr.com ', $subject, $body, $headers);
+				}
+			}
+		}
+		foreach ($fileslist as $files) {
+			$currentmonth = date("m");
+			$timestamp = time();
+			$supplier_id = explode("-", $files);
+			$editFields['file_name'] = $files;
+			$editFields['created_date'] = $timestamp;
+			$editFields['supplier_org_id'] = $supplier_id[0];
+			$selectfiles = db_query("SELECT * FROM {bulk_supplier_documents}
+					where supplier_org_id=:supplier_org_id
+					and MONTH(FROM_UNIXTIME(created_date)) = :currentmonth", array(':supplier_org_id' => $supplier_id[0], ':currentmonth' => $currentmonth));
+			if ($selectfiles->rowCount() == 0) {
+				$auto_id = db_insert('bulk_supplier_documents')->fields($editFields)->execute();
+			}
+		}
+		ftp_close($conn_id);
+		return theme('vwr_supplier_documents_moved', array('data' => '', 'action' => ''));
+		exit;
+	}
+
+
+	function users_europe_load()
+	{
+		$selectsuppliers = db_query("select * from eusuppliersnew where email not in(select mail from vwr_users)");
+		if ($selectsuppliers) {
+			foreach ($selectsuppliers as $usersfetch) {
+
+
+				$VendNo = $usersfetch->vendno;
+				$FirstName = addslashes(strip_tags($usersfetch->firstname));
+				$LastName = addslashes(strip_tags($usersfetch->lastname));
+				$Address1 = addslashes(strip_tags($usersfetch->address1));
+				$Address2 = addslashes(strip_tags($usersfetch->address2));
+				$ZipCode = addslashes(strip_tags($usersfetch->zipcode));
+				$City = addslashes(strip_tags($usersfetch->city));
+				$Country = addslashes(strip_tags($usersfetch->country));
+				$Email = addslashes(strip_tags($usersfetch->email));
+				$timestamp = time();
+				$username = $FirstName . '_' . $LastName . '-' . $timestamp;
+				$insertquery = db_query("INSERT INTO {users} (name,pass,mail,theme,signature,signature_format,created,access,login,status,timezone,language,picture,init,data)
+					VALUES (:username,'$S$CJazgOdjJrIluSQCaLe/D2OHxdhsBByUR5eQ/n.uNQoLpK.XLPZx',:Email,'vwr','supplier','',:ts,0,0,'1','','','0',:email1,'')", [':username' => $username, ':Email' => $Email, ':ts' => $timestamp, ':email1' => $Email]);
+
+
+				if (db_affected_rows) {
+					$userid = db_query("SELECT uid from {users} where mail=:Email and name=:username", array(':Email' => $Email, ':username' => $username))->fetchField(0);
+					$supplier_org_id = db_query("select supplier_org_id from vwr_vendor where vendor_id=:VendNo", array(':VendNo' => $VendNo))->fetchField(0);
+					$useridforinfo = db_query("SELECT * from {users_info} where uid=:uid", array(':uid' => $userid));
+					if ($useridforinfo->rowCount() == 0) {
+						db_query("INSERT INTO {users_info} (uid,firstname,lastname,address1,address2,city,state,zipcode,country,phone,email,company,division,password,supplier_function, supplier_org_id,supplier_org_name) 
+							VALUES (:userid,:FirstName,:LastName,:Address1,:Address2,:City,'',:ZipCode,:Country,'',:email,'','',:supplierpassword,'', NULL,:supplier_org_id)", [':userid' => $userid, ':FirstName' => $FirstName, ':LastName' => $LastName, ':Address1' => $Address1, ':Address2' => $Address2, ':City' => $City, ':ZipCode' => $ZipCode, ':Country' => $Country, ':email' => $Email, ':supplierpassword' => $supplierpassword, ':supplier_org_id' => $supplier_org_id]);
+						db_query("INSERT INTO {newsupplier_regions} (userid,regionid) 
+							VALUES (:userid,2)", [':userid' => $userid]);
+						db_query("INSERT INTO {users_roles} (uid, rid) VALUES (:userid,6)", [':userid' => $userid]);
+						db_query("INSERT INTO {user_region_settings} (region_id,user_id,status) VALUES (2,:userid, 1)", [':userid' => $userid]);
+						db_query("INSERT INTO {user_defaulttab_settings} (user_id,region_id) VALUES (:userid,2)", [':userid' => $userid]);
+					}
+				}
+			}
+		}
+		echo "success";
+		exit;
+	}
+/* 	function myaccount_store()
+	{
+		$userid = strip_tags($_POST['user']);
+		$password = base64_decode($_POST['password']);
+		$password = explode("&", $password);
+		$haspassword = user_hash_password($password[0]);
+		$myaccountField['pass'] = $haspassword;
+		$myaccountField1['password'] = $haspassword;
+		db_update('users')->fields($myaccountField)->condition('uid', $userid)->execute();
+		if (db_affected_rows) {
+			db_update('users_info')->fields($myaccountField1)->condition('uid', $userid)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		} else {
+			echo "fail";
+		}
+	} */
+
+	function reset_store()
+	{
+		$resetemail = base64_decode(strip_tags($_POST['email']));
+		$resetemail_array = explode("&", $resetemail);
+		$resetemail = $resetemail_array[0];
+		$resetpassword = base64_decode(strip_tags($_POST['password']));
+		$resetpassword_array = explode("&", $resetpassword);
+		$resetpassword = $resetpassword_array[0];
+		$haspassword = user_hash_password($resetpassword);
+		$resetField['pass'] = $haspassword;
+		$resetField1['password'] = $haspassword;
+		db_update('users')->fields($resetField)->condition('mail', $resetemail)->execute();
+		if (db_affected_rows) {
+			db_update('users_info')->fields($resetField1)->condition('email', $resetemail)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		} else {
+			echo "fail";
+		}
+	}
+
+	function reset_confirm()
+	{
+		return "";
+	}
+
+	function reset_password()
+	{
+		return "";
+	}
+
+	function vwrinternal_registration()
+	{
+		return "";
+	}
+
+	function supplier_registration()
+	{
+		return "";
+	}
+
+	function registration_confirmation()
+	{
+		return "";
+	}
+
+	function forget_confirm()
+	{
+		return "";
+	}
+
+	function show_dropbox_download_files()
+	{
+		return "";
+	}
+
+	function get_user_email($uid)
+	{
+		$select_user_email = db_query("SELECT email FROM {users_info} WHERE uid=:uid", array(':uid' => $uid))->fetchobject();
+		return $select_user_email->email;
+	}
+
+	function vwr_search_results()
+	{
+		print theme('vwr_search_results_theme', array('data' => '', 'action' => ''));
+	}
+
+	function vwrServices_theme()
+	{
+		return array(
+			'vwr_search_results_theme' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-search-results',
+			),
+			'vwr_advanced_search_theme' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-advanced-search',
+			),
+			'vwr_supplier_documents_moved' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-supplier-documents-moved',
+			),
+
+			'vwr_user_settings' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-user-settings',
+			),
+			'vwr_email_preferences' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-email-preferences',
+			),
+
+			'vwr_user_welcome' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-user-welcome',
+			),
+			'vwr_user_forgot' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-user-forgot',
+			),
+			'vwr_user_legal' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-user-legal',
+			),
+			'vwr_user_select_type' => array(
+				'arguments' => array('data' => NULL, 'action' => NULL),
+				'template' => 'vwr-user-select-type',
+			),
+		);
+	}
+
+	function vwr_advanced_search()
+	{
+		print theme('vwr_advanced_search_theme', array('data' => '', 'action' => ''));
+	}
+
+	function vwrinternal_save()
+	{
+		// If the form is submitted 
+		if(isset($_POST) && ($_POST['registration'] == 'internal')){
+			$errors = array();
+			if (count($_POST) > 0) {
+				foreach ($_POST as $key => $value) {
+					$_POST[$key] = trim($value);
+				}
+			}
+			// Retrieve value from the form input fields
+			$vwrinternal_uid = addslashes(strip_tags($_POST['vwrinternal_uid']));
+			$vwrinternal_fname = addslashes(strip_tags($_POST['vwrinternal_firstname']));
+			$vwrinternal_lastname = addslashes(strip_tags($_POST['vwrinternal_lastname']));
+			$vwrinternal_email = addslashes(strip_tags($_POST['vwrinternal_email']));
+			$internalregion = addslashes(strip_tags($_POST['internal_user_region']));
+			$vwrinternal_password = $vwrinternal_fname; // saving default password as firstname in the database
+			$timestamp = time();
+			$username = $vwrinternal_fname . '_' . $vwrinternal_lastname . '-' . $timestamp;
+			$internalpassword = user_hash_password($vwrinternal_password);			
+			// Validate input fields 
+			if (empty($_POST['vwrinternal_uid'])) {
+				$errors['vwrinternal_uid'] = "User ID cannot be empty";
+			}
+			if (empty($_POST['vwrinternal_firstname'])) {
+				$errors['vwrinternal_firstname'] = "First Name cannot be empty";
+			} else {
+				$fname_length = strlen($_POST['vwrinternal_firstname']);
+				$match = preg_match("/^[a-zA-Z']+$/", $_POST['vwrinternal_firstname']);
+				if ($match == 0) {
+					$errors['vwrinternal_firstname'] = "First Name should be characters only";
+				} else if ($fname_length > 25) {
+					$errors['vwrinternal_firstname'] = "First Name can have maximum 25 characters only";
+				}
+			}
+			if (empty($_POST['vwrinternal_lastname'])) {
+				$errors['vwrinternal_lastname'] = "Last Name cannot be empty";
+			} else {
+				$fname_length = strlen($_POST['vwrinternal_lastname']);
+				$match = preg_match("/^[a-zA-Z']+$/", $_POST['vwrinternal_lastname']);
+				if ($match == 0) {
+					$errors['vwrinternal_lastname'] = "Last Name should be characters";
+				} else if ($fname_length > 25) {
+					$errors['vwrinternal_lastname'] = "Lastname Name can have maximum 25 characters only";
+				}
+			}
+			if (empty($_POST['vwrinternal_email'])) {
+				$errors['vwrinternal_email'] = "Email address cannot be empty";
+			} else {
+				$email_pattern = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
+				$match_email = preg_match($email_pattern, $_POST['vwrinternal_email']);
+				if ($match_email == 0) {
+					$errors['vwrinternal_email'] = "Please Enter a valid email address";
+				}
+			}
+			if ($_POST['internal_user_region'] == 'Select Region') {
+				$errors['internal_user_region'] = "Please select region";
+			}
+		 
+			// Check whether submitted input data is valid 
+			if(empty(count($errors))){
+				//echo check_email_exist($vwrinternal_email);exit;
+				if(check_email_exist($vwrinternal_email) == 0){
+					$api_error = '';
+					$secretKey = variable_get('recaptcha_site_secret_key','');
+					// Validate reCAPTCHA response 
+					if(!empty($_POST['g-recaptcha-response'])){ 
+			 
+						// Google reCAPTCHA verification API Request 
+						//$api_url = 'https://www.google.com/recaptcha/api/siteverify';
+						$api_url = variable_get('recaptcha_verify_API', '');						
+						$resq_data = array( 
+							'secret' => $secretKey, 
+							'response' => $_POST['g-recaptcha-response'], 
+							'remoteip' => $_SERVER['REMOTE_ADDR'] 
+						); 
+			 
+						$curlConfig = array( 
+							CURLOPT_URL => $api_url, 
+							CURLOPT_POST => true, 
+							CURLOPT_RETURNTRANSFER => true, 
+							CURLOPT_POSTFIELDS => $resq_data, 
+							CURLOPT_SSL_VERIFYPEER => false 
+						); 
+			 
+						$ch = curl_init(); 
+						curl_setopt_array($ch, $curlConfig); 
+						$response = curl_exec($ch); 
+						if (curl_errno($ch)) { 
+							$api_error = curl_error($ch); 
+						} 
+						curl_close($ch); 
+			 
+						// Decode JSON data of API response in array 
+						$responseData = json_decode($response); 
+			 
+						// If the reCAPTCHA API response is valid 
+						if(!empty($responseData) && $responseData->success){ 
+							db_query("INSERT INTO {users} (name,pass,mail,theme,signature,signature_format,created,access,login,status,timezone,language,picture,init,data)
+							VALUES (:username,:internalpassword,:vwrinternal_email,'vwr','vwrinternal','',:ts,0,0,'2','','','0',:vwrinternal_email,'')", array(':username' => $username, ':internalpassword' => $internalpassword, ':vwrinternal_email' => $vwrinternal_email, ':ts' => $timestamp, ':vwrinternal_email' => $vwrinternal_email));
+
+							if (db_affected_rows) {
+								$userid = db_query("SELECT uid from {users} where mail=:vwrinternal_email", array(':vwrinternal_email' => $vwrinternal_email))->fetchField(0);
+								db_query("INSERT INTO {users_info} (uid,network_uid,firstname,lastname,address1,address2,city,state,zipcode,country,phone,email,company,division,password,company_role)
+													VALUES (:userid,:vwrinternal_uid,:vwrinternal_fname,:vwrinternal_lastname,'','','','',NULL,'',NULL,:vwrinternal_email,'','',:internalpassword,'')", array(':userid' => $userid, ':vwrinternal_uid' => $vwrinternal_uid, ':vwrinternal_fname' => $vwrinternal_fname, ':vwrinternal_lastname' => $vwrinternal_lastname, ':vwrinternal_email' => $vwrinternal_email, ':internalpassword' => $internalpassword));
+
+								db_query("INSERT INTO {newsupplier_regions} (userid,regionid) 
+								VALUES (:userid,:internalregion)", array(':userid' => $userid, ':internalregion' => $internalregion));
+								$region_shortname = db_query("SELECT region_shortname from {manage_regions} where region_id=:internalregion", array(':internalregion' => $internalregion))->fetchField(0);
+								if (db_affected_rows) {
+									$roleid = db_query("SELECT rid FROM {role} WHERE NAME='vwr internal'")->fetchField(0);
+									if ($userid && $roleid) {
+										db_query("INSERT INTO {users_roles} (uid, rid) VALUES (:userid, :roleid)", [':userid' => $userid, ':roleid' => $roleid]);
+										if (db_affected_rows) {
+											//echo "success";
+											drupal_goto('internal_Regconfirm');
+										}
+									}
+								}
+							} else {
+								echo "fail";
+							}
+						}else{ 
+							//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>".!empty($api_error)?$api_error:'The reCAPTCHA verification failed, please try again.'."</div>";
+							$errors['captcha_error'] = !empty($api_error)?$api_error:'The reCAPTCHA verification failed, please try again.';
+							drupal_goto('vwrServices/vwrinternal/registration',array('query'=>array('urlparam'=>$errors)));
+						} 
+					}else{ 
+						//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>Something went wrong, please try again.</div>";
+						//drupal_goto('vwrServices/vwrinternal/registration');
+						$errors['captcha_res'] = 'Something went wrong, please try again.';
+						drupal_goto('vwrServices/vwrinternal/registration',array('query'=>array('urlparam'=>$errors)));
+					}	
+				}else{
+					//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>Email already registered.please try with differnt emailID.</div>";
+					$errors['email_exist'] = 'Email already registered.please try with differnt emailID.';
+					drupal_goto('vwrServices/vwrinternal/registration',array('query'=>array('urlparam'=>$errors)));
+				}
+				 
+			}else{
+				drupal_goto("vwrServices/vwrinternal/registration",array('query'=>array('urlparam'=>$errors)));
+			} 
+		}	
+	}
+
+	function supplier_save()
+	{
+		if (count($_POST) > 0) {
+			foreach ($_POST as $key => $value) {
+				$_POST[$key] = trim($value);
+			}
+		}
+		// Assign default values
+		$errors = array();		
+		$api_error = '';
+		$secretKey = variable_get('recaptcha_site_secret_key','');
+		if (isset($_POST) && ($_POST['registration'] == 'supplier')) {
+			$supplier_fname = addslashes(strip_tags($_POST['supplier_first']));
+			$supplier_lastname = addslashes(strip_tags($_POST['supplier_last']));
+			$supplier_addr1 = addslashes(strip_tags($_POST['supplier_addr1']));
+			$supplier_addr2 = addslashes(strip_tags($_POST['supplier_addr2']));
+			$supplier_city = addslashes(strip_tags($_POST['supplier_city']));
+			$supplier_state = addslashes(strip_tags($_POST['supplier_state']));
+			$supplier_zipcode = addslashes(strip_tags($_POST['supplier_zipcode']));
+			$supplier_country = addslashes(strip_tags($_POST['supplier_country']));
+			$supplier_phone = addslashes(strip_tags($_POST['supplier_phone']));
+			$supplier_email = addslashes(strip_tags($_POST['supplier_email']));
+			$supplier_password = addslashes(strip_tags($_POST['supplier_password']));
+			$supplier_confirmpass = addslashes(strip_tags($_POST['password_confirm']));
+			$supplier_company = addslashes(strip_tags($_POST['supplier_company']));
+			$supplier_division = addslashes(strip_tags($_POST['supplier_division']));
+			$supplier_fun = addslashes(strip_tags($_POST['supplier_function']));
+			$supplier_region = addslashes(strip_tags($_POST['supplier_region']));
+			$timestamp = time();
+
+			if (empty($_POST['supplier_first'])) {
+				$errors['supplier_first'] = "First Name cannot be empty";
+			} else {
+				$fname_length = strlen($_POST['supplier_first']);
+				$match = preg_match("/^[a-zA-Z']+$/", $_POST['supplier_first']);
+				if ($match == 0) {
+					$errors['supplier_first'] = "First Name should be characters only";
+				} else if ($fname_length > 25) {
+					$errors['supplier_first'] = "First Name can have maximum 25 characters only";
+				}
+			}
+			if (empty($_POST['supplier_last'])) {
+				$errors['supplier_last'] = "Last Name cannot be empty";
+			} else {
+				$fname_length = strlen($_POST['supplier_last']);
+				$match = preg_match("/^[a-zA-Z']+$/", $_POST['supplier_last']);
+				if ($match == 0) {
+					$errors['supplier_last'] = "Last Name should be characters";
+				} else if ($fname_length > 25) {
+					$errors['supplier_last'] = "Lastname Name can have maximum 25 characters only";
+				}
+			}
+			if (empty($_POST['supplier_addr1'])) {
+				$errors['supplier_addr1'] = "Address cannot be empty";
+			}
+			if (empty($_POST['supplier_city'])) {
+				$errors['supplier_city'] = "City cannot be empty";
+			} else {
+				$match_city = preg_match("/([a-zA-Z|0-9])/", $_POST['supplier_city']);
+				if ($match_city == 0) {
+					$errors['supplier_city'] = "City name can contain only characters or letters";
+				}
+			}
+			if (empty($_POST['supplier_state'])) {
+				$errors['supplier_state'] = "State cannot be empty";
+			} else {
+				$match_state = preg_match("/([a-zA-Z|0-9])/", $_POST['supplier_state']);
+				if ($match_state == 0) {
+					$errors['supplier_state'] = "state name can contain only characters orletters";
+				}
+			}
+			if (empty($_POST['supplier_zipcode'])) {
+				$errors['supplier_zipcode'] = "Zipcode cannot be empty";
+			} else {
+				$zip_length = strlen($_POST['supplier_zipcode']);
+				$match_zipcode = preg_match("/^[-\s0-9]+$/", $_POST['supplier_zipcode']);
+				if ($match_zipcode == 0) {
+					$errors['supplier_zipcode'] = "Zipcode can contain only numerics";
+				} else if ($zip_length < 4) {
+					$errors['supplier_zipcode'] = "Zipcode Minimum should have 4 digits";
+				} else if ($zip_length > 6) {
+					$errors['supplier_zipcode'] = "Zipcode Maximum should have 6 digits";
+				}
+			}
+			if ($_POST['supplier_country'] == 'Select Country') {
+				$errors['supplier_country'] = "Please select country";
+			}
+			if (empty($_POST['supplier_email'])) {
+				$errors['supplier_email'] = "Email address cannot be empty";
+			} else {
+				$email_pattern = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
+				$match_email = preg_match($email_pattern, $_POST['supplier_email']);
+				if ($match_email == 0) {
+					$errors['supplier_email'] = "Please Enter a valid email address";
+				}
+			}
+
+			if (empty($_POST['supplier_password'])) {
+				$errors['supplier_password'] = "Password cannot be empty";
+			}
+			if (empty($_POST['password_confirm'])) {
+				$errors['password_confirm'] = "Confirm Password cannot be empty";
+			} else if ($_POST['password_confirm'] != $_POST['supplier_password']) {
+				$errors['password_confirm'] = "Please Enter same as password";
+			}
+			if (empty($_POST['supplier_company'])) {
+				$errors['supplier_company'] = "Company cannot be empty";
+			}
+			
+			if ($_POST['supplier_function'] == 'Select function') {
+				$errors['supplier_function'] = "Please select function";
+			}
+			if ($_POST['supplier_region'] == 'Select Region') {
+				$errors['supplier_region'] = "Please select region";
+			}
+			if(empty(count($errors))){
+				if(check_email_exist($supplier_email) == 0){
+					if(!empty($_POST['g-recaptcha-response'])){
+								// Google reCAPTCHA verification API Request 
+						//$api_url = 'https://www.google.com/recaptcha/api/siteverify';
+						$api_url = variable_get('recaptcha_verify_API', '');
+						$resq_data = array( 
+							'secret' => $secretKey, 
+							'response' => $_POST['g-recaptcha-response'], 
+							'remoteip' => $_SERVER['REMOTE_ADDR'] 
+						); 
+			 
+						$curlConfig = array( 
+							CURLOPT_URL => $api_url, 
+							CURLOPT_POST => true, 
+							CURLOPT_RETURNTRANSFER => true, 
+							CURLOPT_POSTFIELDS => $resq_data, 
+							CURLOPT_SSL_VERIFYPEER => false 
+						); 
+			 
+						$ch = curl_init(); 
+						curl_setopt_array($ch, $curlConfig); 
+						$response = curl_exec($ch); 
+						if (curl_errno($ch)) { 
+							$api_error = curl_error($ch); 
+						} 
+						curl_close($ch); 
+			 
+						// Decode JSON data of API response in array 
+						$responseData = json_decode($response); 
+			 
+						if(!empty($responseData) && $responseData->success){
+							$username = $supplier_fname . '_' . $supplier_lastname . '-' . $timestamp;
+							if (!$supplier_phone || $supplier_phone == '') {
+								$supplier_phone = 0;
+							}
+							$supplierpassword = user_hash_password($supplier_password);
+
+							$userFields['name'] = $username;
+							$userFields['pass'] = $supplierpassword;
+							$userFields['mail'] = $supplier_email;
+							$userFields['theme'] = 'vwr';
+							$userFields['signature'] = 'supplier';
+							$userFields['signature_format'] = '';
+							$userFields['created'] = $timestamp;
+							$userFields['access'] = 0;
+							$userFields['login'] = 0;
+							$userFields['status'] = 2;
+							$userFields['timezone'] = '';
+							$userFields['language'] = '';
+							$userFields['picture'] = 0;
+							$userFields['init'] = $supplier_email;
+							$userFields['data'] = '';
+							$result = db_insert('users')->fields($userFields)->execute();
+
+							$userid = db_query("SELECT uid from {users} where mail=:supplier_email", array(':supplier_email' => $supplier_email))->fetchField(0);
+							try {
+								//echo 'ss';exit;
+								$infoFields['uid'] = $userid;
+								$infoFields['firstname'] = $supplier_fname;
+								$infoFields['lastname'] = $supplier_lastname;
+								$infoFields['address1'] = $supplier_addr1;
+								$infoFields['address2'] = $supplier_addr2;
+								$infoFields['city'] = $supplier_city;
+								$infoFields['state'] = $supplier_state;
+								$infoFields['zipcode'] = $supplier_zipcode;
+								$infoFields['country'] = $supplier_country;
+								$infoFields['phone'] = $supplier_phone;
+								$infoFields['email'] = $supplier_email;
+								$infoFields['company'] = $supplier_company;
+								$infoFields['division'] = $supplier_division;
+								$infoFields['password'] = $supplierpassword;
+								$infoFields['supplier_function'] = $supplier_fun;
+								$infoFields['supplier_org_id'] = NULL;
+								$res = db_insert('users_info')->fields($infoFields)->execute();
+
+								$regionFields['userid'] = $userid;
+								$regionFields['regionid'] = $supplier_region;
+								$auto_id = db_insert('newsupplier_regions')->fields($regionFields)->execute();
+								$roleid = db_query("SELECT rid FROM {role} WHERE NAME='supplier'")->fetchField(0);
+								$region_shortname = db_query("SELECT region_shortname FROM {manage_regions} WHERE region_id=:supplier_region", array(':supplier_region' => $supplier_region))->fetchField(0);
+								if ($userid && $roleid) {
+									$roleFields['uid'] = $userid;
+									$roleFields['rid'] = $roleid;
+									$auto_id = db_insert('users_roles')->fields($roleFields)->execute();
+									drupal_goto('internal_Regconfirm');
+								}
+							} catch (Exception $e) {
+								db_query("delete from {users} where uid = :userid", array(':userid' => $userid));
+								db_query("delete from {users_info} where uid = :userid", array(':userid' => $userid));
+								echo "failure $e";
+							}
+							
+						}else{
+							//$statusMsg = !empty($api_error)?$api_error:'The reCAPTCHA verification failed, please try again.'; 
+							//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>".!empty($api_error)?$api_error:'The reCAPTCHA verification failed, please try again.'."</div>";
+							$errors['captcha_error'] = !empty($api_error)?$api_error:'The reCAPTCHA verification failed, please try again.';
+							drupal_goto("vwrServices/supplier/registration",array('query'=>array('urlparam'=>$errors)));
+						}
+					}else{
+						//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>Something went wrong, please try again.</div>";
+						$errors['captcha_response'] = 'Something went wrong, please try again.';
+						drupal_goto("vwrServices/supplier/registration",array('query'=>array('urlparam'=>$errors)));
+					}
+				}else{
+					//echo "<div style='background-color: #fef5f1;color: #8c2e0b;border-color: #ed541d;'>Email registered already.please try with different mailID.</div>";
+					$errors['email_exist'] = 'Email registered already.please try with different mailID.';
+					drupal_goto("vwrServices/supplier/registration",array('query'=>array('urlparam'=>$errors)));
+				}
+			}else{
+				drupal_goto("vwrServices/supplier/registration",array('query'=>array('urlparam'=>$errors)));
+			}
+		}
+	}
+
+	function mail_alert_after_registration($supplier_fname, $supplier_lastname, $supplier_email, $supplier_type, $region_shortname)
+	{
+		$permission_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'Confirm/Update User Profiles' AND deleted = 0")->fetchField(0);
+		$result = db_query("SELECT email, firstname, lastname FROM {users_info} AS uf WHERE uf.uid IN (SELECT up.uid FROM {user_permission_internal} AS up LEFT JOIN {users } AS u ON u.uid = up.uid  WHERE up.permission_id=:permission_id AND u.status = 1)", array(':permission_id' => $permission_id));
+		$subject = "<Supplier/VWR Internal > Registration Pending Approval";
+		foreach ($result as $record) {
+			admin_email($record->email, $record->firstname . " " . $record->lastname, $supplier_fname, $supplier_lastname, $supplier_email, $supplier_type, 'admin_approve.tpl.php', $subject, $region_shortname);
+		}
+	}
+
+	function email_validate()
+	{
+		if (isset($_POST['email']) && !empty($_POST['email']) && (base64_encode(base64_decode($_POST['email'], true)) === $_POST['email'])) {
+			$email = base64_decode(strip_tags($_POST['email']));
+			$email_array = explode("&", $email);
+			$email = $email_array[0];
+			$result = db_select("users", "u")
+				->fields("u", array('mail'))
+				->condition('u.mail', $email, '=')
+				->execute()->rowCount();
+
+			if ($result != '') {
+				echo "available";
+			} else {
+				echo "Not available";
+			}
+		} else {
+			echo 'Required param is invalid';
+		}
+	}
+
+	function check_email_exist($email)
+	{
+		$result = db_select("users", "u")
+			->fields("u", array('mail'))
+			->condition('u.mail', $email, '=')
+			->execute()->rowCount();
+		return $result;
+	}
+	function forget_password()
+	{
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$email = base64_decode(strip_tags($_POST['email']));
+		$email_array = explode("&", $email);
+		$to = $email_array[0];
+		$url = $url . 'password/' . strip_tags($_POST['email']);
+		$path = drupal_get_path('theme', 'vwr');
+		$body = file_get_contents($path . '/email_templates/forget_password.tpl.php');
+		$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+		$body = str_replace("url", $url, $body);
+		$body = preg_replace("[\\\]", '', $body);
+		$subject = "VWR Supplier Central :: Forgot Password";
+		// To send HTML mail, the Content-type header must be set
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		// Additional headers
+		$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$mail = mail($to, $subject, $body, $headers);
+
+		if ($mail) {
+			$log_status = 1;
+			echo "success";
+		} else {
+			$log_status = 0;
+			echo "fail";
+		}
+		// email logs
+		$log_msg = 'Forgot Password';
+		$time = time();
+		email_logs('forgot password', $to, $subject, $log_msg, $log_status, $time);
+	}
+
+	/* Remove Expired Dropbox Files */
+	function remove_dropbox_files()
+	{
+		$file_details = db_query("SELECT created_date+(30*86400) as expiry_date, file, created_date, id FROM {dropbox_files}");
+		foreach ($file_details as $filedetails) {
+			if ($filedetails->expiry_date < time()) {
+				$file_location = base_path() . 'sites/default/files/docs_dropbox/' . $filedetails->file;
+				if (file_exists($file_location)) {
+					unlink($file_location);
+					db_query("DELETE FROM {dropbox_files} WHERE id=:id", array(':id' => $filedetails->id))->fetchObject();
+				}
+			}
+		}
+	}
+
+	function get_author_name($uid)
+	{
+		$result = db_query("SELECT firstname, lastname FROM {users_info} where uid = :uid", array(':uid' => $uid))->fetchObject();
+		return $result->firstname . " " . $result->lastname;
+	}
+
+	function get_category_name($cat_id)
+	{
+		$current_date = strtotime(date('m/d/Y'));
+		$result_category = db_query("SELECT category_name FROM {category} where category_id = :cat_id AND category_status=1 AND expiry_date>=:current_date", array(':cat_id' => $cat_id, ':current_date' => $current_date))->fetchObject();
+		return $result_category->category_name;
+	}
+
+	function get_topic_name($topic_id)
+	{
+		$result_topic = db_query("SELECT topic_name FROM {topic} where topic_id = :topic_id AND topic_status=1", array(':topic_id' => $topic_id))->fetchObject();
+		return $result_topic->topic_name;
+	}
+
+	function convert_date($date_value)
+	{
+		$split_date = explode("-", $date_value);
+		return $split_date[2] . "-" . $split_date[1] . "-" . $split_date[0];
+	}
+
+	function getFiletype_Icon($image)
+	{
+		$file_ext = strtolower(trim(substr(strrchr($image, '.'), 1)));
+		$excel_exts = array('xls', 'xlsx', 'xl', 'csv');
+		$doc_exts = array('doc', 'docx', 'odt', 'dox', 'docs', 'odm', 'dot', 'odf');
+		$txt_exts = array('txt', 'xml', 'sql', 'java', 'js', 'css', 'sh', 'rb', 'info', 'module');
+		$imgo_exts = array('cur', 'ani', 'jfif', 'exif', 'pns', 'jps', 'raw', 'pcx', 'svg', '3d',  'art', 'arr', 'ico', 'icon', 'img', 'pic', 'pix', 'tif', 'zif', 'cd', '3dt', 'cag', 'gpx', 'tab', 'mm', 'jng', 'max', 'pct', 'tga', 'xpm', 'max', 'mng', 'pc1', 'pcf', 'pc', 'pcx', 'eps', 'odg', 'wmf', '3dm', 'ac', 'aoi', 'obj', 'a', '');
+		$zip_exts = array('tar', 'gz', 'zip', 'rar', 'gzip', 'arc', '7z', 'z', 'jar', 'war');
+		$media_exts = array('mpeg', 'wav', 'wv', 'wma', 'mp1', 'mp2', 'mp3', 'mp4', 'mp5', 'mpc', 'ra', 'flv', 'avi', 'mpeg', 'm4v', 'mov', 'ogg', 'swf', 'wmv', 'mswmm', 'mus', 'pod', 'webm', 'mpa', 'm3a', 'm4a', '3gp', 'vob', 'mpg', 'av');
+		$html_exts = array('html', 'htm', 'mhtml', 'asp', 'jsp', 'php');
+		$image_icon = 'other_l.png';
+		if (in_array($file_ext, $excel_exts)) {
+			$image_icon = 'excel_l.png';
+		} else if (in_array($file_ext, $doc_exts)) {
+			$image_icon = 'word_l.png';
+		} else if (in_array($file_ext, $html_exts)) {
+			$image_icon = 'html_l.png';
+		} else if (in_array($file_ext, $zip_exts)) {
+			$image_icon = 'zip_l.png';
+		} else if (in_array($file_ext, $media_exts)) {
+			$image_icon = 'av_l.png';
+		} else if ($file_ext == 'pdf') {
+			$image_icon = 'pdf_l.png';
+		} else if ($file_ext == 'psd') {
+			$image_icon = 'psd_l.png';
+		} else if ($file_ext == 'ppt') {
+			$image_icon = 'ppt_l.png';
+		} else if ($file_ext == 'ai') {
+			$image_icon = 'ai_l.png';
+		} else if ($file_ext == 'eps') {
+			$image_icon = 'eps_icon_l.png';
+		} else if (in_array($file_ext, $txt_exts) || $file_ext == 'txt') {
+			$image_icon = 'txt_l.png';
+		} else if ($file_ext == 'tiff') {
+			$image_icon = 'tiff_l.png';
+		} else if ($file_ext == 'png') {
+			$image_icon = 'png_l.png';
+		} else if ($file_ext == 'gif') {
+			$image_icon = 'gif_l.png';
+		} else if ($file_ext == 'bmp') {
+			$image_icon = 'bmp_l.png';
+		} else if ($file_ext == 'jpg' || $file_ext == 'jpeg') {
+			$image_icon = 'jpg_l.png';
+		} else if (in_array($file_ext, $imgo_exts) || is_numeric($file_ext)) {
+			$image_icon = 'imgo_l.png';
+		}
+		return $image_icon;
+	}
+
+	//Check User Permission for Search Document Results Page
+	function check_results_with_permission($category_id, $topic_id)
+	{
+		global $user;
+		if (is_vwr_user_role())	//Check SuperAdmin, Admin and Internal Users
+		{
+			return true;
+		} else {
+			$user_supplier_org = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid=:uid", array(':uid' => $user->uid))->fetchObject();
+			if ($user_supplier_org->supplier_org_name != "") {
+				if ($topic_id != "") {
+					$add_query = " AND topic_id='" . $topic_id . "'";
+				}
+				$check_user_category = db_query("SELECT COUNT(*) as total FROM {category_useraccess_mapping} WHERE mapping=1 AND category_id=:category_id" . $add_query . " AND supplier_org_id IN(SELECT DISTINCT vendor_id FROM {vendor} WHERE deleted=0 AND supplier_org_id=:supplier_org_name)", [':category_id' => $category_id, ':supplier_org_name' => $user_supplier_org->supplier_org_name])->fetchObject();
+				if ($check_user_category->total > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {	//Return False If user does not linked to any Supplier Org
+				return false;
+			}
+		}
+	}
+
+	function admin_email($adminemail, $adminname, $userfirstname, $userlastname, $useremail, $role, $file, $subject, $region_shortname)
+	{
+		if (email_notify_check($adminemail)) {
+			$path = drupal_get_path('theme', 'vwr');
+			$body = file_get_contents($path . '/email_templates/' . $file);
+			$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+			$body = str_replace("adminname", $adminname, $body);
+			$body = str_replace("userrole", $role, $body);
+			$body = str_replace("userfirstname", $userfirstname, $body);
+			$body = str_replace("userlastname", $userlastname, $body);
+			$body = str_replace("useremail", $useremail, $body);
+			$body = str_replace("regionname", $region_shortname, $body);
+			$body = preg_replace("[\\\]", '', $body);
+
+
+			// To send HTML mail, the Content-type header must be set
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			// Additional headers
+			$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$mail = mail($adminemail, $subject, $body, $headers);
+			// email logs
+			$log_msg = 'Admin Mail Notification';
+			$log_status = ($mail) ? 1 : 0;
+			$time = time();
+			email_logs('admin mail notification', $adminemail, $subject, $log_msg, $log_status, $time);
+		}
+	}
+
+	function user_email($userfirstname, $useremail, $file, $subject)
+	{
+		if (email_notify_check($useremail)) {
+			$path = drupal_get_path('theme', 'vwr');
+			$body = file_get_contents($path . '/email_templates/' . $file);
+			$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+			$body = str_replace("Firstname", $firstname, $body);
+			$body = preg_replace("[\\\]", '', $body);
+			// To send HTML mail, the Content-type header must be set
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			// Additional headers
+			$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$mail = mail($useremail, $subject, $body, $headers);
+			// email logs
+			$log_msg = 'User Mail Notification';
+			$log_status = ($mail) ? 1 : 0;
+			$time = time();
+			email_logs('user mail notification', $useremail, $subject, $log_msg, $log_status, $time);
+		}
+	}
+
+	function login_validate()
+	{
+		$email = trim(strip_tags($_POST['email']));
+		$pass = trim(base64_decode(strip_tags($_POST['pass'])));
+		$pass_array = explode("&", $pass);
+		$result = db_query("SELECT * FROM {users} WHERE mail=:email AND status = 1", array(':email' => $email));
+		// Allowed internal users for demo
+		$allowed_emails = array('jamie_mcdougall@vwr.com', 'jamiers223@gmail.com', 'Judith_Corona_Karpowicz@vwr.com');
+		// Error message for vwr internal users when logging via portal	
+		$uid = db_select('users')->fields('users', array('uid'))->condition('mail', db_like($email), 'LIKE')->condition('mail', $allowed_emails, 'NOT IN')->range(0, 1)->execute()->fetchField();
+		$user_info = user_load($uid);
+		if (in_array('vwr internal', $user_info->roles)) {
+			$internal_user = 'vwrinternal';
+			echo $internal_user;
+		} else {
+			$isExist = 0;
+			foreach ($result as $record) {
+				$isExist = user_check_password($pass_array[0], $record);
+			}
+			if ($isExist == 1) {
+				echo "available";
+			} else {
+				echo "notavailable";
+			}
+		}
+	}
+
+	function welcome_upload()
+	{
+		// Applied server side validation of file here..
+		$valid_file_type = array(
+			'image/jpeg',
+			'image/gif',
+			'image/png'
+		);
+		module_load_include('module', 'categorymanager', 'categorymanager.module');
+		$response  = validate_file($_FILES['welcome_img'], $valid_file_type);
+
+		$error_response = [
+			'Error in file upload',
+			'Upload jpg, gif, png, bmp format images only',
+			'Image size should be less than 500MB',
+			'S3BucketUpload error',
+			'MetadefenderAPI error',
+			'Curl error'
+		];
+
+		if(!in_array($response["msg"],$error_response)) {
+			echo json_encode(['file_name' => $_FILES['welcome_img']["name"] , 'message' => $response["msg"]]);
+		}else {
+			$response_message = ($response["statusCode"] != '' ? " Statuscode : ". $response['statusCode'] : "");
+			echo json_encode(['file_name' => '', 'message' => $response['msg'] . $response_message]);
+		}
+	}
+
+	function welcomepage_edit()
+	{
+		$action = strip_tags(trim($_POST['action']));
+		$welcometitle = strip_tags(trim($_POST['welcometitle']));
+		$welcometext = trim($_POST['welcometext']);
+		$welcomeimage = strip_tags(trim($_POST['welcomeimage']));
+		$file_id = strip_tags($_POST['file_id']); //fileID return from s3 bucket upload API
+		$welcomeid = 1;
+		if ($action == 'insert') {
+			$welcomeFields['welcome_id'] = $welcomeid;
+			$welcomeFields['welcome_title'] = $welcometitle;
+			$welcomeFields['welcome_text'] = $welcometext;
+			$welcomeFields['welcome_image'] = $welcomeimage;
+			//get the scan result 
+			$scanned_result = get_scanned_file($file_id);//
+			$scanned_status = ($scanned_result['status'] == 0 ? 'SCAN_COMPLETED' :  (($scanned_result['status'] == 255 || $scanned_result['status'] == 254) ? "In Progress" : "SCAN_FAILED"));
+			$file = ['file_name'=> basename($welcomeimage),'scan_status' => $scanned_status,'submission_type'=>'welcomepage_details','file_id'=>$file_id];
+			if( $scanned_result['status'] == 0 ) {
+				//No threat detected
+				$moved = move_file_to_vwr_server($file, $scanned_result, "uploadv2");
+				if($moved != 'Copy success!') {
+					echo "fail to move to server";
+					exit;
+				}
+			} else if($scanned_result['status'] == 255  || $scanned_result['status'] == 254){
+				//scan in progress no action needed
+			} else{
+				echo "Status : " . $scanned_result['status'] . " Message : " . $scanned_result['message'];
+				exit;
+			}
+
+			//we need to save the file_id received from fileupload API
+			$welcomeFields['scan_file_id'] = $file_id;
+			$welcomeFields['scan_file_status'] = $scanned_status;
+
+			//scanfields
+			$scanFields['file_id'] = $file_id;
+			$scanFields['file_name'] = $welcomeimage;
+			$scanFields['submission_type'] = 'welcomepage_details';
+			$scanFields['created_date'] = time();
+			$scanFields['scan_status'] = $scanned_status;
+			$file_auto_id = db_insert('file_scan_details')->fields($scanFields)->execute();
+
+			db_insert('welcomepage_details')->fields($welcomeFields)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		}
+		if ($action == 'update') {
+			$welcomeFields['welcome_title'] = $welcometitle;
+			$welcomeFields['welcome_text'] = $welcometext;
+			if ($welcomeimage != '') {
+				//get the scan result 
+				$scanned_result = get_scanned_file($file_id);//
+				$scanned_status = ($scanned_result['status'] == 0 ? 'SCAN_COMPLETED' :  (($scanned_result['status'] == 255 || $scanned_result['status'] == 254) ? "In Progress" : "SCAN_FAILED"));
+				$file = ['file_name'=> $welcomeimage,'scan_status' => $scanned_status,'submission_type'=>'welcomepage_details','file_id'=>$file_id];
+				if( $scanned_result['status'] == 0 ) {
+					//No threat detected
+					$moved = move_file_to_vwr_server($file, $scanned_result, "uploadv2");
+					if($moved != 'Copy success!') {
+						echo "fail to move to server";
+						exit;
+					}
+				} else if($scanned_result['status'] == 255  || $scanned_result['status'] == 254){
+					//scan in progress no action needed
+				} else{
+					echo "Status : " . $scanned_result['status'] . " Message : " . $scanned_result['message'];
+					exit;
+				}
+				$welcomeFields['welcome_image'] = $welcomeimage;
+				//we need to save the file_id received from fileupload API
+				$welcomeFields['scan_file_id'] = $file_id;
+				$welcomeFields['scan_file_status'] = $scanned_status;
+				
+				//scanfields
+				$scanFields['file_id'] = $file_id;
+				$scanFields['file_name'] = $welcomeimage;
+				$scanFields['submission_type'] = 'welcomepage_details';
+				$scanFields['created_date'] = time();
+				$scanFields['scan_status'] = 'In Progress';
+				$file_auto_id = db_insert('file_scan_details')->fields($scanFields)->execute();
+			}
+
+			
+
+			db_update('welcomepage_details')->fields($welcomeFields)->condition('welcome_id', $welcomeid)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		}
+	}
+
+	function legal_store()
+	{
+		$action = strip_tags(trim($_POST['action']));
+		$legaltext = strip_tags(trim($_POST['legaltext']));
+		$legallink = strip_tags(trim($_POST['legallink']));
+		$legalid = 1;
+		if ($action == 'insert') {
+			db_query("INSERT INTO {legal_details} VALUES(:legalid,:legaltext,:legallink)", array(':legalid' => $legalid, ':legaltext' => $legaltext, ':legallink' => $legallink));
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		}
+		if ($action == 'update') {
+			$legalField['legal_text'] = $legaltext;
+			$legalField['legal_link'] = $legallink;
+			db_update('legal_details')->fields($legalField)->condition('legal_id', $legalid)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			} else {
+				echo "fail";
+			}
+		}
+	}
+
+/* 	function myaccount_validate()
+	{
+		$userid = strip_tags($_POST['user']);
+		$pass = base64_decode(strip_tags($_POST['password']));
+		$pass_array = explode("&", $pass);
+		$result = db_query("SELECT * FROM {users} WHERE uid=:uid", array(':uid' => $userid));
+		foreach ($result as $record) {
+			$isExist = user_check_password($pass_array[0], $record);
+		}
+		if ($isExist == 1) {
+			echo "available";
+		} else {
+			echo "notavailable";
+		}
+	} */
+	function myaccount_validate()
+	{
+		global $user;
+		$oauthClientId = variable_get('miniorange_auth_client_client_id'); //client id entered in miniorage oauth module's config
+		$pwdResetUrl = variable_get('oauth_password_reset_url'); //url entered in vwr_variables_manager module's config
+		$curl = curl_init();
+
+		curl_setopt_array($curl, [
+		  CURLOPT_URL => "$pwdResetUrl",
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => "",
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 30,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "POST",
+		  CURLOPT_POSTFIELDS => "{\"client_id\": \"$oauthClientId\",\"email\": \"$user->mail\",\"connection\": \"Username-Password-Authentication\"}",
+		  CURLOPT_HTTPHEADER => [
+			"content-type: application/json"
+		  ],
+		]);
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if ($err) {
+		  echo "cURL Error #:" . $err;
+		} else {
+		  echo  "Password reset mail has sent to $user->mail,please check your mail.";
+		}
+	}
+
+	function trigger_initial_mail_to_all()
+	{
+		return "";
+	}
+	function trigger_initial_mail_actions()
+	{
+		$checker_mail = "jamie_mcdougall@vwr.com";
+		$pass_mail = trim(strip_tags($_POST['emailid']));
+		if (arg(3) == 'send' && $checker_mail == strtolower($pass_mail)) {
+			$url = 'http://' . $_SERVER['HTTP_HOST'] . base_path();
+			$path = drupal_get_path('theme', 'vwr');
+			$body = file_get_contents($path . '/email_templates/onetime_password.tpl.php');
+			$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+			$subject = "Your New Username & Password for Supplier Central";
+			// To send HTML mail, the Content-type header must be set
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			// Additional headers
+			$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+
+			$result = db_query("SELECT mail, login FROM {users} WHERE mail != '' && pass='' ");
+			$iterator = 0;
+			$body_send = '';
+			foreach ($result as $rec) {
+				$url_replace = $url . 'vwrServices/resetpassword/' . base64_encode($rec->mail . "&" . rand());
+				$body_send = str_replace("{url}", $url_replace, $body);
+				$body_send = str_replace("Your Email Address", $rec->mail, $body_send);
+				$body_send = preg_replace("[\\\]", '', $body_send);
+				mail($rec->mail, $subject, $body_send, $headers);
+				// email logs
+				$log_msg = 'Initial Mail Notification For Users';
+				$log_status = 1;
+				$time = time();
+				email_logs('initial email notification', $rec->mail, $subject, $log_msg, $log_status, $time);
+				$iterator++;
+			}
+			if ($iterator) {
+				echo 'success';
+			} else if ($iterator == 0) {
+				echo 'noneed';
+			}
+		} else if (arg(3) == 'confirm' && $checker_mail == strtolower($pass_mail)) {
+			echo 'send';
+		} else {
+			global $base_url;
+			$url_param = $base_url . '/' . arg(0) . '/' . arg(1);
+			header('Location: ' . $url_param);
+		}
+		exit;
+	}
+	function getFlags()
+	{
+		$resultset = db_query("SELECT vas_tier_id,REPLACE( `vas_tier_name` , ' ' , '' ) as flagname FROM vwr_vas_tier WHERE deleted=0");
+		$flags = array();
+		while ($row = $resultset->fetchAssoc()) {
+			$flags[$row['flagname']] = $row['vas_tier_id'];
+		}
+		return $flags;
+	}
+	function getFlagsmapping($vas_tier_id, $vendor_id)
+	{
+		if ($vendor_id) {
+			$resultset = db_query("SELECT vas_tier_id FROM {vas_tier_vendor_map} as vwrvtvr WHERE vwrvtvr.vas_tier_id=:vas_tier_id and vwrvtvr.vendor_id=:vendor_id", array(':vas_tier_id' => $vas_tier_id, ':vendor_id' => $vendor_id));
+			$flags = array();
+			while ($row = $resultset->fetchAssoc()) {
+				$flags[$row['vas_tier_id']] = $row['vas_tier_id'];
+			}
+			return $flags;
+		} else {
+			return false;
+		}
+	}
+	function getsupplierorgsregionmapping($supplier_org_id, $region_id)
+	{
+		$resultset = db_query("SELECT vwrsorg.supplier_org_id FROM {supplier_org_regions} as vwrsorg WHERE vwrsorg.supplier_org_id=:supplier_org_id and vwrsorg.region_id=:region_id", array(':supplier_org_id' => $supplier_org_id, ':region_id' => $region_id));
+		$regionmappings = array();
+		while ($row = $resultset->fetchAssoc()) {
+			$regionmappings[$row['supplier_org_id']] = $row['supplier_org_id'];
+		}
+		return $regionmappings;
+	}
+	function getregioninfo()
+	{
+		$resultset = db_query("SELECT region_id,region_shortname FROM {manage_regions} ");
+		$regioninfo = array();
+		foreach ($resultset as $row) {
+			$regioninfo[$row->region_shortname] = $row->region_id;
+		}
+		return $regioninfo;
+	}
+	function vwr_db_migrate()
+	{
+		//mail compose starts
+		set_time_limit(0);
+		$path = drupal_get_path('theme', 'vwr');
+		$body = file_get_contents($path . "/email_templates/data_migrate.tpl.php");
+		$body = str_replace("{base_path}", $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+		$body = str_replace("{Link}", $_SERVER['HTTP_HOST'] . base_path(), $body);
+		$body = str_replace("{executed_url}", $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], $body);
+		$body = str_replace("{execution_date_time}", date("F j, Y, g:i a"), $body);
+		$body = @preg_replace("[\\\]", '', $body);
+		$mail_to = trim(variable_get('migration_mailing_address', ''));
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+
+
+		$local_file = $_SERVER['DOCUMENT_ROOT'] . (base_path() ? base_path() : '/') . "sites/default/files/import/" . "suppliers.txt";
+		$file_headtitle = array('supplier_org_id', 'supplier_org', 'vendor', 'sap_vendor', 'vendor_desc', 'privatelabel', 'na', 'eu');
+		$buffer = '';
+		$diff_fields = array();
+		$field_all_list = array();
+		$invalidfile_format = 0;
+		$handle = @fopen($local_file, "r");
+		if ($handle) {
+			$buffer = @fgetss($handle, 4096);
+			@fclose($handle);
+		}
+		$strip_array = array(' ', '"', "'");
+		$field_list = explode("\t", str_replace($strip_array, '', strtolower($buffer)));
+		if ($field_list) {
+			foreach ($field_list as $fieldname) {
+
+				$field_all_list[] = trim($fieldname);
+			}
+			$counter = 0;
+
+			foreach ($file_headtitle as $fieldname) {
+
+				if ($field_all_list[$counter++] != $fieldname) {
+					$invalidfile_format++;
+				}
+			}
+		}
+
+
+		if ($invalidfile_format) {
+			$body = str_replace("Reason : N/A", "Reason : Invalid File, column mismatch", $body);
+			$body = str_replace("{migratestatus}", "Failure", $body);
+			mail($mail_to, "Data Import :: Failure", $body, $headers);
+			echo "Data not Migrated due to Invalid file and Notification sent";
+			exit;
+		}
+
+
+		db_query("CALL InitialCleanUp()");
+		$iteration = 1;
+		$fp = fopen($local_file, "r") or die("Couldn't open $local_file");
+		$flagsdata = array();
+		$regiondata = array();
+		$Org_ids_for_csv = [];
+		$insert_query = "INSERT INTO data_split_table (`Supplier_Org_Id`, `Supplier_org`, `Vendor`, `SAP_Vendor`, `Vendor_Desc`, `Private_Label`, `NA`, `EU`) VALUES ";
+		while (!feof($fp)) {
+			$single_line = fgets($fp, 1024);
+			$single_line = addslashes(str_replace(array('"', "\n"), '', $single_line));
+			$line_val = explode("\t", $single_line);
+			if ($iteration != 1) {
+				if (trim($line_val[0]) != '') {
+					$Org_ids_for_csv[] = $line_val[0];
+					$isflag = 0;
+					$naflag = 0;
+					$euflag = 0;
+
+					if (trim($line_val[5]) == "TRUE") {
+
+						$isflag = 1;
+					}
+					if (trim($line_val[6]) == "TRUE") {
+						$naflag = 1;
+					}
+					if (trim($line_val[7]) == "TRUE") {
+						$euflag = 1;
+					}
+
+					$flagsdata[$line_val[2]]  = $isflag;
+					$regionshort = array();
+					$regionshort['NA'] = $naflag;
+					$regionshort['EU'] = $euflag;
+					$regiondata[$line_val[0]] = $regionshort;
+
+					$insert_query .= "('" . $line_val[0] . "', '" . $line_val[1] . "', '" . $line_val[2] . "', '" . $line_val[3] . "', '" . $line_val[4] . "', '" . $line_val[5] . "', '" . $line_val[6] . "', '" . $line_val[7] . "'),";
+				}
+			}
+			$iteration++;
+		}
+		@fclose($fp);
+		
+		if ($iteration > 2) {
+			$insert_query = substr_replace($insert_query, "", -1);
+
+
+			try {
+				db_query($insert_query);
+			} catch (Exception $e) {
+				echo 'Caught exception: ',  $e->getMessage(), "\n";
+			}
+		}
+		db_query("UPDATE data_split_table SET `Supplier_Org_Id` = TRIM(BOTH '.00' FROM `Supplier_Org_Id`)");
+		db_query("UPDATE data_split_table SET vendor = TRIM(BOTH '.00' FROM vendor)");
+		/*********************************/
+		$invalidfile_format = 0; /*validating row wise data*/
+		db_query("DELETE FROM data_split_table WHERE 
+			trim(BOTH '\"' from Supplier_Org_Id) = '' OR trim(BOTH '\"' from Supplier_Org_Id) = NULL 
+			OR trim(BOTH '\"' from supplier_org) = '' OR trim(BOTH '\"' from supplier_org) = NULL OR 
+			trim(BOTH '\"' from vendor) = '' OR trim(BOTH '\"' from vendor) = NULL  
+			OR trim(BOTH '\"' from SAP_vendor) = '' OR trim(BOTH '\"' from SAP_vendor) =
+			NULL OR trim(BOTH '\'' from supplier_org) = '' OR trim(BOTH '\'' from supplier_org) = NULL
+			OR trim(BOTH '\"' from `Private_Label`) = '' OR trim(BOTH '\"' from `Private_Label`) =
+			NULL OR trim(BOTH '\"' from `NA`) = '' OR trim(BOTH '\"' from `NA`) = NULL
+			OR trim(BOTH '\"' from `EU`) = '' OR trim(BOTH '\"' from `EU`) = NULL");
+		$invalidfile_format = db_query("SELECT count(*) FROM data_split_table WHERE 
+			trim(BOTH '\"' from Supplier_Org_Id) = '' OR trim(BOTH '\"' from Supplier_Org_Id) = NULL 
+			OR trim(BOTH '\"' from supplier_org) = '' OR trim(BOTH '\"' from supplier_org) = NULL OR 
+			trim(BOTH '\"' from vendor) = '' OR trim(BOTH '\"' from vendor) = NULL  
+			OR trim(BOTH '\"' from SAP_vendor) = '' OR trim(BOTH '\"' from SAP_vendor) =
+			NULL OR trim(BOTH '\'' from supplier_org) = '' OR trim(BOTH '\'' from supplier_org) = NULL
+			OR trim(BOTH '\"' from `Private_Label`) = '' OR trim(BOTH '\"' from `Private_Label`) =
+			NULL OR trim(BOTH '\"' from `NA`) = '' OR trim(BOTH '\"' from `NA`) = NULL
+			OR trim(BOTH '\"' from `EU`) = '' OR trim(BOTH '\"' from `EU`) = NULL")->fetchColumn();
+
+		if ($invalidfile_format) {
+			$body = str_replace("Reason : N/A", "Reason : Mandatory column data (Supplier Org Id, Supplier org name, Vendor ID, SAP vendor, Private_Label,NA and EU) missing", $body);
+			$body = str_replace("{migratestatus}", "Failure", $body);
+			mail($mail_to, "Data Import :: Failure", $body, $headers);
+			echo "Data not Migrated due to Invalid data and Notification sent";
+			exit;
+		}
+
+		$duplicate_vendor_supplier_org_mapping = 0;
+		$duplicate_vendor_supplier_org_mapping = db_query("SELECT count(DISTINCT (t1.supplier_org)) FROM data_split_table AS t1, data_split_table t2 WHERE t1.vendor = t2.vendor AND t1.supplier_org != t2.supplier_org")->fetchColumn();
+
+		if ($duplicate_vendor_supplier_org_mapping > 0) {
+			$body = str_replace("Reason : N/A", "Reason : Duplicate entries of vendor number for different supplier org found in the data", $body);
+			$body = str_replace("{migratestatus}", "Failure", $body);
+			mail($mail_to, "Data Import :: Failure", $body, $headers);
+			echo "Data not Migrated due to duplicate entries of vendor number for different supplier org in the data and Notification sent";
+			exit;
+		}
+
+		$duplicate_supplier_org_id = 0;
+		$duplicate_supplier_org_id = db_query("SELECT COUNT(DISTINCT(t1.Supplier_Org_Id)) FROM data_split_table AS t1, data_split_table AS t2 WHERE t1.Supplier_Org_Id != t2.Supplier_Org_Id AND t1.supplier_org = t2.supplier_org")->fetchColumn();
+		$duplicate_supplier_org_name_cnt = 0;
+		$duplicate_supplier_org_name_cnt = db_query("SELECT COUNT(DISTINCT(t1.Supplier_org)) FROM data_split_table AS t1, data_split_table AS t2 WHERE t1.Supplier_Org_Id = t2.Supplier_Org_Id AND t1.supplier_org != t2.supplier_org")->fetchColumn();
+		if ($duplicate_supplier_org_name_cnt > 0) {
+			$body = str_replace("Reason : N/A", "Reason : Same Supplier Org Id is assigned for different supplier org name", $body);
+			$body = str_replace("{migratestatus}", "Failure", $body);
+			mail($mail_to, "Data Import :: Failure", $body, $headers);
+			echo "Data not Migrated due to same Supplier Org Id is assigned for different supplier org name";
+			exit;
+		}
+
+
+
+		$vendor_id_string_checking_count = db_query("SELECT count(1) FROM data_split_table WHERE Supplier_Org_Id NOT REGEXP '^[0-9]+$' OR VENDOR NOT REGEXP '^[0-9]+$'")->fetchColumn();
+		if ($vendor_id_string_checking_count > 0) {
+			$body = str_replace("Reason : N/A", "Reason : Supplier Org Id / Vendor / VAS code contains strings instead of integer", $body);
+			$body = str_replace("{migratestatus}", "Failure", $body);
+			mail($mail_to, "Data Import :: Failure", $body, $headers);
+			echo "Data not Migrated due to Supplier Org Id / Vendor / VAS code contains strings instead of integer and Notification sent";
+			exit;
+		}
+
+		db_query("CALL DataSplitUp(@outparam)");
+		$output_success = db_query("SELECT @outParam ")->fetchColumn();
+		db_query("update {supplier_organization} set supplier_org_name = trim(BOTH '\"' from supplier_org_name)");
+		db_query("update {supplier_organization} set supplier_org_name = trim(BOTH ' ' from supplier_org_name)");
+		if ($output_success) {
+			if (!empty($flagsdata)) {
+				$flagsinfo = array();
+				$flagsinfo = getFlags();
+				foreach ($flagsdata as $vendor_id => $privatelabelflag) {
+					if ($privatelabelflag) {
+						$flagmappings = array();
+						$flagmappings = getFlagsmapping($flagsinfo['PrivateLabel'], $vendor_id);
+						if (empty($flagmappings)) {
+							$editFields = array();
+							$editFields['vas_tier_id'] = $flagsinfo['PrivateLabel'];
+							$editFields['vendor_id'] = $vendor_id;
+							$editFields['created_date'] = date("Y-m-d H:i:s");
+							$editFields['modified_date'] = date("Y-m-d H:i:s");
+							$editFields['created_by'] = 1;
+							$editFields['modified_by'] = 1;
+							$editFields['deleted'] = 0;
+							if ($vendor_id > 0) {
+								$auto_id = db_insert('vas_tier_vendor_map')->fields($editFields)->execute();
+							}
+						} else {
+							$editFields = array();
+							$editFields['vas_tier_id'] = $flagsinfo['PrivateLabel'];
+							$editFields['modified_date'] = date("Y-m-d H:i:s");
+							$editFields['modified_by'] = 1;
+							$editFields['deleted'] = 0;
+							db_update('vas_tier_vendor_map')->fields($editFields)->condition('vendor_id', $vendor_id)->condition('vas_tier_id', $flagsinfo['PrivateLabel'])->execute();
+						}
+					} else {
+						$flagmappings = array();
+						$flagmappings = getFlagsmapping($flagsinfo['NonPrivateLabel'], $vendor_id);
+						if (empty($flagmappings)) {
+							$editFields = array();
+							$editFields['vas_tier_id'] = $flagsinfo['NonPrivateLabel'];
+							$editFields['vendor_id'] = $vendor_id;
+							$editFields['created_date'] = date("Y-m-d H:i:s");
+							$editFields['modified_date'] = date("Y-m-d H:i:s");
+							$editFields['created_by'] = 1;
+							$editFields['modified_by'] = 1;
+							$editFields['deleted'] = 0;
+							if ($vendor_id > 0) {
+								$auto_id = db_insert('vas_tier_vendor_map')->fields($editFields)->execute();
+							}
+						} else {
+							$editFields = array();
+							$editFields['modified_date'] = date("Y-m-d H:i:s");
+							$editFields['modified_by'] = 1;
+							$editFields['deleted'] = 0;
+							db_update('vas_tier_vendor_map')->fields($editFields)->condition('vendor_id', $vendor_id)->condition('vas_tier_id', $flagsinfo['NonPrivateLabel'])->execute();
+						}
+					}
+				}
+			}
+			if (!empty($regiondata)) {
+				$regionprocessinfo = getregioninfo();
+				$naregion_id = '';
+				$naregion_id = $regionprocessinfo['NA'];
+				$euregion_id = '';
+				$euregion_id = $regionprocessinfo['EU'];
+				foreach ($regiondata as $supplier_org_id => $regioninfo) {
+					foreach ($regioninfo as $regkey => $regionvalue) {
+						$supplierprocess_id = 0;
+						if ($regkey == 'NA') {
+							$supplierprocess_id = getsupplierorgsregionmapping($supplier_org_id, $naregion_id);
+							if ($supplierprocess_id) {
+								$editFields = array();
+								$editFields['status'] = $regionvalue;
+								db_update('supplier_org_regions')->fields($editFields)->condition('region_id', $naregion_id)->condition('supplier_org_id', $supplier_org_id)->execute();
+							} else {
+								$editFields = array();
+								$editFields['region_id'] = $naregion_id;
+								$editFields['supplier_org_id'] = $supplier_org_id;
+								$editFields['status'] = $regionvalue;
+								if ($supplier_org_id > 0) {
+									$auto_id = db_insert('supplier_org_regions')->fields($editFields)->execute();
+								}
+							}
+						}
+						if ($regkey == 'EU') {
+							$supplierprocess_id = getsupplierorgsregionmapping($supplier_org_id, $euregion_id);
+							if ($supplierprocess_id) {
+								$editFields = array();
+								$editFields['status'] = $regionvalue;
+								db_update('supplier_org_regions')->fields($editFields)->condition('region_id', $euregion_id)->condition('supplier_org_id', $supplier_org_id)->execute();
+							} else {
+								$editFields = array();
+								$editFields['region_id'] = $euregion_id;
+								$editFields['supplier_org_id'] = $supplier_org_id;
+								$editFields['status'] = $regionvalue;
+								if ($supplier_org_id > 0) {
+									$auto_id = db_insert('supplier_org_regions')->fields($editFields)->execute();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			//Insert Catgeory Useraccess mapping for new supplier orgs           		
+
+			/** delete users whose supplier_org is not mapped*/
+			$all_supplier_names = db_query("SELECT DISTINCT so.supplier_org_id FROM {supplier_organization} as so WHERE deleted=0  ORDER BY so.supplier_org_name ASC")->fetchCol();
+			$updated_count = 0;
+			if ($all_supplier_names) {
+				$all_supplier_ids = array();
+				foreach ($all_supplier_names as $sup_org_id) {
+					$all_supplier_ids = @db_query("SELECT DISTINCT vendor_id FROM {vendor} WHERE supplier_org_id = :sup_org_id AND deleted=0 ", array(':sup_org_id' => $sup_org_id))->fetchCol();
+					if ($all_supplier_ids) {
+						$supplier_ids = implode(",", $all_supplier_ids);
+						$map_org_ids = db_query("SELECT DISTINCT vendor_id FROM {vas_tier_vendor_map} WHERE vendor_id IN ($supplier_ids) AND deleted=0")->fetchCol();
+						$no_supplier_ids = @db_query("SELECT vendor_id FROM {vendor} WHERE supplier_org_id = :sup_org_id AND deleted=0", array(':sup_org_id' => $sup_org_id))->fetchCol();
+						if ((!$map_org_ids && count($map_org_ids) <= 0) || (!$no_supplier_ids && count($no_supplier_ids) <= 0)) {
+							$user_uids = db_query("SELECT uid FROM {users_info} WHERE supplier_org_name = :sup_org_id", array(':sup_org_id' => $sup_org_id))->fetchCol();
+							if ($user_uids) {
+								$user_id = implode(",", $user_uids);
+								if ($user_id) {
+									$updated_id = db_query("UPDATE {users} set status = 0 where uid IN ($user_id) AND uid IN (SELECT uid FROM {users_roles} WHERE rid = (SELECT rid FROM {role} WHERE NAME='supplier'))");
+									$updated_org = db_query("UPDATE {users_info} set supplier_org_name = NULL WHERE uid IN ($user_id) AND uid IN (SELECT uid FROM {users_roles} WHERE rid = (SELECT rid FROM {role} WHERE NAME='supplier'))");
+									if (db_affected_rows && $updated_id) {
+										$updated_count++; // Number of Supplier_Orgs that are not associated with vas and that users are deleted.
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			/**if new supplier org Added OR Deleted*/
+			$suppl_all_users_arr = db_query("SELECT uid FROM {users_roles} WHERE rid = (SELECT rid FROM {role} WHERE NAME='supplier')")->fetchCol();
+			$suppl_all_users_list = '';
+			if ($suppl_all_users_arr) {
+				$suppl_all_users_list = implode(",", $suppl_all_users_arr);
+			}
+
+			$view_team_perm_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'View Team' AND deleted = 0")->fetchColumn();
+			$suppl_ins_ids_arr = db_query("SELECT DISTINCT supplier_org_id FROM {supplier_organization} WHERE (action='i' OR action='u') AND deleted=0")->fetchCol();
+			if ($suppl_ins_ids_arr) {
+				$suppl_ins_ids = implode(",", $suppl_ins_ids_arr);
+				if ($suppl_ins_ids) { //Insert view team and users for new supplier org
+					db_query("DELETE FROM {view_team_supplier_org} WHERE supplier_org IN ($suppl_ins_ids)");
+					@db_query("INSERT INTO {view_team_supplier_org} (supplier_org) (SELECT DISTINCT so.supplier_org_id FROM {supplier_organization} as so WHERE (so.action='i' OR so.action='u') AND so.deleted=0) ");
+					if ($view_team_perm_id && $suppl_all_users_list) { //insering new supplier_org users with view-team permission
+						db_query("DELETE FROM {user_permission_internal} WHERE uid IN (SELECT ui.uid FROM {users_info} as ui, {users} as u WHERE u.uid = ui.uid AND u.status=1 AND ui.uid IN ($suppl_all_users_list) AND ui.supplier_org_name IN ($suppl_ins_ids)) AND permission_id = :view_team_perm_id", [':view_team_perm_id' => $view_team_perm_id]);
+						db_query("INSERT INTO {user_permission_internal} (uid, permission_id, created_by) (SELECT ui.uid, $view_team_perm_id, 1 FROM {users_info} as ui, {users} as u WHERE u.uid = ui.uid AND u.status=1 AND ui.uid IN ($suppl_all_users_list) AND ui.supplier_org_name IN ($suppl_ins_ids))");
+					}
+					/** check & validate  this : Category and Dropbox user access for new SupplierOrgId's */
+					foreach ($suppl_ins_ids_arr as $supplorg_ins_id) { //new insert sorg-vas access.
+						if ($supplorg_ins_id && is_numeric($supplorg_ins_id)) {
+							$vas_ids_arr = db_query("SELECT DISTINCT vas_tier_id FROM {vas_tier_vendor_map} WHERE vendor_id IN (SELECT DISTINCT vendor_id FROM {vendor} WHERE supplier_org_id = :supplorg_ins_id) AND deleted=0", array(':supplorg_ins_id' => $supplorg_ins_id))->fetchCol();
+							if ($vas_ids_arr) {
+								$vas_ref_ids = implode(",", $vas_ids_arr);
+								// Insert new supplierorg in page user access
+								$cat_page_access = db_query("SELECT category_id, topic_id, vas_id,region_id FROM {category_useraccess} WHERE vas_id IN ($vas_ref_ids)");
+								foreach ($cat_page_access as $cat_topic) {
+									$mapped_vendor_id = db_query("SELECT vmap.vendor_id FROM {vas_tier_vendor_map} AS vmap LEFT JOIN {vendor} AS ven ON ven.vendor_id = vmap.vendor_id LEFT JOIN {supplier_organization} AS so ON so.supplier_org_id = ven.supplier_org_id WHERE ven.supplier_org_id = :supplorg_ins_id AND vmap.vas_tier_id = :cat_topic AND vmap.deleted = 0", array(':supplorg_ins_id' => $supplorg_ins_id, ':cat_topic' => $cat_topic->vas_id))->fetchColumn();
+									db_query("DELETE FROM {category_useraccess_mapping} WHERE category_id = :category_id AND topic_id = :topic_id AND supplier_org_id = :mapped_vendor_id ", array(':category_id' => $cat_topic->category_id, ':topic_id' => $cat_topic->topic_id, ':mapped_vendor_id' => $mapped_vendor_id));
+									db_query("INSERT INTO {category_useraccess_mapping} (category_id, topic_id, supplier_org_id, region_id) VALUES (:category_id, :topic_id, :mapped_vendor_id,:region_id)", [':category_id' => $cat_topic->category_id, ':topic_id' => $cat_topic->topic_id, ':mapped_vendor_id' => $mapped_vendor_id, ':region_id' => $cat_topic->region_id]);
+								}
+								// Insert new supplierorg in to dropbox user access
+								$drpbox_access = db_query("SELECT dropbox_id, vas_id FROM {dropbox_vas_access} WHERE vas_id IN ($vas_ref_ids)");
+								foreach ($drpbox_access as $drp_acc_id) {
+									$mapped_vendor_id = db_query("SELECT vmap.vendor_id FROM {vas_tier_vendor_map} AS vmap LEFT JOIN {vendor} AS ven ON ven.vendor_id = vmap.vendor_id LEFT JOIN {supplier_organization} AS so ON so.supplier_org_id = ven.supplier_org_id WHERE ven.supplier_org_id = :supplorg_ins_id AND vmap.vas_tier_id = :drp_acc_id AND vmap.deleted = 0", array(':supplorg_ins_id' => $supplorg_ins_id, ':drp_acc_id' => $drp_acc_id->vas_id))->fetchColumn();
+									db_query("DELETE FROM {dropbox_supplier_access} WHERE dropbox_id = :dropbox_id AND vas_id = :vas_id AND Supplier_org_id = :supplier_org_id ", array(':dropbox_id' => $drp_acc_id->dropbox_id, ':vas_id' => $drp_acc_id->vas_id, ':supplier_org_id' => $drp_acc_id->vas_id));
+									db_query("INSERT INTO {dropbox_supplier_access} (dropbox_id, vas_id, supplier_org_id, mapping) VALUES (:dropbox_id, :vas_id,:mapped_vendor_id, '1' )", [':dropbox_id' => $drp_acc_id->dropbox_id, ':vas_id' => $drp_acc_id->vas_id, ':mapped_vendor_id' => $mapped_vendor_id]);
+								}
+							}
+						}
+					}
+					/** Category and Dropbox user access :End */
+				}
+			}
+
+			$suppl_del_ids_arr = db_query("SELECT DISTINCT supplier_org_id FROM {supplier_organization} WHERE action='d' AND deleted=1")->fetchCol();
+			if ($suppl_del_ids_arr) {
+				$suppl_del_ids = implode(",", $suppl_del_ids_arr);
+				if ($suppl_del_ids) {
+					db_query("UPDATE {view_team_supplier_org} SET view_permission=0 WHERE supplier_org IN (:suppl_del_ids)", array(':suppl_del_ids' => $suppl_del_ids));
+					if ($suppl_all_users_list) { //update deleted sorg users deactivation;
+						$user_uids = db_query("SELECT uid FROM {users_info} WHERE supplier_org_name IN ($suppl_del_ids) AND uid IN ($suppl_all_users_list)")->fetchCol();
+						if ($user_uids) {
+							$user_id = implode(",", $user_uids);
+							if ($user_id) {
+								db_query("UPDATE {users} SET status = 0 WHERE uid IN ($user_id)"); //supplier_org IN (SELECT id FROM {supplier_org_master} WHERE action='d' OR status='1')
+								db_query("UPDATE {users_info} SET supplier_org_name = NULL WHERE uid IN ($user_id)");
+								if ($view_team_perm_id) {
+									db_query("DELETE FROM {user_permission_internal} WHERE uid IN ($user_id) AND permission_id=:view_team_perm_id", array(':view_team_perm_id' => $view_team_perm_id));
+								}
+							}
+						}
+					}
+					db_query("UPDATE {bulk_upload_list} SET deleted=1 WHERE supplier_org IN (:suppl_del_ids)", array(':suppl_del_ids' => $suppl_del_ids)); //deactivate bulk of deleted sorgs;
+					db_query("DELETE FROM {category_useraccess_mapping} WHERE supplier_org_id IN (SELECT vendor_id FROM {vendor} WHERE supplier_org_id IN($suppl_del_ids) AND deleted = 1)");
+					db_query("DELETE FROM {dropbox_supplier_access} WHERE supplier_org_id IN (SELECT vendor_id FROM {vendor} WHERE supplier_org_id IN ($suppl_del_ids) AND deleted = 1)");
+				}
+			}
+
+			/* Removing mapping for deleted vendors from Category mapping starts */
+			$cat_topic_id_list = db_query("SELECT category_id, topic_id, supplier_org_id FROM {category_useraccess_mapping} WHERE supplier_org_id IN (SELECT vendor_id FROM {vendor} WHERE deleted = 1)");
+			foreach ($cat_topic_id_list as $cat_topic_id) {
+				$vas_ids_list = db_query("SELECT vas_id FROM {category_useraccess} WHERE category_id = :category_id AND topic_id = :topic_id", array(':category_id' => $cat_topic_id->category_id, ':topic_id' => $cat_topic_id->topic_id))->fetchCol();
+				//$vas_ids = implode(",",$vas_ids_list);
+				$vas_ids = '';
+				$iter = 0;
+				foreach ($vas_ids_list as $vas_ids_current) {
+					if ($iter++ > 0) {
+						$vas_ids .= ", ";
+					}
+					$vas_ids .= implode(",", getRelatedVASIds($vas_ids_current));
+				}
+
+				$active_vendor_ids_list = getRelatedSupplierOrgIds($cat_topic_id->supplier_org_id);
+				$active_vendor_ids = implode(",", $active_vendor_ids_list);
+
+				$count_exist = 0;
+				if ($active_vendor_ids && $vas_ids) {
+					$count_exist = db_query("SELECT COUNT(*) FROM {vas_tier_vendor_map} WHERE vendor_id IN ($active_vendor_ids) AND vas_tier_id IN ($vas_ids) AND deleted = 0")->fetchColumn();
+
+					if ($count_exist > 0) {
+						foreach ($active_vendor_ids_list as $active_vendor_id) {
+							if ($active_vendor_id) {
+								db_query("UPDATE {category_useraccess_mapping} SET supplier_org_id = :active_vendor_id WHERE supplier_org_id = :supplier_org_id AND category_id = :category_id AND topic_id = :topic_id", array(':active_vendor_id' => $active_vendor_id, ':supplier_org_id' => $cat_topic_id->supplier_org_id, ':category_id' => $cat_topic_id->category_id, ':topic_id' => $cat_topic_id->topic_id));
+								break;
+							}
+						}
+					} else {
+						db_query("DELETE FROM {category_useraccess_mapping} WHERE supplier_org_id IN (:active_vendor_ids, :supplier_org_id) AND category_id = :category_id AND topic_id = :topic_id", array(':active_vendor_ids' => $active_vendor_ids, ':supplier_org_id' => $cat_topic_id->supplier_org_id, ':category_id' => $cat_topic_id->category_id, ':topic_id' => $cat_topic_id->topic_id));
+					}
+				} else if (!$active_vendor_ids) {
+					db_query("DELETE FROM {category_useraccess_mapping} WHERE supplier_org_id = :supplier_org_id AND category_id =:category_id AND topic_id = :topic_id", array(':supplier_org_id' => $cat_topic_id->supplier_org_id, ':category_id' => $cat_topic_id->category_id, ':topic_id' => $cat_topic_id->topic_id));
+				}
+			}
+			/* Removing mapping for deleted vendors from Category mapping ends */
+
+			/* Removing mapping for deleted vendors from Dropbox mapping starts */
+			$dropbox_id_list = db_query("SELECT dropbox_id, supplier_org_id FROM {dropbox_supplier_access} WHERE supplier_org_id IN (SELECT vendor_id FROM {vendor} WHERE deleted = 1)");
+			foreach ($dropbox_id_list as $dropbox_id) {
+				$vas_ids_list = db_query("SELECT vas_id FROM {dropbox_vas_access} WHERE dropbox_id=:dropbox_id", array(':dropbox_id' => $dropbox_id->dropbox_id))->fetchCol();
+
+				$vas_ids = ''; 
+				$iter = 0;
+				foreach ($vas_ids_list as $vas_ids_current) {
+					if ($iter++ > 0) {
+						$vas_ids .= ", ";
+					}
+					$vas_ids .= implode(",", getRelatedVASIds($vas_ids_current));
+				}
+
+				$active_vendor_ids_list = getRelatedSupplierOrgIds($dropbox_id->supplier_org_id);
+				$active_vendor_ids = implode(",", $active_vendor_ids_list);
+
+				$count_exist = 0;
+				if ($active_vendor_ids && $vas_ids) {
+					$count_exist = db_query("SELECT COUNT(*) FROM {vas_tier_vendor_map} WHERE vendor_id IN (:active_vendor_ids) AND vas_tier_id IN (:vas_ids) AND deleted = 0", array(':active_vendor_ids' => $active_vendor_ids, ':vas_ids' => $vas_ids))->fetchColumn();
+
+					if ($count_exist > 0) {
+						foreach ($active_vendor_ids_list as $active_vendor_id) {
+							if ($active_vendor_id) {
+								db_query("UPDATE {dropbox_supplier_access} SET supplier_org_id = :active_vendor_id WHERE supplier_org_id = :supplier_org_id AND dropbox_id =:dropbox_id", array(':active_vendor_id' => $active_vendor_id, ':supplier_org_id' => $dropbox_id->supplier_org_id, ':dropbox_id' => $dropbox_id->dropbox_id));
+								break;
+							}
+						}
+					} else {
+						db_query("DELETE FROM {dropbox_supplier_access} WHERE supplier_org_id IN (:active_vendor_ids, :supplier_org_id) AND dropbox_id = :dropbox_id", array(':active_vendor_ids' => $active_vendor_ids, ':supplier_org_id' => $dropbox_id->supplier_org_id, ':dropbox_id' => $dropbox_id->dropbox_id));
+					}
+				} else if (!$active_vendor_ids) {
+					db_query("DELETE FROM {dropbox_supplier_access} WHERE supplier_org_id = :supplier_org_id AND dropbox_id = :dropbox_id", array(':supplier_org_id' => $dropbox_id->supplier_org_id, ':dropbox_id' => $dropbox_id->dropbox_id));
+				}
+			}
+			/* Removing mapping for deleted vendors from Dropbox mapping ends */
+
+			/* Add / edit / delete the mapping for existing supplier org mapped to a existing vas tier -- New mapping with in the existing supplier org and vas tier Starts */
+			$vas_vendor_id_list_ins = db_query("SELECT vas_tier_id, vendor_id FROM {vas_tier_vendor_map} WHERE (action = 'I' OR action = 'U') AND deleted = 0");
+			foreach ($vas_vendor_id_list_ins as $vas_vendor_ids) {
+				$vas_id_related = implode(",", getRelatedVASIds($vas_vendor_ids->vas_tier_id));
+
+				$cat_topic_id_list = db_query("SELECT category_id, topic_id FROM {category_useraccess} WHERE vas_id IN (:vas_id_related)", array(':vas_id_related' => $vas_id_related));
+				foreach ($cat_topic_id_list as $cat_topic_ids) {
+					db_query("DELETE FROM {category_useraccess_mapping} WHERE category_id = :category_id AND topic_id = :topic_id AND supplier_org_id = :vendor_id ", array(':category_id' => $cat_topic_ids->category_id, ':topic_id' => $cat_topic_ids->topic_id, ':vendor_id' => $vas_vendor_ids->vendor_id));
+					db_query("INSERT INTO {category_useraccess_mapping} SET category_id = :category_id, topic_id = :topic_id , supplier_org_id = :vendor_id ", array(':category_id' => $cat_topic_ids->category_id, ':topic_id' => $cat_topic_ids->topic_id, ':vendor_id' => $vas_vendor_ids->vendor_id));
+				}
+
+
+				$dropbox_id_list = db_query("SELECT dropbox_id FROM {dropbox_vas_access} WHERE vas_id IN (:vas_id_related)", array(':vas_id_related' => $vas_id_related));
+				foreach ($dropbox_id_list as $dropbox_ids) {
+					db_query("DELETE FROM {dropbox_supplier_access} WHERE dropbox_id = :dropbox_id AND vas_id = :vas_tier_id AND supplier_org_id = :vendor_id", [':dropbox_id' => $dropbox_ids->dropbox_id, ':vas_tier_id' => $vas_vendor_ids->vas_tier_id, ':vendor_id' => $vas_vendor_ids->vendor_id]);
+					db_query("INSERT INTO {dropbox_supplier_access} SET dropbox_id = :dropbox_id, vas_id = :vas_tier_id, supplier_org_id = :vendor_id, mapping = 1", [':dropbox_id' => $dropbox_ids->dropbox_id, ':vas_tier_id' => $vas_vendor_ids->vas_tier_id, ':vendor_id' => $vas_vendor_ids->vendor_id]);
+				}
+			}
+
+			$vas_vendor_id_list_delete = db_query("SELECT vas_tier_id, vendor_id FROM {vas_tier_vendor_map} WHERE action = 'd' AND deleted = 1");
+			foreach ($vas_vendor_id_list_delete as $vas_vendor_ids) {
+				$vas_id_related = implode(",", getRelatedVASIds($vas_vendor_ids->vas_tier_id));
+				$cat_topic_id_list = db_query("SELECT category_id, topic_id FROM {category_useraccess} WHERE vas_id IN (:vas_id_related)", array(':vas_id_related' => $vas_id_related));
+				foreach ($cat_topic_id_list as $cat_topic_ids) {
+					$vas_ids_list = db_query("SELECT vas_id FROM {category_useraccess} WHERE category_id= :category_id AND topic_id = :topic_id", array(':category_id' => $cat_topic_ids->category_id, ':topic_id' => $cat_topic_ids->topic_id))->fetchCol();
+					$vas_ids = '';
+					$iter = 0;
+					foreach ($vas_ids_list as $vas_ids_current) {
+						if ($iter++ > 0) {
+							$vas_ids .= ", ";
+						}
+						$vas_ids .= implode(",", getRelatedVASIds($vas_ids_current));
+					}
+					$active_vendor_ids_list = getRelatedSupplierOrgIds($vas_vendor_ids->vendor_id);
+					$active_vendor_ids = implode(",", $active_vendor_ids_list);
+					$count_exist = 0;
+					if ($active_vendor_ids && ($vas_id_related || $vas_ids)) {
+						$count_exist = db_query("SELECT COUNT(vendor_id) FROM {vas_tier_vendor_map} WHERE vendor_id IN (:active_vendor_ids) AND (vas_tier_id IN (:vas_id_related) OR vas_tier_id IN(:vas_ids) ) AND deleted = 0", [':active_vendor_ids' => $active_vendor_ids, ':vas_id_related' => $vas_id_related, ':vas_ids' => $vas_ids])->fetchColumn();
+						if ($count_exist > 0) {
+							foreach ($active_vendor_ids_list as $active_vendor_id) {
+								if ($active_vendor_id) {
+									db_query("UPDATE {category_useraccess_mapping} SET supplier_org_id = '" . $active_vendor_id . "' WHERE supplier_org_id = '" . $vas_vendor_ids->vendor_id . "' AND category_id ='" . $cat_topic_ids->category_id . "' AND topic_id = '" . $cat_topic_ids->topic_id . "'");
+									break;
+								}
+							}
+						} else {
+							db_query("DELETE FROM {category_useraccess_mapping} WHERE category_id = '" . $cat_topic_ids->category_id . "' AND topic_id = '" . $cat_topic_ids->topic_id . "' AND supplier_org_id IN ($active_vendor_ids , " . $vas_vendor_ids->vendor_id . ")");
+						}
+					} else if (!$active_vendor_ids) {
+						db_query("DELETE FROM {category_useraccess_mapping} WHERE category_id = :category_id AND topic_id = :topic_id AND supplier_org_id = :vendor_id", [':category_id' => $cat_topic_ids->category_id, ':topic_id' => $cat_topic_ids->topic_id, ':vendor_id' => $vas_vendor_ids->vendor_id]);
+					}
+				}
+
+
+				$dropbox_id_list = db_query("SELECT dropbox_id FROM {dropbox_vas_access} WHERE vas_id IN (:vas_id_related)", array(':vas_id_related' => $vas_id_related));
+				foreach ($dropbox_id_list as $dropbox_ids) {
+					$vas_ids_list = db_query("SELECT vas_id FROM {dropbox_vas_access} WHERE dropbox_id=:dropbox_id", [':dropbox_id' => $dropbox_ids->dropbox_id])->fetchCol();
+					$vas_ids = '';
+					$iter = 0;
+					foreach ($vas_ids_list as $vas_ids_current) {
+						if ($iter++ > 0) {
+							$vas_ids .= ", ";
+						}
+						$vas_ids .= implode(",", getRelatedVASIds($vas_ids_current));
+					}
+
+					$active_vendor_ids_list = getRelatedSupplierOrgIds($vas_vendor_ids->vendor_id);
+					$active_vendor_ids = implode(",", $active_vendor_ids_list);
+
+					$count_exist = 0;
+					if ($active_vendor_ids && $vas_ids) {
+						$count_exist = db_query("SELECT COUNT(vendor_id) FROM {vas_tier_vendor_map} WHERE vendor_id IN ($active_vendor_ids) AND (vas_tier_id IN ($vas_ids)  OR vas_tier_id IN ($vas_id_related))AND deleted = 0")->fetchColumn();
+						if ($count_exist > 0) {
+							foreach ($active_vendor_ids_list as $active_vendor_id) {
+								if ($active_vendor_id) {
+									db_query("UPDATE {dropbox_supplier_access} SET supplier_org_id = '" . $active_vendor_id . "' WHERE supplier_org_id = '" . $vas_vendor_ids->vendor_id . "' AND vas_id IN ($vas_id_related) AND dropbox_id ='" . $dropbox_ids->dropbox_id . "'");
+									break;
+								}
+							}
+						} else {
+
+							db_query("DELETE FROM {dropbox_supplier_access} WHERE dropbox_id = '" . $dropbox_ids->dropbox_id . "' AND vas_id IN ($vas_id_related) AND supplier_org_id IN ($active_vendor_ids , " . $vas_vendor_ids->vendor_id . ")");
+						}
+					} else if (!$active_vendor_ids) {
+						db_query("DELETE FROM {dropbox_supplier_access} WHERE dropbox_id = :dropbox_id AND vas_id IN (:vas_id_related) AND supplier_org_id = :vendor_id", [':dropbox_id' => $dropbox_ids->dropbox_id, ':vas_id_related' => $vas_id_related, ':vendor_id' => $vas_vendor_ids->vendor_id]);
+					}
+				}
+			}
+			/* Add / edit / delete the mapping for existing supplier org mapped to a existing vas tier -- New mapping with in the existing supplier org and vas tier Ends */
+
+			/* VAS deletion Starts */
+			$vas_tier_ids_list = db_query("SELECT vas_tier_id FROM {vas_tier} WHERE deleted = 1")->fetchCol();
+			foreach ($vas_tier_ids_list as $vas_tier_id) {
+				$result_vas_count = db_query("SELECT count(vas_tier_id) FROM {vas_tier} WHERE deleted=0 AND vas_tier_name IN (SELECT DISTINCT vas_tier_name FROM {vas_tier} WHERE vas_tier_id = :vas_tier_id)", [':vas_tier_id' => $vas_tier_id])->fetchColumn();
+				if ($result_vas_count == 0) {
+					db_query("DELETE FROM {category_useraccess} WHERE vas_id = :vas_tier_id", array(':vas_tier_id' => $vas_tier_id));
+					db_query("DELETE FROM {dropbox_vas_access} WHERE vas_id = :vas_tier_id", array(':vas_tier_id' => $vas_tier_id));
+				}
+			}
+			/* VAS deletion Ends */
+
+
+			$body = str_replace("{migratestatus}", "Success", $body);
+			mail($mail_to, "Data Imported :: Success", $body, $headers);
+			echo "Data Imported and Notification sent";
+				$orgID = implode(',',$Org_ids_for_csv);
+				$Check_Existing_OrgIds = db_query("select supplier_org_id from {vendor} where supplier_org_id in ($orgID) group by supplier_org_id");
+				$ExistingOrgIds = $Check_Existing_OrgIds->fetchAll();
+				//getting users details with respect to supplier org for any changes in vendor 
+				if(!empty($ExistingOrgIds)){
+					foreach($ExistingOrgIds as $Ids){
+						usersCsv_forVendorchanges($Ids->supplier_org_id);
+					}
+				}
+			exit;
+		} else {
+
+			$body = str_replace("{migratestatus}", "Success", $body);
+			mail($mail_to, "Data Import :: Success", $body, $headers);
+			echo "Data Imported Fine and Notification sent";
+			exit;
+		}
+		//dropbox_supplier_access_mapping();
+
+	}
+	function dropbox_supplier_access_mapping()
+	{
+
+		//Insert New Supplier Orgs to Dropbox Supplier Access;
+		$regiondropnaboxes = db_query("select dropbox_id,region_id from {dropbox_regions} 
+			where status=1 and region_id=1");
+		foreach ($regiondropnaboxes as $drpna) {
+			$drop_id = $drpna->dropbox_id;
+			$regiondropboxesregionidna = $drpna->region_id;
+			$categoryid = db_query("SELECT c.category_id FROM {category} c join {category_regions} vc
+				on c.category_id=vc.category_id and vc.region_id=:regiondropboxesregionidna limit 1", [':regiondropboxesregionidna' => $regiondropboxesregionidna])->fetchColumn();
+			$selected_supplier_values = executestoreprocedureselected_supplier_values(0, $categoryid, $regiondropboxesregionidna);
+			$supplier_list_array = '';
+			foreach ($selected_supplier_values as $supplier_list_selected) {
+				$supplier_list_array .= $supplier_list_selected . ",";
+			}
+			$supplier_list_array = substr($supplier_list_array, 0, strlen($supplier_list_array) - 1);
+			$selectcatsuplierorgs = db_query("SELECT supplier_org_id from {category_useraccess_mapping} 
+				where supplier_org_id not in(select supplier_org_id from {dropbox_supplier_access} where 
+				supplier_org_id in (:supplier_list_array)) and category_id=:categoryid and topic_id=0 and region_id=:regiondropboxesregionidna group by supplier_org_id", [':supplier_list_array' => $supplier_list_array, ':categoryid' => $categoryid, ':regiondropboxesregionidna' => $regiondropboxesregionidna]);
+			foreach ($selectcatsuplierorgs as $scatsups) {
+				db_insert('dropbox_supplier_access')
+					->fields(array(
+						'dropbox_id' => $drop_id,
+						'vas_id' => NULL,
+						'supplier_org_id' => $scatsups->supplier_org_id,
+						'mapping' => 1,
+					))
+					->execute();
+			}
+		}
+
+
+		$regiondropboxeseu = db_query("select dropbox_id,region_id from {dropbox_regions} where status=1 and region_id=2");
+		foreach ($regiondropboxeseu as $drpeu) {
+			$drop_id = $drpeu->dropbox_id;
+			$regiondropboxesregionideu = $drpeu->region_id;
+			$categoryid = db_query("SELECT c.category_id FROM {category} c join {category_regions} vc
+				on c.category_id=vc.category_id and vc.region_id=:regiondropboxesregionideu limit 1", [':regiondropboxesregionideu' => $regiondropboxesregionideu])->fetchColumn();
+			$selected_supplier_values = executestoreprocedureselected_supplier_values(0, $categoryid, $regiondropboxesregionideu);
+			$supplier_list_array = '';
+			foreach ($selected_supplier_values as $supplier_list_selected) {
+				$supplier_list_array .= $supplier_list_selected . ",";
+			}
+			$supplier_list_array = substr($supplier_list_array, 0, strlen($supplier_list_array) - 1);
+			$selectcatsuplierorgs = db_query("SELECT supplier_org_id from {category_useraccess_mapping} 
+				where supplier_org_id not in(select supplier_org_id from {dropbox_supplier_access} where 
+				supplier_org_id in (:supplier_list_array)) and category_id=:categoryid and topic_id=0 and region_id=:regiondropboxesregionideu group by supplier_org_id", [':supplier_list_array' => $supplier_list_array, ':categoryid' => $categoryid, ':regiondropboxesregionideu' => $regiondropboxesregionideu]);
+			foreach ($selectcatsuplierorgs as $scatsups) {
+				db_insert('dropbox_supplier_access')
+					->fields(array(
+						'dropbox_id' => $drop_id,
+						'vas_id' => NULL,
+						'supplier_org_id' => $scatsups->supplier_org_id,
+						'mapping' => 1,
+					))
+					->execute();
+			}
+		}
+	}
+	function forgot_email_validate()
+	{
+		$email = base64_decode(addslashes(htmlentities(trim($_POST['email']))));
+		$email_array = explode("&", $email);
+		$email = $email_array[0];
+
+		// Error message for vwr internal users
+		$uid = db_select('users')->fields('users', array('uid'))->condition('mail', db_like($email), 'LIKE')->range(0, 1)->execute()->fetchField();
+		$user_info = user_load($uid);
+		if (in_array('vwr internal', $user_info->roles)) {
+			$internal_user = 'vwrinternal';
+			echo $internal_user;
+		} else {
+			$result = db_query("SELECT uid, status FROM {users} WHERE mail = :email", array(':email' => $email));
+			foreach ($result as $record) {
+				$status = $record->status;
+			}
+			echo $status;
+		}
+	}
+
+	function deactivate_expired_suppliers()
+	{
+		$result = db_query("SELECT u.mail, u.login FROM {users} AS u LEFT JOIN {users_roles} AS ur ON ur.uid = u.uid WHERE u.mail != '' AND u.status='1' AND u.login != '0' AND ur.rid IN(SELECT rid FROM {role} WHERE name='supplier' OR name='vwr internal')");
+		$no_of_days = intval(variable_get('cron_deactivate_expiredusers', 180));
+		foreach ($result as $rec) {
+			if ((strtotime(date("d-m-Y", $rec->login + ($no_of_days * 24 * 60 * 60)))) <=  strtotime(date("d-m-Y"))) {
+				$editFields = array();
+				$editFields['status'] = '0';
+				db_update('users')
+					->fields($editFields)
+					->condition('mail', $rec->mail)->execute();
+			}
+		}
+	}
+
+	function mail_alert_not_logged_suppliers()
+	{
+		$result = db_query("SELECT u.mail, u.login, uf.firstname FROM {users} AS u LEFT JOIN {users_info} AS uf ON uf.uid = u.uid LEFT JOIN {users_roles} AS ur ON ur.uid = u.uid WHERE u.mail != '' AND u.status='1' AND ur.rid IN(SELECT rid FROM {role} WHERE name='supplier' OR name='vwr internal')");
+		$path = drupal_get_path('theme', 'vwr');
+		$body = file_get_contents($path . '/email_templates/expired_notification.tpl.php');
+		$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+		// To send HTML mail, the Content-type header must be set
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		// Additional headers
+		$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+		$subject = "VWR Supplier Central Alert";
+
+		$no_of_days = intval(variable_get('cron_mailalert_notloggedusers', 30));
+		foreach ($result as $rec) {
+			if ((strtotime(date("d-m-Y", $rec->login + ($no_of_days * 24 * 60 * 60)))) ==  strtotime(date("d-m-Y"))) {
+				$mailBody = str_replace("{FirstName}", $rec->firstname, $body);
+				$mail = mail($rec->mail, $subject, $mailBody, $headers);
+				// email logs
+				$log_msg = 'Not Logged In Suppliers';
+				$log_status = ($mail) ? 1 : 0;
+				$time = time();
+				email_logs('not logged in', $rec->mail, $subject, $log_msg, $log_status, $time);
+			}
+		}
+	}
+
+	function email_notify_check($email, $state = NULL)
+	{
+		if ($email != '') {
+			$cond = '';
+			if ($state == 'deactivate')
+				$cond = " ";
+			else
+				$cond = " AND u.status = 1";
+			$email_notify_result = db_query("SELECT uf.email_notify FROM {users_info} AS uf LEFT JOIN {users} AS u  ON u.uid = uf.uid WHERE u.mail = :email AND uf.email = :email $cond", [':email' => $email])->fetchColumn();
+			if ($email_notify_result == 0)
+				return true;
+			else if ($email_notify_result == 1)
+				return false;
+			else
+				return true;
+		}
+		return false;
+	}
+
+	function page_user_settings()
+	{
+		print theme('vwr_user_settings', array('data' => '', 'action' => ''));
+	}
+
+	function page_email_preferences()
+	{
+		print theme('vwr_email_preferences', array('data' => '', 'action' => ''));
+	}
+
+	function page_welcome_page()
+	{
+		print theme('vwr_user_welcome', array('data' => '', 'action' => ''));
+	}
+
+	function page_forgot_page()
+	{
+		print theme('vwr_user_forgot', array('data' => '', 'action' => ''));
+	}
+
+	function page_legal_page()
+	{
+		print theme('vwr_user_legal', array('data' => '', 'action' => ''));
+	}
+
+	function page_select_type_page()
+	{
+		print theme('vwr_user_select_type', array('data' => '', 'action' => ''));
+	}
+
+	function users_email_notification()
+	{
+		global $user;
+		$email_notify['email_notify'] = $_POST['email_notify'];
+		db_update('users_info')->fields($email_notify)->condition('uid', $user->uid)->execute();
+		echo "success";
+	}
+
+	function concurrent_user_session_limit()
+	{
+		global $user;
+
+		// Get the number of sessions that should be removed.
+		$limit = db_query("SELECT COUNT(DISTINCT(sid)) - :max_sessions FROM {sessions} WHERE uid = :uid", array(
+			':max_sessions' => session_limit_user_max_sessions($user),
+			':uid' => $user->uid,
+		))->fetchField();
+		if ($limit > 0) {
+			// Secure session ids are seperate rows in the database, but we don't want to kick
+			// the user off there http session and not there https session or vice versa. This
+			// is why this query is DISTINCT.
+			$result = db_select('sessions', 's')
+				->distinct()
+				->fields('s', array('sid'))
+				->condition('s.uid', $user->uid)
+				->orderBy('timestamp', 'ASC')
+				->range(0, $limit)
+				->execute();
+
+			foreach ($result as $session) {
+				session_limit_session_limit($session->sid, 'disconnect');
+			}
+			echo "concurrent user removed";
+		}
+	}
+
+	/**
+	 * Implements hook_session_limit().
+	 */
+	function session_limit_session_limit($sid, $op)
+	{
+		switch ($op) {
+			case 'collision':
+				watchdog('session_limit', 'Exceeded maximum allowed active sessions.', array(), WATCHDOG_INFO);
+				break;
+
+			case 'disconnect':
+				$message = variable_get('session_limit_logged_out_message', SESSION_LIMIT_LOGGED_OUT_MESSAGE);
+				$message_severity = variable_get('session_limit_logged_out_message_severity', SESSION_LIMIT_LOGGED_OUT_MESSAGE_SEVERITY);
+				$fields['session'] = '';
+
+				if ($message_severity != '_none' && !empty($message)) {
+					$logout_message = t($message, array('@number' => session_limit_user_max_sessions()));
+					$logout_message = 'messages|' . serialize(array($message_severity => array($logout_message)));
+					$fields['session'] = $logout_message;
+				}
+
+				$fields['uid'] = 0;
+				db_update('sessions')
+					->fields($fields)
+					->condition('sid', $sid)
+					->execute();
+
+				watchdog('session_limit', 'Disconnected for excess active sessions.', array(), WATCHDOG_NOTICE);
+				break;
+		}
+	}
+
+	/**
+	 * Get the maximum number of sessions for a user.
+	 *
+	 * @param user $account
+	 *   (optional) The user account to check. If not
+	 *   supplied the active user account is used.
+	 */
+	function session_limit_user_max_sessions($account = NULL)
+	{
+		$limits = &drupal_static(__FUNCTION__, array());
+
+		if (empty($account)) {
+			$account = $GLOBALS['user'];
+		}
+
+		if (!isset($limits[$account->uid])) {
+			$limits[$account->uid] = (int) variable_get('session_limit_max', 1);
+			$limit_account = session_limit_user_max_sessions_byuser($account);
+			$limit_role = session_limit_user_max_sessions_byrole($account);
+
+			if ($limit_account > 0) {
+				$limits[$account->uid] = $limit_account;
+			} elseif ($limit_role > 0) {
+				$limits[$account->uid] = $limit_role;
+			}
+
+			$limits[$account->uid] = (int) $limits[$account->uid];
+		}
+
+		return $limits[$account->uid];
+	}
+
+	/**
+	 * Get user specified session limit.
+	 *
+	 * @param user $account
+	 *   The user account to get the session limit for
+	 *
+	 * @return int
+	 *   Maximum number of sessions.
+	 *   A value of 0 means that no user limit is set for the current user
+	 *   and so the role limit should be used (or default if no role limit either).
+	 */
+	function session_limit_user_max_sessions_byuser($account)
+	{
+		return (int) empty($account->data['session_limit']) ? 0 : $account->data['session_limit'];
+	}
+
+	/**
+	 * Get the maximum number of sessions allowed by the roles of an account.
+	 *
+	 * @param user $account
+	 *   The account to check the roles of.
+	 *
+	 * @return int
+	 *   The maximum number of sessions the user is allowed by their roles.
+	 *   A value of 0 means that no role limit exists for this user and so
+	 *   the default should be used.
+	 */
+	function session_limit_user_max_sessions_byrole($account)
+	{
+		$limits = array();
+
+		foreach ($account->roles as $rid => $name) {
+			$role_limit = variable_get("session_limit_rid_$rid", FALSE);
+
+			if (!empty($role_limit)) {
+				$limits[] = (int) $role_limit;
+			}
+		}
+
+		return empty($limits) ? 0 : max($limits);
+	}
+
+	/**
+	 * Implements hook_user_login().
+	 */
+
+	function vwrServices_user_login(&$edit, $account)
+	{
+
+		$last_login_access = db_select('users')->fields('users', array(
+			'access',
+		))->condition('uid', $account->uid, '=')->execute()->fetchField();
+
+		$last_login = db_select('users')->fields('users', array(
+			'login',
+		))->condition('uid', $account->uid, '=')->execute()->fetchField();
+
+		$rowavailable = db_select('last_login_details')->fields('last_login_details')
+			->condition('uid', $account->uid, '=')->execute()->rowCount();
+
+		$detection = array(
+			'user_agent' => empty($_SERVER['HTTP_USER_AGENT']) ? '' : $_SERVER['HTTP_USER_AGENT'],
+		);
+
+		if ($rowavailable == 0) {
+			$login_id = db_insert('last_login_details')
+				->fields(array(
+					'uid' => $account->uid,
+					'current_login' => $last_login,
+					'previous_login' => $last_login_access,
+					'host_ipaddress' => ip_address(),
+					'user_agent' => substr($detection['user_agent'], 0, 255),
+				))
+				->execute();
+		} else {
+			db_update('last_login_details')
+				->fields(array('current_login' => $last_login, 'previous_login' => $last_login_access, 'host_ipaddress' => ip_address(), 'user_agent' => substr($detection['user_agent'], 0, 255)))
+				->condition('uid', $account->uid, '=')
+				->execute();
+		}
+
+		$getNonSessionuserId = db_select('sessions', 's')
+			->fields('s')
+			->condition('uid', 0, '=')->execute()->fetchAll();
+
+		if (count($getNonSessionuserId) > 0) {
+			db_delete('sessions')
+				->condition('uid', 0, '=')
+				->execute();
+		}
+	}

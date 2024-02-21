@@ -1,0 +1,7 @@
+; $Id: ticketmanager.info, Photon; 24-Nov-2011 $
+name = Tickets Manager
+description = View, edit, export tickets .
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = VWR-II

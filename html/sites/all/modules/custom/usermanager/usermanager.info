@@ -1,0 +1,7 @@
+; $Id: usermanager.info, Photon; 24-Nov-2011 $
+name = User Manager
+description = Manages roles and permissions of vwr users.
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = vwr

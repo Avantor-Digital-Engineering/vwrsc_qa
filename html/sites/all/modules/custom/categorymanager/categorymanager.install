@@ -1,0 +1,23 @@
+<?php // $Id: usermanager.install, Photon; 24-Nov-2011 $
+
+/**
+ * Implementation of hook_install().
+ */
+function categorymanager_install() {
+	// Create tables.
+}
+
+/**
+* Implementation of hook_enable().
+*/
+function categorymanager_enable(){
+	//module_load_all_includes('install', 'framework_1_5');
+	//create_roles();
+}
+
+/*
+*	Function to uninstall
+*/
+function categorymanager_uninstall() {
+  // Delete tables.
+}

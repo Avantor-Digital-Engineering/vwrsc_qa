@@ -1,0 +1,7 @@
+name = DB Migration setup
+description = Configuration for the ERP migration
+core = 7.x
+package = VWR
+php = 5.x.x
+project = "VWR"
+datestamp = "1210119160"

@@ -1,0 +1,82 @@
+<?php
+
+/* vwr custom variables configuration module #maxlength*/
+
+function vwr_variables_manager_menu() {
+	$items = [];
+	$items['admin/config/vwr_variables'] = array(
+		'title' => t('vwr_custom_variables'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('vwr_custom_variables'),
+		'access arguments' => array('administer users'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+	
+	return $items;
+}
+
+function vwr_custom_variables(){
+	$form['vwr_custom_variables'] = array(
+		'#type' => 'fieldset',
+		'#title' => t('Vwr Variables Configuration'),
+	);
+
+	$form['vwr_custom_variables']['vwr_oauth_login_url'] = [
+		'#type' => 'textfield',
+		'#title' => t('login Url'),
+		'#description' => t('Enter Oauth Login url'),
+		'#maxlength' => 256,
+		'#default_value' => variable_get('vwr_oauth_login_url', '')
+		
+	];
+	$form['vwr_custom_variables']['vwr_oauth_logout_url'] = [
+		'#type' => 'textfield',
+		'#title' => t('logout Url'),
+		'#description' => t('Enter Oauth Logout url'),
+		'#maxlength' => 256,
+		'#default_value' => variable_get('vwr_oauth_logout_url', '')
+	];
+	$form['vwr_custom_variables']['vwr_associate_login_url'] = [
+		'#type' => 'textfield',
+		'#title' => t('Vwr Associate login url'),
+		'#description' => t('Enter vwr associate login url'),
+		'#maxlength' => 256,
+		'#default_value' => variable_get('vwr_associate_login_url', '')
+	];
+	$form['vwr_custom_variables']['azure_connection_string'] = [
+		'#type' => 'textfield',
+		'#title' => t('Azure connection string'),
+		'#description' => t('Azure connection string to store csv file'),
+		'#maxlength' => 256,
+		'#default_value' => variable_get('azure_connection_string', '')
+	];
+	$form['vwr_custom_variables']['oauth_password_reset_url'] = [
+		'#type' => 'textfield',
+		'#title' => t('Oauth password reset url'),
+		'#description' => t('Oauth password reset Url'),
+		'#maxlength' => 256,
+		'#default_value' => variable_get('oauth_password_reset_url', '')
+	];
+	$form['vwr_custom_variables']['recaptcha_site_key'] = [
+		'#type' => 'textfield',
+		'#title' => t('reCaptcha site key'),
+		'#description' => t('reCaptcha site key'),
+		'#default_value' => variable_get('recaptcha_site_key', '')
+	];
+	$form['vwr_custom_variables']['recaptcha_site_secret_key'] = [
+		'#type' => 'textfield',
+		'#title' => t('reCaptcha site secret key'),
+		'#description' => t('reCaptcha site secret key'),
+		'#default_value' => variable_get('recaptcha_site_secret_key', '')
+	];	
+	$form['vwr_custom_variables']['recaptcha_verify_API'] = [
+		'#type' => 'textfield',
+		'#title' => t('reCaptcha verification API'),
+		'#description' => t('reCaptcha verification API'),
+		'#default_value' => variable_get('recaptcha_verify_API', '')
+	];
+	return system_settings_form($form);
+	
+}
+
+?>

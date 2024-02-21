@@ -1,0 +1,23 @@
+<?php // $Id: ticketmanager.install, Photon; 06-Feb-2012 $
+
+/**
+ * Implementation of hook_install().
+ */
+function ticketmanager_install() {
+	// Create tables.
+}
+
+/**
+* Implementation of hook_enable().
+*/
+function ticketmanager_enable(){
+	//module_load_all_includes('install', 'framework_1_5');
+	//create_roles();
+}
+
+/*
+*	Function to uninstall
+*/
+function ticketmanager_uninstall() {
+  // Delete tables.
+}

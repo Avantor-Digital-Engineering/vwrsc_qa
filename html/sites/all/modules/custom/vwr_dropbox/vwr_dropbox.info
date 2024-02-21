@@ -1,0 +1,7 @@
+; $Id: vwr_dropbox.info, Photon; 24-Nov-2011 $
+name = Vwr dropbox
+description = Manages dropbox.
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = vwr

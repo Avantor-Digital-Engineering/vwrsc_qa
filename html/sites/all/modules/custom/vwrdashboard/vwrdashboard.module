@@ -1,0 +1,440 @@
+<?php
+	function vwrdashboard_menu()
+	{
+		$items = array();
+		$items['dashboard'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'dashboard_load',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['icons-select'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'icons_select',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['message-display'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'message_display',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['icons-delete'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'icons_delete',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['dashboard-popup'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'dashboard_popup',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		$items['dashboard-save'] = array(
+			'title' => 'dashboard',
+			'page callback' => 'dashboard_save',
+			'access callback' => true,
+			'type' => MENU_CALLBACK,
+		);
+		return $items;
+	}
+
+	function dashboard_save()
+	{
+
+		$currentuser = addslashes(strip_tags($_REQUEST['user']));
+		$dashboard_icons = addslashes(strip_tags($_REQUEST['icons']));
+		$dashboard_icons = substr($dashboard_icons, 0, -1);
+		$dashboard_count = addslashes(strip_tags($_REQUEST['total']));
+		db_delete('dashboard_user_map')
+			->condition('uid', $currentuser)
+			->execute();
+
+		db_query("DELETE FROM {dashboard_content_regions} where userid=:userid", array(':userid' => $currentuser));
+		db_query("DELETE FROM {dashboard_dropbox_regions} where userid=:userid", array(':userid' => $currentuser));
+		if ($dashboard_count) {
+			db_insert('dashboard_user_map')
+				->fields(array(
+					'uid' => $currentuser,
+					'category_id' => $dashboard_icons,
+					'dashboard_count' => $dashboard_count,
+				))
+				->execute();
+
+			if ($_POST["categoryregionlists"] != '') {
+
+				$categoryregionlists = explode(",", $_POST["categoryregionlists"]);
+				$categorylist = explode(",", $_POST["categorylist"]);
+				$desccatregionFields = array();
+				$desccatregionFieldsother = array();
+				for ($j = 0; $j < count($categoryregionlists); $j++) {
+
+					$desccatregionFields['userid'] = $currentuser;
+					$desccatregionFields['region_id'] = $categoryregionlists[$j];
+					$desccatregionFields['content_id'] = $categorylist[$j];
+					$desccatregionFields['content_type'] = 0;
+					db_insert('dashboard_content_regions')->fields($desccatregionFields)->execute();
+					if (strlen($_COOKIE['cookieregion_name']) != 1) {
+						$dashboardcats = db_query("select * from {category_regions} where category_id=:category_id", array(':category_id' => $categorylist[$j]));
+						if ($dashboardcats->rowCount() == 2) {
+							$dashboardcatsexists = db_query("select * from {dashboard_content_regions} where content_id=:content_id and userid=:userid", array(':content_id' => $categorylist[$j], ':userid' => $currentuser));
+							if ($dashboardcatsexists->rowCount() == 1) {
+								$dashboardcatsregion = db_query("select region_id from {dashboard_content_regions} where content_id=:content_id and userid=:userid", array(':content_id' => $categorylist[$j], ':userid' => $currentuser))->fetchField();
+								if ($dashboardcatsregion == 1) {
+									$insregion = 2;
+								} else {
+									$insregion = 1;
+								}
+
+								$desccatregionFieldsother['userid'] = $currentuser;
+								$desccatregionFieldsother['region_id'] = $insregion;
+								$desccatregionFieldsother['content_id'] = $categorylist[$j];
+								$desccatregionFieldsother['content_type'] = 0;
+								db_insert('dashboard_content_regions')->fields($desccatregionFieldsother)->execute();
+							}
+						}
+					}
+				}
+			}
+			if ($_POST["subcategoryregionlists"] != '') {
+
+				$subcategoryregionlists = explode(",", $_POST["subcategoryregionlists"]);
+				$subcategorylist = explode(",", $_POST["subcategorylist"]);
+				$descsubregionFields = array();
+				$descsubregionFieldsother = array();
+				for ($k = 0; $k < count($subcategoryregionlists); $k++) {
+
+					$descsubregionFields['userid'] = $currentuser;
+					$descsubregionFields['region_id'] = $subcategoryregionlists[$k];
+					$descsubregionFields['content_id'] = $subcategorylist[$k];
+					$descsubregionFields['content_type'] = 1;
+					db_insert('dashboard_content_regions')->fields($descsubregionFields)->execute();
+
+					if (strlen($_COOKIE['cookieregion_name']) != 1) {
+						$dashboardsubcats = db_query("select * from {content_regions} where content_id=:content_id", array(':content_id' => $subcategorylist[$k]));
+						if ($dashboardsubcats->rowCount() == 2) {
+							$dashboardsubcatsexists = db_query("select * from {dashboard_content_regions} where content_id=:content_id and userid=:userid", array(':content_id' => $categorylist[$j], ':userid' => $currentuser));
+							if ($dashboardsubcatsexists->rowCount() == 1) {
+								$dashboardsubcatsregion = db_query("select region_id from {dashboard_content_regions} where content_id=:content_id and userid=:userid", array(':content_id' => $categorylist[$j], ':userid' => $currentuser))->fetchField();
+								if ($dashboardsubcatsregion == 1) {
+									$subinsregion = 2;
+								} else {
+									$subinsregion = 1;
+								}
+
+								$descsubregionFieldsother['userid'] = $currentuser;
+								$descsubregionFieldsother['region_id'] = $subinsregion;
+								$descsubregionFieldsother['content_id'] = $subcategorylist[$k];
+								$descsubregionFieldsother['content_type'] = 1;
+								db_insert('dashboard_content_regions')->fields($descsubregionFieldsother)->execute();
+							}
+						}
+					}
+				}
+			}
+
+			if ($_POST["dropboxregionlist"] != '') {
+
+				$dropboxregionlists = explode(",", $_POST["dropboxregionlist"]);
+				$dropboxlist = explode(",", $_POST["dropboxlist"]);
+				$descdropboxregionFields = array();
+				$descdropboxregionFieldsother = array();
+				for ($drp = 0; $drp < count($dropboxregionlists); $drp++) {
+
+					$descdropboxregionFields['userid'] = $currentuser;
+					$descdropboxregionFields['region_id'] = $dropboxregionlists[$drp];
+					$descdropboxregionFields['dropbox_id'] = $dropboxlist[$drp];
+					db_insert('dashboard_dropbox_regions')->fields($descdropboxregionFields)->execute();
+
+					if (strlen($_COOKIE['cookieregion_name']) != 1) {
+						$dashboarddropboxes = db_query("select * from {dropbox_regions} where dropbox_id=:dropbox_id", array(':dropbox_id' => $dropboxlist[$drp]));
+						if ($dashboarddropboxes->rowCount() == 2) {
+							$dashboarddropboxesexists = db_query("select * from {dashboard_dropbox_regions} where dropbox_id=:dropbox_id and userid=:userid", array(':dropbox_id' => $dropboxlist[$drp], ':userid' => $currentuser));
+							if ($dashboarddropboxesexists->rowCount() == 1) {
+								$dashboarddropboxesregion = db_query("select region_id from {dashboard_dropbox_regions} where dropbox_id=:dropbox_id and userid=:userid", array(':dropbox_id' => $dropboxlist[$drp], ':userid' => $currentuser))->fetchField();
+								if ($dashboarddropboxesregion == 1) {
+									$dropboxesregions = 2;
+								} else {
+									$dropboxesregions = 1;
+								}
+
+								$descdropboxregionFieldsother['userid'] = $currentuser;
+								$descdropboxregionFieldsother['region_id'] = $dropboxesregions;
+								$descdropboxregionFieldsother['dropbox_id'] = $dropboxlist[$drp];
+
+								db_insert('dashboard_dropbox_regions')->fields($descdropboxregionFieldsother)->execute();
+							}
+						}
+					}
+				}
+			}
+		}
+		echo "success";
+	}
+
+	function icons_delete()
+	{
+		$currentuser = $_POST['user'];
+		$iconname = $_POST['iconname'];
+		$iconid = $_POST['iconid'];
+		$count = '';
+		if ($iconname == 'category') {
+			$result = db_query("select category_id,dashboard_count FROM {dashboard_user_map} WHERE uid = :currentuser ", array(':currentuser' => $currentuser));
+			foreach ($result as $record) {
+				$totalcatids = explode(',', $record->category_id);
+				$count = $record->dashboard_count;
+			}
+			for ($i = 0; $i < count($totalcatids); $i++) {
+				if ($totalcatids[$i] == $iconid) {
+					unset($totalcatids[$i]);
+					$count--;
+				}
+			}
+			$catfields['category_id'] = implode(",", $totalcatids);
+			$catfields['dashboard_count'] = $count;
+			db_update('dashboard_user_map')->fields($catfields)->condition('uid', $currentuser)->execute();
+
+			if (db_affected_rows) {
+				echo "success";
+			}
+		}
+		if ($iconname == 'topic') {
+			$result = db_query("select sub_category_id,dashboard_count FROM {dashboard_user_map} WHERE uid = :currentuser ", array(':currentuser' => $currentuser));
+			foreach ($result as $record) {
+				$totalsubcatids = explode(',', $record->sub_category_id);
+				$count = $record->dashboard_count;
+			}
+			for ($i = 0; $i < count($totalsubcatids); $i++) {
+				if ($totalsubcatids[$i] == $iconid) {
+					unset($totalsubcatids[$i]);
+					$count--;
+				}
+			}
+			$subcatfields['sub_category_id'] = implode(",", $totalsubcatids);
+			$subcatfields['dashboard_count'] = $count;
+			db_update('dashboard_user_map')->fields($subcatfields)->condition('uid', $currentuser)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			}
+		}
+		$count = db_query("select dashboard_count FROM {dashboard_user_map} WHERE uid = :currentuser ", array(':currentuser' => $currentuser))->fetchField(0);
+		if ($iconname == 'Dropbox' || $iconname == 'Supplier Org' || $iconname == 'Users') {
+			if ($iconname) {
+				$count = $count - 1;
+			}
+			if ($iconname == 'Supplier Org') {
+				$iconfields['supplierorg'] = '0';
+			} else {
+				$iconfields[strtolower($iconname)] = '0';
+			}
+
+			$iconfields['dashboard_count'] = $count;
+			db_update('dashboard_user_map')->fields($iconfields)->condition('uid', $currentuser)->execute();
+			if (db_affected_rows) {
+				echo "success";
+			}
+		}
+	}
+
+	function message_display()
+	{
+		return theme('messageshow');
+	}
+
+	function dashboard_load()
+	{
+		$currentuser = addslashes(strip_tags(trim($_POST['user'])));
+		$supplierorg = 0;
+		$users = 0;
+		$dropbox = 0;
+		if ($_POST['ids']) {
+			$ids = addslashes(strip_tags(trim($_POST['ids'])));
+		}
+		if ($_POST['subids']) {
+			$subids = addslashes(strip_tags(trim($_POST['subids'])));
+		}
+		if ($_POST['supplierorg']) {
+			$supplierorg = 1;
+		}
+		if ($_POST['users']) {
+			$users = 1;
+		}
+		if ($_POST['dropbox']) {
+			$dropbox = 1;
+		}
+		if ($_POST['count']) {
+			$iconcount = addslashes(strip_tags(trim($_POST['count'])));
+		}
+		db_query("DELETE FROM {dashboard_user_map} WHERE uid = :currentuser ", array(':currentuser' => $currentuser));
+		if (db_affected_rows) {
+			db_query(
+				"INSERT INTO {dashboard_user_map} (uid,category_id,sub_category_id,dropbox,supplierorg,users,dashboard_count) VALUES(:currentuser,:ids,:subids,:dropbox,:supplierorg,:users,:iconcount)",
+				array(':currentuser' => $currentuser, ':ids' => $ids, ':subids' => $subids, ':dropbox' => $dropbox, ':supplierorg' => $supplierorg, ':users' => $users, ':iconcount' => $iconcount)
+			);
+		}
+		if (db_affected_rows) {
+			echo "success";
+		}
+	}
+
+	function icons_select()
+	{
+		$currentuser = $_POST['user'];
+		db_query("DELETE FROM {dashboard_user_map} WHERE uid = :currentuser ", array(':currentuser' => $currentuser));
+		if (db_affected_rows) {
+			echo "success";
+		} else {
+			echo "fail";
+		}
+	}
+
+	function dashboard_popup()
+	{
+		print theme('dashboard_popupshow');
+		exit;
+	}
+
+	function vwrdashboard_theme()
+	{
+		return array(
+			'dashboard_popupshow' => array(
+				'arguments' => array('form' => NULL),
+				'template' => 'dashboard-popupshow',
+			),
+		);
+	}
+	function getuserdashboardcontentcontentregions($contentids)
+	{
+		global $user;
+		if ($contentids != '') {
+
+
+			if (substr($contentids, -1) == ",") {
+				$contentids = substr($contentids, 0, (strlen($contentids) - 1));
+			} else {
+				$contentids = $contentids;
+			}
+			$dashboardcategories = db_query("SELECT * FROM {dashboard_content_regions} where content_id in (:contentids) and userid=:uid", array(':contentids' => $contentids, ':uid' => $user->uid));
+			$userdashboardcontentregions = array();
+			$catregionintialise = array();
+			$regions = array_flip(getregionshortnames());
+			while ($row = $dashboardcategories->fetchAssoc()) {
+				if (!in_array($row['content_id'], $catregionintialise)) {
+					$regionsprocess = array();
+					$catregionintialise[] = $row['content_id'];
+				}
+
+				$regionsprocess[$row['region_id']] = $regions[$row['region_id']];
+				$userdashboardcontentregions[$row['content_id']] = $regionsprocess;
+			}
+			return $userdashboardcontentregions;
+		}
+	}
+
+	function getuserdashboardcontentdropboxesregions($contentids)
+	{
+		global $user;
+		if ($contentids != '') {
+
+
+			if (substr($contentids, -1) == ",") {
+				$contentids = substr($contentids, 0, (strlen($contentids) - 1));
+			} else {
+				$contentids = $contentids;
+			}
+			$dashboarddropboxes = db_query("SELECT * FROM {dashboard_dropbox_regions} where dropbox_id in (:contentids) and userid=:uid", array(':contentids' => $contentids, ':uid' => $user->uid));
+			$userdashboarddropboxregions = array();
+			$dropboxregionintialise = array();
+			$regions = array_flip(getregionshortnames());
+			while ($row = $dashboarddropboxes->fetchAssoc()) {
+				if (!in_array($row['dropbox_id'], $dropboxregionintialise)) {
+					$regionsprocess = array();
+					$catregionintialise[] = $row['dropbox_id'];
+				}
+
+				$regionsprocess[$row['region_id']] = $regions[$row['region_id']];
+				$userdashboarddropboxregions[$row['dropbox_id']] = $regionsprocess;
+			}
+			return $userdashboarddropboxregions;
+		}
+	}
+
+	function getdashboardcategories($categoryids, $regionid, $contenttype)
+	{
+		global $user;
+		$categoryfetch = '';
+		if ($contenttype == 0) {
+			$categoryfetch = "INNER JOIN {category} AS vc ON vc.category_id= dcr.content_id and vc.category_status=1";
+		} else {
+			$categoryfetch = "INNER JOIN {topic} AS vc ON vc.topic_id= dcr.content_id and vc.topic_status=1";
+		}
+
+		$catquery = "SELECT vc.category_id,vc.short_name,vmr.region_shortname,vmr.region_id
+			FROM {dashboard_content_regions} AS dcr
+			INNER JOIN {manage_regions} AS vmr on vmr.region_id = dcr.region_id and vmr.region_status=1
+			$categoryfetch
+			WHERE dcr.content_type =:contenttype AND dcr.region_id IN (:regionid)
+			AND dcr.userid =:uid1 AND dcr.content_id IN (:categoryids) and
+			dcr.region_id IN (:regionid1) GROUP BY vmr.region_id";
+
+		$dashboardcategories = db_query($catquery, [':contenttype' => $contenttype, ':regionid' => $regionid, ':uid1' => $user->uid, ':categoryids' => $categoryids, ':regionid1' => $regionid]);
+		$categoriesforusers = array();
+		if ($dashboardcategories) {
+			foreach ($dashboardcategories as $dsub) {
+
+				$categoriesforusers[] = $dsub->category_id;
+			}
+		}
+		return $categoriesforusers;
+	}
+
+
+	function getdashboarddropboxes($dropboxids, $regionid)
+	{
+		global $user;
+		$dropboxfetch = '';
+		$dropboxfetch = "INNER JOIN {dropbox} AS d ON d.id= ddr.dropbox_id";
+		$drpquery = "SELECT d.id,d.title,vmr.region_shortname,vmr.region_id
+			FROM {dashboard_dropbox_regions} AS ddr
+			INNER JOIN {manage_regions} AS vmr on vmr.region_id = ddr.region_id and vmr.region_status=1
+			$dropboxfetch
+			WHERE ddr.region_id IN ($regionid)
+			AND ddr.userid =$user->uid AND ddr.dropbox_id IN ($dropboxids) and
+			ddr.region_id IN ($regionid) GROUP BY vmr.region_id";
+
+		$dashboardcategories = db_query($drpquery);
+		$dropboxesforusers = array();
+		if ($dashboardcategories) {
+			foreach ($dashboardcategories as $dsub) {
+
+				$dropboxesforusers[] = $dsub->id;
+			}
+		}
+		return $dropboxesforusers;
+	}
+
+	function get_dropboxesbyid($dropbox_id, $region)
+	{
+		$currentregion = "AND drpreg.region_id in ($region)";
+		$timestamp = strtotime(date("m/d/Y"));
+		if (is_vwr_user_role()) {
+			$select_details = db_query("SELECT drp.id,drp.title,
+		drp.instruction FROM {dropbox} AS drp INNER JOIN {dropbox_regions} AS 
+		drpreg ON drp.id=drpreg.dropbox_id $currentregion 
+		WHERE drp.deleted=0 AND drpreg.status=1 AND drp.id =:dropbox_id group 
+		by drpreg.dropbox_id ORDER BY drp.title ASC", array(':dropbox_id' => $dropbox_id));
+		} else {
+			$select_details = db_query("SELECT drp.id,drp.title,
+		drp.instruction FROM {dropbox} AS drp INNER JOIN {dropbox_regions} AS 
+		drpreg ON drp.id=drpreg.dropbox_id $currentregion 
+		WHERE drp.deleted=0 AND drpreg.status=1 AND drp.id = :dropbox_id AND 
+		drp.start_date <= :start_date AND drp.end_date >= :end_date group 
+		by drpreg.dropbox_id ORDER BY drp.title ASC", array(':dropbox_id' => $dropbox_id, ':start_date' => $timestamp, ':end_date' => $timestamp));
+		}
+		if ($select_details->rowCount() > 0)
+			return $select_details;
+		else
+			return "notexists";
+	}

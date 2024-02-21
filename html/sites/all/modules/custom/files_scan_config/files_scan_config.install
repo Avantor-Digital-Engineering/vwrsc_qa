@@ -1,0 +1,64 @@
+<?php
+/**
+ * Implements HOOK_schema().
+ */
+
+function files_scan_config_schema() {
+    $schema = [];
+
+    $schema['file_scan_details'] = array(
+        'description' => 'The table to store the progress and file scan ID of a file upload.',
+        'fields' => array(
+          'id' => array(
+            'description' => 'The primary identifier for a file.',
+            'type' => 'serial',
+            'unsigned' => TRUE,
+            'not null' => TRUE,
+          ),
+          'file_id' => array(
+            'description' => 'The file id received from metadefender file upload API.',
+            'type' => 'varchar',
+            'length' => 255,
+            'default' => '',
+          ),
+          'file_path' => array(
+            'description' => 'The file path received from scan result API.',
+            'type' => 'varchar',
+            'length' => 50,
+            'default' => '',
+          ),
+          'scan_status' => array(
+            'description' => 'The file status.',
+            'type' => 'varchar',
+            'length' => 50,
+            'default' => '',
+          ),
+          'file_name' => array(
+            'description' => 'The name of file uploaded.',
+            'type' => 'varchar',
+            'length' => 255,
+            'default' => '',
+          ),
+          'submission_type' => array(
+            'description' => 'The name of the table where the image will be placed.',
+            'type' => 'varchar',
+            'length' => 300,
+            'default' => '',
+          ),
+          'created_date' => array(
+            'description' => 'The date of creation.',
+            'type' => 'int',
+            'default' => 0,
+          ),
+          'modified_date' => array(
+            'description' => 'The date of modification.',
+            'type' => 'int',
+            'default' => 0,
+          ),
+        ),
+       'primary key' => array(
+          'id',
+        ),
+      );
+      return $schema;
+}

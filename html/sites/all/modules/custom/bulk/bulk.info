@@ -1,0 +1,7 @@
+; $Id: bulk.info, Photon; 05-Mar-2012 $
+name = Bulk Upload
+description = View, edit reports.
+core = 7.x
+
+version = "7.x-1.x-dev"
+package = VWR-II

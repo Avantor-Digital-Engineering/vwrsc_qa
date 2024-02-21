@@ -1,0 +1,1806 @@
+<?php // $Id: usermanager.module, Photon; 24-Nov-2011 $  //define("USER_STATUS",false);
+	require_once DRUPAL_ROOT . '/vendor/autoload.php';
+
+	use WindowsAzure\Common\ServicesBuilder;
+	use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+	use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+	use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
+	use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+	use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
+
+	function usermanager_permission()
+	{
+		return array(
+			'manage_users' => array(
+				'title' => t('Manage Users'),
+				'description' => t('Permission for add/edit users'),
+			),
+			'manage_supplier_org' => array(
+				'title' => t('Manage Supplier Org'),
+				'description' => t('Permission Manage Vas and Supplier Org'),
+			),
+		);
+	}
+
+	function usermanager_menu()
+	{
+		$items = array();
+		$items['usermanager/useroverview'] = array(
+			'title' => t('Users Overview'),
+			'page callback' => 'usermanager_user_overview',
+			'type' => MENU_DEFAULT_LOCAL_TASK,
+			'access arguments' => array('manage_users'),
+			'tab_parent' => 'usermanager',
+		);
+		$items['usermanager/userapprovals/%'] = array(
+			'title' => 'Users Approvals Supplier',
+			'page callback' => 'usermanager_user_approvals',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_users'),
+			'tab_parent' => 'usermanager',
+		);
+		$items['usermanager/internaluserapprovals/%'] = array(
+			'title' => 'Users Approvals - Internal User',
+			'page callback' => 'usermanager_internal_user_approvals',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/supplier'] = array(
+			'title' => 'Get Supplier Information',
+			'page callback' => 'usermanager_supplier_info',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/userinfoupdate'] = array(
+			'title' => 'Update User Info',
+			'page callback' => 'usermanager_update_user_info',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/internaluserinfoupdate'] = array(
+			'title' => 'Update Internal User Info',
+			'page callback' => 'usermanager_update_internaluser_info',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/supplierassign'] = array(
+			'title' => 'Update Supplier Org',
+			'page callback' => 'usermanager_assign_supplier',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/userrole'] = array(
+			'title' => 'Update User Type',
+			'page callback' => 'usermanager_assign_userrole',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/internaluserrole'] = array(
+			'title' => 'Update User Type',
+			'page callback' => 'usermanager_assign_internaluserrole',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/internaluserpermission'] = array(
+			'title' => 'Insert Internal User Permissions',
+			'page callback' => 'usermanager_assign_internaluserperm',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/userstatusupdate'] = array(
+			'title' => 'Update User Status',
+			'page callback' => 'usermanager_update_user_status',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/deactivateusers'] = array(
+			'title' => 'Deactivate Users',
+			'page callback' => 'usermanager_deactivate_user',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/userdisapprove'] = array(
+			'title' => 'User Disapprove',
+			'page callback' => 'usermanager_disapprove',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/usersearch'] = array(
+			'title' => 'User Search',
+			'page callback' => 'usermanager_usersearch',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/export'] = array(
+			'title'	 => t('Users Export'),
+			'page callback' => 'usermanager_export',
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('manage_users'),
+		);
+		$items['usermanager/supplierorgoverview'] = array(
+			'title'	 => t('Manage Supplier Org Details'),
+			'page callback' => 'supplier_org_users_overview',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_supplier_org'),
+		);
+		$items['usermanager/supplierorgusers'] = array(
+			'title'	 => t('Supplier Org Users Details'),
+			'page callback' => 'supplier_org_users',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_supplier_org'),
+		);
+		$items['usermanager/supplierorgvas'] = array(
+			'title'	 => t('Supplier Org Users Details'),
+			'page callback' => 'supplier_org_vas',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_supplier_org'),
+		);
+		$items['usermanager/supplierorgaccesspath'] = array(
+			'title'	 => t('Supplier Org Users Details'),
+			'page callback' => 'supplier_org_access_path',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('manage_supplier_org'),
+		);
+		$items['usermanager/approve-deactivation'] = array(
+			'title' => t('Approve Deactivaton'),
+			'page callback' => 'approve_deactivation_request',
+			'access arguments' => array('manage_users'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['usermanager/reject-deactivation'] = array(
+			'title' => t('Reject Deactivaton'),
+			'page callback' => 'reject_deactivation_request',
+			'access arguments' => array('manage_users'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['usermanager/save-team-permission'] = array(
+			'title' => t('Save view team permission'),
+			'page callback' => 'save_team_permission',
+			'access arguments' => array('manage_users'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['saml/login'] = array(
+			'title' => t('SAML Authentication'),
+			'page callback' => 'saml_user_authentication',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['usermanager/usermanageremailpreferencessettings'] = array(
+			'title'	 => t('User Email Preferences Settings'),
+			'page callback' => 'usermanager_emailpreferences_settings',
+			'type' => MENU_CALLBACK,
+			'access callback' => TRUE,
+		);
+
+		$items['api/authlogin'] = array(
+			'title' => t('Auth Login'),
+			'page callback' => 'authlogin_api',
+			'type' => MENU_CALLBACK,
+			'access callback' => TRUE,
+		);
+
+		$items['api/authgetuser'] = array(
+			'title' => t('Auth Login'),
+			'page callback' => 'get_authuser_details',
+			'type' => MENU_CALLBACK,
+			'access callback' => TRUE,
+		);
+
+
+		return $items;
+	}
+
+
+	function usermanager_emailpreferences_settings()
+	{
+
+		$na_news = addslashes(strip_tags($_POST['na_news']));
+		$na_supply = addslashes(strip_tags($_POST['na_supply']));
+		$na_quality = addslashes(strip_tags($_POST['na_quality']));
+		$eu_news = addslashes(strip_tags($_POST['eu_news']));
+		$edituserid = addslashes(strip_tags($_POST["edituserid"]));
+		$preferences = db_query('select count(*) from {supplier_notifications} where user_id=:uid', array(':uid' => $edituserid))->fetchColumn();
+		if ($preferences == 1) {
+			db_update('supplier_notifications')
+				->fields(array('na_news' => $na_news, 'na_quality' => $na_quality, 'na_supply' => $na_supply, 'eu_news' => $eu_news))
+				->condition('user_id', $edituserid, '=')
+				->execute();
+		} else {
+			db_insert('supplier_notifications')
+				->fields(array('user_id' => $edituserid, 'na_news' => $na_news, 'na_supply' => $na_supply, 'eu_news' => $eu_news, 'na_quality' => $na_quality))
+				->execute();
+		}
+		echo "success";
+		exit;
+	}
+
+	function usermanager_actions()
+	{
+		$output = '';
+		$result = db_query("SELECT u.uid, u.name as uname, u.mail, u.created, u.access, u.status,
+			r.name as rname FROM {users} u, {users_roles} ur, {role} r WHERE u.uid>0 AND u.uid=ur.uid AND ur.rid=r.rid AND ur.rid 
+			IN (SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier')");
+		if ($result) {
+			$output = "<table class='user-info'><tr><th> </th><th>S.No</th><th>User Name</th><th>Email ID</th><th>User&nbsp;Type</th>
+							<th>Status</th><th>Created Date</th><th>Last Login</th><th> </th></tr>";
+			$sno = 0;
+			foreach ($result as $record) {
+				$ustatus = "InActive";
+				if ($record->status) {
+					$ustatus = "Activated";
+				}
+				$accessdate = $record->access ? date("d/m/Y, g:i a", $record->access) : " ";
+				$output .= "<tr><td><input type='checkbox' value='$record->uid'/></td><td>" . ++$sno . "</td><td>" . $record->uname . "</td>
+								<td>" . $record->mail . "</td><td>" . $record->rname . "</td><td>" . $ustatus . "</td>
+								<td>" . date("d/m/Y, g:i a", $record->created) . "</td><td>" . $accessdate . "</td>
+								<td><a href='usermanager/editinternal'>edit</a></td></tr>";
+			}
+			$output .= "</table>";
+		}
+		return $output;
+	}
+	/*
+	* Users Overview
+	*/
+	function usermanager_user_overview()
+	{
+		drupal_set_title('Users Overview');
+		$_SESSION['google_analytics_page_name'] = "Users Overview Page";
+		$sortByField = addslashes(strip_tags($_REQUEST['sortBy']));
+		$sortOrder = addslashes(strip_tags($_REQUEST['direction']));
+		switch ($sortByField) {
+			case "firstname":
+				$sortBy = 'uinfo.firstname';
+				break;
+			case "lastname":
+				$sortBy = 'uinfo.lastname';
+				break;
+			case "mail":
+				$sortBy = 'u.mail';
+				break;
+			case "supplier_org_name":
+				$sortBy = 's.supplier_org_name';
+				break;
+			case "role_name":
+				$sortBy = 'r.name';
+				break;
+			case "status":
+				$sortBy = 'u.status';
+				break;
+			case "created":
+				$sortBy = 'u.created';
+				break;
+			case "access":
+				$sortBy = 'u.access';
+				break;
+			default:
+				$sortBy = 'uinfo.firstname';
+				$sortOrder = 'Asc';
+		}
+		$page = pager_find_page();
+		$num_per_page = variable_get('usermanager_num_per_page', 10);
+		$offset = $num_per_page * $page;
+
+		$result_total = db_query("SELECT count(*)
+								FROM {users} u, {users_info} uinfo LEFT JOIN {supplier_organization} s ON s.supplier_org_id = uinfo.supplier_org_name, {users_roles} ur, {role} r
+								WHERE u.uid > 0 AND u.uid = uinfo.uid AND u.uid = ur.uid AND ur.rid=r.rid AND ur.rid IN 
+								(SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier')");
+		$total = $result_total->fetchCol();
+		$result = db_query("SELECT u.uid, u.name, u.mail, u.created, u.access, u.login, u.status, uinfo.firstname, uinfo.lastname, s.supplier_org_id, s.supplier_org_name, r.name as role_name
+								FROM {users} u, {users_info} uinfo LEFT JOIN {supplier_organization} s ON s.supplier_org_id = uinfo.supplier_org_name, {users_roles} ur, {role} r 
+								WHERE u.uid > 0 AND u.uid = uinfo.uid AND u.uid = ur.uid AND ur.rid=r.rid AND ur.rid IN 
+								(SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier') ORDER BY :sortBy :sortOrder LIMIT $offset, $num_per_page", array(':sortBy' => $sortBy, ':sortOrder' => $sortOrder));
+		pager_default_initialize($total[0], $num_per_page);
+
+		$result_pending = db_query("SELECT u.uid, u.mail, u.created, u.status, uinfo.firstname, uinfo.lastname, r.name  FROM {users} u,
+			{users_info} uinfo, {users_roles} ur, {role} r WHERE u.status = 2 AND u.uid = uinfo.uid AND u.uid=ur.uid AND ur.rid=r.rid AND ur.rid IN 
+			(SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier')");
+		// Fetch deactivation list where the user is active
+		$deactivation_list = db_query("SELECT dl.* FROM {deactivation_list} dl INNER JOIN {users} u ON dl.uid = u.uid WHERE u.status = 1");
+		$default_tab = arg(2);
+		$output = theme('usermanager_user_overview', array('data' => $result, 'pending_user' => $result_pending, 'total_rec' => $total[0], 'number_per_page' => $num_per_page, 'page_no' => $page, 'default_tab' => $default_tab, 'deactivation_list' => $deactivation_list));
+
+		return $output;
+	}
+
+	/*
+	* User Search/Filter option
+	*/
+	function usermanager_usersearch()
+	{
+		$search_conditon = '';
+		$query_param = [];
+		$search_by_firstname = addslashes(htmlentities(trim($_POST['user_firstname'])));
+		$search_by_lastname = addslashes(htmlentities(trim($_POST['user_lastname'])));
+		$search_by_mail = addslashes(htmlentities(trim($_POST['user_search_email'])));
+		$search_by_sorg = addslashes(htmlentities(trim($_POST['user_search_sorg'])));
+
+		if ($search_by_firstname) {
+			$search_conditon = ($search_by_firstname) ? "AND uinfo.firstname LIKE :search_by_firstname" : '';
+			$query_param = [':search_by_firstname' => '%' . db_like($search_by_firstname) . '%'];
+		}
+		if ($search_by_lastname) {
+			$search_conditon .= ($search_by_lastname) ? "AND uinfo.lastname LIKE :search_by_lastname" : '';
+			$query_param = [':search_by_lastname' => '%' . db_like($search_by_lastname) . '%'];
+		}
+		if ($search_by_mail) {
+			$search_conditon .= ($search_by_mail) ? "AND uinfo.email LIKE :search_by_mail" : '';
+			$query_param = [':search_by_mail' => '%' . db_like($search_by_mail) . '%'];
+		}
+		if ($search_by_sorg) {
+			$search_conditon .= "AND s.supplier_org_name LIKE :search_by_sorg";
+			$query_param = [':search_by_sorg' => '%' . db_like($search_by_sorg) . '%'];
+		}
+		$page = pager_find_page();
+		$num_per_page = variable_get('usermanager_num_per_page', 10);
+		$offset = $num_per_page * $page;
+		$limit_qry = '';
+		if ($search_by_firstname == '' && $search_by_lastname == '' && $search_by_mail == '' && $search_by_sorg == '') {
+			$limit_qry = " LIMIT $offset, $num_per_page";
+		}
+		$result_total = db_query("SELECT count(*)
+								FROM {users} u, {users_info} uinfo LEFT JOIN {supplier_organization} s ON s.supplier_org_id = uinfo.supplier_org_name, {users_roles} ur, {role} r
+								WHERE u.uid > 0 AND u.uid = uinfo.uid AND u.uid = ur.uid $search_conditon AND ur.rid=r.rid AND ur.rid IN 
+								(SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier')", $query_param);
+
+		$result = db_query("SELECT u.uid, u.name, u.mail, u.created, u.access, u.login, u.status, uinfo.firstname, uinfo.lastname, s.supplier_org_id, s.supplier_org_name, r.name as role_name
+								FROM {users} u, {users_info} uinfo LEFT JOIN {supplier_organization} s ON s.supplier_org_id = uinfo.supplier_org_name, {users_roles} ur, {role} r
+								WHERE u.uid > 0 AND u.uid = uinfo.uid AND u.uid = ur.uid $search_conditon AND ur.rid=r.rid AND ur.rid IN 
+								(SELECT r.rid FROM {role} r WHERE r.name='vwr internal' OR r.name='supplier') ORDER BY uinfo.firstname $limit_qry", $query_param);
+
+		$output = theme('usermanager_user_search', array('data' => $result, 'number_per_page' => $num_per_page, 'page_no' => $page));
+		echo $output;
+	}
+
+	/*
+	* User Apporovals
+	*/
+	function usermanager_user_approvals()
+	{
+		$uid = base64_decode(arg(2));
+		$result = db_query("SELECT u.uid, u.name, u.mail, u.created, u.access, u.status, uinfo.* FROM {users} u,
+			{users_info} uinfo WHERE u.uid = $uid AND u.uid = uinfo.uid")->fetchObject();
+		$suplier_result = db_query("SELECT * FROM {supplier_organization} WHERE deleted = 0 
+			GROUP BY supplier_org_id order by supplier_org_name ASC");
+
+		$query = db_select('supplier_attributes', 'sattr');
+		$query->condition('sattr.uid', $uid, '=')
+			->fields('sattr', array('supplier_attribute_id', 'attribute_name', 'attribute_value'))
+			->orderBy('supplier_attribute_id', 'ASC');
+		$attribute_result = $query->execute();
+		$row = array();
+		while ($result_attr = $attribute_result->fetchAssoc()) {
+			$row[] = $result_attr;
+		}
+		return theme('usermanager_user_approval', array('data' => $result, 'suplier_data' => $suplier_result, 'suplier_attr' => $row));
+	}
+
+	function upload_csv($user_info)
+	{
+		$file_name = "AVANTOR_SUPPLIER_USER_" . time() . ".csv";
+		$file_path = "/apps/python/data/" . $file_name;
+		$fh = fopen($file_path, 'w') or die("can't open file");
+		$headers = ['Supplier name', 'User id', ' login disabled( true/false)', 'Vendor Code', 'Email id'];
+		$users_info = get_user_details_csv_upload($user_info->uid);
+		$stringData = $users_info->FullName;
+		$stringData .= "," . $users_info->Login;
+		$stringData .= "," . $users_info->DisableUser;
+		$stringData .= ",\"" . $users_info->Vendors;
+		$stringData .= "\"," . $users_info->Email;
+		$command = escapeshellcmd("/apps/python/bin/azure_blob_helper.py put avantor " . $file_name . " " . $file_path);
+
+		fwrite($fh, $stringData);
+		fclose($fh);
+		watchdog('usermanager', '<pre>' . print_r($command, TRUE) . '</pre>', array(), WATCHDOG_INFO, NULL);
+
+		$connectionString = variable_get('azure_connection_string','');
+		$blobClient = ServicesBuilder::createBlobService($connectionString);
+
+		$createContainerOptions = new CreateContainerOptions();
+
+		$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+
+		$containerName = "hybris/master/hotfolder";
+		try {
+			$blobClient->createBlockBlob($containerName, $file_name, $stringData);
+		} catch (ServiceException $e) {
+			$code = $e->getCode();
+			$error_message = $e->getMessage();
+			watchdog('usermanager', '<pre>' . $code . ":" . $error_message . '</pre>', array(), WATCHDOG_INFO, NULL);
+		}
+	}
+
+	function usersCsv_forVendorchanges($orgID)
+	{
+		$file_name = "AVANTOR_SUPPLIER_USER_" . time() ."_$orgID.csv";
+		//$file_path = $_SERVER["DOCUMENT_ROOT"]."/supplier_org_users/".$file_name;
+		$file_path = "/apps/python/data/".$file_name;
+		$fh = fopen($file_path, 'w') or die("can't open file");
+		$headers = ['Supplier name', 'User id', ' login disabled( true/false)', 'Vendor Code', 'Email id'];
+		$res = db_query("
+							select 
+								concat(ui.firstname,' ',ui.lastname) as name,
+								u.mail as userid,
+								(case when u.status = 0 then 'true' else 'false' end) as status,
+								CONCAT('\"',GROUP_CONCAT(distinct case when SUBSTRING(SAP_vendor,1,1)=1 then concat(lpad(SUBSTRING(v.SAP_vendor,2),10,'0'),':8000') 
+								when SUBSTRING(SAP_vendor,1,1)=2 then concat(lpad(SUBSTRING(v.SAP_vendor,2),10,'0'),':5000')
+								else concat(lpad(SAP_vendor,10,'0'),case when vs.region_id =1 then ':8000' else ':5000' end ) end ),'\"') as 'Vendors',
+								ui.email
+							from vwr_users u join vwr_users_info ui on ui.uid = u.uid 
+							left join vwr_vendor v on ui.supplier_org_name =v.supplier_org_id
+							left join vwr_supplier_org_regions vs on v.supplier_org_id =vs.supplier_org_id
+							where ui.supplier_org_name = '$orgID' GROUP by u.mail
+						");
+		fputcsv($fh, $headers);
+		$command = escapeshellcmd("/apps/python/bin/azure_blob_helper.py put avantor " . $file_name . " " . $file_path);
+		while($row = $res->fetchAssoc()){
+			$newline = "\n";
+			$csvrow.= implode(',',$row).$newline;
+			fputcsv($fh,$row); 
+		}
+
+		fclose($fh);
+		//watchdog('usermanager', '<pre>' . print_r($command, TRUE) . '</pre>', array(), WATCHDOG_INFO, NULL);
+
+		//$connectionString = "DefaultEndpointsProtocol=https;AccountName=5629q6p73q69bl7npvcmilo;AccountKey=kAdeeiGK9+aUNc3Pf7hdpezlrsrTaRRWTW7QmfMHf8pzNPCTf+ydsb3xvJOovtfY05tFbyTP6zrsfyRO1REgxQ==";
+		//$connectionString = "DefaultEndpointsProtocol=https;AccountName=8rh0uazwqx20id51cgc6u90;AccountKey=lI9B6wSHWjBncFjAEDuRMSG314V5gvaofB+RVKKkg2kCfhIdCQvGljma+P/9XlCmeOKqyM+0wnOpWoBz7MkVBA==";
+		//$connectionString = "DefaultEndpointsProtocol=https;AccountName=llj97wdo5d90dzewg3fauwo;AccountKey=ojSAbOg5t9Df+pKiKdvWFUVY0VxDP6+m8VzFDOqiE7drizo8oOckUhMcxKeoR3Nc96CduRjaUQ/iP4mKxi1aKA=="; //P1
+		$connectionString = "DefaultEndpointsProtocol=https;AccountName=aa6vd5faa1zaby5b877qnw5;AccountKey=uq6x7HiVenR9YRzApZuPRsl3+PEJ/ldZKu+hLZwcfz47DAUIMar9sAIg9yksoBmQtJaPqfrHOWHL+AStsykymg=="; //P2
+		$ServicesBuild = new ServicesBuilder;
+		$blobClient = $ServicesBuild->createBlobService($connectionString);
+
+		$createContainerOptions = new CreateContainerOptions();
+
+		$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+
+		$containerName = "hybris/master/hotfolder";
+		try {
+			$blobClient->createBlockBlob($containerName, $file_name, $csvrow);
+		}
+		catch (ServiceException $e) {
+			$code = $e->getCode();
+			$error_message = $e->getMessage();
+			watchdog('usermanager', '<pre>' . $code . ":" . $error_message . '</pre>', array(), WATCHDOG_INFO, NULL);
+		} 
+	}
+
+	function has_region_access($userid)
+	{
+		$regions = db_query("select permission_id from {permission_list_internal} where permission_title='Create Regions'")->fetchField(0);
+		$userregioncreate = db_query("select upi.permission_id from {user_permission_internal} as upi,{users_info} as ui where upi.uid=:uid and ui.uid=:userid and 
+		upi.permission_id =:regions", array(':uid' => $userid, ':userid' => $userid, ':regions' => $regions))->fetchAll();
+		return $userregioncreate;
+	}
+	// VWR Internal user Approval
+	function usermanager_internal_user_approvals()
+	{
+		$uid = base64_decode(arg(2));
+		$result = db_query("SELECT u.uid, u.name, u.mail, u.status, uinfo.* FROM {users} u,
+			{users_info} uinfo WHERE u.uid = :uid AND u.uid = uinfo.uid", array(':uid' => $uid))->fetchObject();
+
+		$query = db_select('permission_list_internal', 'plist');
+
+		$query->condition('plist.deleted', 0, '=')
+			->fields('plist', array('permission_id', 'permission_title', 'permission_category_id'))
+			->orderBy('permission_category_id', 'ASC');
+		$permission_result = $query->execute();
+		$row = array();
+		while ($row[] = $permission_result->fetchAssoc()) :
+		endwhile;
+
+		$query_perm = db_select('user_permission_internal', 'uperm');
+		$query_perm->condition('uperm.uid 	', $uid, '=')
+			->fields('uperm', array('permission_id'))
+			->orderBy('permission_id', 'ASC');
+		$user_permission = $query_perm->execute();
+		$perm_row = array();
+		while ($perm_row[] = $user_permission->fetchCol()) :
+		endwhile;
+
+		return theme('usermanager_internal_user_approval', array('data' => $result, 'permission_results' => $row, 'user_permission' => $perm_row));
+	}
+
+	function usermanager_supplier_info()
+	{
+		$supplier_id = addslashes(htmlentities(trim($_REQUEST['supplier_org'])));
+		$supplier_org_name = addslashes(htmlentities(trim($_REQUEST['supplier_org_name'])));
+		$suplier_result = db_query("SELECT s.supplier_org_name,ven.vendor_id,ven.vendor_desc,
+										vtier.vas_desc,vtier.vas_tier_id,vtier.vas_tier_name
+										FROM {vas_tier} vtier, ({vendor} ven LEFT JOIN {supplier_organization} s ON s.supplier_org_id = ven.supplier_org_id)
+										JOIN {vas_tier_vendor_map} vmap on vmap.vendor_id = ven.vendor_id 
+										WHERE ven.supplier_org_id=:sname and vtier.vas_tier_id = vmap.vas_tier_id 
+										AND vtier.deleted = 0 AND vmap.deleted = 0 order by ven.vendor_id", array(':sname' => $supplier_org_name));
+		$supplier_table = '<div class="table_container">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-bottom:1px solid #CFCFCF">
+									<tr class="table_head table_row">
+									<td>Supplier Org</td>
+									<td>Vendor Number</td>
+									<td>Vendor Desc</td>
+									<td>Flag Desc</td>
+									<td>Flag CD</td>
+									<td>Flag Tier</td>
+									</tr>';
+
+		foreach ($suplier_result as $rec_count => $supliers_result) {
+			$supplier_table .=        '<tr class="table_row"><td>' . $supliers_result->supplier_org_name . '</td>
+										<td>' . $supliers_result->vendor_id . '</td>
+										<td>' . $supliers_result->vendor_desc . '</td>
+										<td>' . $supliers_result->vas_desc . '</td>
+										<td>' . $supliers_result->vas_tier_id . '</td>
+										<td class="brdr_right">' . $supliers_result->vas_tier_name . '</td>
+									</tr>';
+		}
+		$supplier_table .= '</table><div class="conf_btn">
+									<input type="submit" class="button" value="Confirm" name="supplier_org_confirm" id="supplier_org_confirm" onclick="supplierUpdate();"/>
+								</div>';
+		if (count($supliers_result) == 0) {
+			$supplier_table = '';
+		}
+		echo $supplier_table;
+	}
+
+	function usermanager_update_user_info()
+	{
+		$confirm_edit_perm = has_user_access('confirm/update');
+		$user_update_id = addslashes(strip_tags($_POST['edit_user_id']));
+		if ($confirm_edit_perm) {
+			$editField['mail'] = strip_tags($_POST['email']);
+			$mail_exists = db_query("SELECT count(uid) FROM {users} WHERE mail = :email AND uid != :user_update_id", array(':email' => $_POST['email'], ':user_update_id' => $user_update_id))->fetchField(0);
+			if ($mail_exists > 0) {
+				echo "email-exists";
+				return;
+				die;
+			}
+			db_update('users')->fields($editField)->condition('uid', $user_update_id)->execute();
+			$von = array(" ", " ", " ", " ", " ", " ", " ", " ", " ");  //to correct double whitepaces as well
+			$zu  = array("&auml;", "&ouml;", "&uuml;", "&szlig;", "&Auml;", "&Ouml;", "&Uuml;", "&nbsp;", "&#233;");
+			$supplier_addr1    = str_replace($von, $zu, $_POST['address1']);
+			$supplier_addr2    = str_replace($von, $zu, $_POST['address2']);
+			$editFields['firstname']   = strip_tags($_POST['firstname']);
+			$editFields['lastname']    = strip_tags($_POST['lastname']);
+			$editFields['address1']    = strip_tags($supplier_addr1);
+			$editFields['address2']    = strip_tags($supplier_addr2);
+			$editFields['city']        = strip_tags($_POST['city']);
+			$editFields['state']       = strip_tags($_POST['state']);
+			$editFields['zipcode']     = strip_tags($_POST['zipcode']);
+			$editFields['country']     = strip_tags($_POST['country']);
+			$editFields['email']       = strip_tags($_POST['email']);
+			if ($_POST['phone']) {
+				$editFields['phone'] = strip_tags($_POST['phone']);
+			}
+			$editFields['company'] = strip_tags($_POST['company']);
+			$editFields['division'] = strip_tags($_POST['division']);
+			$supplier_region = strip_tags($_POST['supplier_region']);
+			$editFields['supplier_function'] = strip_tags($_POST['supplier_function']);
+			db_update('users_info')->fields($editFields)->condition('uid', $user_update_id)->execute();
+			db_query("update {newsupplier_regions} set regionid = :supplier_region where userid = :user_update_id", array(':supplier_region' => $supplier_region, ':user_update_id' => $user_update_id));
+		}
+		$supplier_attr_name = strip_tags($_REQUEST['supplier_attr_name']);
+		$supplier_attr_value = strip_tags($_REQUEST['supplier_attr_value']);
+
+		$supplier_attr_name_arr = explode(',', $supplier_attr_name);
+		$supplier_attr_val_arr = explode(',', $supplier_attr_value);
+
+		db_delete('supplier_attributes')
+			->condition('uid', $user_update_id)
+			->execute();
+
+		$variables = array();
+		for ($i = 0; $i < count($supplier_attr_name_arr); $i++) {
+			db_insert('supplier_attributes')
+				->fields(array(
+					'uid' => $user_update_id,
+					'attribute_name' => $supplier_attr_name_arr[$i],
+					'attribute_value' => $supplier_attr_val_arr[$i],
+				))
+				->execute();
+		}
+
+		if ($confirm_edit_perm) {
+			echo "success";
+		} else {
+			$_SESSION['user_update'] = "Supplier Attributes are added successfully";
+			echo "users-overview";
+		}
+	}
+
+	function usermanager_assign_supplier()
+	{
+		global $user;
+		$created_by = $user->uid;
+
+		$user_update_id = strip_tags($_POST['edit_user_id']);
+		$editField['supplier_org_name'] = strip_tags($_POST['supplier_org']);
+		db_update('users_info')->fields($editField)->condition('uid', $user_update_id)->execute();
+
+		$supplier_org_view_perm = db_query("SELECT view_permission FROM {view_team_supplier_org} WHERE supplier_org = :supplier_org", array(':supplier_org' => addslashes(trim($_POST['supplier_org_name']))))->fetchColumn();
+		if ($supplier_org_view_perm == 1) {
+			$select_exist = db_query("SELECT count(uid) FROM {user_permission_internal} WHERE uid=:uid AND permission_id = (SELECT permission_id FROM {permission_list_internal} WHERE permission_title='View Team')", array(':uid' => $user_update_id))->fetchColumn();
+			if ($select_exist == 0) {
+				$permission_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title='View Team'")->fetchColumn();
+				$insertField = array();
+				$insertField['uid'] = $user_update_id;
+				$insertField['permission_id'] = $permission_id;
+				$insertField['created_by'] = $user->uid;
+				$insertField['modified_by'] = $user->uid;
+				db_query("DELETE FROM {user_permission_internal} WHERE uid = :user_update_id AND permission_id=:permission_id", array(':user_update_id' => $user_update_id, ':permission_id' => $permission_id));
+				db_insert('user_permission_internal')->fields($insertField)->execute();
+			}
+		} else {
+			db_query("DELETE FROM {user_permission_internal} WHERE uid = :user_update_id AND permission_id=(SELECT permission_id FROM {permission_list_internal} WHERE permission_title='View Team')", array(':user_update_id' => $user_update_id));
+		}
+		echo "success";
+	}
+
+	//Assign/Edit Supplier info
+	function usermanager_assign_userrole()
+	{
+		$user_update_id = strip_tags($_POST['edit_user_id']);
+		$change_role = addslashes(strip_tags(trim($_REQUEST['change_role'])));
+		$editField['rid'] = strip_tags($_POST['user_role']);
+		$editUserField['supplier_org_name'] = NULL;
+		if ($change_role == 'supplier-internal') {
+			db_update('users_info')->fields($editUserField)
+				->condition('uid', $user_update_id, '=')
+				->execute();
+			db_query("DELETE FROM {dashboard_user_map} WHERE uid = :user_update_id", array(':user_update_id' => $user_update_id));
+			$dashboard_default_entries = 'w_0@Dropbox,w_1@Users,w_2@Supplier Org';
+			$dashboard_count = 3;
+			db_insert('dashboard_user_map')
+				->fields(array(
+					'uid' => $user_update_id,
+					'category_id' => $dashboard_default_entries,
+					'dashboard_count' => $dashboard_count,
+				))
+				->execute();
+			// Make entry in dashboard_user_map table while user approval process * code ends here
+		}
+		db_update('users_roles')->fields($editField)->condition('uid', $user_update_id)->execute();
+		$status = db_query('SELECT status FROM {users} WHERE uid=:user_update_id', array(':user_update_id' => $user_update_id))->fetchField(0);
+		if ($status == "2") {
+			$editFields['status'] = 1;
+			db_update('users')->fields($editFields)->condition('uid', $user_update_id)->execute();
+			$query = db_select('users_info', 'uinfo');
+			$query->fields('uinfo', array('firstname', 'email'))
+				->condition('uid', $user_update_id, '=');
+			$users_result = $query->execute();
+			$row = array();
+			while ($row[] = $users_result->fetchAssoc()) {
+			}
+			emailNotification('approval_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Approval');
+			// to assign inital 9 dashboard category and subcategories comment ends here
+			$dashboard_default_entries = 'w_0@Dropbox';
+			$dashboard_count = 1;
+			db_insert('dashboard_user_map')
+				->fields(array(
+					'uid' => $user_update_id,
+					'category_id' => $dashboard_default_entries,
+					'dashboard_count' => $dashboard_count,
+				))
+				->execute();
+			// Make entry in dashboard_user_map table while user approval process * code ends here
+		}
+		$user_info = db_query('SELECT * FROM {users} WHERE uid=:user_update_id', array(':user_update_id' => $user_update_id))->fetchObject();
+		upload_csv($user_info);
+		$_SESSION['user_update'] = "User successfully added to Supplier Central";
+		echo base64_encode($user_update_id);
+	}
+	//Assign/Edit Internal User info
+	function usermanager_assign_internaluserrole()
+	{
+		$change_role = addslashes(strip_tags($_REQUEST['change_role']));
+		$user_update_id = addslashes(strip_tags($_POST['edit_user_id']));
+		$editField['rid'] = addslashes(strip_tags($_POST['user_role']));
+		if ($change_role == 'internal-supplier') {
+			db_delete('user_permission_internal')
+				->condition('uid', $user_update_id)
+				->execute();
+			db_query("DELETE FROM {dashboard_user_map} WHERE uid = :user_update_id", array(':user_update_id' => $user_update_id));
+			$dashboard_default_entries = 'w_0@Dropbox';
+			$dashboard_count = 1;
+			db_insert('dashboard_user_map')
+				->fields(array(
+					'uid' => $user_update_id,
+					'category_id' => $dashboard_default_entries,
+					'dashboard_count' => $dashboard_count,
+				))
+				->execute();
+			// Make entry in dashboard_user_map table while user approval process * code ends here
+		}
+		db_update('users_roles')->fields($editField)->condition('uid', $user_update_id)->execute();
+		echo base64_encode($user_update_id);
+	}
+
+	//Assing Internal user permissions
+
+	function usermanager_assign_internaluserperm()
+	{
+		$user_update_id = strip_tags($_POST['edit_user_id']);
+		$pid = strip_tags($_POST['permissions']);
+		db_delete('user_permission_internal')
+			->condition('uid', $user_update_id)
+			->execute();
+		$permIds = explode(',', $pid);
+		if ($pid) {
+			for ($i = 0; $i < count($permIds); $i++) {
+				db_insert('user_permission_internal')
+					->fields(array(
+						'uid' => $user_update_id,
+						'permission_id' => $permIds[$i],
+						'created_by' => 1,
+						'modified_by' => 1,
+					))
+					->execute();
+			}
+		}
+		$status = db_query('SELECT status FROM {users} WHERE uid=:user_update_id', array(':user_update_id' => $user_update_id))->fetchField(0);
+		if ($status == "2") {
+			$editFields['status'] = 1;
+			db_update('users')->fields($editFields)->condition('uid', $user_update_id)->execute();
+			$query = db_select('users_info', 'uinfo');
+			$query->fields('uinfo', array('firstname', 'email'))
+				->condition('uid', $user_update_id, '=');
+			$users_result = $query->execute();
+			$row = array();
+			while ($row[] = $users_result->fetchAssoc()) {
+			}
+			emailNotification('approval_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Approval');
+			$dashboard_default_entries = 'w_0@Dropbox,w_1@Users,w_2@Supplier Org';
+			$dashboard_count = 3;
+			db_insert('dashboard_user_map')
+				->fields(array(
+					'uid' => $user_update_id,
+					'category_id' => $dashboard_default_entries,
+					'dashboard_count' => $dashboard_count,
+				))
+				->execute();
+			// Make entry in dashboard_user_map table while user approval process * code ends here
+		}
+		$_SESSION['user_update'] = "User successfully added to Supplier Central";
+		echo "success";
+	}
+
+	function usermanager_update_internaluser_info()
+	{
+		$user_update_id = strip_tags($_POST['edit_user_id']);
+		$editField['mail'] = strip_tags($_POST['email']);
+		db_update('users')->fields($editField)->condition('uid', $user_update_id)->execute();
+		$region = strip_tags($_POST['region']);
+		$editFields['firstname'] = strip_tags($_POST['firstname']);
+		$editFields['lastname'] = strip_tags($_POST['lastname']);
+		$editFields['email'] = strip_tags($_POST['email']);
+		db_update('users_info')->fields($editFields)->condition('uid', $user_update_id)->execute();
+		db_query("update {newsupplier_regions} set regionid=:region where userid=:user_update_id", array(':region' => $region, ':user_update_id' => $user_update_id));
+		echo "success";
+	}
+
+	function usermanager_update_user_status()
+	{
+		global $user;
+		$user_update_id = strip_tags($_POST['edit_user_id']);
+		$update_val = "";
+		$status = db_query('SELECT status FROM {users} WHERE uid=:user_update_id', array(':user_update_id' => $user_update_id))->fetchField(0);
+		$query = db_select('users_info', 'uinfo');
+		$query->fields('uinfo', array('uid', 'firstname', 'email', 'supplier_org_name'))
+			->condition('uid', $user_update_id, '=');
+		$users_result = $query->execute();
+		$row = array();
+		while ($row[] = $users_result->fetchAssoc()) {
+		}
+		if (($row[0]['supplier_org_name'] != '' && $row[0]['supplier_org_name'] != NULL && is_user_supplier($user_update_id)) || !is_user_supplier($user_update_id)) {
+			$permission_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'View Team'")->fetchColumn();
+			if ($status == "1") {
+				$update_val = 0;
+				emailNotification('deactivate_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Account deactivated', 'activate');
+				if (is_user_supplier($row[0]['uid']))
+					db_delete('user_permission_internal')->condition('uid', $row[0]['uid'])->condition('permission_id', $permission_id)->execute();
+			} else if ($status == "0") {
+				$update_val = 1;
+				emailNotification('activate_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Account activated', 'deactivate');
+				if (is_user_supplier($row[0]['uid'])) {
+					db_delete('user_permission_internal')->condition('uid', $row[0]['uid'])->condition('permission_id', $permission_id)->execute();
+					db_insert('user_permission_internal')->fields(array('uid' => $row[0]['uid'], 'permission_id' => $permission_id, 'created_by' => $user->uid, 'modified_by' => $user->uid))->execute();
+				}
+			}
+			$editField['status'] = $update_val;
+			$result = db_update('users')->fields($editField)->condition('uid', $user_update_id)->execute();
+			// delete deactivate request list after deactivation
+			db_delete('deactivation_list')->condition('uid', $user_update_id)->execute();
+			echo $update_val;
+		} else {
+			echo "2";
+		}
+	}
+
+	function usermanager_deactivate_user()
+	{
+		global $user;
+		$users_all = strip_tags($_POST['deactivate_all']);
+		$update_status = strip_tags($_POST['updateStatus']);
+		if ($users_all) {
+			$user_ids = explode(',', $users_all);
+			for ($i = 0; $i < count($user_ids); $i++) {
+				$editField['status'] = $update_status;
+				db_update('users')->fields($editField)->condition('uid', $user_ids[$i])->execute();
+
+				$query = db_select('users_info', 'uinfo');
+				$query->fields('uinfo', array('uid', 'firstname', 'email'))
+					->condition('uid', $user_ids[$i], '=');
+				$users_result = $query->execute();
+				$row = array();
+				while ($row[] = $users_result->fetchAssoc()) {
+				}
+
+				$permission_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'View Team'")->fetchColumn();
+				if ($update_status == "0") {
+					emailNotification('deactivate_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Account deactivated', 'activate');
+					if (is_user_supplier($row[0]['uid']))
+						db_delete('user_permission_internal')->condition('uid', $row[0]['uid'])->condition('permission_id', $permission_id)->execute();
+				} else {
+					emailNotification('activate_email.tpl.php', $row[0]['email'], $row[0]['firstname'], 'VWR Supplier Central Account activated', 'deactivate');
+					if (is_user_supplier($row[0]['uid'])) {
+						db_delete('user_permission_internal')->condition('uid', $row[0]['uid'])->condition('permission_id', $permission_id)->execute();
+						db_insert('user_permission_internal')->fields(array('uid' => $row[0]['uid'], 'permission_id' => $permission_id, 'created_by' => $user->uid, 'modified_by' => $user->uid))->execute();
+					}
+				}
+			}
+
+			$_SESSION['user_update'] = "Users updated successfully";
+		}
+		echo "success";
+	}
+
+	function usermanager_disapprove()
+	{
+		$user_delete_id = strip_tags($_POST['delete_user_id']);
+		$to_mail = strip_tags($_REQUEST['email']);
+		$firstname = strip_tags($_REQUEST['firstname']);
+		// deleter user info
+		db_delete('users_info')
+			->condition('uid', $user_delete_id)
+			->execute();
+		// delete user
+		db_delete('users')
+			->condition('uid', $user_delete_id)
+			->execute();
+		// delete user roles
+		db_delete('users_roles')
+			->condition('uid', $user_delete_id)
+			->execute();
+		emailNotification('disapprove_email.tpl.php', $to_mail, $firstname, 'VWR Supplier Central requested rejected');
+		$_SESSION['user_update'] = "User successfully removed from Supplier Central";
+		echo "success";
+	}
+	function get_user_regionid($user_id)
+	{
+
+		$result = db_query("select region_id from vwr_supplier_org_regions as vwrsor inner join vwr_users_info as vwrui on vwrui.supplier_org_name= vwrsor.supplier_org_id where vwrui.uid=:user_id and vwrsor.status=1", [':user_id' => $user_id]);
+		$userregions = array();
+		while ($row = $result->fetchAssoc()) {
+			$userregions[$row['region_id']] = $row['region_id'];
+		}
+		return $userregions;
+	}
+	function getuserregionsbyuserid($user_id)
+	{
+
+		$result = db_query("select vwrurs.region_id from {user_region_settings}  as vwrurs 
+			INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrurs.region_id and vwrmr.region_status=1 
+			where vwrurs.status=1 AND vwrurs.user_id=:user_id ORDER BY region_id ASC", array(':user_id' => $user_id));
+		$userregions = array();
+		while ($row = $result->fetchAssoc()) {
+			$userregions[$row['region_id']] = $row['region_id'];
+		}
+		return $userregions;
+	}
+
+	function getusertabregionsbyuserid($user_id)
+	{
+
+
+		$result = db_query("select vwrurs.region_id from {user_defaulttab_settings}  as vwrurs 
+			INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrurs.region_id and vwrmr.region_status=1 
+			where vwrurs.user_id=:user_id ORDER BY region_id ASC", array(':user_id' => $user_id));
+		$userregions = array();
+		while ($row = $result->fetchAssoc()) {
+			$userregions[$row['region_id']] = $row['region_id'];
+		}
+		return $userregions;
+	}
+	function usermanager_export()
+	{
+		$export_users = strip_tags($_POST['selcted_users']);
+		$excelHeadings = "<table cellspacing='5' cellpadding='5' width='100%' align='center'>
+								<tr style='background-color:#CCCCCC; font-size:12px;'>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Address 1</th>
+									<th>Address 2</th>
+									<th>City/Town</th>
+									<th>State/Province</th>
+									<th>ZIP/Postal Code</th>
+									<th>Country</th>
+									<th>Email Address</th>
+									<th>Phone Number</th>
+									<th>Company</th>
+									<th>Company Division</th>
+									<th>Company Role</th>
+									<th>Function</th>
+									<th>Supplier Org</th>
+									<th>User Type</th>
+									<th>User Status</th>
+									<th>Last Login</th>
+									<th>Email Notification</th>
+									<th>User Region</th>
+									<th>User Region Settings</th>
+									<th>User Tab Preference</th>
+									<th>NA News</th>
+									<th>NA Quality</th>
+									<th>NA Supply Chain</th>
+									<th>EU News</th>
+								</tr>";
+		$excelData = "";
+		$filename = '';
+		$filename = "Userdirectory_" . date("m-d-Y") . ".xls";
+
+		if ($export_users) {
+			$user_ids = explode(',', $export_users);
+			$regionnameslist = substr($regionnameslist, 0, (strlen($regionnameslist) - 1));
+			$userregionnamessettingslist = substr($userregionnamessettingslist, 0, (strlen($userregionnamessettingslist) - 1));
+			$query = db_select('users_info', 'uinfo');
+			$query->join('users', 'u', 'uinfo.uid = u.uid');
+			$query->join('users_roles', 'u_role', 'u_role.uid = u.uid');
+			$query->leftjoin('supplier_organization', 's', 's.supplier_org_id = uinfo.supplier_org_name');
+			$query->leftjoin('supplier_notifications', 'sn', 'sn.user_id = uinfo.uid');
+			$query->join('role', 'role', 'role.rid = u_role.rid');
+			$query->fields('uinfo', array('uid', 'firstname', 'lastname', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'email', 'phone', 'company', 'division', 'company_role', 'supplier_function'))
+				->fields('u', array('access', 'status'))
+				->fields('sn', array('na_supply', 'na_news', 'eu_news', 'na_quality'))
+				->fields('u_role', array('rid'))
+				->fields('role', array('name'))
+				->fields('s', array('supplier_org_name'))
+				->condition('uinfo.uid', $user_ids, 'IN');
+			$users_result = $query->execute();
+			$row = array();
+			while ($result = $users_result->fetchAssoc()) {
+				$row[] = $result;
+			}
+			$activeregions = array();
+			$activeregionsprocess = array();
+			$activeregions = getregioninfo();
+			$activeregionsprocess = array_flip($activeregions);
+			$recCount = count($row);
+			for ($i = 0; $i < $recCount; $i++) {
+				if ($row[$i]['access'] > 0) {
+					$last_login = date("m/d/Y", $row[$i]['access']);
+				} else {
+					$last_login = 'Never';
+				}
+				$user_status = '';
+				if ($row[$i]['status'] == "1") {
+					$user_status = "Active";
+				} else if ($row[$i]['status'] == "0") {
+					$user_status = "Inactive";
+				} else if ($row[$i]['status'] == "2") {
+					$user_status = "Pending";
+				}
+				$usersettings = array();
+				$usersettings = getuserregionsbyuserid($row[$i]['uid']);
+				$usersettingsname = '';
+				if (!empty($usersettings)) {
+					foreach ($usersettings as $indexregion_id => $region_id) {
+						$usersettingsname .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				$usertabsettings = array();
+				$usertabsettings = getusertabregionsbyuserid($row[$i]['uid']);
+				$usertabsettingsname = '';
+				if (!empty($usertabsettings)) {
+					foreach ($usertabsettings as $indexregion_id => $region_id) {
+						$usertabsettingsname .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				$userregions = array();
+				$userregions  = get_user_regionid($row[$i]['uid']);
+				$region_name = '';
+				if (!empty($userregions)) {
+					foreach ($userregions as $indexregion_id => $region_id) {
+						$region_name .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				if ($row[$i]['na_news'] == 1) {
+					$na_news = "Yes";
+				}
+				if ($row[$i]['na_news'] == 0) {
+					$na_news = "No";
+				}
+				if (is_null($row[$i]['na_news'])) {
+					$na_news = "Not Selected";
+				}
+
+				if ($row[$i]['na_supply'] == 1) {
+					$na_supply = "Yes";
+				}
+				if ($row[$i]['na_supply'] == 0) {
+					$na_supply = "No";
+				}
+				if (is_null($row[$i]['na_supply'])) {
+					$na_supply = "Not Selected";
+				}
+
+				if ($row[$i]['eu_news'] == 1) {
+					$eu_news = "Yes";
+				}
+				if ($row[$i]['eu_news'] == 0) {
+					$eu_news = "No";
+				}
+				if (is_null($row[$i]['eu_news'])) {
+					$eu_news = "Not Selected";
+				}
+				$na_quality = "Not Selected";
+				if ($row[$i]['na_quality'] == 1) {
+					$na_quality = "Yes";
+				}
+
+				$email_notify = ($row[$i]['email_notify'] == '1') ? 'Disabled' : 'Enabled';
+				$user_role = '';
+				$excelData .= "<tr align='left'>
+									<td>" . $row[$i]['firstname'] . "</td>
+									<td>" . $row[$i]['lastname'] . "</td>
+									<td>" . $row[$i]['address1'] . "</td>
+									<td>" . $row[$i]['address2'] . "</td>
+									<td>" . $row[$i]['city'] . "</td>
+									<td>" . $row[$i]['state'] . "</td>
+									<td>" . $row[$i]['zipcode'] . "</td>
+									<td>" . $row[$i]['country'] . "</td>
+									<td>" . $row[$i]['email'] . "</td>
+									<td>" . $row[$i]['phone'] . "</td>
+									<td>" . $row[$i]['company'] . "</td>
+									<td>" . $row[$i]['division'] . "</td>
+									<td>" . $row[$i]['company_role'] . "</td>
+									<td>" . $row[$i]['supplier_function'] . "</td>
+									<td>" . $row[$i]['supplier_org_name'] . "</td>
+									<td>" . $row[$i]['name'] . "</td>
+									<td>" . $user_status . "</td>
+									<td>" . $last_login . "</td>
+									<td>" . $email_notify . "</td>
+									<td>" . $region_name . "</td>
+									<td>" . $usersettingsname . "</td>
+									<td>" . $usertabsettingsname . "</td>
+									<td>" . $na_news . "</td>
+									<td>" . $na_quality . "</td>
+									<td>" . $na_supply . "</td>
+									<td>" . $eu_news . "</td>
+								</tr>";
+			}
+		} else {
+			$query = db_select('users_info', 'uinfo');
+			$query->join('users', 'u', 'uinfo.uid = u.uid');
+			$query->join('users_roles', 'u_role', 'u_role.uid = u.uid');
+			$query->leftjoin('supplier_organization', 's', 's.supplier_org_id = uinfo.supplier_org_name');
+			$query->leftjoin('supplier_notifications', 'sn', 'sn.user_id = uinfo.uid');
+			$query->join('role', 'role', 'role.rid = u_role.rid');
+			$query->fields('uinfo', array('uid', 'firstname', 'lastname', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'email', 'phone', 'company', 'division', 'company_role', 'supplier_function'))
+				->fields('u', array('access', 'status'))
+				->fields('sn', array('na_supply', 'na_news', 'eu_news', 'na_quality'))
+				->fields('u_role', array('rid'))
+				->fields('s', array('supplier_org_name'))
+				->fields('role', array('name'))
+				->orderBy('u.uid', 'ASC');
+
+			$users_result = $query->execute();
+			$row = array();
+			while ($result = $users_result->fetchAssoc()) {
+				$row[] = $result;
+			}
+
+			$activeregions = array();
+			$activeregionsprocess = array();
+			$activeregions = getregioninfo();
+			$activeregionsprocess = array_flip($activeregions);
+
+			$recCount = count($row);
+
+			$excelData = "";
+			for ($i = 0; $i < $recCount; $i++) {
+
+				$usersids = $row[$i]['uid'];
+				$userregions = array();
+				$userregions  = get_user_regionid($row[$i]['uid']);
+				$region_name = '';
+				if (!empty($userregions)) {
+					foreach ($userregions as $indexregion_id => $region_id) {
+						$region_name .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				$usersettings = array();
+				$usersettings = getuserregionsbyuserid($row[$i]['uid']);
+				$usersettingsname = '';
+				if (!empty($usersettings)) {
+					foreach ($usersettings as $indexregion_id => $region_id) {
+						$usersettingsname .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				$usertabsettings = array();
+				$usertabsettings = getusertabregionsbyuserid($row[$i]['uid']);
+				$usertabsettingsname = '';
+				if (!empty($usertabsettings)) {
+					foreach ($usertabsettings as $indexregion_id => $region_id) {
+						$usertabsettingsname .= $activeregionsprocess[$region_id] . " ";
+					}
+				}
+
+				if ($row[$i]['na_news'] == 1) {
+					$na_news = "Yes";
+				}
+				if ($row[$i]['na_news'] == 0) {
+					$na_news = "No";
+				}
+				if (is_null($row[$i]['na_news'])) {
+					$na_news = "Not Selected";
+				}
+
+				if ($row[$i]['na_supply'] == 1) {
+					$na_supply = "Yes";
+				}
+				if ($row[$i]['na_supply'] == 0) {
+					$na_supply = "No";
+				}
+				if (is_null($row[$i]['na_supply'])) {
+					$na_supply = "Not Selected";
+				}
+
+				if ($row[$i]['eu_news'] == 1) {
+					$eu_news = "Yes";
+				}
+				if ($row[$i]['eu_news'] == 0) {
+					$eu_news = "No";
+				}
+				if (is_null($row[$i]['eu_news'])) {
+					$eu_news = "Not Selected";
+				}
+
+				$na_quality = "Not Selected";
+				if ($row[$i]['na_quality'] == 1) {
+					$na_quality = "Yes";
+				}
+
+				$userregionssettings = db_query("select DISTINCT(region_id) from {user_region_settings} where user_id in (:usersids)", [':usersids' => $usersids]);
+				if ($userregionssettings) {
+					foreach ($userregionssettings as $userregionid) {
+						$userregionnamessettings = db_query("select region_shortname from {manage_regions} where region_id in (:region_id)", [':region_id' => $userregionid->region_id]);
+						if ($userregionnamessettings) {
+							foreach ($userregionnamessettings as $usrrn) {
+								$userregionnamessettingslist .= $usrrn->region_shortname . ",";
+							}
+						}
+					}
+				}
+
+				$userregionnamessettingslist = substr($userregionnamessettingslist, 0, (strlen($userregionnamessettingslist) - 1));
+
+
+				if ($row[$i]['access'] > 0) {
+					$last_login = date("m/d/Y", $row[$i]['access']);
+				} else {
+					$last_login = 'Never';
+				}
+				$user_status = '';
+				if ($row[$i]['status'] == "1") {
+					$user_status = "Active";
+				} else if ($row[$i]['status'] == "0") {
+					$user_status = "Inactive";
+				} else if ($row[$i]['status'] == "2") {
+					$user_status = "Pending";
+				}
+				$email_notify = ($row[$i]['email_notify'] == '1') ? 'Disabled' : 'Enabled';
+				$excelData .= "<tr  align='left'>
+									<td>" . $row[$i]['firstname'] . "</td>
+									<td>" . $row[$i]['lastname'] . "</td>
+									<td>" . $row[$i]['address1'] . "</td>
+									<td>" . $row[$i]['address2'] . "</td>
+									<td>" . $row[$i]['city'] . "</td>
+									<td>" . $row[$i]['state'] . "</td>
+									<td>" . $row[$i]['zipcode'] . "</td>
+									<td>" . $row[$i]['country'] . "</td>
+									<td>" . $row[$i]['email'] . "</td>
+									<td>" . $row[$i]['phone'] . "</td>
+									<td>" . $row[$i]['company'] . "</td>
+									<td>" . $row[$i]['division'] . "</td>
+									<td>" . $row[$i]['company_role'] . "</td>
+									<td>" . $row[$i]['supplier_function'] . "</td>
+									<td>" . $row[$i]['supplier_org_name'] . "</td>
+									<td>" . $row[$i]['name'] . "</td>
+									<td>" . $user_status . "</td>
+									<td>" . $last_login . "</td>
+									<td>" . $email_notify . "</td>
+									<td>" . $region_name . "</td>
+									<td>" . $usersettingsname . "</td>
+									<td>" . $usertabsettingsname . "</td>
+									<td>" . $na_news . "</td>
+									<td>" . $na_quality . "</td>
+									<td>" . $na_supply . "</td>
+									<td>" . $eu_news . "</td>
+
+								</tr>";
+			}
+			$filename = "Userdirectory_All_" . date("m-d-Y") . ".xls";
+		}
+		$excelFooter = "</table>";
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Content-Type: application/force-download");
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: application/download");;
+		header("Content-Disposition: attachment;filename=$filename");
+		header("Content-Transfer-Encoding: binary ");
+		echo $excelHeadings . $excelData . $excelFooter;
+	}
+
+	/*
+		* Supplier Org List
+		*/
+	function supplier_org_users_overview()
+	{
+		$cookieprocessregions = '';
+		$changeregionquery = '';
+		if (isset($_COOKIE['cookieregion_name'])) {
+			$cookieprocessregions = addslashes(strip_tags(trim($_COOKIE['cookieregion_name'])));
+			$changeregionquery = " INNER JOIN {supplier_org_regions} AS vwrsor ON vwrsor.supplier_org_id = vwrso.supplier_org_id AND vwrsor.region_id IN (:cookieprocessregions) AND vwrsor.status=1 ";
+		}
+
+		drupal_add_js(drupal_get_path('module', 'usermanager') . '/js/supplier_org.js');
+
+
+		$result_supplier = db_query("SELECT * FROM {supplier_organization} as vwrso $changeregionquery WHERE vwrso.deleted=0 GROUP BY vwrso.supplier_org_id order by supplier_org_name ASC", array(':cookieprocessregions' => $cookieprocessregions));
+		$result_vas = db_query("SELECT * FROM {vas_tier} WHERE deleted=0 GROUP BY vas_tier_id order by vas_tier_name ASC");
+		$activeregions = array();
+		$activeregionsprocess = array();
+		$activeregions = getregioninfo();
+		$activeregionsprocess = array_flip($activeregions);
+		$isglobalsupplier = "SELECT supplier_org_id,IF(COUNT(region_id)>1,1,0) AS isglobal,region_id FROM vwr_supplier_org_regions WHERE STATUS=1 GROUP BY supplier_org_id";
+		$dbisglobalsuppliers = db_query($isglobalsupplier);
+		$isglobalsupplierslist = array();
+		while ($row = $dbisglobalsuppliers->fetchAssoc()) {
+			$isglobalsupplierslist[$row['supplier_org_id']] = $row;
+		}
+
+		$overallsuppliers = "SELECT so.supplier_org_id,so.supplier_org_name FROM  vwr_supplier_organization AS so  ";
+		$dbsuppliers = db_query($overallsuppliers);
+		$supplierslist = array();
+		while ($row = $dbsuppliers->fetchAssoc()) {
+			$supplierslist[$row['supplier_org_id']] = $row['supplier_org_name'];
+		}
+		$default_tab = arg(2);
+		$_SESSION['google_analytics_page_name'] = "Manager Supplier Org Details";
+		$output = theme('supplier_org_users_overview', array('supplier_data' => $result_supplier, 'vas_data' => $result_vas, 'default_tab' => $default_tab, 'supplierslist' => $supplierslist, 'isglobalsupplierslist' => $isglobalsupplierslist, 'activeregionsprocess' => $activeregionsprocess));
+		return $output;
+	}
+
+	function supplier_org_users()
+	{
+		$supplier_org_name = addslashes(htmlentities($_REQUEST['supplier_org_name']));
+		if ($supplier_org_name != '') {
+			$supplier_org_users_details = db_query("SELECT ui.*,u.access,u.login,u.status,u.uid, perm.permission_id FROM {users_info} AS ui LEFT JOIN {users} AS u ON u.uid=ui.uid LEFT JOIN {user_permission_internal} AS perm ON perm.uid=ui.uid WHERE  ui.supplier_org_name=:supplier_org_name", array(':supplier_org_name' => addslashes($supplier_org_name)));
+			$supplier_org_users_details_count = db_query("SELECT COUNT(*) AS cnt FROM {users_info} AS ui LEFT JOIN {users} AS u ON u.uid=ui.uid LEFT JOIN {user_permission_internal} AS perm ON perm.uid=ui.uid WHERE  ui.supplier_org_name=:supplier_org_name", [':supplier_org_name' => addslashes($supplier_org_name)]);
+			$supplier_count = 0;
+			foreach ($supplier_org_users_details_count as $sup) {
+				$supplier_count = $sup->cnt;
+			}
+		}
+		$view_team_perm = db_query("SELECT COUNT(1) AS cnt FROM {view_team_supplier_org} WHERE supplier_org = :supplier_org_name AND view_permission != 0", [':supplier_org_name' => addslashes($supplier_org_name)]);
+		$team_count = 0;
+		foreach ($view_team_perm as $team) {
+			$team_count = $team->cnt;
+		}
+		$output = theme('supplier_org_users', array('supplier_org_users_details' => $supplier_org_users_details, 'view_team_perm' => $team_count, 'total_count' => $supplier_count));
+		echo $output;
+	}
+
+	function supplier_org_vas()
+	{
+		$supplier_org_name = addslashes(htmlentities($_REQUEST['supplier_org_name']));
+		if ($supplier_org_name != '') {
+			$supplier_org_details = db_query("SELECT v.supplier_org_id,v.vendor_id,v.sap_vendor,s.supplier_org_name, v.vendor_desc FROM {vendor} AS v LEFT JOIN {supplier_organization} AS s ON s.supplier_org_id = v.supplier_org_id WHERE s.supplier_org_id=:supplier_org_id AND s.deleted=0", array(':supplier_org_id' => addslashes($supplier_org_name)));
+			foreach ($supplier_org_details as $supplier_details) {
+				$org_vas_details = db_query("SELECT vas_tier_id, created_by FROM {vas_tier_vendor_map} WHERE vendor_id=:vendor_id AND deleted = 0", array(':vendor_id' => $supplier_details->vendor_id));
+				foreach ($org_vas_details as $vas_details) {
+					$vas_name = get_vas_name($vas_details->vas_tier_id);
+					//$sap_vendor_id = substr($supplier_details->sap_vendor, 1, strlen($supplier_details->sap_vendor));
+					$sap_vendor_id = $supplier_details->sap_vendor;
+					$supplier_org_vas_details[] = array("supplier_org_id" => $supplier_details->supplier_org_id,"vendor_no" => $sap_vendor_id, "vendor_desc" => $supplier_details->vendor_desc, "vendor_cd" => $vas_details->vas_tier_id, "vas_tier" => $vas_name);
+				}
+			}
+		}
+		$output = theme('supplier_org_vas', array('supplier_org_vas_details' => $supplier_org_vas_details));
+		echo $output;
+	}
+
+	function supplier_org_access_path()
+	{
+
+		$supplier_org_name = addslashes(htmlentities(trim($_REQUEST['supplier_org_name'])));
+		$vas_name = addslashes(htmlentities(trim($_REQUEST['vas_name'])));
+		if ($supplier_org_name != '') {
+			$check_table = 'supplier_table';
+			$check_value = $supplier_org_name;
+		}
+		if ($vas_name != '') {
+			$check_table = 'vas_table';
+			$check_value = $vas_name;
+		}
+		$output = theme('supplier_org_access_path', array('check_value' => $check_value, 'check_table' => $check_table));
+		echo $output;
+	}
+
+	function check_catgory_topic_available($category_id, $topic_id, $check_value, $check_table)
+	{
+		$query_param = [':category_id' => $category_id, ':check_value' => addslashes($check_value)];
+		if ($topic_id != "") {
+			$add_query = " AND topic_id=:topic_id";
+			$query_param = array_merge($query_param, [':topic_id' => $topic_id]);
+		}
+		if ($check_table == 'vas_table') {
+			$check_path = db_query("SELECT COUNT(*) as total FROM {category_useraccess} WHERE category_id=:category_id " . $add_query . " AND vas_id IN(SELECT vas_tier_id FROM {vas_tier} WHERE vas_tier_name=:check_value)", $query_param)->fetchObject();
+		}
+		if ($check_table == 'supplier_table') {
+			$check_path = db_query("SELECT COUNT(*) as total FROM {category_useraccess_mapping} WHERE mapping='1' AND category_id=:category_id " . $add_query . " AND supplier_org_id IN(SELECT vendor_id FROM {vendor} WHERE supplier_org_id=:check_value)", $query_param)->fetchObject();
+		}
+		return $check_path->total;
+	}
+
+	/**
+	 * Implementation of hook_theme()
+	 */
+	function usermanager_theme()
+	{
+		return array(
+			'usermanager_user_overview' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'usermanager-user-overview',
+			),
+			'usermanager_user_approval' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'usermanager-user-approval',
+			),
+			'usermanager_internal_user_approval' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'usermanager-internal-user-approval',
+			),
+			'usermanager_user_search' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'usermanager-user-search',
+			),
+			'supplier_org_users_overview' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'supplier-org-users-overview',
+			),
+			'supplier_org_users' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'supplier-org-users',
+			),
+			'supplier_org_vas' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'supplier-org-vas',
+			),
+			'supplier_org_access_path' => array(
+				'arguments' => array('result' => NULL),
+				'template' => 'supplier-org-access-path',
+			),
+		);
+	}
+
+	/* Email Notification */
+	function emailNotification($fileName, $toMail, $firstName, $subject, $state = NULL)
+	{
+		if (email_notify_check($toMail, $state)) {
+			$path = drupal_get_path('theme', 'vwr');
+			$body = file_get_contents($path . "/email_templates/$fileName");
+			$body = str_replace("base_path", 'http://' . $_SERVER['HTTP_HOST'] . base_path() . $path, $body);
+			$body = str_replace("{FirstName}", $firstName, $body);
+			$body = str_replace("{UserEmail}", $toMail, $body);
+			$body = str_replace("{Link}", $_SERVER[HTTP_HOST] . base_path(), $body);
+			$body = preg_replace("[\\\]", '', $body);
+			// To send HTML mail, the Content-type header must be set
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			// Additional headers
+			$headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+			$mail = mail($toMail, $subject, $body, $headers);
+			$log_status = ($mail) ? 1 : 0;
+			$time = time();
+			// email logs
+			switch ($fileName) {
+				case 'approval_email.tpl.php':
+					$log_msg = 'User Approval';
+					$type = 'user approval';
+					break;
+				case 'activate_email.tpl.php':
+					$log_msg = 'User Activation';
+					$type = 'user activation';
+					break;
+				case 'deactivate_email.tpl.php':
+					$log_msg = 'User De-Activation';
+					$type = 'user de-activation';
+					break;
+				case 'disapprove_email.tpl.php':
+					$log_msg = 'User Disapproval';
+					$type = 'user disapproval';
+					break;
+				case 'reject_deactivation.tpl.php':
+					$log_msg = 'User Rejection De-activation';
+					$type = 'user rejection de-activation';
+					break;
+			}
+			email_logs($type, $toMail, $subject, $log_msg, $log_status, $time);
+		}
+	}
+
+	/* Validate the user permission */
+
+	function has_user_access($action)
+	{
+		global $user;
+		$uid = $user->uid;
+		$vwraccess = array();
+		if (in_array('administrator', $user->roles) || in_array('vwr admin', $user->roles)) {
+			return true;
+		} else if (in_array('vwr internal', $user->roles)) {
+			$allowed_role = '';
+			switch ($action) {
+				case "confirm/update":
+					$allowed_role = 'Confirm/Update User Profiles';
+					break;
+				case "supplierAttr":
+					$allowed_role = 'Create/Update Supplier Attributes';
+					break;
+			}
+			$vwraccess = db_query("SELECT uperm.uid FROM vwr_user_permission_internal uperm, vwr_permission_list_internal plist
+									WHERE uperm.uid=$uid && uperm.permission_id = plist.permission_id && plist.permission_title = :allowed_role 
+									&& plist.deleted=0", array(':allowed_role' => $allowed_role))->fetchCol();
+			if (in_array($user->uid, $vwraccess)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Get user details
+	 */
+	function get_user_details($uid)
+	{
+
+		$user_details = db_select('users_info', 'ui')
+			->fields('ui', array())
+			->condition('ui.uid', $uid)
+			->execute()
+			->fetchObject();
+		return $user_details;
+	}
+
+	/**
+	 * Get user details for CSV Upload
+	 */
+	function get_user_details_csv_upload($uid)
+	{
+
+		$user_details = db_query("SELECT 
+		CONCAT(firstname, ' ', lastname) as 'FullName', 
+		email as 'Login', 
+		(case when u.status=1 then 'false' else 'true' end ) as 'DisableUser',
+		GROUP_CONCAT(distinct case when SUBSTRING(SAP_vendor,1,1)=1 then concat(lpad(SUBSTRING(v.SAP_vendor,2),10,'0'),':8000') 
+		when SUBSTRING(SAP_vendor,1,1)=2 then concat(lpad(SUBSTRING(v.SAP_vendor,2),10,'0'),':5000')
+		else concat(lpad(SAP_vendor,10,'0'),case when vs.region_id =1 then ':8000' else ':5000' end ) end ) as 'Vendors' , 
+		email  as 'Email'
+		from vwr_users u left join vwr_users_info ui on u.uid =ui.uid  
+		left join vwr_vendor v on ui.supplier_org_name =v.supplier_org_id 
+		left join vwr_supplier_org_regions vs on v.supplier_org_id =vs.supplier_org_id  
+		where vs.status =1 and  u. uid= :uid GROUP by ui.email;", array(':uid' => $uid))->fetchObject();
+		return $user_details;
+	}
+
+	/**
+	 * Approve Deactivation Requests
+	 */
+	function approve_deactivation_request()
+	{
+		$supplier_uid = arg(2);
+		// user is blocked
+		db_update('users')->fields(array('status' => 0))->condition('uid', $supplier_uid)->execute();
+		drupal_goto('usermanager/useroverview');
+	}
+
+	/**
+	 * Get Auth User Details
+	 */
+	function get_authuser_details()
+	{
+		$header = get_request_headers();
+		if (empty($_POST)) {
+			$received_json = file_get_contents("php://input",  TRUE);
+			if (!empty($received_json)) {
+				$_POST = json_decode($received_json, true);
+			}
+		}
+		$user_name = strip_tags($_POST['username']);
+		if (!isset($_POST['username'])) {
+			drupal_add_http_header('Status', '400');
+			$auth0_response = array('error' => array(
+				'errorMessage' => 'Bad Request',
+				'errorCode' => '400'
+			));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		} elseif (empty($user_name)) {
+			drupal_add_http_header('Status', '401');
+			$auth0_response = array('error' => array(
+				'errorMessage' => 'Not authorized',
+				'errorCode' => '401'
+			));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		}
+		get_authapi_response($user_name);
+	}
+
+	/**
+	 * validate and get user details of auth User
+	 */
+	function authlogin_api()
+	{
+		$header = get_request_headers();
+		if (empty($_POST)) {
+			$received_json = file_get_contents("php://input",  TRUE);
+			if (!empty($received_json)) {
+				$_POST = json_decode($received_json, true);
+			}
+		}
+		$user_name = strip_tags($_POST['username']);
+		$password = strip_tags($_POST['password']);
+		if (!isset($_POST['username']) || !isset($_POST['password'])) {
+			drupal_add_http_header('Status', '400');
+			$auth0_response = array('error' => array(
+				'errorMessage' => 'Bad Request',
+				'errorCode' => '400'
+			));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		} elseif (empty($user_name) || empty($password)) {
+			drupal_add_http_header('Status', '401');
+			$auth0_response = array('error' => array(
+				'errorMessage' => 'Not authorized',
+				'errorCode' => '401'
+			));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		}
+		$account = user_load_by_mail($user_name);
+		if (!$account) {
+			drupal_add_http_header('Status', '401');
+			$auth0_response = array('error' => array(
+				'errorMessage' => 'Not authorized',
+				'errorCode' => '401'
+			));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		} elseif (!user_check_password($password, $account)) {
+			drupal_add_http_header('Status', '401');
+			$auth0_response = array('error' => array('errorMessage' => 'Not authorized', 'errorCode' => '401'));
+			$response = drupal_json_output($auth0_response);
+			return $response;
+		}
+		get_authapi_response($user_name);
+	}
+
+	/**
+	 * Get user details of auth User
+	 * 
+	 * @param
+	 *  $user_name - VWR User Name
+	 */
+	function get_authapi_response($user_name)
+	{
+		global $language;
+		$user = user_load_by_mail($user_name);
+		$data = get_user_details($user->uid);
+
+		$auth0_response = array(
+			'user' => array(
+				'profileMatchFound' => 'true', 'error' => array(
+					'errorMessage' => 'null',
+					'errorCode' => 'null'
+				),
+				'userCred' => array(
+					'profile' => array(
+						'firstName' => $data->firstname,
+						'lastName' => $data->lastname,
+						'loginDisplay' => $data->email,
+						'userEmail' => $data->email,
+						'emailVerified' => true,
+						'phoneNumber' => $data->phone,
+						'duplicateRecordFound' => 'false',
+						'userId' => $data->uid,
+						'sites' => array(
+							array(
+								'siteId' => 'www.vwrsuppliercentral.com',
+								'languageId' => !empty($language->language) ? $language->language : 'en_US',
+								'countryId' => !empty($data->country) ? $data->country : 'US',
+								'prefferedLang' => !empty($language->language) ? $language->language : 'en_US'
+							),
+						)
+					),
+				)
+			),
+		);
+		$response = drupal_json_output($auth0_response);
+		return $response;
+	}
+
+	/**
+	 * Reject Deactivation Requests
+	 */
+	function reject_deactivation_request()
+	{
+		$supplier_uid = $_GET['supplier_uid'];
+		$requester_uid = $_GET['requester_uid'];
+		$firstname = get_user_details($requester_uid)->firstname;
+		db_delete('deactivation_list')->condition('uid', $supplier_uid)->execute();
+		// trigger email to requester about rejection
+		emailNotification('reject_deactivation.tpl.php', $requester_uid, $firstname, 'VWR Supplier Central - Deactivation Rejected');
+	}
+
+	function save_team_permission()
+	{
+		global $user;
+		$sel_supplier_org_name = strip_tags($_POST['sel_supplier_org_name']);
+		$sel_view_team_permission_checkbox = strip_tags($_POST['sel_view_team_permission_checkbox']);
+		$sel_list_users = explode(',', strip_tags($_POST['sel_list_users']));
+
+		if ($sel_view_team_permission_checkbox == true && $sel_view_team_permission_checkbox != 'false')
+			$sel_view_team_permission_checkbox = 1;
+		else
+			$sel_view_team_permission_checkbox = 0;
+
+		$sup_org_exist = db_query("SELECT COUNT(1) FROM {view_team_supplier_org} WHERE supplier_org = :supplier_org", array(':supplier_org' => addslashes($sel_supplier_org_name)))->fetchColumn();
+		if ($sup_org_exist) {
+			$editField["view_permission"] = $sel_view_team_permission_checkbox;
+			db_update('view_team_supplier_org')->fields($editField)->condition('supplier_org', $sel_supplier_org_name)->execute();
+		} else {
+			db_insert('view_team_supplier_org')->fields(array('supplier_org' => $sel_supplier_org_name, 'view_permission' => $sel_view_team_permission_checkbox))->execute();
+		}
+		// assign view team permission to supplier
+		$sel_supplier_org_users = db_query("SELECT uid FROM {users_info} WHERE supplier_org_name = :sel_supplier_org_name", array(':sel_supplier_org_name' => $sel_supplier_org_name));
+		$total_users_supplier_org = count($total_users = count($sel_list_users));
+		$permission_id = db_query("SELECT permission_id FROM {permission_list_internal} WHERE permission_title = 'View Team'")->fetchColumn();
+		foreach ($sel_supplier_org_users as $sel_supplier_org_users_rec) {
+			db_delete('user_permission_internal')->condition('uid', $sel_supplier_org_users_rec->uid)->condition('permission_id', $permission_id)->execute();
+		}
+
+		$total_users = count($sel_list_users);
+		if ($total_users > 0) {
+			for ($i = 0; $i < $total_users; $i++) {
+				if ($sel_list_users[$i]) {
+					db_insert('user_permission_internal')->fields(array('uid' => $sel_list_users[$i], 'permission_id' => $permission_id, 'created_by' => $user->uid, 'modified_by' => $user->uid))->execute();
+				}
+			}
+		}
+		echo "success";
+	}
+
+	function getMasterSupplierOrgName($id)
+	{
+		$sorg_name = '';
+		if ($id && is_numeric($id)) {
+			$sorg_name = db_query("SELECT supplier_org_name FROM {supplier_organization} where supplier_org_id = :id AND deleted = 0", array(':id' => $id))->fetchColumn();
+		}
+		return $sorg_name;
+	}
+
+	function getMasterSupplierOrgId($sorg_name)
+	{
+		$id = 0;
+		if ($sorg_name) {
+			$id = db_query("SELECT supplier_org_id FROM {supplier_organization} WHERE deleted = 0 AND supplier_org_name = :supplier_org_name", array(':supplier_org_name' => addslashes(trim($sorg_name))))->fetchColumn();
+		}
+		return $id;
+	}
+	function getMasterSupplierOrgIdArr($sorg_name)
+	{
+		$id = 0;
+		if ($sorg_name) {
+			$id = db_query("SELECT supplier_org_id FROM {supplier_organization} WHERE deleted = 0 AND supplier_org_name = :supplier_org_name ", array(':supplier_org_name' => addslashes(trim($sorg_name))))->fetchCol();
+		}
+		$id = implode(",", $id);
+		return $id;
+	}
+
+	/**
+	 * Authenticate user from SAML
+	 */
+	function saml_user_authentication()
+	{
+		require 'settings.php';
+		require 'lib/onelogin/saml.php';
+
+		$response = $_POST['SAMLResponse'];
+		$samlresponse = new SamlResponse(saml_get_settings(), $response);
+
+		try {
+			if ($samlresponse->is_valid()) {
+				$nameid = $samlresponse->get_nameid();
+			}
+		} catch (Exception $e) {
+			echo "Invalid SAML Response: " . $e->getMessage();
+		}
+		// handling existing vwr internal scenario
+		$email = explode('.', $nameid);
+		$internal_email = $email[0] . '_' . $email[1] . '@vwrsuppliercentral.com';
+		if ((bool) db_select('users')->fields('users', array('uid'))->condition('mail', db_like($internal_email), 'LIKE')->range(0, 1)->execute()->fetchField()) {
+			db_update('users_info')->fields(array('network_uid' => $nameid))->condition('email', $internal_email, '=')->execute();
+		}
+
+		$vwr_info = get_vwr_usersinfo($nameid);
+		if (is_object($vwr_info)) {
+			$userid = $vwr_info->uid;
+			$user_info = user_load($userid);
+			$user_status = $user_info->status;
+
+			$vwrinternal_email = $vwr_info->email;
+			$vwrinternal_password = $vwr_info->password;
+
+			switch ($user_status) {
+				case 0:
+					$_SESSION['internal_status'] = 'Account De-activated';
+					drupal_goto('');
+					break;
+				case 1:
+					// vwr user authentication	
+					$form_state['values']['name'] = $vwrinternal_email;
+					$form_state['values']['pass'] = $vwrinternal_password;
+					$form_state['uid'] = $userid;
+					user_login_submit(array(), $form_state);
+					drupal_goto('');
+					break;
+				case 2:
+					$_SESSION['internal_status'] = 'Access Pending Approval';
+					drupal_goto('');
+					break;
+			}
+		} else {
+			$_SESSION['internal_status'] = 'Invalid User. Registration Required';
+			drupal_goto('');
+		}
+	}
+
+	/**
+	 * Get user details of VWR Internal User
+	 * 
+	 * @param
+	 *  $network_uid - VWR Network ID
+	 */
+	function get_vwr_usersinfo($network_uid)
+	{
+		$sql = db_query('SELECT * FROM {users_info} WHERE `network_uid` = :network_uid', array(':network_uid' => $network_uid))->fetchObject();
+		return $sql;
+	}
+
+
+	function get_request_headers()
+	{
+		$headers = array();
+		foreach ($_SERVER as $key => $value) {
+			if (substr($key, 0, 5) == 'HTTP_') {
+				$headers[str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))))] = $value;
+			}
+		}
+		return $headers;
+	}

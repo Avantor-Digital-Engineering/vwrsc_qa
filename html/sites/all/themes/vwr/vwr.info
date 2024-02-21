@@ -1,0 +1,15 @@
+name = vwr
+description = This is a vwr theme.
+version = VERSION
+core = 7.x
+engine = phptemplate
+package = vwr
+
+stylesheets[all][] = styles/style.css
+stylesheets[all][] = styles/dev.css
+
+regions[footer] = Footer
+regions[header] = Header
+regions[content_left] = Left-Content
+regions[content] = Content
+regions[sidebar_right_sec]=sidebar-second

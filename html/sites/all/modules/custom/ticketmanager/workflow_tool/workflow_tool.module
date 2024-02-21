@@ -1,0 +1,1117 @@
+<?php // $Id: workflow_tool.module, Photon; 27-Feb-2012 $
+
+/**
+ *	Implements hook_permission
+ */
+function workflow_tool_permission() {
+	return array(
+		'View Tickets' => array(
+			'title' => t('View Tickets'),
+			'description' => t('Permission for view Submissions'),
+	),
+	);
+}
+
+/**
+ * Implements hook_menu
+ */
+function workflow_tool_menu() {
+	$items = array();
+	$items['workflow-tool/read-from-mail'] = array(
+		'title' => t('Read Mail content from Mail'),
+		'page callback' => 'read_content_from_mail',
+		'type' => MENU_CALLBACK,
+		'access callback' => true,
+	);	
+	$items['admin/workflow-tool'] = array(
+    'title' => 'WorkFlow Email Settings',
+    'description' => 'Configure e-mails settings to fetch mail.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('workflow_tool_admin_settings'),
+    'access arguments' => array('administer users'),
+    'file' => 'workflow_tool.admin.inc', 
+		'type' => MENU_NORMAL_ITEM,   
+	);
+	$items['email-logs/export'] = array(
+		'title' => t('Email Logs Export'),
+		'page callback' => 'email_logs_export',
+		'type' => MENU_CALLBACK,
+		'access callback' => true,
+	);
+	return $items;
+}
+
+/**
+ * Implements hook_theme
+ */
+function workflow_tool_theme() {
+	return array (
+		'mail_to_workflow_comments' => array(
+			'variables' => array('maildata' => NULL),
+			'template'	=> 'mail-to-workflow-comments'
+		),
+		'mail_to_workflow_internals' => array(
+			'variables' => array('maildata' => NULL),
+			'template'	=> 'mail-to-workflow-internals'
+		),
+		'send_failure_notification' => array(
+			'variables' => array('maildata' => NULL),
+			'template'	=> 'send-failure-mail-notifications'
+		),
+	);
+}
+
+/**
+ * Page callback function for Read Mail content from Mail
+ */
+function read_content_from_mail() {	
+	// connect to mail server
+	$hostname = '{'. variable_get('incoming_mail_details', '') .'}INBOX';
+	$username = variable_get('account_name', '');
+	$password = variable_get('account_password', '');
+
+	$current_status = '';
+	$existing_status = '';
+	$message_type = '';
+	$comments = '';
+	$from_address = '';
+	$mailed_date = '';
+	$submission_id = '';
+	$mail_subject = '';
+	$status_from = '';
+	$status_to = '';
+
+	// try to connect
+	$inbox = imap_open($hostname, $username, $password) or die('Cannot connect to VWR mail: ' . imap_last_error());
+
+	// fetch unseen email
+	$emails = imap_search($inbox, 'UNSEEN');
+	// process email
+	if ($emails) {
+		// put the newest emails on top
+		//rsort($emails);	// Removing rsort to make FIFO of emails : Prod email read issue;
+		/*
+		EMail Format:-
+			New Status: In Progress
+			Comments: Your Comments.
+		*/
+		foreach ($emails as $email_number) {
+			$mail_contents = new stdClass; // Create object to store all the content in one object;
+			
+			$header_info = imap_headerinfo($inbox, $email_number);
+			$mail_subject = $header_info->subject;
+			$mail_subject = explode("ID", $mail_subject);
+			$submission_id = $mail_subject[1];   
+			if (isset($submission_id) && !empty($submission_id)) {  //if ($submission_id != '')
+				$mail_contents->submission_id = $submission_id;
+				$from_address = $header_info->from[0]->mailbox."@".$header_info->from[0]->host;
+				$mail_contents->from_address = $from_address;
+				$mailed_date = $header_info->Date;
+				$mail_contents->mailed_date = $mailed_date;
+				$structure = imap_fetchstructure($inbox, $email_number);
+				$mime_type = ($structure->subtype == 'PLAIN') ? 'TEXT/PLAIN' : 'TEXT/HTML';
+				$message = get_part($inbox, $email_number, $mime_type);				
+				$message = parse_mail_content($message, $header_info);								
+				$status = $status_to = $comments = "";
+				if (preg_match('/Comments:/', $message) || preg_match('/Status Changed From/i', $message) || preg_match('/New Status:/i', $message)) {					
+					$status = parse_status($message);
+					$status_to = $status;				 
+					$status_to = str_replace(array(".", ",", "\r"), "", $status_to);					
+				}				
+				if (preg_match('/Comments:/', $message) || (preg_match('/New Status:/i', $message) != 1)) {										
+					$comments = parse_comments(strip_tags($message));					
+				}	
+				
+				$current_status = $status_to;				
+				$current_status_id = '';
+				if ($current_status) {
+					$current_status_id = getStatusId(trim(strip_tags($current_status)));
+					$mail_contents->current_status_id = $current_status_id;
+				}
+				$mail_contents->current_status = $current_status;				
+				$mail_contents->comments = $comments;
+								
+				$replied_user = getUserIdFromEmail($mail_contents->from_address);
+				$mail_contents->workflow_owner_id = $replied_user;
+				
+				$replied_user_role = getUsersRole($replied_user);
+				$dropbox_details = getDropboxDetails($mail_contents->submission_id);
+				$mail_contents->dropboxid = $dropbox_details->dbox_id;
+				$mail_contents->submissionownerid = $dropbox_details->created_by;
+				$mail_contents->submission_status = $dropbox_details->status;
+				// store submission owner details
+				$query_sub_owner = db_select('users_info', 'uinfo');
+				$query_sub_owner->fields('uinfo',array('firstname', 'lastname', 'email', 'supplier_org_name'))
+				->condition('uinfo.uid', $replied_user, '=');
+				$users_owner = $query_sub_owner->execute();
+				$row = array();
+				while ($result = $users_owner->fetchAssoc()) {
+					$row[] = $result;
+				}
+				if ($row[0]['supplier_org_name'] == "" || $row[0]['supplier_org_name'] == Null) {
+					$mail_contents->submission_supplierorg = "VWR";
+				}
+				else {
+					$supplier_org_id = $row[0]['supplier_org_name'];
+					$mail_contents->submission_supplierorg = getMasterSupplierOrgName($supplier_org_id);					
+				}
+				$mail_contents->submissionownername = ($row[0]['firstname'] != '') ? $row[0]['firstname'] ." ". $row[0]['lastname'] : 'VWR';
+				$mail_contents->submissionownermail = ($row[0]['email'] != '') ? $row[0]['email'] : $from_address;
+				$link_to_workflow_status = 0;
+				if ($dropbox_details) {
+					$dropbox_to_workflow_details = getDropboxLinkToWorkflow($dropbox_details->dbox_id);
+					$link_to_workflow_status = $dropbox_to_workflow_details->link_workflow_tool;
+					$external_owner_email = $dropbox_to_workflow_details->owners_email_id;
+					$mail_contents->dropboxname = $dropbox_to_workflow_details->title;
+					$mail_contents->dropbox_other_owner = $external_owner_email;
+				}
+				// get attachments of the mail
+				$structure = imap_fetchstructure($inbox, $email_number);
+				// get part of the attachments
+				$parts = $structure->parts;
+				$count_parts = count($parts);
+				$notification_msg = '';
+				$failure = 0;
+				// handling failure notification for empty message or misspelled status	
+				if (trim(strip_tags($message)) == '' || ($current_status && $current_status_id == '')) {					
+					$failure = 1;
+					$notification_msg = 'Thank you for emailing your comments to VWR Supplier Central. The VWR
+															 website cannot process your request at this time. We recommend that you
+															 login to vwrsuppliercentral.com to process this request in order to ensure
+															 your comments and attachments are appropriately captured on VWR Supplier
+															 Central.';
+					$notification_msg .= '<br><br><br>';
+					$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';
+					//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+				}	
+				
+				// handling general failure notification for all roles
+				switch ($replied_user_role) {
+					case 'administrator':
+						if (!$link_to_workflow_status && $external_owner_email == '') {
+							$failure = 1;
+							$notification_msg = 'Thank you for emailing your comments to VWR Supplier Central. The VWR
+																	 website cannot process your request at this time. We recommend that you
+																	 login to vwrsuppliercentral.com to process this request in order to ensure
+																	 your comments and attachments are appropriately captured on VWR Supplier
+																	 Central.';
+							$notification_msg .= '<br><br><br>';
+							$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';
+							//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+							break;
+						}
+						if ($mail_contents->comments && !($current_status && $mail_contents->comments)) {
+							// failure notification for archive status														 
+							if ($dropbox_details->status == 7) {
+								$failure = 1;
+								$notification_msg = 'Thank you for emailing VWR through VWR Supplier Central. This ticket has been
+																		 archived and your comments cannot be processed at this point in time. Please
+																		 login and submit a new request through vwrsuppliercentral.com or contact your
+																		 VWR contact for further questions.';
+								$notification_msg .= '<br><br><br>';
+								$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';								
+								//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+								break;
+							}
+						}		
+						break;
+					case 'vwr internal':
+						if ($current_status && $link_to_workflow_status) {
+							$failure = 1;
+							$notification_msg = 'Thank you for emailing your comments to VWR Supplier Central. The VWR
+																	 website cannot process your request at this time. We recommend that you
+																	 login to vwrsuppliercentral.com to process this request in order to ensure
+																	 your comments and attachments are appropriately captured on VWR Supplier
+																	 Central.';
+							$notification_msg .= '<br><br><br>';
+							$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';
+							//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+						}
+						if ($mail_contents->comments && !($current_status && $mail_contents->comments)) {
+							// failure notification for archive status														 
+							if ($dropbox_details->status == 7) {
+								$failure = 1;
+								$notification_msg = 'Thank you for emailing VWR through VWR Supplier Central. This ticket has been
+																		 archived and your comments cannot be processed at this point in time. Please
+																		 login and submit a new request through vwrsuppliercentral.com or contact your
+																		 VWR contact for further questions.';
+								$notification_msg .= '<br><br><br>';
+								$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';								
+								//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+								break;
+							}
+						}			
+						break;
+					case 'supplier':
+						if ($current_status) {							
+							$failure = 1;
+							$notification_msg = 'Thank you for emailing VWR through VWR Supplier Central. The VWR Supplier
+																	 Central website cannot process your email at this point in time. We recommend
+																	 that you login to vwrsuppliercentral.com to process this request in order to
+																	 ensure your comments and attachments are appropriately captured for the
+																	 VWR team. Attachments should always be submitted through the website and
+																	 not through emailing VWR Supplier Central.';
+							$notification_msg .= '<br><br><br>';
+							$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';
+							//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+							break;
+						}
+						if ($mail_contents->comments) {
+							// failure notification for archive, completed, cancelled, denied status
+							$failure_status = array(3, 4, 5, 7);							 
+							if (in_array($dropbox_details->status, $failure_status)) {
+								$failure = 1;
+								$notification_msg = 'Thank you for emailing VWR through VWR Supplier Central. This ticket has been
+																		 closed and your comments cannot be processed at this point in time. Please
+																		 login and submit a new request through vwrsuppliercentral.com or contact your
+																		 VWR contact for further questions.';
+								$notification_msg .= '<br><br><br>';
+								$notification_msg .= 'Technical questions can be submitted to vwrsuppliercentral@vwr.com.';								
+								//sendMailFailureResponse($mail_contents->from_address, $notification_msg, $submission_id);
+								break;
+							}
+						}						
+						break;
+				}
+												
+				if (!$failure) {
+					$timestamp = strtotime($mailed_date);
+					$existing_sub_status = '';
+					if ($current_status_id == '') {
+						$current_status_id = $dropbox_details->status;
+						$existing_sub_status = NULL;
+					}
+					else {
+						$existing_sub_status = $dropbox_details->status;
+					}					
+					// store group email id whoever is replying
+					$group_email_id = $from_address;										
+					$comment_insert_id = db_insert('submission_comments')
+																->fields(array('submission_id' => $submission_id,
+																							 'comments' => $comments,
+																							 'created_by' => $mail_contents->workflow_owner_id,
+																							 'status' => $current_status_id,
+																							 'created_date' => $timestamp,
+																							 'from_status' => $existing_sub_status,
+																							 'group_email_id' => $group_email_id
+																				))->execute();
+																					
+					$mail_contents->commentid = $comment_insert_id;
+					$mail_contents->file_total_size = 0;
+					
+					$editFields['modified_by']=  $mail_contents->workflow_owner_id;
+					$editFields['modified_date']= time();
+					if ($mail_contents->current_status_id) {
+						$editFields['status']= $mail_contents->current_status_id;
+					}
+					db_update('dropbox_files')->fields($editFields)->condition('submission_id', $mail_contents->submission_id, '=')->execute();						
+						
+					// get uids for the comments posted in portal
+					$query_user = db_select('submission_comments', 'subcomments');
+					$query_user->fields('subcomments', array('created_by'))
+					->distinct()
+					->condition(db_and()->condition('submission_id', $submission_id, '=')->condition('deleted', 0, '='));
+					$query_res = $query_user->execute();
+					$users_list_suppliers = array();
+					$users_list_owners = array();
+					while ($result_user = $query_res->fetchField()) {						
+						if (getUsersRole($result_user) == "supplier") {
+							if ($result_user != "1" && $result_user != $mail_contents->workflow_owner_id ) {
+								$users_list_suppliers[] = $result_user;
+							}	
+						}
+						else {
+							if ($result_user != "1" && $result_user != $mail_contents->workflow_owner_id ) {
+								$users_list_owners[] = $result_user;				
+							}
+						}	
+					}	
+					// mail notification to suppliers
+					if ($mail_contents->submissionownerid != $mail_contents->workflow_owner_id) {
+						array_push($users_list_suppliers, $mail_contents->submissionownerid);	
+					}
+					if ($users_list_suppliers) {
+						$users_list_suppliers = array_unique($users_list_suppliers);
+						sc_comment_updates_to_suppliers($users_list_suppliers, $mail_contents);
+					}				
+					// get dropbox owners uid
+					$query_owners = db_select('dropbox_owners', 'dropowners');
+					$query_owners->fields('dropowners', array('owner_id'))
+					->condition('dropbox_id', $mail_contents->dropboxid, '=');
+					$query_res = $query_owners->execute();
+					while ($result_user = $query_res->fetchField()) {
+						if ($result_user != $mail_contents->workflow_owner_id ) {
+							$users_list_owners[] = $result_user;
+						}
+					}					
+					// mail notification to dropbox owners
+					if ($users_list_owners  || $external_owner_email) {
+						$users_list_owners = array_unique($users_list_owners);		
+						sc_comment_updates_to_internals($users_list_owners, $mail_contents);
+					}
+					// mail notification to workflow tool
+					if ($dropbox_to_workflow_details->link_workflow_tool && $replied_user != 1) {
+						sc_comment_updates_to_wft($dropbox_to_workflow_details->workflow_email_id, $mail_contents);
+					}
+					if(function_exists('sc_status_change_email')) {
+						$mail_contents->submission_dropbox_id = $mail_contents->dropboxid;
+						sc_status_change_email($mail_contents);
+					}
+				}
+			}
+		}
+	}
+	// close the connection
+	imap_close($inbox);
+}
+
+
+/**
+ * Function to replace special character received from IMAP response
+ */
+function ReplaceImap($txt) {
+	$carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
+	$carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
+	$txt = str_replace($carimap, $carhtml, $txt);
+	return $txt;
+}
+
+/**
+ * Triggering email to suppliers/dropbox owners from supplier central
+ */
+function supplier_central_mail_triggering($users_list, $mail_contents) {
+	global $base_url;
+	$reply_to = variable_get('submission_reply_to', '');
+	$contact_mail = variable_get('contact_mail', '');
+	$mail_theme_name = 'workflow-vsc-suppliers-internals.tpl.php';
+	
+	// email logs
+	$log_msg = 'Comment On Submission: ID'. $mail_contents->submission_id;
+	$log_status = 1;
+	$time = time();
+	
+	if ($mail_contents->current_status_id == 8 || $mail_contents->submission_status == 8 ) {
+		$mail_contents->type = 'Change On Submission';
+	}
+	else {
+		$mail_contents->type = 'Comment On Submission';
+	}
+
+	$uploaded_files = $mail_contents->filename;
+	$files = array();
+	$file_name = array();
+	foreach ($uploaded_files->name as $submission_files) {
+
+        if($mail_contents->submission_id < 34370){
+		$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox/'. $mail_contents->submission_id .'/comments/'. $submission_files;
+	    }
+	    else {
+	    $files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox2/'. $mail_contents->submission_id .'/comments/'. $submission_files;
+
+	    }
+
+		$file_name[] = splitFileNameTimestamp($submission_files);
+	}
+	$to = $mail_contents->userinfo->mail;
+	$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+	$headers .= "Reply-To: $reply_to" . "\n";
+	$subject = $mail_contents->submission_supplierorg . " - $mail_contents->dropboxname - ID" . $mail_contents->submission_id;
+	$path= drupal_get_path('theme','vwr');
+	$message = file_get_contents($path."/email_templates/$mail_theme_name");
+	$message = str_replace("base_path", 'http://' .$_SERVER['HTTP_HOST']. base_path() . $path, $message);
+	$message = str_replace("{Type}", $mail_contents->type, $message);
+	$message = str_replace("{SubmissionId}", $mail_contents->submission_id, $message);
+	$message = str_replace("{SupplierOrg}", $mail_contents->submission_supplierorg, $message);
+	$message = str_replace("{SupplierName}", $mail_contents->submissionownername, $message);
+	$message = str_replace("{SupplierEmail}", $mail_contents->submissionownermail, $message);
+	if ($mail_contents->commentid != '') {
+		$status_change_msg = constructStatusChangeMsg($mail_contents->commentid);
+		$status_change_msg = '<p>'.$status_change_msg.'</p>';
+		$message = str_replace("{StatusChangeInfo}", $status_change_msg, $message);
+	}
+	else {
+		$message = str_replace("{StatusChangeInfo}", '', $message);
+	}
+	$message = str_replace("{Comments}", $mail_contents->comments, $message);
+	$file_link = '';
+	$file_link = l($base_url ."/vwr_dropbox/viewsubmission/". base64_encode($mail_contents->submission_id), $base_url."/vwr_dropbox/viewsubmission/".base64_encode($mail_contents->submission_id));
+	$message = str_replace("{AdditionalStmt}", $file_link, $message);
+	if (count($files) > 0) {
+		// boundary
+		$semi_rand = md5(time());
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+		// headers for attachment
+		$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+		// multipart boundary
+		$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n";
+		$message .= "--{$mime_boundary}\n";
+			
+		// preparing attachments
+		for ($x = 0;$x < count($files);$x++) {
+			$file = fopen($files[$x],"rb");
+			$data = fread($file,filesize($files[$x]));
+			fclose($file);
+			$data = chunk_split(base64_encode($data));
+			$name = $file_name[$x];
+			$message .= "Content-Type: {\"application/octet-stream\"};\n" . " name=\"$files[$x]\"\n" .
+			"Content-Disposition: attachment;\n" . " filename=\"$name\"\n" . 
+			"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+			$message .= "--{$mime_boundary}\n";
+		}
+	}
+	else {		
+		// To send HTML mail, the Content-type header must be set
+		$headers .= 'MIME-Version: 1.0' . "\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";
+	}
+	
+	// external dropbox owners
+	if ($mail_contents->dropbox_other_owner != "" || $mail_contents->dropbox_other_owner != Null) {
+		$external_owner = explode(';', $mail_contents->dropbox_other_owner);
+	}
+
+	$users_info = array();
+	$users_info = getUsersDetails($users_list);
+	foreach ($users_info as $users_profile) {
+		if (email_notify_check($users_profile['email'])) {
+			$mail_content_replace = '';
+			$mail_content_replace = $message;
+			$user_group_name = '';
+			$mail_contents->userinfo->name = $users_profile['firstname'].' '.$users_profile['lastname'];
+			$mail_contents->userinfo->mail = $users_profile['email'];
+			$mail_contents->userinfo->role = $users_profile['name'];
+			if ($users_profile['name'] == "supplier") {
+				$user_group_name = $mail_contents->submission_supplierorg;
+			}
+			else {
+				$user_group_name = "VWR";
+			}
+			$send_to_mail_content = str_replace("{UserGroup}", $user_group_name, $mail_content_replace);
+			$to = $users_profile['email'];
+			if (!in_array($to, $external_owner)) {
+				@mail($to, $subject, $send_to_mail_content, $headers);
+				email_logs('submission-comments', $to, $subject, $log_msg, $log_status, $time);
+			}	
+		}
+	}
+	// mail notification to external dropbox owners
+	if (is_array($external_owner)) {		
+		foreach ($external_owner as $owner) {
+			if ($mail_contents->from_address != $owner) {
+				if (email_notify_check($owner)) {
+					@mail($owner, $subject, $send_to_mail_content, $headers);
+					email_logs('submission-comments-external-owners', $owner, $subject, $log_msg, $log_status, $time);
+				}
+			}			
+		}		
+	}
+}
+
+function sc_comment_updates_to_suppliers($users_list_suppliers, $mail_contents) {
+	global $base_url;
+	$reply_to = variable_get('submission_reply_to', '');
+	$contact_mail = variable_get('contact_mail', '');
+	$mail_theme_name = 'workflow-vsc-suppliers-internals.tpl.php';
+	
+	// email logs
+	$log_msg = 'Comment On Submission: ID'. $mail_contents->submission_id;
+	$log_status = 1;
+	$time = time();
+	
+	if ($mail_contents->submission_status == 8 ) {
+		$mail_contents->type = "Change on Submission";
+	}
+	else {
+		$mail_contents->type = "Comment on Submission";
+	}
+	$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+	$headers .= "Reply-To: $reply_to" . "\n";
+	$subject = $mail_contents->submission_supplierorg . " - $mail_contents->dropboxname - ID" . $mail_contents->submission_id;
+	$path= drupal_get_path('theme','vwr');
+	$message = file_get_contents($path."/email_templates/$mail_theme_name");
+	$message = str_replace("base_path", 'http://' .$_SERVER['HTTP_HOST']. base_path() . $path, $message);
+	$message = str_replace("{Type}", $mail_contents->type, $message);
+	$message = str_replace("{SubmissionId}", $mail_contents->submission_id, $message);
+	if ($mail_contents->commentid != '') {
+		$status_change_msg = constructStatusChangeMsg($mail_contents->commentid);
+		$status_change_msg = $status_change_msg;
+		$message = str_replace("{StatusChangeInfo}", $status_change_msg, $message);
+	} 
+	else {
+		$message = str_replace("{StatusChangeInfo}", '', $message);
+	}
+	$message = str_replace("{Comments}", $mail_contents->comments, $message);	
+	$file_link = '';
+	$file_link = l($base_url ."/vwr_dropbox/viewsubmission/". base64_encode($mail_contents->submission_id), $base_url."/vwr_dropbox/viewsubmission/".base64_encode($mail_contents->submission_id));
+	$message = str_replace("{AdditionalStmt}", $file_link, $message);
+	// Query to retrieve files related to comments
+	$query = db_select('submission_files', 'subfiles');
+	$query->fields('subfiles', array('file_name'))
+	->condition('submission_id', $mail_contents->submission_id, '=')
+	->condition('comment_id', $mail_contents->commentid, '=')
+	->condition('deleted', 0, '=');
+	$submission_files = $query->execute();
+	$sub_files = array();
+	while ($result = $submission_files->fetchAssoc()) {
+		$sub_files[] = $result;
+	}
+	if (count($sub_files) > 0) {
+		foreach ($sub_files as $submission_files) {
+			$comment_file_attached = splitFileNameTimestamp($submission_files['file_name']);
+			if($mail_contents->submission_id < 34370){
+			$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+		    }
+		    else {
+		    	$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox2/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+
+		    }
+			$file_name[] = $comment_file_attached;
+		}
+		if (count($files) > 0) {
+			// boundary
+			$semi_rand = md5(time());
+			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+			// headers for attachment
+			$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+			// multipart boundary
+			$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n";
+			$message .= "--{$mime_boundary}\n";
+			// preparing attachments
+			for ($x = 0;$x < count($files);$x++) {
+				$file = fopen($files[$x],"rb");
+				$data = fread($file,filesize($files[$x]));
+				fclose($file);
+				$data = chunk_split(base64_encode($data));
+				$name = $file_name[$x];
+				$message .= "Content-Type: {\"application/octet-stream\"};\n" . " name=\"$files[$x]\"\n" .
+				"Content-Disposition: attachment;\n" . " filename=\"$name\"\n" . 
+				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+				$message .= "--{$mime_boundary}\n";
+			}
+		}
+	}
+	else {
+		// To send HTML mail, the Content-type header must be set
+		$headers .= 'MIME-Version: 1.0' . "\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";
+	}
+	if (is_array($users_list_suppliers) && count($users_list_suppliers) > 0) {
+		$users_info = array();
+		$users_info = getUsersDetails($users_list_suppliers);
+		foreach ($users_info as $users_profile) {
+			$mail_contents->userinfo->mail = $users_profile['email'];
+			if (email_notify_check($mail_contents->userinfo->mail)) {
+				$mail_content_replace = '';
+				$mail_content_replace = $message;
+				$user_group_name = '';
+				$user_group_name = getMasterSupplierOrgName($users_profile['supplier_org_name']);
+				$to = $mail_contents->userinfo->mail;
+				$send_to_mail_content = str_replace("{UserGroup}", $user_group_name, $mail_content_replace);
+				@mail($to, $subject, $send_to_mail_content, $headers);		
+				email_logs('submission-comments', $to, $subject, $log_msg, $log_status, $time);
+			}
+		}
+	}	
+}
+
+function sc_comment_updates_to_internals($users_list_owners, $mail_contents) {
+	global $base_url, $user;
+	$uid = $user->uid;
+	$current_owner = user_load($uid);
+	
+	$reply_to = variable_get('submission_reply_to', '');
+	$contact_mail = variable_get('contact_mail', '');
+	
+	// email logs
+	$log_msg = 'Comment On Submission: ID'. $mail_contents->submission_id;
+	$log_status = 1;
+	$time = time();
+	
+	if ($mail_contents->submission_status == 8 ) {
+		$mail_contents->type = "Change on Submission";
+	}
+	else {
+		$mail_contents->type = "Comment on Submission";
+	}
+	
+	$submission_link = '';
+	$submission_link = l($base_url ."/vwr_dropbox/viewsubmission/". base64_encode($mail_contents->submission_id), $base_url."/vwr_dropbox/viewsubmission/".base64_encode($mail_contents->submission_id));
+	$mail_contents->linkURL = $submission_link;
+	$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+	$headers .= "Reply-To: $reply_to" . "\n";
+	$subject = $mail_contents->submission_supplierorg . " - $mail_contents->dropboxname - ID" . $mail_contents->submission_id;
+	$mail_content = theme('mail_to_workflow_internals', array('maildata' => $mail_contents));	
+	
+	// Query to retrieve files related to comments
+	$query = db_select('submission_files', 'subfiles');
+	$query->fields('subfiles', array('file_name'))
+	->condition('submission_id', $mail_contents->submission_id, '=')
+	->condition('comment_id', $mail_contents->commentid, '=')
+	->condition('deleted', 0, '=');
+	$submission_files = $query->execute();
+	$sub_files = array();
+	while ($result = $submission_files->fetchAssoc()) {
+		$sub_files[] = $result;
+	}
+	if (count($sub_files) > 0) {
+		foreach ($sub_files as $submission_files) {
+			$comment_file_attached = splitFileNameTimestamp($submission_files['file_name']);
+			if($mail_contents->submission_id < 34370){
+			$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+		    }
+		    else {
+
+		    	$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox2/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+
+		    }
+			$file_name[] = $comment_file_attached;
+		}
+		if (count($files) > 0) {
+			// boundary
+			$semi_rand = md5(time());
+			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+			// headers for attachment
+			$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+			// multipart boundary
+			$mail_content = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $mail_content . "\n\n";
+			$mail_content .= "--{$mime_boundary}\n";
+			// preparing attachments
+			$check_filesizer = 1024 * 1024 * variable_get('max_email_file_size', 10 );
+			$all_file_size = 0;
+			for ($xfile = 0; $xfile < count($files); $xfile++) {
+				$all_file_size += filesize($files[$xfile]);
+			}
+			// Attachments file size limits validate : Prod email failures issue
+			if($all_file_size <= $check_filesizer && $all_file_size) {
+				for ($x = 0;$x < count($files);$x++) {
+					if(filesize($files[$x])) {
+						$file = fopen($files[$x],"rb");
+						$data = fread($file,filesize($files[$x]));
+						fclose($file);
+						$data = chunk_split(base64_encode($data));
+						$name = $file_name[$x];
+						$mail_content .= "Content-Type: {\"application/octet-stream\"};\n" . " name=\"$files[$x]\"\n" .
+						"Content-Disposition: attachment;\n" . " filename=\"$name\"\n" . 
+						"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+						$mail_content .= "--{$mime_boundary}\n";
+					}
+				}
+			}
+		}
+	}
+	else {
+		// To send HTML mail, the Content-type header must be set
+		$headers .= 'MIME-Version: 1.0' . "\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";
+	}
+	// external dropbox owners
+/* 	if ($mail_contents->dropbox_other_owner != "" || $mail_contents->dropbox_other_owner != Null) {
+		$external_owner = explode(';', $mail_contents->dropbox_other_owner);
+	}	 */
+	
+	$users_info = array();	
+	if (is_array($users_list_owners) && count($users_list_owners) > 0) {		
+		$users_info = getUsersDetails($users_list_owners);
+		foreach ($users_info as $users_profile) {
+			$mail_contents->userinfo->mail = $users_profile['email'];
+			if (email_notify_check($mail_contents->userinfo->mail)) {			
+				$to = $mail_contents->userinfo->mail;
+				if (!in_array($to, $external_owner)) {				
+					@mail($to, $subject, $mail_content, $headers);
+					email_logs('submission-comments-internal-owners', $to, $subject, $log_msg, $log_status, $time);
+				}	
+			}
+		}
+	}	
+	// mail notification to external dropbox owners
+	//print_R(($external_owner));exit;
+/* 	if (is_array($external_owner) && count($external_owner) > 0) {			
+		foreach ($external_owner as $owner) {
+			//print_R($owner);
+			if (($mail_contents->from_address != $owner && $mail_contents->from_address != '') || ($current_owner->mail != $owner && $current_owner->mail != '')) {				
+				if (email_notify_check($owner)) {
+					//var_dump(email_notify_check($owner));
+					@mail($owner, $subject, $mail_content, $headers);
+					email_logs('submission-comments-external-owners', $owner, $subject, $log_msg, $log_status, $time);		
+				}
+			}		
+		}
+	} */
+}
+
+function sc_status_change_email($mail_contents) { //Email notification to dropbox submissions selected status change owners
+	if($mail_contents && $mail_contents->submission_status && $mail_contents->submission_dropbox_id) {
+		$status_to_verify = (isset($mail_contents->current_status_id) && $mail_contents->current_status_id) ? $mail_contents->current_status_id : $mail_contents->submission_status;
+		$status_change_notify_email = db_query("SELECT `notify_email` FROM {dropbox_status_notifications} WHERE dbox_id=:dbox_id AND notify_status_id=:status_id ", array(':dbox_id' => $mail_contents->submission_dropbox_id, ':status_id' => $status_to_verify))->fetchField();
+		$status_name = db_query("select status_name from vwr_manage_status where status_id=$mail_contents->submission_status")->fetchField();
+		if($status_change_notify_email) {
+			$statuschanged = db_query("SELECT from_status FROM {submission_comments} WHERE submission_id =:submission_id AND status=:status ORDER BY id DESC LIMIT 1", array(':submission_id' => $mail_contents->submission_id, ':status' => $status_to_verify ))->fetchField();
+			if($statuschanged && $statuschanged != $status_to_verify) {
+				global $base_url;
+				$subject = $mail_contents->submission_supplierorg . " - $mail_contents->dropboxname - ID" . $mail_contents->submission_id." - ".$status_name;
+				$mail_contents->type = "Status change on Submission";
+				$mail_contents->linkURL = l($base_url ."/vwr_dropbox/viewsubmission/". base64_encode($mail_contents->submission_id), $base_url."/vwr_dropbox/viewsubmission/".base64_encode($mail_contents->submission_id));
+				$mail_content = theme('mail_to_workflow_internals', array('maildata' => $mail_contents));
+				
+				$contact_mail = variable_get('contact_mail', '');
+				$reply_to = variable_get('submission_reply_to', '');
+				$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+				$headers .= "Reply-To: $reply_to" . "\n";
+				$headers .= 'MIME-Version: 1.0' . "\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";
+				//Trigger: Status is set to "In Progress, to email assets@vwr.com for Product Enrichment, Revise Enriched Products dropboxes;
+				$log_status = @mail($status_change_notify_email, $subject, $mail_content, $headers); //Mail for Status change owners
+				$log_msg = 'Status change on Submission: ID'. $mail_contents->submission_id;
+				email_logs('submission-comments-status-owners', $status_change_notify_email, $subject, $log_msg, $log_status, time() );
+			}
+		}
+	}
+}
+
+function sc_comment_updates_to_wft($wft_mail_id, $mail_contents) {
+	$reply_to = variable_get('submission_reply_to', '');
+	$contact_mail = variable_get('contact_mail', '');
+	
+	// email logs
+	$log_msg = 'Comment On Submission: ID'. $mail_contents->submission_id;	
+	$time = time();
+	if ($mail_contents->submission_status == 8 ) {
+		$mail_contents->type = "Change on Submission";
+	}
+	else {
+		$mail_contents->type = "Comment on Submission";
+	}
+
+	$mail_data = array();
+	$mail_data = array("type"=>$mail_contents->type, "group"=>$mail_contents->submission_supplierorg, "subid"=>$mail_contents->submission_id, "comments"=>$mail_contents->comments);
+	$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+	$headers .= "Reply-To: $reply_to" . "\n";
+	$subject = $mail_contents->submission_supplierorg . " - $mail_contents->dropboxname - ID" . $mail_contents->submission_id;
+	$mail_content = theme('mail_to_workflow_comments', array('maildata' => $mail_contents));
+	// Query to retrieve files related to comments
+	$query = db_select('submission_files', 'subfiles');
+	$query->fields('subfiles', array('file_name'))
+	->condition('submission_id', $mail_contents->submission_id, '=')
+	->condition('comment_id', $mail_contents->commentid, '=')
+	->condition('deleted', 0, '=');
+	$submission_files = $query->execute();
+	$sub_files = array();
+	while ($result = $submission_files->fetchAssoc()) {
+		$sub_files[] = $result;
+	}
+	if (count($sub_files) > 0) {
+		foreach ($sub_files as $submission_files) {
+			$comment_file_attached = splitFileNameTimestamp($submission_files['file_name']);
+			
+			if($mail_contents->submission_id < 34370) {
+			$files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+		    }
+		    else {
+		    $files[] = $_SERVER['DOCUMENT_ROOT'] . base_path(). conf_path() . '/files/docs_dropbox2/'. $mail_contents->submission_id .'/comments/'. $submission_files['file_name'];
+
+		    }
+			$file_name[] = $comment_file_attached;
+		}
+		if (count($files) > 0) {
+			// boundary
+			$semi_rand = md5(time());
+			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+			// headers for attachment
+			$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+			// multipart boundary
+			$mail_content = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $mail_content . "\n\n";
+			$mail_content .= "--{$mime_boundary}\n";
+			// preparing attachments
+			for ($x = 0;$x < count($files);$x++) {
+				$file = fopen($files[$x],"rb");
+				$data = fread($file,filesize($files[$x]));
+				fclose($file);
+				$data = chunk_split(base64_encode($data));
+				$name = $file_name[$x];
+				$mail_content .= "Content-Type: {\"application/octet-stream\"};\n" . " name=\"$files[$x]\"\n" .
+				"Content-Disposition: attachment;\n" . " filename=\"$name\"\n" . 
+				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+				$mail_content .= "--{$mime_boundary}\n";
+			}
+		}
+	}
+	else {
+		// To send HTML mail, the Content-type header must be set
+		$headers .= 'MIME-Version: 1.0' . "\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";
+	}
+	$to = $wft_mail_id;
+	$mail = @mail($to, $subject, $mail_content, $headers);
+	// email logs	
+	$log_status = ($mail) ? 1 : 0;
+	email_logs('submission-comments-worflowtool', $to, $subject, $log_msg, $log_status, $time);	
+}
+
+function splitFileNameTimestamp($fileName) {
+	return substr($fileName, (stripos($fileName, '_')+1), strlen($fileName));
+}
+
+function getUsersDetails($users_list) {
+	// 	Retrieve User's mail id
+	$query = db_select('users_info', 'uinfo');
+	$query->join('users', 'u', 'uinfo.uid = u.uid');
+	$query->join('users_roles', 'u_role', 'u_role.uid = u.uid');
+	$query->join('role', 'role', 'role.rid = u_role.rid');
+	$query->fields('uinfo', array('uid', 'firstname', 'lastname', 'email', 'supplier_org_name'))
+	//->fields('u',array('access', 'status'))
+	->fields('u_role',array('rid'))
+	->fields('role',array('name'))
+	->condition('uinfo.uid', $users_list, 'IN')
+	->condition('u.status', 1, '=')
+	->groupBy('uinfo.uid');
+	$query_res = $query->execute();
+	$users_info = array();
+	while ($result_info = $query_res->fetchAssoc()) {
+		$users_info[] = $result_info;
+	}
+	return $users_info;
+}
+
+function getUserIdFromEmail($mail) {
+	$userId = db_query("SELECT uid FROM {users} WHERE mail=:mail", array(':mail' => $mail))->fetchField();
+	if ($userId) {
+		return $userId;
+	}
+	else {
+		return 1;
+	}
+}
+
+function getUsersRole($uid) {
+	$userRole = db_query("SELECT  r.name from {users_roles} ur, {role} r where ur.rid=r.rid and ur.uid = :uid", array(':uid' => $uid))->fetchField();
+	return $userRole;
+}
+
+/**
+ * Extract mime type
+ */
+function get_mime_type(&$structure) {
+	$primary_mime_type = array("TEXT", "MULTIPART","MESSAGE", "APPLICATION", "AUDIO","IMAGE", "VIDEO", "OTHER");
+	if ($structure->subtype) {
+		return $primary_mime_type[(int) $structure->type] . '/' .$structure->subtype;
+	}
+	return "TEXT/PLAIN";
+}
+
+/**
+ * Extract parts
+ */
+function get_part($stream, $msg_number, $mime_type, $structure = false, $part_number = false) {
+	if (!$structure) {
+		$structure = imap_fetchstructure($stream, $msg_number);
+	}
+	if ($structure) {
+		if ($mime_type == get_mime_type($structure)) {
+			if(!$part_number) {
+				$part_number = "1";
+			}
+			$text = imap_fetchbody($stream, $msg_number, $part_number);			
+			if ($structure->encoding == 3) {
+				return imap_base64($text);
+			}
+			else if ($structure->encoding == 4) {
+				return imap_qprint($text);
+			}
+			else {
+				return $text;
+			}
+		}
+		/* multipart */
+		if ($structure->type == 1) {
+			while (list($index, $sub_structure) = each($structure->parts)) {
+				$prefix = '';
+				if ($part_number) {
+					$prefix = $part_number . '.';
+				}
+				$data = get_part($stream, $msg_number, $mime_type, $sub_structure, $prefix.($index + 1));
+				if ($data) {
+					return $data;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+/**
+ * Extract Mail Content
+ */
+function parse_mail_content($body, $header_info) {
+	$from = $header_info->from[0];
+	$from_mail = $from->mailbox .'@'. $from->host;
+	$from_address = $from->personal;	
+	// get rid of any quoted text in the email body
+	$msg = "";
+	$content = "";
+	// lotus notes
+	if (preg_match('/<table(.*)>/', $body, $matches)) {
+		$msg = preg_split('/<table(.*)>/', $body);
+		$content = $msg[0];
+	}	
+	// gmail and others
+	else if (preg_match("/On(.*)wrote:(.*)/", $body, $matches)) {						
+		$msg = preg_split("/On(.*)wrote:(.*)/", $body);		
+		$content = $msg[0];
+	}	
+	else if (preg_match("/(.*)$from_mail(.*)wrote:(.*)/i", $body, $matches)) {						
+		$msg = preg_split("/(.*)$from_mail(.*)wrote:(.*)/i", $body);
+		$content = $msg[0];
+	}
+	// yahoo
+	else if (preg_match("/From:/i", $body, $matches)) {					
+		$msg = preg_split('/From:/i', $body);		
+		$content = $msg[0];
+	}
+	// hotmail			
+	else if (preg_match("/Date:/i", $body, $matches)) {					
+		$msg = preg_split('/Date:/i', $body);
+		$content = $msg[0];
+	}
+	/*else if (preg_match('/VWR Supplier Central/', $body, $matches)) {		
+		$msg = preg_split('/VWR Supplier Central/', $body);
+		$content = $msg[0];					
+	}*/	
+	else if (preg_match("/$from_mail/", $body, $matches)) {		
+		$msg = preg_split("/$from_mail/", $body);		
+		$content = $msg[0];
+	}	
+	else {									
+		$content = $body;
+	}
+	return $content;
+}
+
+/**
+ * Extract Status From Message
+ */
+function parse_status($msg) {	
+	if (preg_match('/Comments:|New Status:/i', $msg)) {		 
+		$str_occurence = stristr($msg, 'Comments:', true); // this is supported in PHP 5.3.0 or higher version
+		$split_str = ($str_occurence) ? $str_occurence : $msg;		
+		$status_to = explode('New Status:', $split_str);		
+		$new_status = $status_to[1];
+	}	
+	return $new_status;
+}
+
+/**
+ * Extract Comments From Message
+ */
+function parse_comments($msg) {	
+	if (preg_match('/Comments:/', $msg)) {
+		$cmnts = explode("Comments:", $msg);
+		$comments = $cmnts[1];
+	}
+	else {
+		$comments = $msg;
+	}
+	$comment = $comments;	
+	// handling signatures
+	$signature = array('Thanks,', 'Best Regards,', 'Warm Regards,', 'Regards,', 'Regards', 'Have a great day,', 'Thank you,', 'Thanks!');	
+	foreach ($signature as $sign) {		
+		if (strrpos($comments, $sign)) {
+			$comment = substr($comments, 0, strrpos($comments, $sign));
+			break;						
+		}			
+	}
+	return $comment;
+}
+
+/**
+ * Handle the Failiure scenarios starts here
+ */
+function sendMailFailureResponse($to_address, $errorMsg, $submission_id) {
+	if(email_notify_check($to_address)) {
+		$contact_mail = variable_get('contact_mail', '');
+		$headers = "From: VWR Supplier Central <$contact_mail>" . "\n";
+		$headers .= 'MIME-Version: 1.0' . "\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\n";	
+		$subject = "VWR International: Failure Notification - ID" . $submission_id;
+		$mail_content = theme('send_failure_notification', array('maildata' => $errorMsg));
+		@mail($to_address, $subject, $mail_content, $headers);
+	}
+}
+
+function getDropboxDetails($submission_id) {
+	$dropbox_res = db_query("SELECT dbox_id, status, created_by from {dropbox_files} where submission_id =:id", array(':id' => $submission_id))->fetchObject();
+	return $dropbox_res;
+}
+
+function getDropboxLinkToWorkflow($dropbox_id) {
+	$dropbox_to_workflow_details = db_query("SELECT title, link_workflow_tool, owners_email_id, workflow_email_id  FROM {dropbox} WHERE id=:id", array(':id' => $dropbox_id))->fetchObject();
+	return $dropbox_to_workflow_details;
+}
+
+function getStatusName($status_id) {
+	$status = db_query("SELECT status_name from {manage_status} where status_id=:sid", array(':sid' => $status_id))->fetchField();
+	return $status;
+}
+
+function constructStatusChangeMsg($c_id) {
+	$comment_operations = db_query("SELECT status, from_status from {submission_comments} where id=:cid", array(':cid' => $c_id))->fetchObject();
+	if ($comment_operations->from_status != NULL && $comment_operations->status != NULL) {
+		$return_string = 'Status Changed From '. getStatusName($comment_operations->from_status) .' To ' . getStatusName($comment_operations->status);
+	}
+	return $return_string;
+}
+
+/**
+ * Email Logs
+ */
+function email_logs($type, $email, $subject, $message, $status, $date) {
+	db_insert('notification_email_logs')
+		->fields(array(
+			'type' => $type,			
+			'email' => $email,
+			'email_subject' => $subject,
+			'message' => $message,
+			'status' => $status,
+			'notified' => $date,
+		))
+		->execute();
+}
+
+/**
+ * Email Logs Export
+ */
+function email_logs_export() {
+	$date = date("m-d-Y", time());
+	$filename = 'Email_Logs_'. $date .'.xls';	
+  	
+	$header = array('Type', 'Email', 'Subject', 'Message', 'Status', 'Date');
+	$output = '<table cellspacing="5" cellpadding="5" width="100%" align="center">
+						 	<tr style="background-color:#CCCCCC; font-size:12px;">';
+	foreach ($header as $heading) {
+		$output .= '<th>'. $heading .'</th>';
+	}
+	$output .= '</tr>';
+	$sql = db_query("SELECT * FROM {notification_email_logs}");		
+	foreach ($sql as $value) {
+		$output .= '<tr align="left">';
+		$output .= '<td>'. $value->type .'</td>';
+		$output .= '<td>'. $value->email .'</td>';
+		$output .= '<td>'. $value->email_subject .'</td>';
+		$output .= '<td>'. $value->message .'</td>';
+		$status = ($value->status == 1) ? 'Success' : 'Failure';
+		$output .= '<td>'. $status .'</td>';
+		$output .= '<td>'. date("m/d/Y, G:i:s T", $value->notified) .'</td>';		
+		$output .= '</tr>'; 
+	}	
+	$output .= '</table>';	
+	
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header("Content-Type: application/force-download");
+	header("Content-Type: application/octet-stream");
+	header("Content-Type: application/download");;
+	header("Content-Disposition: attachment;filename=". $filename);
+	header("Content-Transfer-Encoding: binary ");	
+	
+	echo $output;
+}

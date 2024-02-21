@@ -1,0 +1,210 @@
+/* Reset */
+body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border:none;}
+/* End Reset */
+
+
+a {color:white;}
+
+/* Colors */
+
+/* End Colors */
+
+/* Head section */
+#head {
+    background: #000 url(img/head-bg.png) repeat-x;
+    height: 100px;
+}
+#head h1 {
+    line-height: 100px;
+    color: #FFF;
+    text-align: center;
+    background: url(img/inettuts.png) no-repeat center;
+    text-indent: -9999em
+}
+/* End Head Section */
+
+/* Columns section */
+#columns .column {
+    float: left;
+	width:33%;
+   
+		/* Min-height: */
+		min-height: 400px;
+		height: auto !important; 
+		height: 400px;
+}
+
+/* Column dividers (background-images) : */
+	#columns #column1 { background: url(img/column-bg-left.png) no-repeat right top; }
+	#columns #column3 { background: url(img/column-bg-right.png) no-repeat left top; }
+	
+
+.widget {
+    margin: 0px;
+
+	width: 233px;
+}
+.widget-head {
+    color: #000;
+    overflow: hidden;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+	background:url(../images/dash_top.jpg) left top no-repeat;
+}
+.widget-head a.collapse {
+    background: url("../images/minimize.png") no-repeat scroll 0 0 transparent;
+    display: inline;
+    float: left;
+    height: 22px;
+    margin: 16px 0 8px 10px;
+    outline: medium none;
+    text-indent: -9999em;
+    width: 23px;
+}
+.widget-head a.remove {
+    background: url("../images/close.png") no-repeat scroll 0 0 transparent;
+    display: inline;
+    float: right;
+    height: 20px;
+    margin: 17px 9px 8px 0;
+    outline: medium none;
+    text-indent: -9999em;
+    width: 20px;
+}
+.widget-head a.expand {
+    background: url("../images/maximize.png") no-repeat scroll 0 0 transparent;
+    display:none;
+    float: left;
+    height: 22px;
+    margin: 16px 0 8px 10px;
+    outline: medium none;
+    text-indent: -9999em;
+    width: 23px;
+}
+.widget-head h3 {
+    background: none repeat scroll 0 0 transparent !important;
+    float: left;
+    font-size: 14px;
+    height: 46px;
+    line-height: 50px;
+    padding: 0 5px 0 20px !important;
+}
+.widget .widget-content {
+
+    overflow: hidden;
+
+}
+.widget .widget-content .wid-img{
+	background:url(../images/dash_top_img.jpg) no-repeat scroll center bottom transparent;  
+	min-height: 113px;
+	text-align: center;
+	padding-top:25px;
+}
+.widget .widget-content .wid-act{
+	min-height:35px;
+	background:url(../images/dash_mid.jpg) repeat-y;		
+}
+
+.widget .widget-content .wid-act-icon{
+	height:76px;
+	background:url(../images/dash_mid.jpg) repeat-y;		
+}
+
+.widget .widget-content .wid-img-icon{
+	background:url(../images/dash_top_img_big.png) no-repeat;  
+	min-height: 173px;
+	padding:3px;
+	text-align:center;
+}
+
+.wid-act-icon ul {
+    float: left;
+    padding: 4px 0 0 23px;
+	width:190px !important;
+}
+.wid-act-icon ul li{
+	background:url(../images/list_ico.png) 0 9px no-repeat;
+	padding: 3px 0;
+	width:190px !important;
+} 
+.wid-act-icon ul li a{ color:#45557b; text-decoration:none; padding-left: 14px;  font-weight: bold;}
+
+.wid-act ul {
+  float: left;
+  padding: 7px 0 0 23px;
+	width:190px !important;
+}
+.wid-act ul li{
+	background:url(../images/list_ico.png) 0 9px no-repeat;
+	 padding: 5px 0;
+	 width:190px !important;
+} 
+
+.viewlinks{
+	 background:url(../images/list_ico.png) 0 3px no-repeat;
+	 color:#45557B;
+	 font-weight:bold;
+	 text-decoration:none;
+	 cursor:pointer
+} 
+
+.wid-act ul li a{ color:#45557b; text-decoration:none; padding-left: 14px;  font-weight: bold;}
+
+.widget-content .wid-bot{
+	background:url(../images/dash_bot.jpg) center no-repeat;
+	height:22px;
+}
+
+.widget .widget-content pre {
+    padding: 0.5em 5px;
+    color: #EEE;
+    font-size: 12px;
+}
+
+
+/* End Columns section */
+
+
+
+
+
+.FixedWidth {
+	position:relative;
+
+}
+.Rec {
+	position: static;
+
+	height:auto;
+	width: 233px;
+
+
+}
+#Column1, #Column2, #Column3 {
+	position: relative;
+	float: left;
+	padding:15px 5px 0px 14px;
+
+}
+.Handle {
+	cursor: move;
+}
+.Rec h1 {
+	color: #ebebeb;
+}
+#Rec1 {
+	height:auto;
+}
+#Rec6 {
+	height:auto;
+}
+#About {
+	height:200px;
+}
+.Info {
+	padding: 5px;
+	text-align: left;
+	font-size: 77%;
+}
+

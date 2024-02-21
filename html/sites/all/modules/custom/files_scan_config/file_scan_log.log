@@ -1,0 +1,1292 @@
+
+ Thursday, December 15, 2022 - 03:18 API called https://api-dev.vwr.com/file/results Httpcode : 200 for a64fdf80-00b4-4e4e-847a-0757ff19ac4d 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/a64fdf80-00b4-4e4e-847a-0757ff19ac4d?response-content-disposition=attachment%3B%20filename%20%3D%221_test_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=GCdzTAkrEHriIzf7KNeqjFNiP3U%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671095910
+)
+
+ Thursday, December 15, 2022 - 03:18 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1_test_sample_dec22.jpg file_id : a64fdf80-00b4-4e4e-847a-0757ff19ac4d
+ Thursday, December 15, 2022 - 03:28 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 582c4204-b993-427c-a53c-981bcd6cac96 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, December 15, 2022 - 03:30 API called https://api-dev.vwr.com/file/results Httpcode : 200 for e9f03801-4b94-4392-a3b6-abc6a7978832 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/e9f03801-4b94-4392-a3b6-abc6a7978832?response-content-disposition=attachment%3B%20filename%20%3D%221_wel_img.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=swUE%2BjkrEhwzW6strJn7WXIK5iY%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671096637
+)
+
+ Thursday, December 15, 2022 - 03:30 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1_wel_img.jpg file_id : e9f03801-4b94-4392-a3b6-abc6a7978832
+ Thursday, December 15, 2022 - 03:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 86ab0b6b-78c1-41af-b500-5fc5980cc516 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/86ab0b6b-78c1-41af-b500-5fc5980cc516?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=mjruzhEFaYyX1qSUakktQUccNeM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671096799
+)
+
+ Thursday, December 15, 2022 - 03:33 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1_PA-sample_dec22.jpg file_id : 86ab0b6b-78c1-41af-b500-5fc5980cc516
+ Thursday, December 15, 2022 - 03:35 API called https://api-dev.vwr.com/file/results Httpcode : 200 for efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9bc7fafe-ce82-4f84-aeec-afabf338063b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 9bc7fafe-ce82-4f84-aeec-afabf338063b
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 7ee4d1b1-389f-4e2a-bcd9-5db010c88952 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Table  vwr_upload_documents Scanning in progress In Progress for file_id : 7ee4d1b1-389f-4e2a-bcd9-5db010c88952
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 81f148e6-f79c-4304-95c8-9728302ec35f 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Table  vwr_topic Scanning in progress In Progress for file_id : 81f148e6-f79c-4304-95c8-9728302ec35f
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 081b7e57-cc74-4dd7-b366-c7f29c10abe0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 081b7e57-cc74-4dd7-b366-c7f29c10abe0
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 64ad9f2b-9021-4105-bb50-aec9c0574571 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/64ad9f2b-9021-4105-bb50-aec9c0574571?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=rZBqzS5LX%2FcmVHwj5R1%2BOaSlJPo%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671096997
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 64ad9f2b-9021-4105-bb50-aec9c0574571
+ Thursday, December 15, 2022 - 03:36 File downloaded for bulk_upload_list File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/bulk_uploads/ file_id : 64ad9f2b-9021-4105-bb50-aec9c0574571
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 1 Table  vwr_bulk_upload_list updated status SCAN_COMPLETED for file_id : 64ad9f2b-9021-4105-bb50-aec9c0574571
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 23d9fb7e-b81e-42fa-a80f-54e139f1d5ad 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/23d9fb7e-b81e-42fa-a80f-54e139f1d5ad?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%201714491562%20-%20Copy.webp%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=5oJts21%2Biblv6pKuXOglpA0cqkE%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671096999
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 23d9fb7e-b81e-42fa-a80f-54e139f1d5ad
+ Thursday, December 15, 2022 - 03:36 File downloaded for bulk_upload_list File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/bulk_uploads/ file_id : 23d9fb7e-b81e-42fa-a80f-54e139f1d5ad
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 1 Table  vwr_bulk_upload_list updated status SCAN_COMPLETED for file_id : 23d9fb7e-b81e-42fa-a80f-54e139f1d5ad
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 582c4204-b993-427c-a53c-981bcd6cac96 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/582c4204-b993-427c-a53c-981bcd6cac96?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=W1ikxXoh3B5uxM8AYReCUOcAVzk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671097001
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 582c4204-b993-427c-a53c-981bcd6cac96
+ Thursday, December 15, 2022 - 03:36 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/ file_id : 582c4204-b993-427c-a53c-981bcd6cac96
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 0 Table  vwr_category updated status SCAN_COMPLETED for file_id : 582c4204-b993-427c-a53c-981bcd6cac96
+ Thursday, December 15, 2022 - 03:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469?response-content-disposition=attachment%3B%20filename%20%3D%221_WTW--NA--GHS%20Compliance.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=c5onr98djHdD2baOsvzXSkVfBxI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671097003
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469
+ Thursday, December 15, 2022 - 03:36 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1_WTW--NA--GHS Compliance.jpg file_id : efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469
+ Scan Scheduler : Thursday, December 15, 2022 - 03:36 1 Table  vwr_category updated status SCAN_COMPLETED for file_id : efa6df9a-e0ea-4e6e-a76a-0e24f2ac6469
+ Thursday, December 15, 2022 - 03:43 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 64cdc73b-f774-480f-84ee-dbf2dda3cea9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/64cdc73b-f774-480f-84ee-dbf2dda3cea9?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=xzaF3%2BWnQewN0VHyAYY12AK5qro%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671097391
+)
+
+ Thursday, December 15, 2022 - 03:43 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/1_PA-sample_dec22.jpg file_id : 64cdc73b-f774-480f-84ee-dbf2dda3cea9
+ Thursday, December 15, 2022 - 03:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9bc7fafe-ce82-4f84-aeec-afabf338063b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:45 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 9bc7fafe-ce82-4f84-aeec-afabf338063b
+ Thursday, December 15, 2022 - 03:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 7ee4d1b1-389f-4e2a-bcd9-5db010c88952 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:45 Table  vwr_upload_documents Scanning in progress In Progress for file_id : 7ee4d1b1-389f-4e2a-bcd9-5db010c88952
+ Thursday, December 15, 2022 - 03:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 81f148e6-f79c-4304-95c8-9728302ec35f 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:45 Table  vwr_topic Scanning in progress In Progress for file_id : 81f148e6-f79c-4304-95c8-9728302ec35f
+ Thursday, December 15, 2022 - 03:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 081b7e57-cc74-4dd7-b366-c7f29c10abe0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:45 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 081b7e57-cc74-4dd7-b366-c7f29c10abe0
+ Thursday, December 15, 2022 - 03:56 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9bc7fafe-ce82-4f84-aeec-afabf338063b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 9bc7fafe-ce82-4f84-aeec-afabf338063b
+ Thursday, December 15, 2022 - 03:56 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 7ee4d1b1-389f-4e2a-bcd9-5db010c88952 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 Table  vwr_upload_documents Scanning in progress In Progress for file_id : 7ee4d1b1-389f-4e2a-bcd9-5db010c88952
+ Thursday, December 15, 2022 - 03:56 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 81f148e6-f79c-4304-95c8-9728302ec35f 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 Table  vwr_topic Scanning in progress In Progress for file_id : 81f148e6-f79c-4304-95c8-9728302ec35f
+ Thursday, December 15, 2022 - 03:56 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 081b7e57-cc74-4dd7-b366-c7f29c10abe0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 081b7e57-cc74-4dd7-b366-c7f29c10abe0
+ Thursday, December 15, 2022 - 03:56 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9174efc0-ea74-4e9d-9f22-fbe95cc4ad04 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/9174efc0-ea74-4e9d-9f22-fbe95cc4ad04?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7C2WSXXU&Signature=Z79gNbosrvXrK3TfnDFFOUafnOM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIGfO2u%2BuHrdbnaeMlrk%2FfpuRA7cndFKunikJnSTEWgGxAiEAwDCYxoFAe%2FamIS%2Fp6Yz%2FkT%2Bbd2GU7xOl1MY%2B5sULvw4qpgMI6P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDATUl6eY%2F8tXYk2eUCr6AqEtZRdgDn2mC7oKOz9tiPdRWSIzf82z54B0xZIWH4wvj9ZKQIhVyvZ%2FNnKMa9hqxPR%2BOqwbk%2FsQCEGZhhLfRfY0di3kfVuOO4oSPK0MR6pT%2Fd8UANqY1ra1FpQewLRIYFIZ1WeNJKaBGZOaoDen2SR84yNuc3f3G20BOkLFqd%2BHG%2FVAtHoZ99BHwN38ju6z5ljaNHOocmcBzNoDE04bBlxGv3MZjd%2FO%2ByMIKaHV2oXkYM0HyQ61xXCjh%2BRfiihucQnFy2zqHeog2tHNKwMHjXeD%2BHyEB6jNZu9Ys9SR2OeY0eyYdhH1AEx0HsxDHz828KFLLFH2VFOpnSud1TSvjsXuzRHvJ9n7aRYK12EtuH%2BWI6VgT6nTRXcU65n22jfBHBrXY3G3hEzUNxyTiQOHJ2MZyl9vb9XxtfGJ9xXhkWCYuCndnrshYXuZA0GRoAkiFj%2Fy%2FyjfGltsAIDKu8uo1VxQhuJK3Y%2BV%2BPN79DB3NgrZCKEZGuIBpLBZjTDahuucBjqdAXmGaX2wjFuTh%2BzYkGGtHoLKHUp62Z94XSphZS16PxSVZwSRysnic3NvY%2F0eA8W0M55zE20PwMzCyqa80ztNPpi4kxQ0EUPSHTfSWlK5IxOYeO03qAr1HQ9R1GJWEEBPwHMQrGCQmiwO4sul1uQ2jf81YIjrU5iOlEJsDUk%2BJ6rP%2Bu3mk0XuLpU1jr0tm0ODklimpFsx9HSSvjUlqQs%3D&Expires=1671098185
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 9174efc0-ea74-4e9d-9f22-fbe95cc4ad04
+ Thursday, December 15, 2022 - 03:56 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/PA-sample_dec22.jpg file_id : 9174efc0-ea74-4e9d-9f22-fbe95cc4ad04
+ Scan Scheduler : Thursday, December 15, 2022 - 03:56 1 Table  vwr_hyperlinks updated status SCAN_COMPLETED for file_id : 9174efc0-ea74-4e9d-9f22-fbe95cc4ad04
+ Thursday, December 15, 2022 - 05:32 API called https://api-dev.vwr.com/file/results Httpcode : 200 for c382595e-4ea2-4e1a-96dd-c1b247664fe4 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/c382595e-4ea2-4e1a-96dd-c1b247664fe4?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD547KDGOS&Signature=hhm7cM8EqV1FUZC0o%2BMQ7LRbedo%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQDp1PE66KiTzkQ5ywF4Tttmp3HwqdHm921uwa03to%2BewgIgKb6o9KzJqHiSl7WMYX5%2Fkbxm8VFUyqDHuEUndr4h7FIqpgMI6v%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDOHB0EtoyTm7ViVruCr6AoMC5RLahKYfpk3Hg1oOoxIBriBw2NGwCQqTZYlkAwJICmGTzub7e%2FkEoxaHGecyAzua15d%2BcdfHuzkSOvjhMLDGRgfhlQI3R7aem6D96yiHCAA2NU7XaCYfEMMQwP2WVS26O6GH7igJ717GDK6o%2F1oiwLf8quDZrHEzIwVVyqZZrO2aZaKRTpt7gCjKB3QoioUCv62FJ5GH8ZsrevCHnjQzogEAvV9ib85cNfz%2FP9PuwmBANSS2tOgKaATVvDxJJh%2BI45taiMCSn32KCGt1Ioh0yGKg9cB%2Blt3t7jBsfkZRrsO2vAa3FFslKsdLgw44NfKqXGMOwCr0wDAJa5aub11MPNFyLzGebwGFdsqR%2FueE5S7K9OpEmlRDFuJ1vVnWNeUDlwVW3qUUOaKJVTJB5u3wPz9sRkSHRL4ycSCxVkFauntp1rZrt7xdswdLIxewmQ%2F5C8SQIyhIx%2BPfCSj1uHlIoGKt2ZbiL2zkpP2RXk8iWQV9HJtVJ5vgkzCawuucBjqdAb4ZhBF5O%2Bl5B2NG4t4L5kUqKZkGietftUcoG7Nt1rMI3URMYoicUA57qMs5qwUij3%2Fb%2Fbb9boMIYvc6bC%2BMQ7Let5pmCkPxUys2AHN5rTOvIZxqXAaFqL6kCQB2Z%2BTooz7wwFIx9zEdZ%2BckvozWPtZIdQLBdiu5Mmctblb3th1wRclrmNsL6DAz02IxU%2BZ9sxhfrvQR5WTVgDOhQBM%3D&Expires=1671103926
+)
+
+ Thursday, December 15, 2022 - 05:32 File downloaded for upload_documents File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/PA-sample_dec22.jpg file_id : c382595e-4ea2-4e1a-96dd-c1b247664fe4
+ Thursday, December 15, 2022 - 06:04 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 13b38ff1-f04b-4376-801d-908f781619b6 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/13b38ff1-f04b-4376-801d-908f781619b6?response-content-disposition=attachment%3B%20filename%20%3D%221_test_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD547KDGOS&Signature=OoKTNhb73e2ncD3FfMghQDtfn74%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQDp1PE66KiTzkQ5ywF4Tttmp3HwqdHm921uwa03to%2BewgIgKb6o9KzJqHiSl7WMYX5%2Fkbxm8VFUyqDHuEUndr4h7FIqpgMI6v%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDOHB0EtoyTm7ViVruCr6AoMC5RLahKYfpk3Hg1oOoxIBriBw2NGwCQqTZYlkAwJICmGTzub7e%2FkEoxaHGecyAzua15d%2BcdfHuzkSOvjhMLDGRgfhlQI3R7aem6D96yiHCAA2NU7XaCYfEMMQwP2WVS26O6GH7igJ717GDK6o%2F1oiwLf8quDZrHEzIwVVyqZZrO2aZaKRTpt7gCjKB3QoioUCv62FJ5GH8ZsrevCHnjQzogEAvV9ib85cNfz%2FP9PuwmBANSS2tOgKaATVvDxJJh%2BI45taiMCSn32KCGt1Ioh0yGKg9cB%2Blt3t7jBsfkZRrsO2vAa3FFslKsdLgw44NfKqXGMOwCr0wDAJa5aub11MPNFyLzGebwGFdsqR%2FueE5S7K9OpEmlRDFuJ1vVnWNeUDlwVW3qUUOaKJVTJB5u3wPz9sRkSHRL4ycSCxVkFauntp1rZrt7xdswdLIxewmQ%2F5C8SQIyhIx%2BPfCSj1uHlIoGKt2ZbiL2zkpP2RXk8iWQV9HJtVJ5vgkzCawuucBjqdAb4ZhBF5O%2Bl5B2NG4t4L5kUqKZkGietftUcoG7Nt1rMI3URMYoicUA57qMs5qwUij3%2Fb%2Fbb9boMIYvc6bC%2BMQ7Let5pmCkPxUys2AHN5rTOvIZxqXAaFqL6kCQB2Z%2BTooz7wwFIx9zEdZ%2BckvozWPtZIdQLBdiu5Mmctblb3th1wRclrmNsL6DAz02IxU%2BZ9sxhfrvQR5WTVgDOhQBM%3D&Expires=1671105898
+)
+
+ Thursday, December 15, 2022 - 06:05 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/1_test_sample_dec22.jpg file_id : 13b38ff1-f04b-4376-801d-908f781619b6
+ Thursday, December 15, 2022 - 06:10 API called https://api-dev.vwr.com/file/results Httpcode : 200 for d8e0303a-7cb7-46f8-9bc9-ae89890fb366 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, December 15, 2022 - 06:16 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 5482d539-9cfa-4532-8b50-1561a3f8614d 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, December 15, 2022 - 06:21 API called https://api-dev.vwr.com/file/results Httpcode : 200 for aa2991e5-a917-4528-b367-250aebd762e1 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/aa2991e5-a917-4528-b367-250aebd762e1?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDW3G6CV2D&Signature=caV1vYfv8MoEaz6Ax5nqiVzb%2Fjc%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID51qR8E8A2%2F%2BpiIqvsIyX3UdCO4pjbfmEPjUo%2BHZCK%2FAiBcTC64ZJhMl6z84F0iNxevXwEx6Aev6Ofxi5sI3zZEjyqmAwjs%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMWmRI3DYOBH84oHaUKvoC2XLwea305GUbo5ydgLp3FzzZhnFMHzCcxxhiOc07CqdyyNBkVfcMq29Zid0IKvqUX%2BwVd2RtdD%2FmfiGvOCXzFyeXNCtBz2chrLT812oJ5tH5MRbhvYAYtJpJ03VUINBCpwKbghZYut3ZjIXJe4a466yUEipiVmUrr%2FgjIYIqio3aN6HLpoEIQr9GCAW85EIHQMewk8Izm5w0kpyEkCBxV4m8%2BMmkYknmB3klHsf8rgNlDH4X6E8V75ZAxw4tO94i0%2BpUHsIEvJEtn54n%2F4ilBy2uF3EH%2B6d4K3zjWqGyNe2I7AqpEQUVA0BNkOaBz1CN2vtY3GmVWtcejbwo66FP%2FHlMtifb%2FKMyS9QeaNzy4REyM4epZ8o70jGjeLeuxyuaaTKQC5QshnRh3EkOc4i%2FpGZFwhypSW08rqpy%2BKYhTxfv5tqSqsQOWUmR9S0FNNSyQ1bZhokXUt4hUr7iVMWiUsVkJzw6myOhtcPludfL16rLBUo%2F1SpTThdOMNb%2F65wGOp4BpaXxlGkmKXvCyVWkj9dWhb%2FrhsH0Ah0Ex92aJa9wn9invUyP84MGQcPzc5mlbgYC%2FihWbYKvFFgna8xq0hnce%2FK4r3PB8okPPoVrD5JAuGgTjndNpyr1FIMcVGhyZ3aplKs8wdvNZejSaUIZ6lgwBZL3fKcbaopEY3uNeFknS97nc29aIzlsQU5mx4rmzVGGMSi415FJeLusEF4s0sc%3D&Expires=1671106876
+)
+
+ Thursday, December 15, 2022 - 06:21 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/1_PA-sample_dec22.jpg file_id : aa2991e5-a917-4528-b367-250aebd762e1
+ Thursday, December 15, 2022 - 06:22 API called https://api-dev.vwr.com/file/results Httpcode : 200 for b4f1223c-48d3-4c76-9a67-0cfeb7bc2420 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/b4f1223c-48d3-4c76-9a67-0cfeb7bc2420?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDW3G6CV2D&Signature=whbaJKE77aJ3sxe5y94uE%2BnItjk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID51qR8E8A2%2F%2BpiIqvsIyX3UdCO4pjbfmEPjUo%2BHZCK%2FAiBcTC64ZJhMl6z84F0iNxevXwEx6Aev6Ofxi5sI3zZEjyqmAwjs%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMWmRI3DYOBH84oHaUKvoC2XLwea305GUbo5ydgLp3FzzZhnFMHzCcxxhiOc07CqdyyNBkVfcMq29Zid0IKvqUX%2BwVd2RtdD%2FmfiGvOCXzFyeXNCtBz2chrLT812oJ5tH5MRbhvYAYtJpJ03VUINBCpwKbghZYut3ZjIXJe4a466yUEipiVmUrr%2FgjIYIqio3aN6HLpoEIQr9GCAW85EIHQMewk8Izm5w0kpyEkCBxV4m8%2BMmkYknmB3klHsf8rgNlDH4X6E8V75ZAxw4tO94i0%2BpUHsIEvJEtn54n%2F4ilBy2uF3EH%2B6d4K3zjWqGyNe2I7AqpEQUVA0BNkOaBz1CN2vtY3GmVWtcejbwo66FP%2FHlMtifb%2FKMyS9QeaNzy4REyM4epZ8o70jGjeLeuxyuaaTKQC5QshnRh3EkOc4i%2FpGZFwhypSW08rqpy%2BKYhTxfv5tqSqsQOWUmR9S0FNNSyQ1bZhokXUt4hUr7iVMWiUsVkJzw6myOhtcPludfL16rLBUo%2F1SpTThdOMNb%2F65wGOp4BpaXxlGkmKXvCyVWkj9dWhb%2FrhsH0Ah0Ex92aJa9wn9invUyP84MGQcPzc5mlbgYC%2FihWbYKvFFgna8xq0hnce%2FK4r3PB8okPPoVrD5JAuGgTjndNpyr1FIMcVGhyZ3aplKs8wdvNZejSaUIZ6lgwBZL3fKcbaopEY3uNeFknS97nc29aIzlsQU5mx4rmzVGGMSi415FJeLusEF4s0sc%3D&Expires=1671106922
+)
+
+ Thursday, December 15, 2022 - 06:22 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/1_codes_sample_dec22.jpg file_id : b4f1223c-48d3-4c76-9a67-0cfeb7bc2420
+ Thursday, December 15, 2022 - 06:23 API called https://api-dev.vwr.com/file/results Httpcode : 200 for ae103faa-59fe-4980-8136-451d149d9faa 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/ae103faa-59fe-4980-8136-451d149d9faa?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDW3G6CV2D&Signature=cwqDEGSznwfLlGnrNcN8LKjHpRA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID51qR8E8A2%2F%2BpiIqvsIyX3UdCO4pjbfmEPjUo%2BHZCK%2FAiBcTC64ZJhMl6z84F0iNxevXwEx6Aev6Ofxi5sI3zZEjyqmAwjs%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMWmRI3DYOBH84oHaUKvoC2XLwea305GUbo5ydgLp3FzzZhnFMHzCcxxhiOc07CqdyyNBkVfcMq29Zid0IKvqUX%2BwVd2RtdD%2FmfiGvOCXzFyeXNCtBz2chrLT812oJ5tH5MRbhvYAYtJpJ03VUINBCpwKbghZYut3ZjIXJe4a466yUEipiVmUrr%2FgjIYIqio3aN6HLpoEIQr9GCAW85EIHQMewk8Izm5w0kpyEkCBxV4m8%2BMmkYknmB3klHsf8rgNlDH4X6E8V75ZAxw4tO94i0%2BpUHsIEvJEtn54n%2F4ilBy2uF3EH%2B6d4K3zjWqGyNe2I7AqpEQUVA0BNkOaBz1CN2vtY3GmVWtcejbwo66FP%2FHlMtifb%2FKMyS9QeaNzy4REyM4epZ8o70jGjeLeuxyuaaTKQC5QshnRh3EkOc4i%2FpGZFwhypSW08rqpy%2BKYhTxfv5tqSqsQOWUmR9S0FNNSyQ1bZhokXUt4hUr7iVMWiUsVkJzw6myOhtcPludfL16rLBUo%2F1SpTThdOMNb%2F65wGOp4BpaXxlGkmKXvCyVWkj9dWhb%2FrhsH0Ah0Ex92aJa9wn9invUyP84MGQcPzc5mlbgYC%2FihWbYKvFFgna8xq0hnce%2FK4r3PB8okPPoVrD5JAuGgTjndNpyr1FIMcVGhyZ3aplKs8wdvNZejSaUIZ6lgwBZL3fKcbaopEY3uNeFknS97nc29aIzlsQU5mx4rmzVGGMSi415FJeLusEF4s0sc%3D&Expires=1671107008
+)
+
+ Thursday, December 15, 2022 - 06:23 File downloaded for upload_documents File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/PA-sample_dec22.jpg file_id : ae103faa-59fe-4980-8136-451d149d9faa
+ Thursday, December 15, 2022 - 06:47 API called https://api-dev.vwr.com/file/results Httpcode : 200 for b839b3fb-309d-4387-92e6-40dd786471b9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/b839b3fb-309d-4387-92e6-40dd786471b9?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD7OZWVQW7&Signature=J3SKX7weey2SykNf9LPhFcZ9xfI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCf5pASCdcYzIJSMGGdUzA95xey50lR%2B39AA2fPXs1CfgIgQuRFnyScu5ID602ihV2pzvqvLYRx00JGEt6CrGkXV%2BQqpgMI7f%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDGNTYTJ7PwLYfT0fzSr6AmJWltX6dVVqQeTZSG3ql7fBelBktP4BYHBS5Iust4ECcZu38RyT%2FtnnxzDrunMVpNu%2FtuMDhwz2uua0K1QW%2BpkeQ5pVyUZ8CTsomvkkz0Q4pMQHiCexRFZ7%2B5ECoUVu0%2BQjQ6rgI770BehTnM3Oo7mKrmHR8AK12iO%2FnR6rXVPk68t42lFxdc3xb6GgvJd0gVsdjX2AFjdDCI0DNm4sYW%2Bpb5VMJ%2BY0PfGfqJPdrLUJcZSrLhilI8l6a%2FXdj1WAg%2BfikVXy4AmFgJ2bx2Kvd3AZZSv1cW1C8zQzpM93bYmIprgWFsvpmoHfCxZT%2BbEcmF4p48CiFQuhYYCK0kBrobY6RcAgkQDWSuBCk%2BG%2F2rCp%2BSXFTdS%2FJbyxk63UhvRlqyLv7KDGqokWJvjnHgXy%2BYMHUTatS9W8V3qGFszPObH8iwEzlfQ2uJg19dznGX0lr2%2FTtbCmGzTCuBdl6hf44C2nCyw%2BGwcNH6uIk%2BbHA%2FFmPzt0fqGbxcSLWzCzkuycBjqdAVRBSglqfPZ1N2sInXAJAYHuM63udwoJpFLHok0IsJHB%2BlDbg3ai05MSk%2BjetZAPRNNLgl8w68ew8PPY%2BhayLUaTSymQdErLiAsIGuwVoR47eVqz09tTNyMVBffsGJ2PGqTX%2F6e%2Ba2zI9CnUM8GawnElXREI2VaPpyU66IOw8jkDyImEtqrVWnC44MfnR4g%2BS2CgZwzdLR5IS5bEQws%3D&Expires=1671108446
+)
+
+ Thursday, December 15, 2022 - 06:47 File downloaded for welcomepage_details File Path : sites/default/files/files/welcome_files/PA-sample_dec22.jpg file_id : b839b3fb-309d-4387-92e6-40dd786471b9
+ Thursday, December 15, 2022 - 09:10 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 98d418ac-1fd6-4e0e-8bd6-d9689a9a51ad 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/98d418ac-1fd6-4e0e-8bd6-d9689a9a51ad?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=J%2B6gXP1WkwBHpr3nOgB4OuH8%2BMQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671117002
+)
+
+ Thursday, December 15, 2022 - 09:10 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/codes_sample_dec22.jpg file_id : 98d418ac-1fd6-4e0e-8bd6-d9689a9a51ad
+ Thursday, December 15, 2022 - 09:24 API called https://api-dev.vwr.com/file/results Httpcode : 200 for a5fc28ee-9eef-4092-92d5-030173dbba0b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/a5fc28ee-9eef-4092-92d5-030173dbba0b?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=kZdehKZ88Gqa0HT4cxukzSaLL5U%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671117880
+)
+
+ Thursday, December 15, 2022 - 09:24 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/codes_sample_dec22.jpg file_id : a5fc28ee-9eef-4092-92d5-030173dbba0b
+ Thursday, December 15, 2022 - 09:27 API called https://api-dev.vwr.com/file/results Httpcode : 200 for a5fc28ee-9eef-4092-92d5-030173dbba0b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/a5fc28ee-9eef-4092-92d5-030173dbba0b?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=OzX7zR1MXTYrubpRT6HWxEtWvpU%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118060
+)
+
+ Thursday, December 15, 2022 - 09:27 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/codes_sample_dec22.jpg file_id : a5fc28ee-9eef-4092-92d5-030173dbba0b
+ Thursday, December 15, 2022 - 09:30 API called https://api-dev.vwr.com/file/results Httpcode : 200 for a5fc28ee-9eef-4092-92d5-030173dbba0b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/a5fc28ee-9eef-4092-92d5-030173dbba0b?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=XHndLKWiTqN%2ByN8f4WpT%2Bwu2HOc%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118250
+)
+
+ Thursday, December 15, 2022 - 09:30 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/codes_sample_dec22.jpg file_id : a5fc28ee-9eef-4092-92d5-030173dbba0b
+ Thursday, December 15, 2022 - 09:32 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 815ee138-b4f4-4566-a21a-5ff996dd7030 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9bc7fafe-ce82-4f84-aeec-afabf338063b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 9bc7fafe-ce82-4f84-aeec-afabf338063b
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 7ee4d1b1-389f-4e2a-bcd9-5db010c88952 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Table  vwr_upload_documents Scanning in progress In Progress for file_id : 7ee4d1b1-389f-4e2a-bcd9-5db010c88952
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 81f148e6-f79c-4304-95c8-9728302ec35f 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Table  vwr_topic Scanning in progress In Progress for file_id : 81f148e6-f79c-4304-95c8-9728302ec35f
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 081b7e57-cc74-4dd7-b366-c7f29c10abe0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Table  vwr_hyperlinks Scanning in progress In Progress for file_id : 081b7e57-cc74-4dd7-b366-c7f29c10abe0
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for be65b4cf-7d55-4a3c-9218-15fda5c102f4 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/be65b4cf-7d55-4a3c-9218-15fda5c102f4?response-content-disposition=attachment%3B%20filename%20%3D%221_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=fjXVm4QPh%2FNjbBaoWeivO9S0CE4%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118419
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : be65b4cf-7d55-4a3c-9218-15fda5c102f4
+ Thursday, December 15, 2022 - 09:33 File downloaded for upload_documents File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/WTW--NA--GHS sample.pdf file_id : be65b4cf-7d55-4a3c-9218-15fda5c102f4
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 1 Table  vwr_upload_documents updated status SCAN_COMPLETED for file_id : be65b4cf-7d55-4a3c-9218-15fda5c102f4
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for bd06a0ac-9953-4ee0-ae1f-6222a4673c87 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/bd06a0ac-9953-4ee0-ae1f-6222a4673c87?response-content-disposition=attachment%3B%20filename%20%3D%221_test_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=EY5iZtuiy87PEmdQ8PQXRrWmxAs%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118422
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : bd06a0ac-9953-4ee0-ae1f-6222a4673c87
+ Thursday, December 15, 2022 - 09:33 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/ file_id : bd06a0ac-9953-4ee0-ae1f-6222a4673c87
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 0 Table  vwr_topic updated status SCAN_COMPLETED for file_id : bd06a0ac-9953-4ee0-ae1f-6222a4673c87
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for d8e0303a-7cb7-46f8-9bc9-ae89890fb366 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/d8e0303a-7cb7-46f8-9bc9-ae89890fb366?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=PeTNLgCPOW%2FhPDbJOEk00n%2BDnCM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118424
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : d8e0303a-7cb7-46f8-9bc9-ae89890fb366
+ Thursday, December 15, 2022 - 09:33 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/ file_id : d8e0303a-7cb7-46f8-9bc9-ae89890fb366
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 0 Table  vwr_topic updated status SCAN_COMPLETED for file_id : d8e0303a-7cb7-46f8-9bc9-ae89890fb366
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 5482d539-9cfa-4532-8b50-1561a3f8614d 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/5482d539-9cfa-4532-8b50-1561a3f8614d?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=%2FsM%2BRzQSeGknpQ0czqo3UyAeurE%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118427
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 5482d539-9cfa-4532-8b50-1561a3f8614d
+ Thursday, December 15, 2022 - 09:33 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/ file_id : 5482d539-9cfa-4532-8b50-1561a3f8614d
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 0 Table  vwr_topic updated status SCAN_COMPLETED for file_id : 5482d539-9cfa-4532-8b50-1561a3f8614d
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9fa3ea34-eaf4-4feb-81d1-fc786860f172 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/9fa3ea34-eaf4-4feb-81d1-fc786860f172?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=J7C9bXP%2BdS1v0KeVBNu1iD%2Fog%2BQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118429
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 9fa3ea34-eaf4-4feb-81d1-fc786860f172
+ Thursday, December 15, 2022 - 09:33 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/PA-sample_dec22.jpg file_id : 9fa3ea34-eaf4-4feb-81d1-fc786860f172
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 1 Table  vwr_hyperlinks updated status SCAN_COMPLETED for file_id : 9fa3ea34-eaf4-4feb-81d1-fc786860f172
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for b839b3fb-309d-4387-92e6-40dd786471b9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/b839b3fb-309d-4387-92e6-40dd786471b9?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=BidHPyVNxT8DR7IU8D9v1paC5bg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118432
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : b839b3fb-309d-4387-92e6-40dd786471b9
+ Thursday, December 15, 2022 - 09:33 File downloaded for welcomepage_details File Path : sites/default/files/files/welcome_files/PA-sample_dec22.jpg file_id : b839b3fb-309d-4387-92e6-40dd786471b9
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 0 Table  vwr_welcomepage_details updated status SCAN_COMPLETED for file_id : b839b3fb-309d-4387-92e6-40dd786471b9
+ Thursday, December 15, 2022 - 09:33 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 815ee138-b4f4-4566-a21a-5ff996dd7030 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/815ee138-b4f4-4566-a21a-5ff996dd7030?response-content-disposition=attachment%3B%20filename%20%3D%221_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=j%2FRyWaowu4ChiOdxpkYtuusy2kc%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118434
+)
+
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 815ee138-b4f4-4566-a21a-5ff996dd7030
+ Thursday, December 15, 2022 - 09:33 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/PA-sample_dec22.jpg file_id : 815ee138-b4f4-4566-a21a-5ff996dd7030
+ Scan Scheduler : Thursday, December 15, 2022 - 09:33 1 Table  vwr_hyperlinks updated status SCAN_COMPLETED for file_id : 815ee138-b4f4-4566-a21a-5ff996dd7030
+ Thursday, December 15, 2022 - 09:35 API called https://api-dev.vwr.com/file/results Httpcode : 200 for cd9b877d-b89b-4331-8257-61cf6fd3d19a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/cd9b877d-b89b-4331-8257-61cf6fd3d19a?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=njML2CuFUTiAzTgxh9o7vr4OzsM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671118528
+)
+
+ Thursday, December 15, 2022 - 09:35 File downloaded for hyperlinks File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/codes_sample_dec22.jpg file_id : cd9b877d-b89b-4331-8257-61cf6fd3d19a
+ Thursday, December 15, 2022 - 09:44 API called https://api-dev.vwr.com/file/results Httpcode : 200 for e048569d-b77f-4e22-a1dd-0461165b0df9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/e048569d-b77f-4e22-a1dd-0461165b0df9?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=7d8lQkfU2uxwFrdem3ejcO3o%2FP8%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671119048
+)
+
+ Thursday, December 15, 2022 - 09:44 File downloaded for category File Path :  file_id : e048569d-b77f-4e22-a1dd-0461165b0df9
+ Thursday, December 15, 2022 - 09:47 API called https://api-dev.vwr.com/file/results Httpcode : 200 for aef4dc09-c785-44d0-b886-d87e93ca0bd7 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/aef4dc09-c785-44d0-b886-d87e93ca0bd7?response-content-disposition=attachment%3B%20filename%20%3D%221_codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=KApGNPRI%2FPjb36fc5zHgYGMhWII%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671119237
+)
+
+ Thursday, December 15, 2022 - 09:47 File downloaded for category File Path : category1_codes_sample_dec22.jpg file_id : aef4dc09-c785-44d0-b886-d87e93ca0bd7
+ Thursday, December 15, 2022 - 09:49 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 21d3117f-ee9d-4859-977b-18435e8e94fa 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/21d3117f-ee9d-4859-977b-18435e8e94fa?response-content-disposition=attachment%3B%20filename%20%3D%221_PGT_Grand_Finale_Background.png%22&AWSAccessKeyId=ASIA2TNPJWVD6A3PMFGL&Signature=Esui5NpbDjKyt2y%2BYNfZTAFFqsA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCID4yAYnovf1exmSCbfqgs1TscwC3VblfJThwZcBzXnmEAiBRF%2FybTlA3HpAsDvumsIdq%2F5heQS1Ikcn75l42f4jTRiqmAwjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMZFjMUXL43dkYVyVWKvoCKN34I9LBzLsPhadcofu2EMBXSU0jw5mbwOyV7uh9%2FbDdfvv6EPKcpdsyL%2FaY01vIwdar3ZQ4FpmcpcxrJYw8UZSgKSvdt1sQixMizdDSN8XZGq%2FafVTe7RLHVdWZ5QVMnhd41nF0WFJ8C7KzsYHo8Kyhpv8Wj4q%2BQ%2B2ZL6yyEFD4jxQ2gKmXLIK5a91S%2FFkR%2FEqmmu8rR4eVHF9EHEbUScZv51kWGAtUk%2B%2B9Jgtq7KCnA8PiBb8fla%2F5Eiu07AKR8O6AwzDhmR3YYZLDgb0A1eizCEP%2FaUTkulSJHOswS%2F7uuxol80wkMYZEiqMwpQcps%2B4xHY62o6xtDtf4%2BlQI7GvRxy%2BHqaTpQE63EsjbGPkM5oNKHkBacUspoi%2BfHEqFQgCSLNelllYnEV%2BPlMQzGsVa%2FsJAuHIUW1YYuVMnE%2Bjmg4JIPJrAR9ZSshaIGKI%2BpELKEkjxiJgh8W7lRpi1WPa397%2BqGofRLvoDUtHsKxC6Ymz1vEz%2BgLNnMNDD7JwGOp4Btcl2YUqhWOrTgB6rrnaOvKMesljGiG18ClcgFGkMB0cD4JmWK9x6L%2BcvIn2wrMHTGaCaKhFVvv0K6cH9%2FKJMmkHmAORPF6hMJHn5%2Fn4N8QdirNbKOoEhbOcPz2fXreeuzyntsiP3VMeTHe9cANzkiZzLqgdSh5Vh9RyVcFAVEimR22bTl2nUdeBvkMUsCQcSUV8i6dUkNdrVYco7TV0%3D&Expires=1671119376
+)
+
+ Thursday, December 15, 2022 - 09:49 File downloaded for category File Path : category1_PGT_Grand_Finale_Background.png file_id : 21d3117f-ee9d-4859-977b-18435e8e94fa
+ Thursday, December 15, 2022 - 09:51 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 82ec4d01-e26a-4837-bb95-969988d695d1 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Friday, December 16, 2022 - 01:34 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 67a6762d-4a39-4dc2-b2c9-aac7cdcdbb48 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/67a6762d-4a39-4dc2-b2c9-aac7cdcdbb48?response-content-disposition=attachment%3B%20filename%20%3D%221729_PA-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDUALHDUKY&Signature=FbNibabXX4gOFPxpHriNIDW9P2A%3D&x-amz-security-token=IQoJb3JpZ2luX2VjENb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQD9p4v5oEHRgVO1168hLgOBMJ4EjvvvaHyi0IGJolB%2FlwIgDILE9b0tgGPvofT%2FtuQ7XM0rlg%2B1uT41%2BiiW9W8UUG4qpgMI%2Fv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDOVZ6x71cr%2FEB4qbZCr6AjJeHf99jTYwYic8%2BewIRzxt5p3shApBI6VIViHIrrCrzqpgm9QFQGMXZSr97rxHR6rA9oe3XAI9mwzoBgZfEbB9BNg6EXZ%2BcGD1fm64JTo8o3KE1cxfZosg0Jm7E6rIByHcQFQ80xy2pfVRs%2FOcTbalD%2B4q0hrfw0aadldJ31vI25eU5ddD7pUDJ%2BOC94xcEg7lyiVRtkLt8wxmw9YNB9ASE7KPWlKY3g5T2fVsdVjXkvZYACiSZC3P3C1LLy5xFjtumuZmpkxuVTPzYGs6JVkt0c6T8E4y4U4%2Be0i%2F%2BYlLGkD8NluSbRK7CYCrM0fQojjQMNsJxhv08MGFyNSwmdQaWlvusjHwt%2B1QYYYDiAA5sbrMT0M5%2BGgnp8gyQ%2Fx9W8uVQp00OkLTfpA7zbcBMTB0r6CdFLFj8%2FhZ1Ic%2FmaAJAgs1fuAferg2eqr9hBVrVsbuBBgjLdN5Rlb7kYLgwlSp3Uk%2BMquUsDlGNubGvrfqJopXlM4UoN1XNTCe%2FO%2BcBjqdATN4W5nCYxyH%2FaLRYkzg5lOW1oxY5sAqVmp4rB5rvEzpCxS8vO3jhxmuUTO16WSRi2A93kmUeYN7RUCTA%2F5WOzolP1q8K7uWbzhHoRL9P3DhVNDjSx8MlbfjaCzpPd0ekfpRhw3gG2kLQ2SaIjP0L441%2B39xnm%2BupYfcw%2BH2Aj4Wr0mz3oQZ2jfi9c7%2BH08DzR2M6OcxAdO19n9vvek%3D&Expires=1671176087
+)
+
+ Friday, December 16, 2022 - 01:34 File downloaded for submission_files File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs_dropbox2/51416/PA-PA-sample_dec22.jpg file_id : 67a6762d-4a39-4dc2-b2c9-aac7cdcdbb48
+ Friday, December 16, 2022 - 02:38 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9753df85-fd28-468d-80d4-dc3597f1b8bc 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/9753df85-fd28-468d-80d4-dc3597f1b8bc?response-content-disposition=attachment%3B%20filename%20%3D%221729_PA-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDUPOELHKV&Signature=h0IInsngcTywCDBe08t%2BQ0ndBbg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjENf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDrUqIgOgkK66LBeGnTrBLP70U%2BYCaY1m170c41ihS%2F%2FwIhAM3srBBkeZoah5jUurXmYlLC5jA%2BtvXmDQPVEENZqWw3Kp0DCBAQAhoMNzI4OTAxNDY1NDE1Igw%2FHggXbuRJOfeShlQq%2BgKg9Hs1qRXBw7PsLxHvavVpT%2BpmFDwyYrsBFN5TDO5mFNjmK6K2twXuXeEe6fAWTvdFpKtrRQUwyIzQPe3C98DzJNMUDib8JHLvaJo%2B4CrNh1T8NHKlq9kc9Yh4%2BThcA1vFSYCihMws8J2Ah6DESfoz4zRinMzm9zms3M%2FQSJKXSUzDGKeI8Vzpl15aTZwEFLaU1getD%2BhMCbCZutqIOPTx3nRUH0prwOE7N1Oom8Ue242HbRDVMqo9Lgo3A4Ky73Yq5PsR1ZMD9Ic4iiLD56upCRQ7ers7E%2FgMiVTvIcCG2iOP6EtqJliWDa2wvVrBcFYyot3lSYTf8TVrI4OSK4RK5tKbhM8Tgw%2Fp%2FaodGTWAIp46tac7a19o9PHUT6r1XJWNX%2FGfW2CnVkRgOdLiIE2CXm%2B%2FqzTSIJs7cP1AIyG200sV7eyh%2FnknwVGCvIMsnWniH03i753VPWStMqojKMMYajkhgt7OmxskxvbyfJwuq8qvEX4Un%2FEjdQMwtq3wnAY6nAGvn5Y3Zqhs8W5UByvCN0S13ERLPPY6AOmpJMmTEei03L%2BzNNLdQC8287kBDapliC8UBWjo8MyWWR9mqKzdFt4vW%2Bx2QdLE8a%2FmfGcMMxpVXior0ricpQZkTngRfC3ehIi1sOORT4JNPU4vYMWGmvh9IYM71LMELlVP9B8AKJW4xCxIM8TLkTc1vegbhYDglszDu4R52S3RAQjZico%3D&Expires=1671179911
+)
+
+ Friday, December 16, 2022 - 02:38 File downloaded for comments File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs_dropbox2/51416/comments/_PA-PA-sample_dec22.jpg file_id : 9753df85-fd28-468d-80d4-dc3597f1b8bc
+ Friday, December 16, 2022 - 04:04 API called https://api-dev.vwr.com/file/results Httpcode : 200 for f7d36e18-3fef-4387-9325-2738a8d16abf 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/f7d36e18-3fef-4387-9325-2738a8d16abf?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%201714491562.webp%22&AWSAccessKeyId=ASIA2TNPJWVD2NB4VG2F&Signature=qKBOUusAf3Pc23G2qdyydAPDuTY%3D&x-amz-security-token=IQoJb3JpZ2luX2VjENn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQDx8fxrbdlaTVegwZpkSMi51rZgCg7d9x0lf1wOnzMd%2FwIgDnQMWrlUFSvzFYMoBRJc9UcZ%2B9rQw5wj1k7FT4lbehYqnQMIERACGgw3Mjg5MDE0NjU0MTUiDFMm9EDcQfV1VZ7dnyr6AmflaybBfr8P1y70Y%2Bknwp%2FQmSSq6Ais%2B8LJeJPM0ldoO0kgTJl7L887aHA4Q%2Bh9xDPTuKHirxa9O0uxGrXMTAXZhttM50sa7RiX6s3IVB32Mb%2FOlKbhagTZQDGRz8q7%2F%2FMw34EKeOhA6cut%2BCSOkUKdCiXqLARL53ClERoemXFaXMAeEWIkqSE2J6xRJPZjGIhSOcoxK8ObM%2BVjXr1OpEH%2BZQZdk5Eb%2BGL5ZEc0bx7D8pFE48HYHm14EF6AUt%2FILAaNpMblEwhGRfQjIsfnKzHvIUQGSMzkuFI%2BAFaL3sZ7yBBT%2BOTl%2F%2FVQHdog0k8jur3AnHVThb6zOf23NG%2BmWnQPMi%2F%2FG9UOfEv1HS%2BpO0NLgGpEwAJhEusFRT9lb76636R%2B%2BqS%2B6aRy5EelTsFvJYPb0JksjMiaG13KVbX6yedqgFnQtqAq%2BqhX9AOVbBxBbKs9cv8Fj1IABpsbOeuKdKnC%2FM%2BKjyqpCgCbFza7l8C9hv69ShrEJoHQuDDE0PCcBjqdAeh29LhLb8A8Sm12TAEYRFbjO1JMa7hIIcV5gA7AQQVD%2BfG0bq7JKdMSAaOOnyYqg3dz6Bdt5w3aBc7hPeAz1%2BKXTdSV1rDE1UbLWEttkFuGs5UVqtms7yC9ictLz9h5dbjNMfhk6EFU4m8p3DECOJW7hLU7%2F5x9W4QEJLRSGaKj03h0FrrZL8Yy6a7jm4kY%2B73RRe3JLlaZUrJ7dGE%3D&Expires=1671185047
+)
+
+ Friday, December 16, 2022 - 04:04 File downloaded for bulk_upload_list File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/bulk_uploads/1671181449_WTW--NA--GHS 1714491562.webp file_id : f7d36e18-3fef-4387-9325-2738a8d16abf
+ Friday, December 16, 2022 - 09:03 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 0e37778d-2cf6-41f2-882b-4079fe9bebdb 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/0e37778d-2cf6-41f2-882b-4079fe9bebdb?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%201714491562.webp%22&AWSAccessKeyId=ASIA2TNPJWVDRZHHXR4O&Signature=eEyfWCri7P8%2Bs%2Bsc43hsd5odRtA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEN7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIAk6g%2B5Dkp4rzSB67zI69O95ZpU76oOD87b2JDSCtdQCAiAZIJ4V8YeRxBa%2FXoQvH9%2Flt8GNl5WU%2BRwNYUbEc4BG7CqdAwgWEAIaDDcyODkwMTQ2NTQxNSIMtMzU79xCGg5LA1vVKvoCOOG%2BdMub30abZUOXrPhwNIH36XHuaDOgjxMTyHrMj5M82AfKGq22jhBwK0O4iIEt7avX3n%2Fw0Je7JlTrh4zX76Nosi1Hc7GJtfbDZxEBlIG4ReTDd5tco8qsFR0eIXoTNpNI7k4fE5lVNJEW1aj0Tj9KWV0R%2F2TqrJnus6ZkXzQy1GnBN%2FnP5Gt%2B%2ByciO1%2BIHbszOfXdpJdZ3%2FLgOZytkO%2BMjRP%2BV%2BC%2Fe%2FirJgWGttk6UvksngN5LZmybZESkcn9Kh7hskCm7VCHo6hhF7DJq5LqTc5Pw0dVGu5LPvvLdA6Oi6M3CqwOzVlXSqQixYcpnX%2Bh2hpiuOpuxWNQaQbLuEWV8t2%2B4ZqYy2IbQECbnxAZuUzgxnRF4eWwck3VZzbCHwh3LSVivithggXu8dC%2Bqly7cTwlEHxR3EGMMtwExFmvmDug661K%2BxiYB8beP%2BV0vgyQuRdQwno4FxPiuVMY7W9BFdigYfRpcZUOi48qtJ8Y4538Wqmcn4xaMKDd8ZwGOp4BW%2FXsfTMqKWh3RbZKaLme0OkmSQVMJ6QJtZwUXNCHveTxCbZbvebeWimRpN3u7R%2FEuB7ahisIj77S%2BkH9nN2MNZf2QLzwSpkhGgipsbCmRhhkMamea57zPbrsgHhXAbd7tku780Pf1LqJPtmG%2F2%2F1qsqm1vLeZEtDzI%2F0cXUrB%2BHN08rAB0ZR1AhSkJm8Enma%2B62f5%2FWe9m5JD9uKSao%3D&Expires=1671203009
+)
+
+ Friday, December 16, 2022 - 09:03 File downloaded for bulk_upload_list File Path : bulk_uploads1671199409_WTW--NA--GHS 1714491562.webp file_id : 0e37778d-2cf6-41f2-882b-4079fe9bebdb
+ Friday, December 16, 2022 - 09:14 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 8e18b52a-5b67-4d13-85b2-d8247254e975 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/8e18b52a-5b67-4d13-85b2-d8247254e975?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%201714491562%20-%20Copy.webp%22&AWSAccessKeyId=ASIA2TNPJWVDRZHHXR4O&Signature=XwSctzcAY0gBFjVTbVWUKUPHJuQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEN7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIAk6g%2B5Dkp4rzSB67zI69O95ZpU76oOD87b2JDSCtdQCAiAZIJ4V8YeRxBa%2FXoQvH9%2Flt8GNl5WU%2BRwNYUbEc4BG7CqdAwgWEAIaDDcyODkwMTQ2NTQxNSIMtMzU79xCGg5LA1vVKvoCOOG%2BdMub30abZUOXrPhwNIH36XHuaDOgjxMTyHrMj5M82AfKGq22jhBwK0O4iIEt7avX3n%2Fw0Je7JlTrh4zX76Nosi1Hc7GJtfbDZxEBlIG4ReTDd5tco8qsFR0eIXoTNpNI7k4fE5lVNJEW1aj0Tj9KWV0R%2F2TqrJnus6ZkXzQy1GnBN%2FnP5Gt%2B%2ByciO1%2BIHbszOfXdpJdZ3%2FLgOZytkO%2BMjRP%2BV%2BC%2Fe%2FirJgWGttk6UvksngN5LZmybZESkcn9Kh7hskCm7VCHo6hhF7DJq5LqTc5Pw0dVGu5LPvvLdA6Oi6M3CqwOzVlXSqQixYcpnX%2Bh2hpiuOpuxWNQaQbLuEWV8t2%2B4ZqYy2IbQECbnxAZuUzgxnRF4eWwck3VZzbCHwh3LSVivithggXu8dC%2Bqly7cTwlEHxR3EGMMtwExFmvmDug661K%2BxiYB8beP%2BV0vgyQuRdQwno4FxPiuVMY7W9BFdigYfRpcZUOi48qtJ8Y4538Wqmcn4xaMKDd8ZwGOp4BW%2FXsfTMqKWh3RbZKaLme0OkmSQVMJ6QJtZwUXNCHveTxCbZbvebeWimRpN3u7R%2FEuB7ahisIj77S%2BkH9nN2MNZf2QLzwSpkhGgipsbCmRhhkMamea57zPbrsgHhXAbd7tku780Pf1LqJPtmG%2F2%2F1qsqm1vLeZEtDzI%2F0cXUrB%2BHN08rAB0ZR1AhSkJm8Enma%2B62f5%2FWe9m5JD9uKSao%3D&Expires=1671203679
+)
+
+ Friday, December 16, 2022 - 09:14 File downloaded for bulk_upload_list File Path : bulk_uploads1671200079_WTW--NA--GHS 1714491562 - Copy.webp file_id : 8e18b52a-5b67-4d13-85b2-d8247254e975
+ Friday, December 16, 2022 - 09:27 API called https://api-dev.vwr.com/file/results Httpcode : 200 for d92b482d-bb5c-4ffe-a534-acceccab496a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/d92b482d-bb5c-4ffe-a534-acceccab496a?response-content-disposition=attachment%3B%20filename%20%3D%221729_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDRZHHXR4O&Signature=%2B4%2BIAmNz4Fq3rYFNk%2Bc%2B58%2BB1Do%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEN7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIAk6g%2B5Dkp4rzSB67zI69O95ZpU76oOD87b2JDSCtdQCAiAZIJ4V8YeRxBa%2FXoQvH9%2Flt8GNl5WU%2BRwNYUbEc4BG7CqdAwgWEAIaDDcyODkwMTQ2NTQxNSIMtMzU79xCGg5LA1vVKvoCOOG%2BdMub30abZUOXrPhwNIH36XHuaDOgjxMTyHrMj5M82AfKGq22jhBwK0O4iIEt7avX3n%2Fw0Je7JlTrh4zX76Nosi1Hc7GJtfbDZxEBlIG4ReTDd5tco8qsFR0eIXoTNpNI7k4fE5lVNJEW1aj0Tj9KWV0R%2F2TqrJnus6ZkXzQy1GnBN%2FnP5Gt%2B%2ByciO1%2BIHbszOfXdpJdZ3%2FLgOZytkO%2BMjRP%2BV%2BC%2Fe%2FirJgWGttk6UvksngN5LZmybZESkcn9Kh7hskCm7VCHo6hhF7DJq5LqTc5Pw0dVGu5LPvvLdA6Oi6M3CqwOzVlXSqQixYcpnX%2Bh2hpiuOpuxWNQaQbLuEWV8t2%2B4ZqYy2IbQECbnxAZuUzgxnRF4eWwck3VZzbCHwh3LSVivithggXu8dC%2Bqly7cTwlEHxR3EGMMtwExFmvmDug661K%2BxiYB8beP%2BV0vgyQuRdQwno4FxPiuVMY7W9BFdigYfRpcZUOi48qtJ8Y4538Wqmcn4xaMKDd8ZwGOp4BW%2FXsfTMqKWh3RbZKaLme0OkmSQVMJ6QJtZwUXNCHveTxCbZbvebeWimRpN3u7R%2FEuB7ahisIj77S%2BkH9nN2MNZf2QLzwSpkhGgipsbCmRhhkMamea57zPbrsgHhXAbd7tku780Pf1LqJPtmG%2F2%2F1qsqm1vLeZEtDzI%2F0cXUrB%2BHN08rAB0ZR1AhSkJm8Enma%2B62f5%2FWe9m5JD9uKSao%3D&Expires=1671204435
+)
+
+ Friday, December 16, 2022 - 09:27 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1729_PA-sample_dec22.jpg file_id : d92b482d-bb5c-4ffe-a534-acceccab496a
+ Friday, December 16, 2022 - 09:29 API called https://api-dev.vwr.com/file/results Httpcode : 200 for d92b482d-bb5c-4ffe-a534-acceccab496a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/d92b482d-bb5c-4ffe-a534-acceccab496a?response-content-disposition=attachment%3B%20filename%20%3D%221729_PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDRZHHXR4O&Signature=4tV%2B8dJQE3GPw72IaqrmiFqFViQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEN7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIAk6g%2B5Dkp4rzSB67zI69O95ZpU76oOD87b2JDSCtdQCAiAZIJ4V8YeRxBa%2FXoQvH9%2Flt8GNl5WU%2BRwNYUbEc4BG7CqdAwgWEAIaDDcyODkwMTQ2NTQxNSIMtMzU79xCGg5LA1vVKvoCOOG%2BdMub30abZUOXrPhwNIH36XHuaDOgjxMTyHrMj5M82AfKGq22jhBwK0O4iIEt7avX3n%2Fw0Je7JlTrh4zX76Nosi1Hc7GJtfbDZxEBlIG4ReTDd5tco8qsFR0eIXoTNpNI7k4fE5lVNJEW1aj0Tj9KWV0R%2F2TqrJnus6ZkXzQy1GnBN%2FnP5Gt%2B%2ByciO1%2BIHbszOfXdpJdZ3%2FLgOZytkO%2BMjRP%2BV%2BC%2Fe%2FirJgWGttk6UvksngN5LZmybZESkcn9Kh7hskCm7VCHo6hhF7DJq5LqTc5Pw0dVGu5LPvvLdA6Oi6M3CqwOzVlXSqQixYcpnX%2Bh2hpiuOpuxWNQaQbLuEWV8t2%2B4ZqYy2IbQECbnxAZuUzgxnRF4eWwck3VZzbCHwh3LSVivithggXu8dC%2Bqly7cTwlEHxR3EGMMtwExFmvmDug661K%2BxiYB8beP%2BV0vgyQuRdQwno4FxPiuVMY7W9BFdigYfRpcZUOi48qtJ8Y4538Wqmcn4xaMKDd8ZwGOp4BW%2FXsfTMqKWh3RbZKaLme0OkmSQVMJ6QJtZwUXNCHveTxCbZbvebeWimRpN3u7R%2FEuB7ahisIj77S%2BkH9nN2MNZf2QLzwSpkhGgipsbCmRhhkMamea57zPbrsgHhXAbd7tku780Pf1LqJPtmG%2F2%2F1qsqm1vLeZEtDzI%2F0cXUrB%2BHN08rAB0ZR1AhSkJm8Enma%2B62f5%2FWe9m5JD9uKSao%3D&Expires=1671204576
+)
+
+ Friday, December 16, 2022 - 09:29 File downloaded for category File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/category/1729_PA-sample_dec22.jpg file_id : d92b482d-bb5c-4ffe-a534-acceccab496a
+ Friday, December 16, 2022 - 09:49 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 7e305556-7437-4846-9e5e-0649fa97d0cd 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/7e305556-7437-4846-9e5e-0649fa97d0cd?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVDRZHHXR4O&Signature=ZFqyQddjD9HFNzSEXjOfqPO%2FVoo%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEN7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIAk6g%2B5Dkp4rzSB67zI69O95ZpU76oOD87b2JDSCtdQCAiAZIJ4V8YeRxBa%2FXoQvH9%2Flt8GNl5WU%2BRwNYUbEc4BG7CqdAwgWEAIaDDcyODkwMTQ2NTQxNSIMtMzU79xCGg5LA1vVKvoCOOG%2BdMub30abZUOXrPhwNIH36XHuaDOgjxMTyHrMj5M82AfKGq22jhBwK0O4iIEt7avX3n%2Fw0Je7JlTrh4zX76Nosi1Hc7GJtfbDZxEBlIG4ReTDd5tco8qsFR0eIXoTNpNI7k4fE5lVNJEW1aj0Tj9KWV0R%2F2TqrJnus6ZkXzQy1GnBN%2FnP5Gt%2B%2ByciO1%2BIHbszOfXdpJdZ3%2FLgOZytkO%2BMjRP%2BV%2BC%2Fe%2FirJgWGttk6UvksngN5LZmybZESkcn9Kh7hskCm7VCHo6hhF7DJq5LqTc5Pw0dVGu5LPvvLdA6Oi6M3CqwOzVlXSqQixYcpnX%2Bh2hpiuOpuxWNQaQbLuEWV8t2%2B4ZqYy2IbQECbnxAZuUzgxnRF4eWwck3VZzbCHwh3LSVivithggXu8dC%2Bqly7cTwlEHxR3EGMMtwExFmvmDug661K%2BxiYB8beP%2BV0vgyQuRdQwno4FxPiuVMY7W9BFdigYfRpcZUOi48qtJ8Y4538Wqmcn4xaMKDd8ZwGOp4BW%2FXsfTMqKWh3RbZKaLme0OkmSQVMJ6QJtZwUXNCHveTxCbZbvebeWimRpN3u7R%2FEuB7ahisIj77S%2BkH9nN2MNZf2QLzwSpkhGgipsbCmRhhkMamea57zPbrsgHhXAbd7tku780Pf1LqJPtmG%2F2%2F1qsqm1vLeZEtDzI%2F0cXUrB%2BHN08rAB0ZR1AhSkJm8Enma%2B62f5%2FWe9m5JD9uKSao%3D&Expires=1671205774
+)
+
+ Friday, December 16, 2022 - 09:49 File downloaded for upload_documents File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/WTW--NA--GHS sample.pdf file_id : 7e305556-7437-4846-9e5e-0649fa97d0cd
+ Wednesday, December 21, 2022 - 07:30 API called https://api-dev.vwr.com/file/results Httpcode : 200 for b3c4a0a5-bc6f-4a5e-939b-55f6c6f63e2e 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/b3c4a0a5-bc6f-4a5e-939b-55f6c6f63e2e?response-content-disposition=attachment%3B%20filename%20%3D%221729_AR-codes_sample_dec22%20-%20Copy.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDQEHPWT5H&Signature=CBqB8yIHN4wd85b2TknokDypapM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFQaCXVzLWVhc3QtMSJHMEUCIAKItyZSaCLsfjiohzc4GaajZPktROrSgif6FNBMiMOTAiEAq%2B35I6orL%2BnMZ31Vco6LdrL0J4%2F4dq2ucvCKsNk%2BALwqpgMIjP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDH%2FAylxVicH47h%2BK2Cr6AvBtybtjT9ZFgoTJ3g9Alv29Yke%2BW1zGsJ5l9rpWBbjf2tPoQzV3UgwyivoE72AARcZEIBVkrBHrSchynW0Lfwn43MiXeohUDrSTUwxzATnRQxAiywPZ8tKlrOTGOQv1Gdc%2B7NJCtpBO6Kg2K2DzOCFr%2FszfRo5XyiFbxrms9K6T1PKtMPL51jVhYigVZ%2FxCsc5YzTrDnff84q7MVlFLTH6x9%2FuASju25yz%2FX6jhO8qPiJU6GY3Al5MlET09gch6j%2FkBpZdy4uYEcACqLZLLf1pQ85kL3%2FxKQe06CIv4MCwxm3eNBgRveB7INiegsHa182eITyT3l2cqWhHQKucf%2F5owIJ8PqBIrvuI4FONe7AzSuLS4mtuvPlALrnmPHMVv4j%2BqwLR3stXnrtHI%2FF2q6wR4g%2Bch6gfE362jQsdljAeRQxVafMH%2Be%2BZyEJTlz1tqyJEpZzMV%2FTw5uEt95AQ8y0bdVrAJhDoqhVtQ%2BpZj32kTVX38KrqfU6u9VzCz1oudBjqdAfmTlCNOKKGh%2FMVM6GWND1l9eWP%2FdF5MBo%2B5HbSd3W345IVl2mW2%2Bf7A1cuxX4ipjPbJhn52gyDfIAy5zt8ehHlIFL8KIQBdNo%2FRhLsgkZnWej7b6ee0Sepn3S9AQiFDdoCw%2BaTZGWIktqMR8vU4cZ7UvGWnXQmKGWGZIYBEfo9XGTS6fnwkbPGJIElJWR993aG6AhoAeIQ1nEiOtSg%3D&Expires=1671629441
+)
+
+ Wednesday, December 21, 2022 - 07:30 File downloaded for submission_files File Path : AR-codes_sample_dec22 - Copy.jpg file_id : b3c4a0a5-bc6f-4a5e-939b-55f6c6f63e2e
+ Wednesday, December 21, 2022 - 07:30 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9d4966b2-6c52-4ab5-88c2-8146ded9e782 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/9d4966b2-6c52-4ab5-88c2-8146ded9e782?response-content-disposition=attachment%3B%20filename%20%3D%221729_AR-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDQEHPWT5H&Signature=k%2FncaNE4b7H%2BKsL4U2okNXnTu6U%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFQaCXVzLWVhc3QtMSJHMEUCIAKItyZSaCLsfjiohzc4GaajZPktROrSgif6FNBMiMOTAiEAq%2B35I6orL%2BnMZ31Vco6LdrL0J4%2F4dq2ucvCKsNk%2BALwqpgMIjP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDH%2FAylxVicH47h%2BK2Cr6AvBtybtjT9ZFgoTJ3g9Alv29Yke%2BW1zGsJ5l9rpWBbjf2tPoQzV3UgwyivoE72AARcZEIBVkrBHrSchynW0Lfwn43MiXeohUDrSTUwxzATnRQxAiywPZ8tKlrOTGOQv1Gdc%2B7NJCtpBO6Kg2K2DzOCFr%2FszfRo5XyiFbxrms9K6T1PKtMPL51jVhYigVZ%2FxCsc5YzTrDnff84q7MVlFLTH6x9%2FuASju25yz%2FX6jhO8qPiJU6GY3Al5MlET09gch6j%2FkBpZdy4uYEcACqLZLLf1pQ85kL3%2FxKQe06CIv4MCwxm3eNBgRveB7INiegsHa182eITyT3l2cqWhHQKucf%2F5owIJ8PqBIrvuI4FONe7AzSuLS4mtuvPlALrnmPHMVv4j%2BqwLR3stXnrtHI%2FF2q6wR4g%2Bch6gfE362jQsdljAeRQxVafMH%2Be%2BZyEJTlz1tqyJEpZzMV%2FTw5uEt95AQ8y0bdVrAJhDoqhVtQ%2BpZj32kTVX38KrqfU6u9VzCz1oudBjqdAfmTlCNOKKGh%2FMVM6GWND1l9eWP%2FdF5MBo%2B5HbSd3W345IVl2mW2%2Bf7A1cuxX4ipjPbJhn52gyDfIAy5zt8ehHlIFL8KIQBdNo%2FRhLsgkZnWej7b6ee0Sepn3S9AQiFDdoCw%2BaTZGWIktqMR8vU4cZ7UvGWnXQmKGWGZIYBEfo9XGTS6fnwkbPGJIElJWR993aG6AhoAeIQ1nEiOtSg%3D&Expires=1671629445
+)
+
+ Wednesday, December 21, 2022 - 07:30 File downloaded for submission_files File Path : AR-PA-sample_dec22.jpg file_id : 9d4966b2-6c52-4ab5-88c2-8146ded9e782
+ Wednesday, December 21, 2022 - 08:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 89bde099-8aac-435e-87d9-e5efc2411b1f 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/89bde099-8aac-435e-87d9-e5efc2411b1f?response-content-disposition=attachment%3B%20filename%20%3D%221729_AR-test_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDQ4G2CJUL&Signature=HWAJFiGKnhv3PVFkpsBMbsZXOPs%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFYaCXVzLWVhc3QtMSJGMEQCIHZoMrZ4DKO0q0%2B0%2BpR96NvIXltmY0ZDE5ekeCPq3%2B27AiBI1Fzojwys7h%2F2aCAjmq6AkDttAvwzmr1RUdiop9W65CqmAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMw%2FuOz1gNL9z441nbKvoCdgURAgU4yKOhEwufYJGynwZtsLWlxRIkwR7fzoe1aBSZRifR9bqu9oMyt9JFa2fg0AyD8V9okqBQVXw0JRDr2DgxPxweoJQrRvkeI7bUZupiV7uJqZJzFMrODfL8W3V3d9YMWKlknpzieUsJ391YZ0USTSSGt%2FHfjN92vcwZ9TdaAEaUtl5wPY7YKHjeTdDfrwwnBW3hFCF%2Fc1RpQOzoUPm9G4HAoNbMwsquTB8RuWkoV%2FizjuesOhYhPkGDORncz28FNbPS3tQLaXaFPvbmr3N2%2FHkukdJd5EnLc8aNoeoJoWZcwya%2FrQbBetgFmOS%2BuWf3dHw2bw3%2Bza4BjIl6ASzxnfNQLcZQ9BBCwvxBXb8SZuApZuvrCcaIIp62LYgGaD5Wx5ZatA6AxhvjXYWvLym3eUNNKK7E9ar%2F42gkNlkxNWLa1oYIioyqJ1wJ7QqwRyvkv1q153v8g99jDvb2BfeuQVgCWZjxmZ1Rn5GgqjARXzQq8fLa8RAQMOuQjJ0GOp4Bm9B9B%2FneGBK93nq7at15nA8mj8Y0f7n7SwnXShqMo3OTZrgmK9mmpOijmNnFpV4dYWUXYI%2FjurrocIPc2waQhuBetDGC8p4Lx80UMOZ2FB3GynqcP51kuNpwUfjDKdF03lll%2BfKZdov31lUreVm2Q4kb68mlSys6KVbRfkPwdFcVA3cMc71EFAc%2Bj0Xx4cNsE8HuEsJ0%2B9uPsLRE2vc%3D&Expires=1671633911
+)
+
+ Wednesday, December 21, 2022 - 08:45 File downloaded for comments File Path : comments_AR-test_sample_dec22.jpg file_id : 89bde099-8aac-435e-87d9-e5efc2411b1f
+ Wednesday, December 21, 2022 - 08:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 8f014235-7b67-4fb1-964b-6120fa325fec 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/8f014235-7b67-4fb1-964b-6120fa325fec?response-content-disposition=attachment%3B%20filename%20%3D%221729_AR-wel_img.jpg%22&AWSAccessKeyId=ASIA2TNPJWVDQ4G2CJUL&Signature=ezF%2BblvheGBYy%2F9cHP93f13XxLo%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFYaCXVzLWVhc3QtMSJGMEQCIHZoMrZ4DKO0q0%2B0%2BpR96NvIXltmY0ZDE5ekeCPq3%2B27AiBI1Fzojwys7h%2F2aCAjmq6AkDttAvwzmr1RUdiop9W65CqmAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMw%2FuOz1gNL9z441nbKvoCdgURAgU4yKOhEwufYJGynwZtsLWlxRIkwR7fzoe1aBSZRifR9bqu9oMyt9JFa2fg0AyD8V9okqBQVXw0JRDr2DgxPxweoJQrRvkeI7bUZupiV7uJqZJzFMrODfL8W3V3d9YMWKlknpzieUsJ391YZ0USTSSGt%2FHfjN92vcwZ9TdaAEaUtl5wPY7YKHjeTdDfrwwnBW3hFCF%2Fc1RpQOzoUPm9G4HAoNbMwsquTB8RuWkoV%2FizjuesOhYhPkGDORncz28FNbPS3tQLaXaFPvbmr3N2%2FHkukdJd5EnLc8aNoeoJoWZcwya%2FrQbBetgFmOS%2BuWf3dHw2bw3%2Bza4BjIl6ASzxnfNQLcZQ9BBCwvxBXb8SZuApZuvrCcaIIp62LYgGaD5Wx5ZatA6AxhvjXYWvLym3eUNNKK7E9ar%2F42gkNlkxNWLa1oYIioyqJ1wJ7QqwRyvkv1q153v8g99jDvb2BfeuQVgCWZjxmZ1Rn5GgqjARXzQq8fLa8RAQMOuQjJ0GOp4Bm9B9B%2FneGBK93nq7at15nA8mj8Y0f7n7SwnXShqMo3OTZrgmK9mmpOijmNnFpV4dYWUXYI%2FjurrocIPc2waQhuBetDGC8p4Lx80UMOZ2FB3GynqcP51kuNpwUfjDKdF03lll%2BfKZdov31lUreVm2Q4kb68mlSys6KVbRfkPwdFcVA3cMc71EFAc%2Bj0Xx4cNsE8HuEsJ0%2B9uPsLRE2vc%3D&Expires=1671633913
+)
+
+ Wednesday, December 21, 2022 - 08:45 File downloaded for comments File Path : comments_AR-wel_img.jpg file_id : 8f014235-7b67-4fb1-964b-6120fa325fec
+ Wednesday, December 21, 2022 - 09:13 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 8771636a-ddec-4856-9214-04929fbfc343 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/8771636a-ddec-4856-9214-04929fbfc343?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVDQ4G2CJUL&Signature=rYns5%2F1va7hWvW2IpJfgyDt9ATw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFYaCXVzLWVhc3QtMSJGMEQCIHZoMrZ4DKO0q0%2B0%2BpR96NvIXltmY0ZDE5ekeCPq3%2B27AiBI1Fzojwys7h%2F2aCAjmq6AkDttAvwzmr1RUdiop9W65CqmAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMw%2FuOz1gNL9z441nbKvoCdgURAgU4yKOhEwufYJGynwZtsLWlxRIkwR7fzoe1aBSZRifR9bqu9oMyt9JFa2fg0AyD8V9okqBQVXw0JRDr2DgxPxweoJQrRvkeI7bUZupiV7uJqZJzFMrODfL8W3V3d9YMWKlknpzieUsJ391YZ0USTSSGt%2FHfjN92vcwZ9TdaAEaUtl5wPY7YKHjeTdDfrwwnBW3hFCF%2Fc1RpQOzoUPm9G4HAoNbMwsquTB8RuWkoV%2FizjuesOhYhPkGDORncz28FNbPS3tQLaXaFPvbmr3N2%2FHkukdJd5EnLc8aNoeoJoWZcwya%2FrQbBetgFmOS%2BuWf3dHw2bw3%2Bza4BjIl6ASzxnfNQLcZQ9BBCwvxBXb8SZuApZuvrCcaIIp62LYgGaD5Wx5ZatA6AxhvjXYWvLym3eUNNKK7E9ar%2F42gkNlkxNWLa1oYIioyqJ1wJ7QqwRyvkv1q153v8g99jDvb2BfeuQVgCWZjxmZ1Rn5GgqjARXzQq8fLa8RAQMOuQjJ0GOp4Bm9B9B%2FneGBK93nq7at15nA8mj8Y0f7n7SwnXShqMo3OTZrgmK9mmpOijmNnFpV4dYWUXYI%2FjurrocIPc2waQhuBetDGC8p4Lx80UMOZ2FB3GynqcP51kuNpwUfjDKdF03lll%2BfKZdov31lUreVm2Q4kb68mlSys6KVbRfkPwdFcVA3cMc71EFAc%2Bj0Xx4cNsE8HuEsJ0%2B9uPsLRE2vc%3D&Expires=1671635635
+)
+
+ Wednesday, December 21, 2022 - 09:13 File downloaded for bulk_upload_list File Path : bulk_uploads1671632034_WTW--NA--GHS sample.pdf file_id : 8771636a-ddec-4856-9214-04929fbfc343
+ Wednesday, December 21, 2022 - 09:13 API called https://api-dev.vwr.com/file/results Httpcode : 200 for c7f67a06-2197-48dc-9559-2df6f7016fdf 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/c7f67a06-2197-48dc-9559-2df6f7016fdf?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVDQ4G2CJUL&Signature=DgqnwrgUgAEcBSQeHaYRBg9VsrQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFYaCXVzLWVhc3QtMSJGMEQCIHZoMrZ4DKO0q0%2B0%2BpR96NvIXltmY0ZDE5ekeCPq3%2B27AiBI1Fzojwys7h%2F2aCAjmq6AkDttAvwzmr1RUdiop9W65CqmAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDcyODkwMTQ2NTQxNSIMw%2FuOz1gNL9z441nbKvoCdgURAgU4yKOhEwufYJGynwZtsLWlxRIkwR7fzoe1aBSZRifR9bqu9oMyt9JFa2fg0AyD8V9okqBQVXw0JRDr2DgxPxweoJQrRvkeI7bUZupiV7uJqZJzFMrODfL8W3V3d9YMWKlknpzieUsJ391YZ0USTSSGt%2FHfjN92vcwZ9TdaAEaUtl5wPY7YKHjeTdDfrwwnBW3hFCF%2Fc1RpQOzoUPm9G4HAoNbMwsquTB8RuWkoV%2FizjuesOhYhPkGDORncz28FNbPS3tQLaXaFPvbmr3N2%2FHkukdJd5EnLc8aNoeoJoWZcwya%2FrQbBetgFmOS%2BuWf3dHw2bw3%2Bza4BjIl6ASzxnfNQLcZQ9BBCwvxBXb8SZuApZuvrCcaIIp62LYgGaD5Wx5ZatA6AxhvjXYWvLym3eUNNKK7E9ar%2F42gkNlkxNWLa1oYIioyqJ1wJ7QqwRyvkv1q153v8g99jDvb2BfeuQVgCWZjxmZ1Rn5GgqjARXzQq8fLa8RAQMOuQjJ0GOp4Bm9B9B%2FneGBK93nq7at15nA8mj8Y0f7n7SwnXShqMo3OTZrgmK9mmpOijmNnFpV4dYWUXYI%2FjurrocIPc2waQhuBetDGC8p4Lx80UMOZ2FB3GynqcP51kuNpwUfjDKdF03lll%2BfKZdov31lUreVm2Q4kb68mlSys6KVbRfkPwdFcVA3cMc71EFAc%2Bj0Xx4cNsE8HuEsJ0%2B9uPsLRE2vc%3D&Expires=1671635637
+)
+
+ Wednesday, December 21, 2022 - 09:13 File downloaded for bulk_upload_list File Path : bulk_uploads1671632036_WTW--NA--GHS sample.pdf file_id : c7f67a06-2197-48dc-9559-2df6f7016fdf
+ Wednesday, December 21, 2022 - 10:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 3898f257-42bc-4e5e-9c0d-e2a923c9991a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/3898f257-42bc-4e5e-9c0d-e2a923c9991a?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=BRMCOz6KjSQ8QYk9ZdxEz%2FS6AMw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641111
+)
+
+ Wednesday, December 21, 2022 - 10:45 File downloaded for submission_files File Path : PE-codes_sample_dec22.jpg file_id : 3898f257-42bc-4e5e-9c0d-e2a923c9991a
+ Wednesday, December 21, 2022 - 10:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 8d762c26-53bd-42a4-b07f-11e5f0a76422 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/8d762c26-53bd-42a4-b07f-11e5f0a76422?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=oiRgp%2BQHJi2bQbarLEqjz1f52m8%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641114
+)
+
+ Wednesday, December 21, 2022 - 10:45 File downloaded for submission_files File Path : PE-PA-sample_dec22.jpg file_id : 8d762c26-53bd-42a4-b07f-11e5f0a76422
+ Wednesday, December 21, 2022 - 10:45 API called https://api-dev.vwr.com/file/results Httpcode : 200 for fbb51789-aa51-4a61-a5c0-a8caf9db10a9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/fbb51789-aa51-4a61-a5c0-a8caf9db10a9?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=xJbFuoagQokXRiQDA6bsEhCXP8E%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641117
+)
+
+ Wednesday, December 21, 2022 - 10:45 File downloaded for submission_files File Path : PE-sample_dec22.jpg file_id : fbb51789-aa51-4a61-a5c0-a8caf9db10a9
+ Wednesday, December 21, 2022 - 10:47 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 07cf04d5-15d5-4823-af5c-142ff54fd678 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/07cf04d5-15d5-4823-af5c-142ff54fd678?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=lKI%2Fdl30EaVFFrEn4hNil%2B7JTSI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641223
+)
+
+ Wednesday, December 21, 2022 - 10:47 File downloaded for submission_files File Path : PE-codes_sample_dec22.jpg file_id : 07cf04d5-15d5-4823-af5c-142ff54fd678
+ Wednesday, December 21, 2022 - 10:47 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 146ddb81-4faf-4766-901f-5830b53610dc 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/146ddb81-4faf-4766-901f-5830b53610dc?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=yVGTE6b1SprdvO8kCEsBP5%2BcfhI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641226
+)
+
+ Wednesday, December 21, 2022 - 10:47 File downloaded for submission_files File Path : PE-PA-sample_dec22.jpg file_id : 146ddb81-4faf-4766-901f-5830b53610dc
+ Wednesday, December 21, 2022 - 10:47 API called https://api-dev.vwr.com/file/results Httpcode : 200 for dc130e4e-76f9-418f-8ad8-fd4357c4c4e5 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/dc130e4e-76f9-418f-8ad8-fd4357c4c4e5?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-WTW--NA--GHS%201714491562.webp%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=M%2BT%2Fk2emxEIFy2oJzvAB5T9fBX0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671641229
+)
+
+ Wednesday, December 21, 2022 - 10:47 File downloaded for submission_files File Path : PE-WTW--NA--GHS 1714491562.webp file_id : dc130e4e-76f9-418f-8ad8-fd4357c4c4e5
+ Wednesday, December 21, 2022 - 11:03 API called https://api-dev.vwr.com/file/results Httpcode : 200 for a3daaea9-c2bd-4751-b085-e6830abb268b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/a3daaea9-c2bd-4751-b085-e6830abb268b?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-codes_sample_dec22%20-%20Copy.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=RA8Ar5NrQtAPN6GORWIGhRbiyAY%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642209
+)
+
+ Wednesday, December 21, 2022 - 11:03 File downloaded for comments File Path : comments_PE-codes_sample_dec22 - Copy.jpg file_id : a3daaea9-c2bd-4751-b085-e6830abb268b
+ Wednesday, December 21, 2022 - 11:03 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 98b31086-b4be-42da-86eb-8ab9a912f288 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/98b31086-b4be-42da-86eb-8ab9a912f288?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-codes_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=sZWuk1L4sr%2BGvkookjMTJbatzNw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642212
+)
+
+ Wednesday, December 21, 2022 - 11:03 File downloaded for comments File Path : comments_PE-codes_sample_dec22.jpg file_id : 98b31086-b4be-42da-86eb-8ab9a912f288
+ Wednesday, December 21, 2022 - 11:03 API called https://api-dev.vwr.com/file/results Httpcode : 200 for e1ef3d4f-1acd-4928-a4c9-85a04ea69015 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/e1ef3d4f-1acd-4928-a4c9-85a04ea69015?response-content-disposition=attachment%3B%20filename%20%3D%221729_PE-PA-sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=bSnSl0UPfIKQzk%2BlJrz2UsV5MbU%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642215
+)
+
+ Wednesday, December 21, 2022 - 11:03 File downloaded for comments File Path : comments_PE-PA-sample_dec22.jpg file_id : e1ef3d4f-1acd-4928-a4c9-85a04ea69015
+ Wednesday, December 21, 2022 - 11:05 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 40f79e9c-d972-4062-bce0-4251b13b4b19 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/40f79e9c-d972-4062-bce0-4251b13b4b19?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=MHp1a3R94AVxa3Kq3Atdh66guDs%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642323
+)
+
+ Wednesday, December 21, 2022 - 11:05 File downloaded for bulk_upload_list File Path : bulk_uploads1671638722_WTW--NA--GHS sample.pdf file_id : 40f79e9c-d972-4062-bce0-4251b13b4b19
+ Wednesday, December 21, 2022 - 11:05 API called https://api-dev.vwr.com/file/results Httpcode : 200 for c4a7847c-b2d2-4368-b454-a5ddaf669dde 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/c4a7847c-b2d2-4368-b454-a5ddaf669dde?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=U7jkt%2BdPGSQwyQNUDVVnq1dcx88%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642324
+)
+
+ Wednesday, December 21, 2022 - 11:05 File downloaded for bulk_upload_list File Path : bulk_uploads1671638724_WTW--NA--GHS sample.pdf file_id : c4a7847c-b2d2-4368-b454-a5ddaf669dde
+ Wednesday, December 21, 2022 - 11:08 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 9e15bfc3-0952-46dc-838f-6dbe16d7c66c 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/9e15bfc3-0952-46dc-838f-6dbe16d7c66c?response-content-disposition=attachment%3B%20filename%20%3D%221729_test_sample_dec22.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=dYuGVoCK%2BqOAOHLeWSiq44mXqU0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671642515
+)
+
+ Wednesday, December 21, 2022 - 11:08 File downloaded for upload_documents File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/docs/test_sample_dec22.jpg file_id : 9e15bfc3-0952-46dc-838f-6dbe16d7c66c
+ Wednesday, December 21, 2022 - 11:36 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 13a741b6-6ce7-4222-8a2b-59fc8cadb9a7 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/13a741b6-6ce7-4222-8a2b-59fc8cadb9a7?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHS%20sample.pdf%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=9JLn9Ka3VdDkg0z84nJHbDNVoTw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671644168
+)
+
+ Wednesday, December 21, 2022 - 11:36 File downloaded for bulk_upload_list File Path : bulk_uploads1671640567_WTW--NA--GHS sample.pdf file_id : 13a741b6-6ce7-4222-8a2b-59fc8cadb9a7
+ Wednesday, December 21, 2022 - 11:42 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 34409ed1-2064-420d-957f-222ca5c3b48e 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/34409ed1-2064-420d-957f-222ca5c3b48e?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--EU--GHS%20samplegifndec22%20-%20Copy.gif%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=kdhZBDYDWqtyRJqSmjOotDuOTpw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671644570
+)
+
+ Wednesday, December 21, 2022 - 11:42 File downloaded for bulk_upload_list File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/bulk_uploads/1671640969_WTW--EU--GHS samplegifndec22 - Copy.gif file_id : 34409ed1-2064-420d-957f-222ca5c3b48e
+ Wednesday, December 21, 2022 - 11:51 API called https://api-dev.vwr.com/file/results Httpcode : 200 for fe40d40e-50dc-4eae-a54b-8c9c27e30ad2 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/fe40d40e-50dc-4eae-a54b-8c9c27e30ad2?response-content-disposition=attachment%3B%20filename%20%3D%221729_wel_img.jpg%22&AWSAccessKeyId=ASIA2TNPJWVD37MDWFPX&Signature=e5zwrrCpbCxl3CMEXqdBo0O68OI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJHMEUCIAQ0uHliAjd7F7t%2Ft3kRfFbQENG%2BanGytt0%2FE%2BMCpLKWAiEAhZDnM2f8p7a4trgEbHmIxevHF9FuruWIQJckJBlTKTkqpgMIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARACGgw3Mjg5MDE0NjU0MTUiDMeT6aoWdTpsk74%2Bbyr6AsKBcADzyE0qi9TINCOTRrLRlmgwouhBWuB80Az9aLTeuZGTntXjYwppHuJhd3hMm8yEgmYEg7Wg6zInmqXdKe5nw97OXMjc5Wdo7Ddc%2BH6tw7mDmAnlEqtV0ZllQMPKdl0SNOVjCe26KpczJZuoR9UkaWV0iFl1u1AYayqBINmHzSA5XcPBxY5L%2FbgMj0gFzdXbXVX03iLMXpDfDpbPDH4HQ9KL2r8ttH60KwmyZurU6q2VKzkxbWMRuHDsU%2Bd8tnFG9dYSbkpos5niauKCQ7YOQshegUXAAAMni%2B%2BH%2B6Emj8cZEdIsXQf2CoHdBWL9oV8REUc9BuADhEVhbnatGtzx7ARfShzEjwItEVHMZucm8pXPRoSynNwilk%2FcKbSwBL5H4IiPx%2FS8urcNv%2BfsaPvI7VJvt4DAfCLldJb19JbxyZ3BXKk0SJaE8XLc4%2BJ0SGLSx2hpXi04%2B9aRIMJflpPBH68BCozD1h8ePyEqjd%2BaJ%2FcEW2Swh7mhzzDj0oydBjqdATnzPBulhR4DlT4nn%2BwBM6JM0job7JWMjKnmfQ1LMfxIr03NNeKBdyk7ev0dHFOrune6%2BBXWDPAQ6n3pI5BDQWvl975ZvAP2EP1KR%2BzC40PUdO2pJJvEO7z37HB4Re42wTk25SUqyOQ5F0jg8308kLca%2BFxGNc3vPpe149bE3a9jouMZGMo%2By16dsDd9JPkOaUovpp9crzzrVZf0x6Q%3D&Expires=1671645115
+)
+
+ Wednesday, December 21, 2022 - 11:51 File downloaded for welcomepage_details File Path : welcome_fileswel_img.jpg file_id : fe40d40e-50dc-4eae-a54b-8c9c27e30ad2
+ Monday, January 2, 2023 - 02:21 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 2ea8cbf4-231a-40d6-b08f-a644900acfd8 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Monday, January 2, 2023 - 02:50 API called https://api-dev.vwr.com/file/results Httpcode : 200 for cfe90655-c3ed-4600-b8ed-b11e79413dff 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-dev-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/cfe90655-c3ed-4600-b8ed-b11e79413dff?response-content-disposition=attachment%3B%20filename%20%3D%221729_WTW--NA--GHSsamplegif_dec22.gif%22&AWSAccessKeyId=ASIA2TNPJWVD3AWRKCGC&Signature=sZYS7tLTnK0BqwZaiw1ZCQ9n%2FTY%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEHAaCXVzLWVhc3QtMSJIMEYCIQDpt%2FOLWxkl6Juk2pAfJ%2Fx6x%2F%2BivQpuCR31BhSBXweY6QIhAONF34GA7g441Bjv%2Fdxfp0uui20FM1AQ9MRBuobsGeJdKqYDCLj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMNzI4OTAxNDY1NDE1IgxPf2PPWbmN4r3bPosq%2BgLt6rkX3bMbDjqqtFcWa%2B34BlYaUxuPhJuWykrD3O8PxhaBP1tHNMiE38tcsQkNLMH8c4ZyrbNE6Jy9cDvXgqwiHs9UXqDaeX0EH7hcshT1rewoFbGb1hdqOiDEJMd90UdGCfiLMLbNMDDNzZOJiyH5j7Oq9pYZ90Oqkk%2B0%2FThjl6xm0hHoFZsPcvWqNrlPZ%2BM3XuKD%2FZe1TRa%2F%2Baai01Bn9R%2BACI4U53tE%2BVTR568%2FY9rxGhmv%2BfWNw1saQsPuDaB1a4JxGLknh53bf36fMtAFiCfqZk4MVrmmdlqRMg%2BQI3actymvOeUyrmuZwpjPwgT82WdWAMbWJ6EXKwtcoWSec2xJbjTQacQYUYHWvVoZxaY0%2BYShDaWMPXU5Jx7Od%2Bv%2B0Ymqp2jxAdsktIkDVWejNQQUnva0OuPnCSTdn%2F0OuRgzvmmfMOxfpEyw9kbLpvYwdqi3CP699sTeP0MJkyczXm%2F4jU52nwiFLmqKS4ygnttbDaDEI%2FgqM60wzIvKnQY6nAFXhl3ILhE96jXHLZoZv3h5xNV3ymmziCHH4rXBYLBR7VHvttYHQ%2FXhzP5G6kbRzVHDQws2XIxI56o0RQxZDn953u%2BDqMYIFsiz1K%2Fi5GXMgnB2zFdhg7pti7jue5UBU9M1hXbf5qvD0mfSz9uhn21QO64Dfs%2FFS%2F4Qs7L0CAHjA6qNVN94%2BZzXJzQn2ZpZSIg0bWOZbWoFNpCE14Y%3D&Expires=1672649421
+)
+
+ Monday, January 2, 2023 - 02:50 File downloaded for topic File Path : C:/xampp7.4/htdocs/vwr_git_upload_scan_v2/suppliercentral/vwrqa/sites/default/files/topic/1729_WTW--NA--GHSsamplegif_dec22.gif file_id : cfe90655-c3ed-4600-b8ed-b11e79413dff
+ Monday, January 2, 2023 - 02:52 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 759b052a-ba3b-4ac0-80b0-bc5d200776e4 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Monday, January 2, 2023 - 02:53 API called https://api-dev.vwr.com/file/results Httpcode : 200 for faefd060-4e73-469c-847c-495d9f308e29 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Monday, January 2, 2023 - 02:54 API called https://api-dev.vwr.com/file/results Httpcode : 200 for 1d57f438-2a5e-474c-a227-f1805c1ee43d 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, February 9, 2023 - 01:45 API called https://api-stage.avantorsciences.com/file/results Httpcode : 200 for 0d2e4f97-107a-48f9-a04b-45c76c254f2a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+    [url] => 
+)
+
+ Scan Scheduler : Thursday, February 9, 2023 - 01:45 Table  vwr_submission_files~comments Scanning in progress In Progress for file_id : 0d2e4f97-107a-48f9-a04b-45c76c254f2a
+ Thursday, February 9, 2023 - 01:50 API called https://api-stage.avantorsciences.com/file/results Httpcode : 200 for 0d2e4f97-107a-48f9-a04b-45c76c254f2a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+    [url] => 
+)
+
+ Scan Scheduler : Thursday, February 9, 2023 - 01:50 Table  vwr_submission_files~comments Scanning in progress In Progress for file_id : 0d2e4f97-107a-48f9-a04b-45c76c254f2a
+ Thursday, February 9, 2023 - 01:55 API called https://api-stage.avantorsciences.com/file/results Httpcode : 200 for 0d2e4f97-107a-48f9-a04b-45c76c254f2a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+    [url] => 
+)
+
+ Scan Scheduler : Thursday, February 9, 2023 - 01:55 Table  vwr_submission_files~comments Scanning in progress In Progress for file_id : 0d2e4f97-107a-48f9-a04b-45c76c254f2a
+ Thursday, February 9, 2023 - 02:01 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 382cfdf6-01cf-4d87-84ef-748c5262e685 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/382cfdf6-01cf-4d87-84ef-748c5262e685?response-content-disposition=attachment%3B%20filename%20%3D%228385_AT-hdfc_oct.pdf%22&AWSAccessKeyId=ASIARDRLTBUE7ZIS6G72&Signature=cKlvTsRysD5URHGzfQRGmwX5s48%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEAsaCXVzLWVhc3QtMSJGMEQCICqFYEMza8KBCypALVt4ijOuQj%2BEH6ONj%2FIiCk7oBcobAiBNEhHFVUSauCZ9lxQv6qrgUiiqVdAxnYhbIWwMK3gb2iqoAwiT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA3NjMyNzA5NTU2MSIM4Ow9anNEM2Xl3JP2KvwCCojoqMB4QvNAQAg%2FOkl3RyavmiF0LJqHoRCFS8JUqSLP9AnPc2oQTtPmy5x2KMtlB5UJp4LrO4w1hSS76Mkkky42519fbhSxpGDEktQvHmpV5Fr%2B6wyQhbNt2IUG0m3BkNVwA6WcppwidHmoTR4h91dWfdz7%2Bevyz%2BrJKIJRj%2FIS8ekq2nHtbjp%2FxSLPiIJdsgCujpUag%2B08tbGZg2QpvbZHshTQbdQcRwguDdhRw2HMWzzC5B0abC%2F0nISLnxbC8n%2BMk57P%2Fq7pRFpAcXA2PkT6aLPf7K4bp7NQnmF0gPbi2okjG7vbl8ttBnITSmrBnekvoguhQ5HE8N1ZTD2oQUFrYUHQzXtN56bbTkraa%2FqboKmVrmd8rgVIdVMhubG2CpWCYXE%2F9hV9Qs%2FC7Y3Ury1e5lvIHSsQ5cwMe5THgBzlsjTSj0V5lLwQ9GkqIW0l%2ByAJW%2FQeH7QvDH2GRd3JyY%2FqVQY85AjJxbg9nMLKsZIuHUOT8k5R%2FA9gIxEw3uuUnwY6ngHdDon1hjQ4V7XIWFgRpAJF65N%2FPazyrwVLAxpyFos3DnW68ZTZnzK61BzwBHoMXhTL5SmUgwhaDr5P6TXvn3v1mx9PI1IEcMDBVy3LsdqCqh%2BQRu4Kn6luTZ9b9dv88h5DMk0wqh5rn22AGPMxZPsiBNr2gJbXVj%2FAyj1b4LG5%2FraHA1XlBe6IK9aE3vf45FHZ9fHTmacwosEr31hLyw%3D%3D&Expires=1675972895
+)
+
+ Thursday, February 9, 2023 - 02:01 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61159/AT-hdfc_oct.pdf file_id : 382cfdf6-01cf-4d87-84ef-748c5262e685
+ Thursday, February 9, 2023 - 02:01 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 409ebaa2-9bd1-4806-8f34-a2ef3c9b8c2b 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/409ebaa2-9bd1-4806-8f34-a2ef3c9b8c2b?response-content-disposition=attachment%3B%20filename%20%3D%228385_AT-hdfc_sep.pdf%22&AWSAccessKeyId=ASIARDRLTBUE7ZIS6G72&Signature=yBORq0R2i6UCRk3xM8%2FakMP6G74%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEAsaCXVzLWVhc3QtMSJGMEQCICqFYEMza8KBCypALVt4ijOuQj%2BEH6ONj%2FIiCk7oBcobAiBNEhHFVUSauCZ9lxQv6qrgUiiqVdAxnYhbIWwMK3gb2iqoAwiT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA3NjMyNzA5NTU2MSIM4Ow9anNEM2Xl3JP2KvwCCojoqMB4QvNAQAg%2FOkl3RyavmiF0LJqHoRCFS8JUqSLP9AnPc2oQTtPmy5x2KMtlB5UJp4LrO4w1hSS76Mkkky42519fbhSxpGDEktQvHmpV5Fr%2B6wyQhbNt2IUG0m3BkNVwA6WcppwidHmoTR4h91dWfdz7%2Bevyz%2BrJKIJRj%2FIS8ekq2nHtbjp%2FxSLPiIJdsgCujpUag%2B08tbGZg2QpvbZHshTQbdQcRwguDdhRw2HMWzzC5B0abC%2F0nISLnxbC8n%2BMk57P%2Fq7pRFpAcXA2PkT6aLPf7K4bp7NQnmF0gPbi2okjG7vbl8ttBnITSmrBnekvoguhQ5HE8N1ZTD2oQUFrYUHQzXtN56bbTkraa%2FqboKmVrmd8rgVIdVMhubG2CpWCYXE%2F9hV9Qs%2FC7Y3Ury1e5lvIHSsQ5cwMe5THgBzlsjTSj0V5lLwQ9GkqIW0l%2ByAJW%2FQeH7QvDH2GRd3JyY%2FqVQY85AjJxbg9nMLKsZIuHUOT8k5R%2FA9gIxEw3uuUnwY6ngHdDon1hjQ4V7XIWFgRpAJF65N%2FPazyrwVLAxpyFos3DnW68ZTZnzK61BzwBHoMXhTL5SmUgwhaDr5P6TXvn3v1mx9PI1IEcMDBVy3LsdqCqh%2BQRu4Kn6luTZ9b9dv88h5DMk0wqh5rn22AGPMxZPsiBNr2gJbXVj%2FAyj1b4LG5%2FraHA1XlBe6IK9aE3vf45FHZ9fHTmacwosEr31hLyw%3D%3D&Expires=1675972895
+)
+
+ Thursday, February 9, 2023 - 02:01 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61159/AT-hdfc_sep.pdf file_id : 409ebaa2-9bd1-4806-8f34-a2ef3c9b8c2b
+ Friday, February 10, 2023 - 07:20 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 96e042d7-bdbe-4f03-a3f8-35440f3181ab 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/96e042d7-bdbe-4f03-a3f8-35440f3181ab?response-content-disposition=attachment%3B%20filename%20%3D%227989_OP-Oct22_Dec22.pdf%22&AWSAccessKeyId=ASIARDRLTBUE3GMBR77C&Signature=WrOStzdG4NOY7PylXqQPBVm%2Bbow%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBwaCXVzLWVhc3QtMSJIMEYCIQCpdeGw%2BccJqF8ivJzN5HOHnDssxe2H0gfg%2FfYPXqnfhwIhAIpPiq2uqfcSOy0ha15EVAYjk0lZ8BiKVp4yfwaNZ1s1KqgDCKT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgzuou4AB48RZ1Ufaocq%2FAJCNZIVSZuj2DHDvwIPLSUCHDqdc%2FRbD0ZRMwt%2ByqWXDIpTkliiyv7JP%2F6fWs8s2TVjpnYsXJiyksLxnHO6HulzkhM9AZ2zZdrXOaCRtMLpuYbSB9d06BXfkDjQ8Sihznei1JRmyGabNQJas1v06RAYmohHhQZBxnB6n6Lqs%2F2wmFyrfjvlx4bOlyBWGDCznkO7jMtF7nZF9EIBmwpmWTltjsnnYwVwV1xPYaygpa5N5Y15byYC%2F12puhcNlKALWJmt4fs%2F0Bi9nPxgD7OZyOuR8%2FwMTxCHggc0u475UI419S2Y%2FeVK2McBLzsCHJMxXzopw7dDWHG5DkxJB4sgeFYlAebS3R9pWngfbjNdynauvqpIRessq1PjrhQk3u9ajDMBiPQ168N%2BeMnFgnH8%2BA%2F43m%2Bb%2FKWS%2Bw%2BU%2F1A5L8rUT1S4OFLnJF9Ojq%2F6Q4lcQJHPLx1%2BrkXfBwW6XYqUS5yDpgtWvl2rz5nDDFrk%2BJYsEQKmlBnH7myKN6EOTTDPypifBjqcARXUCcV3ioBzzeUSPXDFC1kine9iDS6BBVWcbgo0GSo51cFiAKH9xBrW8MDEjqDB95VjcoXHufhCJAcXgI6%2BfCaS46iATsVIN2pNoHLGa1HKexeffWLx%2B%2FJo8hm89tyoTMSEZ7hJPq1TgjJ%2F%2FoiyQLJA7jF1XxTIuq1SRaD4scZcirmZBv3udKCdpbsGwLKYHolln5nu%2BnXjFpbZyQ%3D%3D&Expires=1676035219
+)
+
+ Friday, February 10, 2023 - 07:20 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61160/OP-Oct22_Dec22.pdf file_id : 96e042d7-bdbe-4f03-a3f8-35440f3181ab
+ Tuesday, May 2, 2023 - 11:02 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 59abf804-8042-483a-967e-af11d17444c7 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Tuesday, May 2, 2023 - 11:05 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 59abf804-8042-483a-967e-af11d17444c7 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/59abf804-8042-483a-967e-af11d17444c7?response-content-disposition=attachment%3B%20filename%20%3D%226624_RE-GlobalProductEnrichmentFile%20%2834%29%20%2853%29.xlsx%22&AWSAccessKeyId=ASIARDRLTBUEWRGKVUM5&Signature=V4v%2Fg9j9esnOF00V6H%2FWFkHa6pQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjELj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCUOhjKUcvL3zTDLdUhtUrEGLnr%2Fx5RJgGYu6suiZkPsAIhAOT4JdHGXIX2tdFqk0NP0VpUIoE8w6k7Sv3Hdht80KvdKqgDCMD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgw4h%2F0KUGLCEPnlPT8q%2FAKMUEyzU%2F5aGKtXYG7qe4KeUnvYFBWMCET3LSHPGAAEBGN32SMLYmRHWhGfshZD32e50zunGCMtlD3iEhu3xqUxtkG%2BODYUGl2BAI4Q3JkYTa9qOT%2BgCXMqAF1LoVAiuhcOsqR7DrXS6%2Fposw1cSwCf%2BaXNXnKCewm1EQSfAAwfIGJsx03YWGPii5zTA9j%2Bld%2FWDbe%2FFVw4FKawaEmRW1jrxofJK9HhPFErPMWC%2Fa9DFgsJCauHCEcMY2TrF7Jj2pa%2B%2B7XUUkCnkvR5zdOT9icqO%2B7AEWLe3cUc9HwII4VXl8ONQQ95SCyVk9G0Nv%2BppLiHg%2FUWW9s97JhicwA4tMh3YO7ZP66jzGbuMjwNZinoBT6mE5tenOock%2FFhKj6U%2FN94SptyGx8fhV63k8EnLWS9kUm%2BPit95%2BsAubRDoUgi2mTzljvDGZkOX2h5B31YvKqPGE%2FtF6ErgBipAEJgcy92T%2FNpfuaOYC7wr2eEEu13qiBlKdBro7WkGkVoRzCdzcSiBjqcAWzeiza7%2ByhLqt1x6pUnYve9KaDOUfpz4nIztnpQES3y2Bxjgxgbo1Xhx5OlcPArcz6MwT8%2FCjAcca1mzIfGnFUv3FnOl4Z%2FWIupTqNBtzEE2bcVVrH6iXmh6WDZpK7CwQZw6z7CF9gA5IlsNgVU6kDt2GEpl4quP%2Fu0lPSK%2FaWVY6Py9zOV7XYif8Ted6Xv769wYakRgEGtQa%2FqBw%3D%3D&Expires=1683043502
+)
+
+ Scan Scheduler : Tuesday, May 2, 2023 - 11:05 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 59abf804-8042-483a-967e-af11d17444c7
+ Tuesday, May 2, 2023 - 11:05 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61161/RE-GlobalProductEnrichmentFile (34) (53).xlsx file_id : 59abf804-8042-483a-967e-af11d17444c7
+ Scan Scheduler : Tuesday, May 2, 2023 - 11:05 1 Table  vwr_submission_files updated status SCAN_COMPLETED for file_id : 59abf804-8042-483a-967e-af11d17444c7
+ Thursday, August 10, 2023 - 05:30 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 4a56d50d-4a34-4cd3-8816-55835620b5fa 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/4a56d50d-4a34-4cd3-8816-55835620b5fa?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-269793776_454219846111874_6836340366436652848_n.jpg%22&AWSAccessKeyId=ASIARDRLTBUEUCBEGRL4&Signature=ftcZ1x2xkrPAVvdbC%2Fb2o%2F3bdhw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBEaCXVzLWVhc3QtMSJGMEQCIAcPy2yq6iQ8BXOk%2FHQ1N5mcKL6r10Cf1LcXOtkShVXmAiAtelrPbHjc81iSCm749Tj6kAD%2BHauZ0BY1HDwOdXKZgSqoAwi5%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA3NjMyNzA5NTU2MSIMZH36sONp9prdsFeFKvwCAyXui8VhMXNnL21KNih0P%2B0tkI1eBFG5qtfjIx%2BEx3dW3HZbxGqnH5Qp2mcpk8dGG9fBek0PnHbjmhVcHOYo1sadNZF%2F9sXyMiBL4Ha2de1IryzbG79sqPnw6vnq%2B5wLpwBDWXDjHLeAk5TCy5WGQpXXXJA7d3p2mw4OGc8CGlBt4tnThZaOtFmExmUOdJ5L0VdU7QCuQS1Br4PNrUcpOsHBqncH%2FkB%2BOCWcXTq6riZZJtyN7xXx%2Fqhi252HmrPfVA3uudX2eCDSc2XEu3qxdh0QjCcjES0u38BHPQ3EERAmH0%2Ffus1dmHIq%2F67mHbnq3jGohT7Lq1Svryv6PR9jfjmE7cXkV0se54dSJJwG9AlgTZWlbiz5G6PAq2S8e3ooJdaC%2F8LBddfOa5ZcKYl8CiiFI%2BI2849OTgVzgUIdUEplbetqCsIibRC0%2BekTdyNReQpxtynsJJ4TjOYhErMKzwh9MBgP177bl31iinLng5fltd2X0j9HvQSn3wUwxLTSpgY6ngFih5qmqsNZ%2BIWFVIGWA7TNc7tvEZtGY%2FSHnjy6L03zAO%2FOcaWDlET6f15FyZqjn5ijh5WLvJ0hUkjT2fJgpK%2FTbMp6EcHJ%2BFCusLdLR4YOmYKoig48bH2cMgzc6Ux2D%2BcPWYQoX6Ge5lJ%2FrTzo39sVmY56TMwt37URkacFfASqdVOU7U7LnPLcMgN%2Bc0M%2Fhk71FQkWtkRxOXGSIUmfPA%3D%3D&Expires=1691663448
+)
+
+ Thursday, August 10, 2023 - 05:30 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61162/EP-269793776_454219846111874_6836340366436652848_n.jpg file_id : 4a56d50d-4a34-4cd3-8816-55835620b5fa
+ Thursday, August 10, 2023 - 05:30 API called https://api.avantorsciences.com/file/results Httpcode : 200 for f682f83d-b5bc-4dc4-ac85-7f1cc622ba3a 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/f682f83d-b5bc-4dc4-ac85-7f1cc622ba3a?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-small%20-%20Copy.jpg_original%22&AWSAccessKeyId=ASIARDRLTBUEUCBEGRL4&Signature=%2FxAUp1AdLKM%2BXT56n02eY%2B1yo64%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBEaCXVzLWVhc3QtMSJGMEQCIAcPy2yq6iQ8BXOk%2FHQ1N5mcKL6r10Cf1LcXOtkShVXmAiAtelrPbHjc81iSCm749Tj6kAD%2BHauZ0BY1HDwOdXKZgSqoAwi5%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA3NjMyNzA5NTU2MSIMZH36sONp9prdsFeFKvwCAyXui8VhMXNnL21KNih0P%2B0tkI1eBFG5qtfjIx%2BEx3dW3HZbxGqnH5Qp2mcpk8dGG9fBek0PnHbjmhVcHOYo1sadNZF%2F9sXyMiBL4Ha2de1IryzbG79sqPnw6vnq%2B5wLpwBDWXDjHLeAk5TCy5WGQpXXXJA7d3p2mw4OGc8CGlBt4tnThZaOtFmExmUOdJ5L0VdU7QCuQS1Br4PNrUcpOsHBqncH%2FkB%2BOCWcXTq6riZZJtyN7xXx%2Fqhi252HmrPfVA3uudX2eCDSc2XEu3qxdh0QjCcjES0u38BHPQ3EERAmH0%2Ffus1dmHIq%2F67mHbnq3jGohT7Lq1Svryv6PR9jfjmE7cXkV0se54dSJJwG9AlgTZWlbiz5G6PAq2S8e3ooJdaC%2F8LBddfOa5ZcKYl8CiiFI%2BI2849OTgVzgUIdUEplbetqCsIibRC0%2BekTdyNReQpxtynsJJ4TjOYhErMKzwh9MBgP177bl31iinLng5fltd2X0j9HvQSn3wUwxLTSpgY6ngFih5qmqsNZ%2BIWFVIGWA7TNc7tvEZtGY%2FSHnjy6L03zAO%2FOcaWDlET6f15FyZqjn5ijh5WLvJ0hUkjT2fJgpK%2FTbMp6EcHJ%2BFCusLdLR4YOmYKoig48bH2cMgzc6Ux2D%2BcPWYQoX6Ge5lJ%2FrTzo39sVmY56TMwt37URkacFfASqdVOU7U7LnPLcMgN%2Bc0M%2Fhk71FQkWtkRxOXGSIUmfPA%3D%3D&Expires=1691663449
+)
+
+ Thursday, August 10, 2023 - 05:30 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61162/EP-small - Copy.jpg_original file_id : f682f83d-b5bc-4dc4-ac85-7f1cc622ba3a
+ Thursday, August 10, 2023 - 05:37 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61163/ file_id : 
+ Thursday, August 10, 2023 - 05:39 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61164/ file_id : 
+ Thursday, August 10, 2023 - 05:39 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61165/ file_id : 
+ Thursday, August 10, 2023 - 05:40 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61166/ file_id : 
+ Thursday, August 10, 2023 - 05:40 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61167/123 file_id : 
+ Thursday, August 10, 2023 - 05:41 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61168/123"onmouseoveralert() file_id : 
+ Thursday, August 10, 2023 - 05:41 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61169/123"onmouseover=alert() file_id : 
+ Thursday, August 10, 2023 - 05:42 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61170/123"onmouseover=alert(document.cookie)" file_id : 
+ Thursday, August 10, 2023 - 05:43 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61171/');alert(); file_id : 
+ Thursday, August 10, 2023 - 05:44 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61172/123"onmouseover="alert(document.cookie) file_id : 
+ Thursday, August 10, 2023 - 08:03 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 61265930-f37f-43f0-b254-555c00888449 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, August 10, 2023 - 08:05 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 61265930-f37f-43f0-b254-555c00888449 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/61265930-f37f-43f0-b254-555c00888449?response-content-disposition=attachment%3B%20filename%20%3D%2210367_passwd%22&AWSAccessKeyId=ASIARDRLTBUE5X6GBGOP&Signature=R1QFCbCFZx8tkjw2ThOaIdBR0hk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBQaCXVzLWVhc3QtMSJIMEYCIQD6S09cvIpqjQ0BxOOER9thpFDZm%2FDp0ix7c2l7L1j1LwIhAJX7l26aYZ7goCLHuEJqOyE2a6skqDkeijtmacPBcSAmKqgDCL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgxnq8aOjR09t20f6jIq%2FAIIP8dNCt9F%2BJ5z0HDNUrBMh5eP9sSEnECQKK58aJjC1WQG7L%2BMYa6v8RGB86bIBhjVPBV5T7T8gg1BBZ01YqalEdlSPzkQnrwafu9n0sUBrTt9dSVpEBSiloHCr9oH0%2BLPyBW0CNJXLa6HOcW0IDSK0YZsQkxFIYvAMwTcLSAgsThqPS%2BSxaW%2BK2c8%2BTN0yXKQ2rLDy2ROWRfmrnGpolRf4i83Y3zQx5XrUKYLpBPaNj5GBwfemMEbLOfZOFDcji9kkTJSDLqXTzNpI1oFqL8pGTsYjjBET5SL%2BvBEh8%2F6Mkg9p%2B7Gq3jQdRliu9npn7WfMvjTa8%2BSJuMxQkfRNye7JObsK73nvz%2BB32ocI%2BvnQqdISTWFPAnCYyV6IpyJZrSDuVDiMQfOWPBcLFGewcl1Xbt9rB4AbkqHtHQrT4JQgvD0GUKvbjiRXoVRlQ%2FrER%2B10DUdu9y5upAjWdRLzK7D1GEWyz%2Bo3ewhfky6HUQRP2hgp91cuf3bsV5bBjC9m9OmBjqcARboX%2BHZYRGH9sd%2BZcIUIz%2BMgqW8Xzj56NGtIeJ7XCXZnZZJ%2B3DY3C8V4zZqKXrg6TD%2FltrB8Y9wBkxd6wJWk4CF2t5kl6KPE1yImjPuCRioim0ZF56bfIhSuIRwYCH9jTCCsi7iA%2FbT3OzZbF8Hvj1M%2BXCqQaPCqAoq5QoLXRz6IXGGdPyT5a3XFvSbquzcpCrNGnBX7kNRQ%2BzS7g%3D%3D&Expires=1691672702
+)
+
+ Scan Scheduler : Thursday, August 10, 2023 - 08:05 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 61265930-f37f-43f0-b254-555c00888449
+ Thursday, August 10, 2023 - 08:05 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61173/passwd file_id : 61265930-f37f-43f0-b254-555c00888449
+ Scan Scheduler : Thursday, August 10, 2023 - 08:05 1 Table  vwr_submission_files updated status SCAN_COMPLETED for file_id : 61265930-f37f-43f0-b254-555c00888449
+ Thursday, August 10, 2023 - 08:10 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61174/ file_id : 
+ Thursday, August 10, 2023 - 08:31 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61175/ file_id : 
+ Thursday, August 10, 2023 - 08:47 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 5e6730c7-d9fd-47ec-888c-33d6c17c9a58 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 2
+    [scanMessage] => Suspicious
+    [url] => 
+)
+
+ Thursday, August 10, 2023 - 08:54 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 50fcd578-ba61-40f7-96c9-68be3304e0cb 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/50fcd578-ba61-40f7-96c9-68be3304e0cb?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE5X6GBGOP&Signature=HrRYKE9aj9azKFMzGNxUnza952g%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBQaCXVzLWVhc3QtMSJIMEYCIQD6S09cvIpqjQ0BxOOER9thpFDZm%2FDp0ix7c2l7L1j1LwIhAJX7l26aYZ7goCLHuEJqOyE2a6skqDkeijtmacPBcSAmKqgDCL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgxnq8aOjR09t20f6jIq%2FAIIP8dNCt9F%2BJ5z0HDNUrBMh5eP9sSEnECQKK58aJjC1WQG7L%2BMYa6v8RGB86bIBhjVPBV5T7T8gg1BBZ01YqalEdlSPzkQnrwafu9n0sUBrTt9dSVpEBSiloHCr9oH0%2BLPyBW0CNJXLa6HOcW0IDSK0YZsQkxFIYvAMwTcLSAgsThqPS%2BSxaW%2BK2c8%2BTN0yXKQ2rLDy2ROWRfmrnGpolRf4i83Y3zQx5XrUKYLpBPaNj5GBwfemMEbLOfZOFDcji9kkTJSDLqXTzNpI1oFqL8pGTsYjjBET5SL%2BvBEh8%2F6Mkg9p%2B7Gq3jQdRliu9npn7WfMvjTa8%2BSJuMxQkfRNye7JObsK73nvz%2BB32ocI%2BvnQqdISTWFPAnCYyV6IpyJZrSDuVDiMQfOWPBcLFGewcl1Xbt9rB4AbkqHtHQrT4JQgvD0GUKvbjiRXoVRlQ%2FrER%2B10DUdu9y5upAjWdRLzK7D1GEWyz%2Bo3ewhfky6HUQRP2hgp91cuf3bsV5bBjC9m9OmBjqcARboX%2BHZYRGH9sd%2BZcIUIz%2BMgqW8Xzj56NGtIeJ7XCXZnZZJ%2B3DY3C8V4zZqKXrg6TD%2FltrB8Y9wBkxd6wJWk4CF2t5kl6KPE1yImjPuCRioim0ZF56bfIhSuIRwYCH9jTCCsi7iA%2FbT3OzZbF8Hvj1M%2BXCqQaPCqAoq5QoLXRz6IXGGdPyT5a3XFvSbquzcpCrNGnBX7kNRQ%2BzS7g%3D%3D&Expires=1691675692
+)
+
+ Thursday, August 10, 2023 - 08:54 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61177/123"onmouseover="alert(document.cookie) file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cb
+ Thursday, August 10, 2023 - 09:01 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61178/ file_id : 
+ Thursday, August 10, 2023 - 09:09 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61179/ file_id : 
+ Thursday, August 10, 2023 - 09:13 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61180/123 file_id : 
+ Thursday, August 10, 2023 - 09:16 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 346bc217-dc84-4d4d-95a0-b1d28d5ff1fc 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Thursday, August 10, 2023 - 09:20 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 346bc217-dc84-4d4d-95a0-b1d28d5ff1fc 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/346bc217-dc84-4d4d-95a0-b1d28d5ff1fc?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4OWAR64M&Signature=d4%2FPz5AdlaRaZnk2e%2BXO3OJ6JWA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBUaCXVzLWVhc3QtMSJIMEYCIQC67i57Y8wkhEnDByYlqDbwHpPRG7cY%2FlwiMhVIdpZ%2BHAIhAMGOnPXJvQopBNpV4zfk384UxCwe4RXHfb57feu2OV9CKqgDCL7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgxm0ndRf87M1ItEf5sq%2FAJfGuthco5X92NhPSO2RSWE%2Fw9HnPVPz0tN80aI4NPSk0lTU5FZcPHdazjFXiX48RVpndUZW0qe9VXzWAMWQBVI7uVGd9WxOOG1VYmutBEnYiTyqjB25J4PzAheRUhoO9RFgDfROnE2hKzJ1lVWtXhR3%2FqjGp213smWAkcQ6cydK2mJYV3kKoAQiCLlhpshukV%2BkzLIBnds4RDhW%2BCPBpshciC3Hu1P%2FzBSuj6D92Plyv1HQlJkDtkeEcBePhYWvE8P9qKbEQw2BR0i9iEos0EDzx0GHrzxsTzD9aFrlL6ePragyMhwMt%2BR0BtOA%2FCKth97%2BNo%2BXvIFCXAGaIHbdGYvTB0eULTJaF7mm8sX07moQF4TOOnRzGsq0HspclxpExoqx8Mm%2FpHdQj9Wdvr0r7%2BnBR4sUUYdfkNDF0WG9VSQDBGyHY0uzp6MzIsQXNq7qSt7%2B66%2FN1WPPp9J%2F6jqmimf4oSH%2BtF4pPq%2BjiedU5disPlsain%2BTB%2Bg4iSogTD6udOmBjqcAZYCghidEpQjQR5xla8oxVCV2ojPvxmQH63cquZIqoZGZ74q8tyQKwr6wB%2Bygyfh5yTuvQ3cxC7ZwMZoHblK0zBa0ve2zGwTM3J%2F7jcExN5D9B3VSdklrJQNbNQVYapGpUnN4YCVqdF5e%2BgjaRiVjXdpsvzvjuHNuO0i8mQlMmD0mlMyAoy1Z0FbypYC0g1YK7PUTXbWsk%2FoK0gGMg%3D%3D&Expires=1691677202
+)
+
+ Scan Scheduler : Thursday, August 10, 2023 - 09:20 Scanning No threat detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 346bc217-dc84-4d4d-95a0-b1d28d5ff1fc
+ Thursday, August 10, 2023 - 09:20 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61181/OP-small.jpg file_id : 346bc217-dc84-4d4d-95a0-b1d28d5ff1fc
+ Scan Scheduler : Thursday, August 10, 2023 - 09:20 1 Table  vwr_submission_files updated status SCAN_COMPLETED for file_id : 346bc217-dc84-4d4d-95a0-b1d28d5ff1fc
+ Thursday, August 10, 2023 - 09:21 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 50fcd578-ba61-40f7-96c9-68be3304e0cb 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/50fcd578-ba61-40f7-96c9-68be3304e0cb?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4OWAR64M&Signature=wYKV62CKstTpwXnML%2FlmnYkc8rs%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBUaCXVzLWVhc3QtMSJIMEYCIQC67i57Y8wkhEnDByYlqDbwHpPRG7cY%2FlwiMhVIdpZ%2BHAIhAMGOnPXJvQopBNpV4zfk384UxCwe4RXHfb57feu2OV9CKqgDCL7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgxm0ndRf87M1ItEf5sq%2FAJfGuthco5X92NhPSO2RSWE%2Fw9HnPVPz0tN80aI4NPSk0lTU5FZcPHdazjFXiX48RVpndUZW0qe9VXzWAMWQBVI7uVGd9WxOOG1VYmutBEnYiTyqjB25J4PzAheRUhoO9RFgDfROnE2hKzJ1lVWtXhR3%2FqjGp213smWAkcQ6cydK2mJYV3kKoAQiCLlhpshukV%2BkzLIBnds4RDhW%2BCPBpshciC3Hu1P%2FzBSuj6D92Plyv1HQlJkDtkeEcBePhYWvE8P9qKbEQw2BR0i9iEos0EDzx0GHrzxsTzD9aFrlL6ePragyMhwMt%2BR0BtOA%2FCKth97%2BNo%2BXvIFCXAGaIHbdGYvTB0eULTJaF7mm8sX07moQF4TOOnRzGsq0HspclxpExoqx8Mm%2FpHdQj9Wdvr0r7%2BnBR4sUUYdfkNDF0WG9VSQDBGyHY0uzp6MzIsQXNq7qSt7%2B66%2FN1WPPp9J%2F6jqmimf4oSH%2BtF4pPq%2BjiedU5disPlsain%2BTB%2Bg4iSogTD6udOmBjqcAZYCghidEpQjQR5xla8oxVCV2ojPvxmQH63cquZIqoZGZ74q8tyQKwr6wB%2Bygyfh5yTuvQ3cxC7ZwMZoHblK0zBa0ve2zGwTM3J%2F7jcExN5D9B3VSdklrJQNbNQVYapGpUnN4YCVqdF5e%2BgjaRiVjXdpsvzvjuHNuO0i8mQlMmD0mlMyAoy1Z0FbypYC0g1YK7PUTXbWsk%2FoK0gGMg%3D%3D&Expires=1691677318
+)
+
+ Thursday, August 10, 2023 - 09:21 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61182/123"onmouseover="alert(document.cookie) file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cb
+ Thursday, August 10, 2023 - 09:22 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 50fcd578-ba61-40f7-96c9-68be3304e0cb 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/50fcd578-ba61-40f7-96c9-68be3304e0cb?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4OWAR64M&Signature=g1eStpZ7nY96wsDpNgkeBFwKDxk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBUaCXVzLWVhc3QtMSJIMEYCIQC67i57Y8wkhEnDByYlqDbwHpPRG7cY%2FlwiMhVIdpZ%2BHAIhAMGOnPXJvQopBNpV4zfk384UxCwe4RXHfb57feu2OV9CKqgDCL7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAxoMMDc2MzI3MDk1NTYxIgxm0ndRf87M1ItEf5sq%2FAJfGuthco5X92NhPSO2RSWE%2Fw9HnPVPz0tN80aI4NPSk0lTU5FZcPHdazjFXiX48RVpndUZW0qe9VXzWAMWQBVI7uVGd9WxOOG1VYmutBEnYiTyqjB25J4PzAheRUhoO9RFgDfROnE2hKzJ1lVWtXhR3%2FqjGp213smWAkcQ6cydK2mJYV3kKoAQiCLlhpshukV%2BkzLIBnds4RDhW%2BCPBpshciC3Hu1P%2FzBSuj6D92Plyv1HQlJkDtkeEcBePhYWvE8P9qKbEQw2BR0i9iEos0EDzx0GHrzxsTzD9aFrlL6ePragyMhwMt%2BR0BtOA%2FCKth97%2BNo%2BXvIFCXAGaIHbdGYvTB0eULTJaF7mm8sX07moQF4TOOnRzGsq0HspclxpExoqx8Mm%2FpHdQj9Wdvr0r7%2BnBR4sUUYdfkNDF0WG9VSQDBGyHY0uzp6MzIsQXNq7qSt7%2B66%2FN1WPPp9J%2F6jqmimf4oSH%2BtF4pPq%2BjiedU5disPlsain%2BTB%2Bg4iSogTD6udOmBjqcAZYCghidEpQjQR5xla8oxVCV2ojPvxmQH63cquZIqoZGZ74q8tyQKwr6wB%2Bygyfh5yTuvQ3cxC7ZwMZoHblK0zBa0ve2zGwTM3J%2F7jcExN5D9B3VSdklrJQNbNQVYapGpUnN4YCVqdF5e%2BgjaRiVjXdpsvzvjuHNuO0i8mQlMmD0mlMyAoy1Z0FbypYC0g1YK7PUTXbWsk%2FoK0gGMg%3D%3D&Expires=1691677326
+)
+
+ Thursday, August 10, 2023 - 09:22 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61183/123"onmouseover="alert(document.cookie) file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cb
+ Thursday, August 10, 2023 - 09:25 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61184/123 file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cd
+ Thursday, August 10, 2023 - 09:25 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61185/123\ file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cd
+ Thursday, August 10, 2023 - 09:27 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61186/123%22onmouseover%3d\ file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cd
+ Thursday, August 10, 2023 - 09:28 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61187/123"onmouseover%3d"alert(document.cookie) file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cd
+ Thursday, August 10, 2023 - 09:28 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61188/123"onmouseover="alert(document.cookie) file_id : 50fcd578-ba61-40f7-96c9-68be3304e0cd
+ Thursday, August 10, 2023 - 09:30 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61189/123"onmouseover="alert(document.cookie) file_id : 
+ Thursday, August 10, 2023 - 09:44 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61190/123">123 file_id : 
+ Thursday, August 10, 2023 - 09:46 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61191/123">123 file_id : 
+ Thursday, August 10, 2023 - 09:48 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61192/123"123 file_id : 
+ Thursday, August 10, 2023 - 09:49 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61193/123"onload="alert()"> file_id : 
+ Thursday, August 10, 2023 - 09:49 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61194/123"onload="alert()" file_id : 
+ Thursday, August 10, 2023 - 09:51 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61195/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 11:28 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61196/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 11:43 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61197/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 11:47 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61198/123"onmousemove="alert(document.domain)"
+
+
+
+
+
+ file_id : 
+ Thursday, August 10, 2023 - 11:58 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61199/ file_id : 
+ Thursday, August 10, 2023 - 11:59 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61200/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:00 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61201/123"onmousemove="alert(document.domain)"
+
+
+
+
+
+
+ file_id : 
+ Thursday, August 10, 2023 - 12:00 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61202/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:13 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61203/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:13 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61204/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:13 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61205/123"onmousemove="alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:25 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61206/123""alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:26 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61207/123'"alert(document.domain)" file_id : 
+ Thursday, August 10, 2023 - 12:26 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61208/123"alert(document.domain) file_id : 
+ Thursday, August 10, 2023 - 12:27 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61209/123"alert(document.domain) file_id : 
+ Thursday, August 10, 2023 - 12:27 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61210/123"alert(document.domain) file_id : 
+ Thursday, August 10, 2023 - 12:28 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61211/123" file_id : 
+ Thursday, August 10, 2023 - 12:29 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61212/123" file_id : 
+ Sunday, August 13, 2023 - 04:08 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61213/ file_id : 
+ Sunday, August 13, 2023 - 01:14 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61214/ file_id : 
+ Sunday, August 13, 2023 - 01:15 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61215/ file_id : 
+ Sunday, August 13, 2023 - 01:16 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61216/ file_id : 
+ Sunday, August 13, 2023 - 01:20 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61217/ file_id : 
+ Sunday, August 13, 2023 - 01:21 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61218/ file_id : 
+ Sunday, August 13, 2023 - 01:24 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61219/ file_id : 
+ Sunday, August 13, 2023 - 01:30 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 96af1aaf-c311-4f97-a298-dd1a6c46fbe5 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/96af1aaf-c311-4f97-a298-dd1a6c46fbe5?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-1234.geojson%22&AWSAccessKeyId=ASIARDRLTBUE3NQHGBSD&Signature=l4nv70KiKq7sSxCUyR7YEyj7qkk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEGEaCXVzLWVhc3QtMSJGMEQCIBym69KOZOprnVwGeCK8HH%2BU6qQOvxncE0nyg8BlllFCAiApzH6POgNkg%2BNyOB3tnfnKKlidlPu5oXWnhCCDKa%2FMeyqfAwgZEAMaDDA3NjMyNzA5NTU2MSIMmKO4StWULrJxDrbNKvwC0ZM1AoRfyQc1XIptq5YU1fDhYOHh1xiIgR4wc7bY1WK5x1UZPgH6vCQtZgqao79UZZFY6SE%2Br9gCKaofhJX5jEFuN8O33PPdbPh%2FfoV7zqlvVmLXWl5raLZAVhuqh1Ro1LBWkqasA%2BIP2TQ3V3FJcswwif3AD9FXib%2FXbaCh6O7n2pljW%2BCZxSAqjzhgoC69Ez4Ho4kXODdIsF2SEEBpinvAaUgu8QvZF8qYMm2HtxvaeSWBEJPnY4uxiRP%2BzzNnP6jWppiPk30mijecrtYy9zjOZA1DW36CvcxjuBmqyGOB1%2FG140gqGrgmq%2Bhyqeo3%2FH6OjSmEipVJVga%2BoiZDexGNGi2cEAglat5z%2FrKtNcI%2FMnBK7IFW7ZbAJDdaKXgXjxvxbv7ExrPLtohZqjK3C1ie1A1IQQbcR5jm56w23Xs5FBUum2n0keIhEAQj3x5NwxMepWm6RgstQK%2Ff8LwWTfoxqf%2FXTwLL2PJiFnnSVkxGR2zvxJQQa7%2BucIwwsYXkpgY6ngEy6SuJNY%2F%2F51d%2BXOAMitvOuoUE4flMRq7VuTlhZ6zDX83Fx4kcahuih8diKTpBRSlYPnpCCXJfXoeJtnjMwjW1Wz%2F8d4J%2BMAGTJBQxRQr3uSTgGyN3ViZd7%2FEcWZmB%2B5LUwaRbt9RzDrOtFvseVITeJXPmkLYcGUmcqiZMeDGiEq7aoqIfngH95g9PSQ3Yi0mL%2FXcHDSs%2Fm3lWOfQduQ%3D%3D&Expires=1691951408
+)
+
+ Sunday, August 13, 2023 - 01:30 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61220/OP-1234.geojson file_id : 96af1aaf-c311-4f97-a298-dd1a6c46fbe5
+ Sunday, August 13, 2023 - 01:30 API called https://api.avantorsciences.com/file/results Httpcode : 200 for e2f164d8-4225-4970-b10b-7c1d8632351c 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/e2f164d8-4225-4970-b10b-7c1d8632351c?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-3.png%22&AWSAccessKeyId=ASIARDRLTBUE3NQHGBSD&Signature=sCP8nJVwL3Ki3GZ5%2FjFf9L6Qz6s%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEGEaCXVzLWVhc3QtMSJGMEQCIBym69KOZOprnVwGeCK8HH%2BU6qQOvxncE0nyg8BlllFCAiApzH6POgNkg%2BNyOB3tnfnKKlidlPu5oXWnhCCDKa%2FMeyqfAwgZEAMaDDA3NjMyNzA5NTU2MSIMmKO4StWULrJxDrbNKvwC0ZM1AoRfyQc1XIptq5YU1fDhYOHh1xiIgR4wc7bY1WK5x1UZPgH6vCQtZgqao79UZZFY6SE%2Br9gCKaofhJX5jEFuN8O33PPdbPh%2FfoV7zqlvVmLXWl5raLZAVhuqh1Ro1LBWkqasA%2BIP2TQ3V3FJcswwif3AD9FXib%2FXbaCh6O7n2pljW%2BCZxSAqjzhgoC69Ez4Ho4kXODdIsF2SEEBpinvAaUgu8QvZF8qYMm2HtxvaeSWBEJPnY4uxiRP%2BzzNnP6jWppiPk30mijecrtYy9zjOZA1DW36CvcxjuBmqyGOB1%2FG140gqGrgmq%2Bhyqeo3%2FH6OjSmEipVJVga%2BoiZDexGNGi2cEAglat5z%2FrKtNcI%2FMnBK7IFW7ZbAJDdaKXgXjxvxbv7ExrPLtohZqjK3C1ie1A1IQQbcR5jm56w23Xs5FBUum2n0keIhEAQj3x5NwxMepWm6RgstQK%2Ff8LwWTfoxqf%2FXTwLL2PJiFnnSVkxGR2zvxJQQa7%2BucIwwsYXkpgY6ngEy6SuJNY%2F%2F51d%2BXOAMitvOuoUE4flMRq7VuTlhZ6zDX83Fx4kcahuih8diKTpBRSlYPnpCCXJfXoeJtnjMwjW1Wz%2F8d4J%2BMAGTJBQxRQr3uSTgGyN3ViZd7%2FEcWZmB%2B5LUwaRbt9RzDrOtFvseVITeJXPmkLYcGUmcqiZMeDGiEq7aoqIfngH95g9PSQ3Yi0mL%2FXcHDSs%2Fm3lWOfQduQ%3D%3D&Expires=1691951408
+)
+
+ Sunday, August 13, 2023 - 01:30 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61220/OP-3.png file_id : e2f164d8-4225-4970-b10b-7c1d8632351c
+ Thursday, August 17, 2023 - 07:08 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61221/ file_id : 
+ Thursday, August 17, 2023 - 07:21 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 62748e0a-3f09-4164-8e8a-3fbae6ef5017 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/62748e0a-3f09-4164-8e8a-3fbae6ef5017?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-victim-file.png%22&AWSAccessKeyId=ASIARDRLTBUE2MVBAVUX&Signature=Xrzi3XeR5yDT2qmrQW0fWlp448g%3D&x-amz-security-token=IQoJb3JpZ2luX2VjELz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIBwlMiguPdeW1vL9n5x977N3sjihQr00kh1aGyUjpI%2BoAiEA%2BPNpds3D5cCT3Dysji%2BNS3JrM18%2BgfbYvgh3kVsEna8qnwMIdBADGgwwNzYzMjcwOTU1NjEiDDCgMbueq%2BqIrxW1gyr8AvlrKQMiSOzGaM%2Fz5R3g6gJg3DM6bzKCL6fwKQZjKHiAPd7IQ2p34ux7FjYqWST%2Bo%2Bfiq2PCLanfU4rib7RA73viezrYHp4xQxRg0UDqdqbPTOB85lP2QXLP20IBw%2Buh5CEmq70lTR4YU2l7mz8AIFV1SRylpvRbxDAp5QaemBonCV4UkswP0hCz2Ue65RUPOssodInmMFyX%2Fc%2FaR53kjAOjIkcIpa5VuSc9U%2BcDmvvroIwKVtGCtdcnLVidNriDdFspFrsuw5jUvfOdvDARBHE%2FoPJEHwSDwSj6SJvpQEyVXpn%2BDfWl3tIiFOObHCI74SmfOsGF9W1SQHSLJqN%2FYdhjfucsdWkWKjLYiCO0%2Fj5FmOufBzOyj5MxcyWeVXDRrBxMCUwhD2Q5%2BqTR54bEkV74fUzHGMNOnqXyiyvAVURwueS3ftin1z%2FKmteLt%2FmcuVRfqoU2Xk%2FGBqoyhouDEVqUnsao8DzNZRZD48moFPeUKNAO4KcSc1ljTZ5UMLaC%2BKYGOp0B97UBT%2BIo%2BxJLr34xjoiSbL9hkkm%2FVkAA2jRl8ciFpR%2FRU%2BC6c0RLQ2w2A2bN1kOLMyGSRvlDQPiw33HVX55N%2BWl2oFlbQfxpH2C%2Fid0lmG%2FGb7ZXMPPPBVuk4ZvZkRni%2BcX1%2FYw66LfgBwArGEn38Vi1sO2EXjU6hkvU8%2B0LR%2BhjJS6svoDAdrJColxq%2BGHnqwJOa2HD5bXgEQHdLw%3D%3D&Expires=1692274868
+)
+
+ Thursday, August 17, 2023 - 07:21 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61222/OP-victim-file.png file_id : 62748e0a-3f09-4164-8e8a-3fbae6ef5017
+ Thursday, August 17, 2023 - 08:10 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61223/123 file_id : 
+ Monday, August 28, 2023 - 08:43 API called https://api.avantorsciences.com/file/results Httpcode : 200 for c0e3918f-da86-48b6-b754-29e9cef02db6 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No threat detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/c0e3918f-da86-48b6-b754-29e9cef02db6?response-content-disposition=attachment%3B%20filename%20%3D%2210367_EP-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUERRKRWQXH&Signature=4tQ9YHgknpmuCETrvgma%2BM4ZEZA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCICDbc289A0tmR9tYUfJgZ6uJ5NXXvLHMmRPfG5%2BYoo5%2BAiEAwRUXkIYPZrT4yW5iS6h2C0DcUHmOd2lFMZGq0wJJpvAqqAMIjv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARADGgwwNzYzMjcwOTU1NjEiDLV4WSgj088Ob3ipzCr8AqNzQlF5NpkClKtOdJDOODg8NKyTD5nT%2F0P1eWD5hv%2BbzSTZqTSecYUvfCMmrFMJyvs6t%2BjQZF3082hh7MstnNreTjRgvsWkoj6%2BAJbx2kP2Cu%2BTv6WxsYTqsDrfHUc7GC9bypm5I2Cn3u8fmYRbs%2F8PQQ0ewhXkNoXNCueAF4Q4V61JFjzogSIicz9oK34PeJwyw5W8krzV18p4kkRmk1l6734%2FZwdvU%2B4gddmTiWRAENH59CGCD2TDYnbopC%2B%2F3vGLS7UH%2Fhqax8g85Z3OTHdbFb9wqBXjMSKfJ6CSPbKB4OKpVvcdmrIdQeahCcVz%2Fw3oCpbk2D75JsVzgdiZexxRhRbTVrTPMq7NwCcopjFo5EWGS4%2B3BKyxxFdgjXsQ41E1mTcv7KqXzuod0teSGY%2FlKtsggTT0%2BzLknF2Ixm04HAKYH%2Bm4acRxJD0h3cgrdev4OSo1QP4zQtqrhkG%2F1hf%2BXcq8H02OZWx1Y8h8G6IWQ0kz59ojZmYaVWfXMMqmsqcGOp0B4TvxhD6omKTxSsf%2BozTO78n%2BXU0fNOoLkYXHIf0vD%2BNuPCuFVRAJnqZsJFhjVc4Jo2tVZvzdzqlBP%2BYwQ1m8fu7OJG0n19no805WrKPyY%2B9TPL5FAAnJ9p3Qi4vvqIZaBjd8JNEoJogqaB2b7JllEX5iahiyWuJ0PNzMGuMJqbAarNasiopBNSMZY2BvrRh%2BENXvBQ0vXSghGSUilQ%3D%3D&Expires=1693230234
+)
+
+ Monday, August 28, 2023 - 08:43 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61224/EP-small.jpg file_id : c0e3918f-da86-48b6-b754-29e9cef02db6
+ Wednesday, November 15, 2023 - 11:19 API called https://api.avantorsciences.com/file/results Httpcode : 200 for bf050eed-8315-46d4-ba85-b12eb364c8da 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/bf050eed-8315-46d4-ba85-b12eb364c8da?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-AUGUST%20GIF%20%282%29.gif.gif%22&AWSAccessKeyId=ASIARDRLTBUE3FYXXDNZ&Signature=c7oqDDvf3lGJGHBZEE6Q0bh9QGA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEDAaCXVzLWVhc3QtMSJIMEYCIQDFw6jSreH%2FaSDcTkWiBKxzwL3dm35rJkXjN8vqKnGZtgIhAILeHfGnhCiE05B4Oc8CqlRn%2BxIzGF%2Fkwb2FPTEZZS9EKp8DCHkQBBoMMDc2MzI3MDk1NTYxIgzgMUXynZu0OHNjk30q%2FAJrw716jalko5Ag44RNx7DTexUnf0OVhWZ%2Bi0P0xSIEUyuVFSBSBhk3dkvR95rkRjrD5GYrp%2FCcx5oT5GRYcnKGy6aYbiCXUlpQ9dcaqXb56zA07VZhDuDLCB9%2Br7vhSfmyl9ThzuDyMmjw55l6UYiOeqwwIVGSVDcUER4697%2BnExzUxjqqbuhlLw9QHGZfgmY%2BW%2FBtsa5vC5T3dDh%2F31ABqGAUdxyRgpYz0QHA4KqQbsLBXVAn24d0BDwpVEKcqCyBICxvBQS6vo%2Fq747VefXvYyedw7n0mBRvKCwGb%2ByLe9tD1xQi9PbnES9NQ%2F7%2BEYT2DlNy9cwrMyo92FVX9u%2Bv8sj%2BcfK89qw0s36%2FAGxlJbLXiYDACkEPYPfo6d05r5j0sA31Qz%2BYo6BT68J9OeFXwopT6o8UeNbod7jWPHRL0cUAer8vgF4DR2w%2F4hcGYOXbZCPQM9jggMBHcw56OfUV0rVaT1NhdKjd98HyTJREA0ED%2BdkG9RmzAS6v%2BzD%2BztOqBjqcAVpvHAj3N%2BRH1hQCOjVQwyPEIWQULZfXF3CiPgcl4uIORkE8MHZJqlmN%2B2soUwBkwX7KVga5q8ZnmG%2FZKVEuRtopo%2F4TgVLs08H5EWBVxBRNfL65plXISPv%2BfbFDV1VM1JvSqVwzxha2%2FbqU4EdxEDQ60hg37HIW4CnDAqJfHb%2BXpGDjjvx%2BHPIsce2QcyNVvhyBRNQwjD36kKeFYg%3D%3D&Expires=1700068750
+)
+
+ Wednesday, November 15, 2023 - 11:19 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61225/OP-AUGUST GIF (2).gif.gif file_id : bf050eed-8315-46d4-ba85-b12eb364c8da
+ Thursday, November 16, 2023 - 08:27 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 5c6ddb0b-c640-4cf2-882f-20dcedc09719 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/5c6ddb0b-c640-4cf2-882f-20dcedc09719?response-content-disposition=attachment%3B%20filename%20%3D%2210368_OP-20230910_165807%20%281%29.jpg%22&AWSAccessKeyId=ASIARDRLTBUEXYLGN2WT&Signature=Ult8ErO2QK5rX9s4F2KqQZF6Pyc%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEEQaCXVzLWVhc3QtMSJHMEUCIQCxKLSQPfPjpJBnU1DIMKjYif9X8DVp71Da2ZFbLZWwbwIgcMP5xouEZgqC%2F%2BS3jNeVYQQpFsyTJ2D%2BbmIN6wKMmC4qqAMIjf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAEGgwwNzYzMjcwOTU1NjEiDMNuv0NtCthE1x9o1ir8Ai8mrJe%2F1CKvx535zc8ARrIIUaHEjUzY8z%2B0pRKVxCYaMphcSvgOB%2FoCU6QWFDjfx4cxx%2BT%2BCZBKqM0liHm92I44jcO78e2ZUp4Y0y1Md5Vt3XmAouGVoFRDy2JxkftgRFkiM7Dptr8epslDbZNBT18NArwNVg%2BqNgJ26i3SG2Ox%2FF%2FvWa%2Fp1Zo6m25oZ7BLhLGnYSaKxX5IWs3cXMFbZXmOPn9xIj0dg7M%2BsIYEdHUy17lvceZqh%2F%2BNVDOy2%2BBvcRCBG1x2nFpej%2BIXz1Htd1GKTCeAlSAjvqag9DaGAiMRA9%2BhUhxK27OuYQ4fU5Oejg6j6%2BgisTroycDHoDARhh1LqzfXWEiE4erxepHa33wNg2puwiUlpq9tVa3s11SpoX64nomkzoWmXlRqC%2BZAejMDMCaJVyBHsQdd%2FWH9J7KJFG62uuS4ZWM18sLhO8fXho%2BPQtGdHm0Zz%2FwIM6GpvaADSL3G2osXghMZcYbXOukSDVjwzEK2aK6PJzlXML6B2KoGOp0BRUy3%2F731W%2BTO5KET3sTCFxq%2FQmo3wlNHgBgzElQt%2Bx6BDztAO53K06jjdZeVMvKPIkoERlMWnvbfVe8Hto%2Bj6%2BmRQnxaYqIASy%2BDkXaTCM6NaPsrs9juIlEsarjvflvMkwPhwza%2FxIqbEIAnw8AtwPLvT6MbPvEhbqP4IhT7dmyIkM0bwwYzdS61%2BNWXzDAlYWU9rOdAtwx0rm08%2FA%3D%3D&Expires=1700144866
+)
+
+ Thursday, November 16, 2023 - 08:27 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61226/OP-20230910_165807 (1).jpg file_id : 5c6ddb0b-c640-4cf2-882f-20dcedc09719
+ Thursday, November 16, 2023 - 01:53 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61227/ file_id : 
+ Wednesday, December 6, 2023 - 02:20 API called https://api.avantorsciences.com/file/results Httpcode : 200 for fa17919c-4f2f-4c30-8864-b14734a32e56 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/fa17919c-4f2f-4c30-8864-b14734a32e56?response-content-disposition=attachment%3B%20filename%20%3D%228385_Screenshot%202023-08-31%20182513.png%22&AWSAccessKeyId=ASIARDRLTBUE3JGFPCQS&Signature=7dnVELUS9o9c35UHLVjwL2C7%2Fdk%3D&x-amz-security-token=IQoJb3JpZ2luX2VjECoaCXVzLWVhc3QtMSJGMEQCIE4f%2FYzH3j%2Fij1nqI4%2FuSfe4jCoTEogBHPKLsGtBDQTEAiANbsibE48eUtEqIZ9GUwrL8jZL4NL6Ycmlv13GemikdSqoAwiT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDA3NjMyNzA5NTU2MSIMh7c6QQCHc7jmqM9pKvwCX2PP6tLc3kPIt9XC2VvZEeAK%2FCFUtMG%2BvozWVjkon5I3xxF9kxGejLeQcNtlIcILDiE3BgXlbWPacFU6y5o91ogkmOpmFd2lV6Ii6XCMKZ7z7pjHWqIVmZOKulbr6I%2FCzXNOCKc2f%2FK6Y72R9UhhHpTjg2d90wNiloEWN92DH1R31Mzlm%2FuPbMx9bzhMNQCXubP5oaRmxeUGtFRTOGY9WJcAfhD1kpogcsPRcQp7c3DCk2MAxGL4t%2Fc0dzjxtBvP%2Fl4%2BmdJvC21fcNsCCY9hAuwcoMqWOo%2FwRKvXL%2Frn%2BAB%2BL2MLg1J56XAe8yDP%2FjfgLEuaMFjI4XadD9KOy%2F6Uu%2BxEQHg1mr8S5K9t7IW38Myo0mKQYTeB1rnI6Jqr5PEKuW8fnUgzleP%2FPG2NaxNy1TTjdUdGt%2Fl8Q75XyExlHRPP2Zgv47pYFhp%2Fyv7kwYxz1OKd777YaGukfeknOzT0udxzgPWUwqrlE7Dfuh6zYSEoWYWV9Bm0DVvJJOUw8uPCqwY6ngEsVOheRoclyrIt7ct5kWRk1%2FbRcKSXI%2FlvTa0NgTy8%2FOuGlmU2qQ0W%2FCH2gfli%2Bp8bN2%2F04kIcwtrNwaNqpzuRaDNnn16bC24T6u1NKhgxtqRLz5W7WpSC3dA%2FGTOwSID8uKrpmu9Z%2BaDBgUmVv%2F%2Bn8DWG%2FoeqlJXNq2qXbCozQXm3Iue7g%2BWlz%2BS4m2pCJD1%2BTb0I4Z07846Ffa%2BwYg%3D%3D&Expires=1701894052
+)
+
+ Wednesday, December 6, 2023 - 02:20 File downloaded for hyperlinks File Path : /var/www/html/sites/default/files/docs/Screenshot 2023-08-31 182513.png file_id : fa17919c-4f2f-4c30-8864-b14734a32e56
+ Wednesday, December 27, 2023 - 12:58 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 1b7d451d-b637-4e3c-ae97-d253df5ee278 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/1b7d451d-b637-4e3c-ae97-d253df5ee278?response-content-disposition=attachment%3B%20filename%20%3D%228385_Jio_dec.pdf%22&AWSAccessKeyId=ASIARDRLTBUE4GXGTBCT&Signature=Vt6EJVpZxScnumgFI1%2BRXJGidkE%3D&x-amz-security-token=IQoJb3JpZ2luX2VjECIaCXVzLWVhc3QtMSJHMEUCIEtnnC5VxiqbbGlPT3F5DJkTYBkj11FCP7RUVq%2BWhJJaAiEAzj4WMrAM29SuQdCiwHrfG%2FxioACDNEIhVqYX62yrfswqqAMIq%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAEGgwwNzYzMjcwOTU1NjEiDIaYb%2Fg9Qx%2BF9Jz9Vyr8AuqDQv6ORIcAncqI9jr4fMcG9kEx0ExdIP3nwNpTpbKvUMHvJByEizIQUk8%2BrSTocBaisS%2BzmjInW5CZxvwmJQK4i2pgX1S51eUEFxv92XIJlTfm85bPXf47sgE5Ul2nSBe7txs%2BL207Nxl6M%2FiLRG8YecxKHdgOW0gcdJGxR2SaBLf76TnEcexLTysbb8fnU0rJfCX2iXJ6nmwES09S9Yar7WSaTofxX%2F2yZoBmkbDPdV4YFj%2B9R36RwhcXQFUbkNQYJO7l79M%2BJNpA6uixEc8IjVuq5OwK0lCUc5%2Fr5SIT5ZMr2vnN0Qo8dM%2B8L6LYThAg55kY%2BATm7Uz3sqmEdliIDyvD126wcl28qIcJgR56ivREvkXW5SeSzbhrwFTwTZP4HSf20nNJ%2BN4LOpf1S9F0f5OWybk8mEjYBRhWYqjwl1x%2FY15cg6nglP4xynTBmfZ8TFeZM20R%2Foy4RorB4tECMPwYDpnPH0MNyrB3JL25chgkDRCbpRNJWIeBMJq%2BsawGOp0Bep27XCba8RuFEj43p8xFCUNK1B2bp%2F4SKmLhuQG%2FVqlJ6OGv%2FOi5JF%2FXlinmi2%2FjjUnjA7wwPftdxgcoyLgaWQFimz3tMapva%2BSsaXLBrUmZdkdQ5AlMdPT5ye1ArBq4Qr2uvCBrTU%2FQAGOWv6qFK%2FoCMZ1Mwdw%2FVgL%2F6xqQAm4NtyRSbu%2F7YRadvfZ3qlO8zGXoXRRWTyj2ES07%2Fg%3D%3D&Expires=1703703511
+)
+
+ Wednesday, December 27, 2023 - 12:58 File downloaded for upload_documents File Path : /var/www/html/sites/default/files/docs/Jio_dec.pdf file_id : 1b7d451d-b637-4e3c-ae97-d253df5ee278
+ Wednesday, December 27, 2023 - 01:02 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 3c8df120-64d9-4547-aa5f-1f74f79214b8 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/3c8df120-64d9-4547-aa5f-1f74f79214b8?response-content-disposition=attachment%3B%20filename%20%3D%228385_dp_phtn%20%281%29.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4GXGTBCT&Signature=Rn9536qcMc8XPCDq5lDHJq%2BYI8Q%3D&x-amz-security-token=IQoJb3JpZ2luX2VjECIaCXVzLWVhc3QtMSJHMEUCIEtnnC5VxiqbbGlPT3F5DJkTYBkj11FCP7RUVq%2BWhJJaAiEAzj4WMrAM29SuQdCiwHrfG%2FxioACDNEIhVqYX62yrfswqqAMIq%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAEGgwwNzYzMjcwOTU1NjEiDIaYb%2Fg9Qx%2BF9Jz9Vyr8AuqDQv6ORIcAncqI9jr4fMcG9kEx0ExdIP3nwNpTpbKvUMHvJByEizIQUk8%2BrSTocBaisS%2BzmjInW5CZxvwmJQK4i2pgX1S51eUEFxv92XIJlTfm85bPXf47sgE5Ul2nSBe7txs%2BL207Nxl6M%2FiLRG8YecxKHdgOW0gcdJGxR2SaBLf76TnEcexLTysbb8fnU0rJfCX2iXJ6nmwES09S9Yar7WSaTofxX%2F2yZoBmkbDPdV4YFj%2B9R36RwhcXQFUbkNQYJO7l79M%2BJNpA6uixEc8IjVuq5OwK0lCUc5%2Fr5SIT5ZMr2vnN0Qo8dM%2B8L6LYThAg55kY%2BATm7Uz3sqmEdliIDyvD126wcl28qIcJgR56ivREvkXW5SeSzbhrwFTwTZP4HSf20nNJ%2BN4LOpf1S9F0f5OWybk8mEjYBRhWYqjwl1x%2FY15cg6nglP4xynTBmfZ8TFeZM20R%2Foy4RorB4tECMPwYDpnPH0MNyrB3JL25chgkDRCbpRNJWIeBMJq%2BsawGOp0Bep27XCba8RuFEj43p8xFCUNK1B2bp%2F4SKmLhuQG%2FVqlJ6OGv%2FOi5JF%2FXlinmi2%2FjjUnjA7wwPftdxgcoyLgaWQFimz3tMapva%2BSsaXLBrUmZdkdQ5AlMdPT5ye1ArBq4Qr2uvCBrTU%2FQAGOWv6qFK%2FoCMZ1Mwdw%2FVgL%2F6xqQAm4NtyRSbu%2F7YRadvfZ3qlO8zGXoXRRWTyj2ES07%2Fg%3D%3D&Expires=1703703768
+)
+
+ Wednesday, December 27, 2023 - 01:02 File downloaded for category File Path : /var/www/html/sites/default/files/category/8385_dp_phtn (1).jpg file_id : 3c8df120-64d9-4547-aa5f-1f74f79214b8
+ Wednesday, January 3, 2024 - 09:21 API called https://api.avantorsciences.com/file/results Httpcode : 200 for d377aafb-0b1b-4f17-9881-bf87a24e2385 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Wednesday, January 3, 2024 - 09:25 API called https://api.avantorsciences.com/file/results Httpcode : 200 for d377aafb-0b1b-4f17-9881-bf87a24e2385 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/d377aafb-0b1b-4f17-9881-bf87a24e2385?response-content-disposition=attachment%3B%20filename%20%3D%227950_Screenshot%202023-09-22%20220330.png%22&AWSAccessKeyId=ASIARDRLTBUETKB7EI2Z&Signature=QD%2FxiLGHJgfXhUnB8auFOxc%2BH%2BA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCICEM3J%2BzADmoYmwK8eP1GQCVLAeTE%2BD3N1vVRW%2B9wM7aAiBi18RuRdv3wvvrkLIKURMyc38Om64KF44iTP5v8F2iIiqfAwhfEAQaDDA3NjMyNzA5NTU2MSIMKR0mV9AHUAZGKRBJKvwC2%2BRJwYwWGbT776XX53LQPm2mrJL%2FzZP%2FmJ0E2lh%2BVk7StkBkPUT31xnJxY2K7fnldz5MThZzKZpdyVcVxKddJqXlsy2TZ66f12FPE1UeUuj9x%2B8PTESDD5BG3xbV5VSqomlZSn7yw3IIANNAeQxJC9mO4qellAXLy69gOyp5StsadViiV3NTQAasmP4RHws1T2dqpOPhrnGMSklwJ0p%2FFa5MObAbkuAfXslT3nfn0n0A%2FPQwjN%2Fchep6GZNjlceLHFjco8njLyKi6xgdbBUaZUbk0HIpKRjaelGVvOiFBUzbtttkpXY5Wy%2Fgfch1ZmriJcXMjdUu51taogoFpAnSScNm%2BQ0W3a3bJYrnrxIO23E5vCeIZpzdNEqNFUbqbY7rTK0P%2F2hkEmbdKMYJOUGszEAfsZYITivvg1BRq%2FyEhjUjbMJ1I5y8ZmG76ogzrv3ilHZ5K7ZL3x%2BzdbDjU9O%2Ff5gwlfccrgmxGbEYUnARvq1PTbOsiD8V18eRKSYwrsDVrAY6ngFslHTtz5cKGrECuFzsir%2BT7165KH9iAswsH8jDvsvn1lKa01umk%2FARbLuxcMfLT5wApaLK4kDC0AyWwIRtKVqWFuB7v0zD52IKlWjCBSXPJ1%2BBhoaSNE8sJ4f9EMqxvNVFm9Dd2%2Bn7Z1t%2FtCcSMzjpARyQfOOpB7R2cW22F7u0qTVPp%2BzEAvvW4LvglGbmmArmtLrd6m2kRsx%2FQBTqoA%3D%3D&Expires=1704295503
+)
+
+ Scan Scheduler : Wednesday, January 3, 2024 - 09:25 Scanning No Threat Detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : d377aafb-0b1b-4f17-9881-bf87a24e2385
+ Wednesday, January 3, 2024 - 09:25 File downloaded for category File Path : /var/www/html/sites/default/files/category/7950_Screenshot 2023-09-22 220330.png file_id : d377aafb-0b1b-4f17-9881-bf87a24e2385
+ Scan Scheduler : Wednesday, January 3, 2024 - 09:25 1 Table  vwr_category updated status SCAN_COMPLETED for file_id : d377aafb-0b1b-4f17-9881-bf87a24e2385
+ Wednesday, January 10, 2024 - 09:20 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61228/ file_id : 
+ Wednesday, January 10, 2024 - 11:53 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61229/ file_id : 
+ Wednesday, January 10, 2024 - 01:56 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61230/ file_id : 
+ Wednesday, January 10, 2024 - 02:05 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61231/ file_id : 
+ Tuesday, January 23, 2024 - 03:18 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 05d2f24f-d1c6-4b49-9a10-5df543d00ad0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Tuesday, January 23, 2024 - 03:20 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 05d2f24f-d1c6-4b49-9a10-5df543d00ad0 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/05d2f24f-d1c6-4b49-9a10-5df543d00ad0?response-content-disposition=attachment%3B%20filename%20%3D%225223_EP-EXCEL_FORMULAS.xlsx%22&AWSAccessKeyId=ASIARDRLTBUEXSNRMEXT&Signature=uB9rnvurQbN7CkSGxFqv%2FaNRo%2FQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEKD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIFD4yF9K1jaFFpnYmEiq3fUnyE%2Bv4YpcquN4zLr0Z2UgAiEAtbd3PfOU2bas9DZ%2BHLljTLKNO3JIvg3SAWsOSjgh5GwqnwMIWBAEGgwwNzYzMjcwOTU1NjEiDBDrTsX%2FiNPjMyHNtSr8AsQ6Ftce21KqjIkOb2zKvCaZW%2FnAOVbxfbK8dDyaan0J4mjpG55QvZEccXJ99ziZSSaZOnlY5MIMwBVp2H18pzx5iptmXYXvEnX93ZFYtOyPguU2X3BurN6i%2Fv9cHGLvWEbextQhwqZ0Q%2FxfN7TTv20b1Shx%2FBZFWUvf44n7FLcYAdpJXZ6SQbsWN40wRT9YqXfVid%2Fmwk5pyI4gYHbbHL1aePadbDL95zZGEKJQmwlWIRu51HRan0SARwUOMmMC5TEjsKlanFcygm2DMX%2Fmt5PM%2Fkm2l6UUIQQKqJ11tINvD0x4nSdTjlSXP5p11Fs3UCmiLs%2B913jrFDqhp5iNV%2F7Uxdzf4DPWNXRyWAK34coBlBWZjdxQeNbFg%2FzSynp5RNk1CcJbyzPUIJyak6wE2OffKoArzrKzqYVu58wb1X8C%2FaUP8D6jH0JWbPu1GP8wbLTftiyUHiVx2vYaTrmHHWjpBzrdVrVH%2BbjB%2BSZ9SY6df2ugEvKGQFyLhbloMJ7Kva0GOp0BjYrWhRdwRiCKlQjzXbrFl7O3jqpE%2FXPPpI3P4uXe2yhu%2BEpNgN3EnrEViKwryMQlasfjPPyjvOcl5XPM1yNvIXnavhYC61%2FbF7YFKTyoRKCm92zcE1H%2B2CE6jChTD%2B8YCvRWVDBp2tajqb5hRDVfvYrq6AbFyUunNCWg1eBa5tZI2jfQJMFnWm6rHR9fs7QKhiTYndyO94vIqvsuEg%3D%3D&Expires=1706001602
+)
+
+ Scan Scheduler : Tuesday, January 23, 2024 - 03:20 Scanning No Threat Detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 05d2f24f-d1c6-4b49-9a10-5df543d00ad0
+ Tuesday, January 23, 2024 - 03:20 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61232/EP-EXCEL_FORMULAS.xlsx file_id : 05d2f24f-d1c6-4b49-9a10-5df543d00ad0
+ Scan Scheduler : Tuesday, January 23, 2024 - 03:20 1 Table  vwr_submission_files updated status SCAN_COMPLETED for file_id : 05d2f24f-d1c6-4b49-9a10-5df543d00ad0
+ Sunday, February 4, 2024 - 05:44 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 65236027-8478-45ab-8a10-5f3973f8a6f9 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/65236027-8478-45ab-8a10-5f3973f8a6f9?response-content-disposition=attachment%3B%20filename%20%3D%2210367_h1%3E-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4Z7RYR6P&Signature=2FW3U%2BCeGkfScoyaq1BEU%2BAkpLQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIA6Wntg6j96cMoGANZ66SIlejOtJMmg3%2BSyqQgFCa8VGAiAawyuLjR6%2BRAzxitf3ZPzAIhvIVhNXFW416hz6GdS3viqoAwiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDA3NjMyNzA5NTU2MSIMfDS89wLucYoQzG0%2FKvwCNxp0IH4Ed3LR83HItpYF5n60L6tROtsyf8zNZCp9dcUsxWTugu1VZ1HIKcxnxtEeJH84MDoB2JUWG%2Fqm5T8uNvsRtFC0JyiQAdCfVDH3TErY94BkAvxNL7Dalo1%2Fn2I8UNG12jUNr8tpdpl8iK7UypmsUwp9yaPe%2FTMO7VaztNtufGCnjq9TjV1OnWG5wba3E46EajGPqzTgPptT6KFUaAQG7nNbbFYg7WiGRb8870DvXlkwaIeHf2%2Fwb6aidqnhrqHaNUvC2z5Vm%2FJa2pZitulhzuD0QivveEwVBGJCLkukrpsGKY1zuVuQ70OdcmI6avRuD7wxltCHjKcSHUeQRQusPljISPUHSGaSG1wkb0m0CaKZx1RdCvZdGGwwgKmMhwKaPvkV6rQNgoFcnWiRVPsa7TXaQ2RAkobriK6IAKsItrEBx7qQFR4bdwLufafOzhb%2FCUHqi%2Bbj6sk%2BwtlQHiVQzFaSmLRVafms70kvvfZL2jgy1OPQMX0d5nYw5aH9rQY6ngEgNg2e5W%2FqAHNEteX3B1hUnN4Eb0G%2FSE4oxl8cURh0wifWpVM6%2Fcl9ovOGp21l87WBmiEVnLjTgebiWlue9f87NmoQGciFTq8UrBn4LpLWnfBgghFLlCJQ1H0TSngA3ceo4XayMkTzRVvSa75YxBM0pDy9smWe9RNAWxPjMzgXOxtQ2egq07wF0OUb7hS8E0bcwvZMZ6jK8ZZegbKXWw%3D%3D&Expires=1707047094
+)
+
+ Sunday, February 4, 2024 - 05:44 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61233/h1>-small.jpg file_id : 65236027-8478-45ab-8a10-5f3973f8a6f9
+ Sunday, February 4, 2024 - 05:46 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 97ef79b4-507a-4eee-989f-3908a9999e6e 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 255
+    [scanMessage] => In Progress
+)
+
+ Sunday, February 4, 2024 - 05:50 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 97ef79b4-507a-4eee-989f-3908a9999e6e 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/97ef79b4-507a-4eee-989f-3908a9999e6e?response-content-disposition=attachment%3B%20filename%20%3D%2210367_ED-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE4Z7RYR6P&Signature=4N2V2RtiSS4eCUq%2BaGpCl7ErP4c%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIA6Wntg6j96cMoGANZ66SIlejOtJMmg3%2BSyqQgFCa8VGAiAawyuLjR6%2BRAzxitf3ZPzAIhvIVhNXFW416hz6GdS3viqoAwiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDA3NjMyNzA5NTU2MSIMfDS89wLucYoQzG0%2FKvwCNxp0IH4Ed3LR83HItpYF5n60L6tROtsyf8zNZCp9dcUsxWTugu1VZ1HIKcxnxtEeJH84MDoB2JUWG%2Fqm5T8uNvsRtFC0JyiQAdCfVDH3TErY94BkAvxNL7Dalo1%2Fn2I8UNG12jUNr8tpdpl8iK7UypmsUwp9yaPe%2FTMO7VaztNtufGCnjq9TjV1OnWG5wba3E46EajGPqzTgPptT6KFUaAQG7nNbbFYg7WiGRb8870DvXlkwaIeHf2%2Fwb6aidqnhrqHaNUvC2z5Vm%2FJa2pZitulhzuD0QivveEwVBGJCLkukrpsGKY1zuVuQ70OdcmI6avRuD7wxltCHjKcSHUeQRQusPljISPUHSGaSG1wkb0m0CaKZx1RdCvZdGGwwgKmMhwKaPvkV6rQNgoFcnWiRVPsa7TXaQ2RAkobriK6IAKsItrEBx7qQFR4bdwLufafOzhb%2FCUHqi%2Bbj6sk%2BwtlQHiVQzFaSmLRVafms70kvvfZL2jgy1OPQMX0d5nYw5aH9rQY6ngEgNg2e5W%2FqAHNEteX3B1hUnN4Eb0G%2FSE4oxl8cURh0wifWpVM6%2Fcl9ovOGp21l87WBmiEVnLjTgebiWlue9f87NmoQGciFTq8UrBn4LpLWnfBgghFLlCJQ1H0TSngA3ceo4XayMkTzRVvSa75YxBM0pDy9smWe9RNAWxPjMzgXOxtQ2egq07wF0OUb7hS8E0bcwvZMZ6jK8ZZegbKXWw%3D%3D&Expires=1707047401
+)
+
+ Scan Scheduler : Sunday, February 4, 2024 - 05:50 Scanning No Threat Detected 1 Table  file_scan_details inserted data status SCAN_COMPLETED for file_id : 97ef79b4-507a-4eee-989f-3908a9999e6e
+ Sunday, February 4, 2024 - 05:50 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61234/ED-small.jpg file_id : 97ef79b4-507a-4eee-989f-3908a9999e6e
+ Scan Scheduler : Sunday, February 4, 2024 - 05:50 1 Table  vwr_submission_files updated status SCAN_COMPLETED for file_id : 97ef79b4-507a-4eee-989f-3908a9999e6e
+ Sunday, February 4, 2024 - 06:33 API called https://api.avantorsciences.com/file/results Httpcode : 200 for c6d7d7ca-d0f9-43e7-a478-9f16f05b0fe4 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/c6d7d7ca-d0f9-43e7-a478-9f16f05b0fe4?response-content-disposition=attachment%3B%20filename%20%3D%2210367_ED-small%20-%20Copy.jpg_original%22&AWSAccessKeyId=ASIARDRLTBUE7DZ6IX75&Signature=ITLLYVI7GehAjWIQCOCG6p2b5XI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIFzx89BXvKnvkPlr8HdjQfpFGZn9lvPfJFBfTTlG7KS9AiEA1NNv%2BfzjGmG0TvLfpGzNaFgSgFruce6WcNBbRdQ%2BHzMqqAMIjP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAEGgwwNzYzMjcwOTU1NjEiDH2GshQSj2wgCLM9Eir8AtMojZ70CwkO8Dz3ROABmdKmIKiKQykoUglvvYueftJDNTMHMMLbr15IjLJ96ZxPLYbNrRehU1Jper8BrgP8XlTpWgherK8e3G0Q1Ubvv9%2BKp%2FitZvY%2FN1iWgM0wCnltGkW72Ras1KsMqxOo5StVpbELTnm2CutHANTSYrHxj50nmy13TRvbEaoKh5VZzilY0j0fN%2FsuCOhJc6opKLKomQ51tS%2Fn6osjf7konuOJXnECLU6nIcVwuKOFKIn4TsCKyV%2Bn5%2BbTwH%2F3D0%2B52fa9oQBqN4Btwx4divtDd4bUoYBJeWBfmXcoQHBQtDRE%2BhesUjMFhLMh39btpOZ%2Bz5A7FqcTmCNnUZdkv598tMUinP4dOOfVVEtx4xnzmHHqO%2BnjXz27UjyjkMYOe%2BseDbVt7l4sNSAX9ExuYLapINaVXntpRmjGBfgsI9HTb1s0%2FUoXDRUUwyEp58%2F8IVY6nEDFg5oTPgEbFD%2F7zxQsec9RKV5bUkdbQo9Dj1l46OyDMIXa%2Fa0GOp0B2%2B3V1%2FZCy1NDaylCcawq4aEwrJvOiVBgTHdT%2BJ90bqYBdLiyjqlGtAmrtARIaQQOvM38bIgc7OUIYO1Tf3sjXJcRdBDWFn0rTP0btoRXqXzcJJbe7p5aRbJYIzGzqQwTpVxVASXqdma0n8qTpIMbrCCs%2FQymvhYMy%2BqBflRmyfKk%2BksP5JEZhogOUaOTMZBVlrZbkPh6IkJ5vQj6EA%3D%3D&Expires=1707049990
+)
+
+ Sunday, February 4, 2024 - 06:33 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61235/ED-small - Copy.jpg_original file_id : c6d7d7ca-d0f9-43e7-a478-9f16f05b0fe4
+ Sunday, February 4, 2024 - 08:24 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 8c2dd02f-8f8e-4a16-ac1c-57308f10d3b7 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/8c2dd02f-8f8e-4a16-ac1c-57308f10d3b7?response-content-disposition=attachment%3B%20filename%20%3D%2210367_ED-small.jpg%22&AWSAccessKeyId=ASIARDRLTBUE3SB7WYUB&Signature=7i1fvx8bjO8LeljGpNEJuDXaeZE%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIGx3FejEEEr93XX%2FeNLnVT4mkbVoue9Y%2F3zqTBPIxQUeAiACiZDhLmGS6Wr87xG8%2B%2BtKMhegGDYQaJPOtWeQdCuqMSqoAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDA3NjMyNzA5NTU2MSIMdE9sew7pBR7DE8UaKvwCGt9R9TsoN3wEDdH70FkBi%2BAOKvl9t%2B%2B8U4rkj3FEPPaxnn5BgvpAA0VnOv9hqWDIJRYBsn%2BY9dAvh7PrfqbZ0JSraDUOHWzsKLdK2yucIVhdot%2B9PjcKiXYhC0%2BeoG2QU1J1ibYgCTOpD2Ch%2BWj9geh6LYarGj2Qy8K7lcEo6PArcUmcQ2UIMLK5oqUuM7ryqb0uL1NQGNn6aJPbqKXkb%2FwOw0i6L1uITFxWYKeZJxTYdodVdwE%2BsDXJhgzj7UGyP%2BXi4ZpzFmvvKQk0XMLvKtF2LMsSlnA%2Fi%2B3Q4bFoAVizuIqHqfbDN370Z%2BnWUZnTQVM5nfU4o%2B%2BbFA37oPoenJrvG35KZ6hyWrtAqwDZxRjTcgRTD0q3NP5bJalpnlPneKKtlHU90ahRkKRHWK3L%2BPB7s6kFOIkqX8tX1zWrsl3R%2F6wiVYztOHut15vSzKWiZ4suvnahaQq84ukeHeLYJLv0qVglWbWOoaMEZJuWWr6cfWGaC3WozW3gAm0w9Jf%2BrQY6ngHNvPTkdulgoSVnGl0nL6oe%2Fji03gfWQxmQQqI2LQa3ZLP1q9AjKagxJ9%2FoJ2CViKYj%2FrZh1txd2cWe%2Fyhd6LOfiEjNVGwFAn38yaeUER4pk3fC3iB129gx8%2Ffk62mhUrV%2BKudNx7QxX%2FVFuPV68AXaFjHtlRQtOsKeBDWcaE1Pf%2FP1U%2BVNREJXm1bZ%2B4rk4Wxk3au1zVx2ZdXxmErN%2Fg%3D%3D&Expires=1707056670
+)
+
+ Sunday, February 4, 2024 - 08:24 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61236/ED-small.jpg file_id : 8c2dd02f-8f8e-4a16-ac1c-57308f10d3b7
+ Sunday, February 4, 2024 - 08:24 API called https://api.avantorsciences.com/file/results Httpcode : 200 for 204404c1-bfb5-425f-887e-fea99c0d4329 
+ Response from scan result API  stdClass Object
+(
+    [statusCode] => 200
+    [scanStatus] => 0
+    [scanMessage] => No Threat Detected
+    [url] => https://avtr-prod-metadefender-us-east-1.s3.amazonaws.com/global-web/quarantine/204404c1-bfb5-425f-887e-fea99c0d4329?response-content-disposition=attachment%3B%20filename%20%3D%2210367_ED-small%20-%20Copy.jpg_original%22&AWSAccessKeyId=ASIARDRLTBUE3SB7WYUB&Signature=Vpx5FDE6I5lHUFm1vbBySL2rXQI%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIGx3FejEEEr93XX%2FeNLnVT4mkbVoue9Y%2F3zqTBPIxQUeAiACiZDhLmGS6Wr87xG8%2B%2BtKMhegGDYQaJPOtWeQdCuqMSqoAwiO%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDA3NjMyNzA5NTU2MSIMdE9sew7pBR7DE8UaKvwCGt9R9TsoN3wEDdH70FkBi%2BAOKvl9t%2B%2B8U4rkj3FEPPaxnn5BgvpAA0VnOv9hqWDIJRYBsn%2BY9dAvh7PrfqbZ0JSraDUOHWzsKLdK2yucIVhdot%2B9PjcKiXYhC0%2BeoG2QU1J1ibYgCTOpD2Ch%2BWj9geh6LYarGj2Qy8K7lcEo6PArcUmcQ2UIMLK5oqUuM7ryqb0uL1NQGNn6aJPbqKXkb%2FwOw0i6L1uITFxWYKeZJxTYdodVdwE%2BsDXJhgzj7UGyP%2BXi4ZpzFmvvKQk0XMLvKtF2LMsSlnA%2Fi%2B3Q4bFoAVizuIqHqfbDN370Z%2BnWUZnTQVM5nfU4o%2B%2BbFA37oPoenJrvG35KZ6hyWrtAqwDZxRjTcgRTD0q3NP5bJalpnlPneKKtlHU90ahRkKRHWK3L%2BPB7s6kFOIkqX8tX1zWrsl3R%2F6wiVYztOHut15vSzKWiZ4suvnahaQq84ukeHeLYJLv0qVglWbWOoaMEZJuWWr6cfWGaC3WozW3gAm0w9Jf%2BrQY6ngHNvPTkdulgoSVnGl0nL6oe%2Fji03gfWQxmQQqI2LQa3ZLP1q9AjKagxJ9%2FoJ2CViKYj%2FrZh1txd2cWe%2Fyhd6LOfiEjNVGwFAn38yaeUER4pk3fC3iB129gx8%2Ffk62mhUrV%2BKudNx7QxX%2FVFuPV68AXaFjHtlRQtOsKeBDWcaE1Pf%2FP1U%2BVNREJXm1bZ%2B4rk4Wxk3au1zVx2ZdXxmErN%2Fg%3D%3D&Expires=1707056670
+)
+
+ Sunday, February 4, 2024 - 08:24 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61236/ED-small - Copy.jpg_original file_id : 204404c1-bfb5-425f-887e-fea99c0d4329
+ Sunday, February 4, 2024 - 08:33 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61237/ file_id : 
+ Sunday, February 4, 2024 - 08:36 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61238/ file_id : 
+ Sunday, February 4, 2024 - 08:39 File downloaded for submission_files File Path : /var/www/html/sites/default/files/docs_dropbox2/61239/ file_id : 

@@ -1,0 +1,596 @@
+#block-system-main label{
+display:inline;
+}
+.date_space{
+padding-left:5px;
+}
+.result_success{
+	color:#004E8E;
+	float: left;
+	width: 100%;
+    font-weight: bold;
+    height: 15px;
+    padding-top: 10px;
+    text-align: center;
+}
+.owners_icon{
+	margin-top:-6px;
+}
+
+/* Css for Popup modal box */
+.simplemodal-container.dropbox-container{
+	width:575px !important;
+	height:500px !important;
+	top:75px !important;
+}
+.modalbox_users{
+	width:100%;
+}
+.select_vas{
+	width:100%;
+	height:185px;
+	float:left;
+	padding-left:5px;
+}
+.select_supplier{
+	width:100%;
+	height:165px;
+	float:left;
+	padding-left:5px;
+}
+.box_head{
+	background-color:#005496;
+	color:#FFFFFF;
+	padding:3px;		
+	width:140px;
+	font-weight:bold;
+	margin:auto;
+	text-align:center;	
+	font-size:11px;
+}
+#save_button {
+    height:25px;
+    width:60px;
+}
+#cancel_button {
+	height:25px;
+	width:60px;
+}
+#cancel_button_new {
+	height:25px;
+	width:60px;
+}
+.left_list{
+	width:45%;
+	float:left;
+	margin:20px 0;
+}
+.move_buttons{
+	width:10%;
+	margin:20px 0 0 0;
+	float:left;
+}
+.right_list{
+	width:45%;
+	float:left;
+	margin:20px 0;
+}
+.dropbox_list{
+	/*background: url("../images/txtbox_bg.jpg") repeat-x scroll center bottom transparent;*/
+    border: 1px solid #999999;
+    float: left;
+	width:235px;
+	height:115px;	
+	font-size:12px;
+}
+.dropbox_button{
+	background: url("../images/button_bg.jpg") repeat-x scroll 0 0 transparent;
+    border: 1px solid #183274;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+	width:35px;
+    height: 20px;
+    margin: 7px 0 0 7px;
+    outline: medium none;
+    padding: 0 10px;	
+}
+
+.add_users_submit{
+    float: left;
+    height: 35px;
+    padding-left: 200px;
+    width:250px;
+	margin-top:15px;
+	margin-bottom:10px;
+}
+#reg_inpt_dropbox {	
+	width:500px;
+}
+.vas_supplier_text{
+	float: left;
+    font-size: 11px;
+	line-height:15px;
+    margin:10px 8px 0 -15px;
+}
+/* style for modalbox add pages in dropbox*/
+.parent{
+	color:#000000;
+	font-size:12px;
+}
+.childExpand {
+	padding-left:30px;
+	display:block;
+} 
+.child {
+	display:none;
+} 
+.tree_checkbox {
+	vertical-align:middle;
+}
+.operator {
+	color: #005595;
+    cursor: pointer;
+    font-weight: bold;
+}
+/* Css for Popup modal box */
+
+.drp_cont {
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	float: left;
+	margin-top: 19px;
+	padding-top: 10px;
+	width: 100%;
+}
+.drp_cont ul, .drpbx_cont ul {
+	float:left;
+	padding-left: 20px;
+	width:95%;
+}
+.drp_cont ul li, .drpbx_cont ul li{
+	float:left;
+	width:100%;
+	height: 45px;
+}
+.drp_cont ul li a.drop_ico,  .drpbx_cont ul li a.drop_ico {
+	float:left;
+	display:inline-block;
+}
+.drp_cont ul li a.drop_edit, .drpbx_cont ul li a.drop_edit {
+	float:left;
+	display:inline-block;
+	margin-top: 5px;
+}
+
+.drp_txt_view{
+float: left;
+font-size: 11px;
+width: 620px;
+}
+.instruction_view{
+	width:92%; 
+	float:left;
+	padding:20px 0 10px 20px;
+}
+.sort_options{
+	padding-right: 20px; 
+	float:right;
+}
+.view_dropbox_input{
+	background: url("../images/txtbox_bg.jpg") repeat-x scroll center bottom transparent;
+    border: 1px solid #999999;
+    font-size: 12px;
+    height: 20px;
+    width: 200px;
+	resize:none;
+}
+.show_files{
+	margin: 20px 10px 10px 20px;
+    padding-bottom: 5px;
+}
+.header_border{
+	margin: 5px 0 30px;
+	border-bottom: 1px solid #DDDDDD;
+}
+.files_list{
+	margin: 10px 40px 20px;
+}
+.file_expiry_date{
+	margin: 0 0 20px;
+	font-size:11px;
+	padding-left:17px;
+}
+
+/* CSS for Dropbox Files View */
+.db_result_keyword {
+	width:47%;
+	float: left;
+	height: 60px;
+}
+.db_filter_result{
+	width:53%;
+	float: right;
+	padding-top: 15px;
+}
+.db_filter_result select {
+	background:url(../images/txtbox_bg.jpg) bottom repeat-x;
+	border:1px solid #999;
+	font-size:12px;
+	height:20px;
+	width:110px;
+}
+.file_icon{
+	width:12%;
+	float:left;
+ 	padding-top: 5px;
+}
+.dropbox_details{
+	width:85%;
+	float:left;
+	/*padding-top: 10px;*/
+}
+.dropbox_title{
+	font-size:13px;
+	font-weight: bold;
+    margin: 0 0 5px;
+}
+.dropbox_date{
+	font-size:12px;
+}
+.file_results{
+    float: left;
+    margin-bottom: 20px;
+    padding-top: 10px;
+ 	padding-left: 30px;
+	padding-right:100px;
+    width: 80%;
+	height: 100%;
+}
+.db_file_symbal {
+    float: left;
+    margin: 5px 0 0;
+    padding-left: 15px;
+    text-align: center;
+    width: 10%;
+}
+.db_file_details {
+    float: left;
+    width: 86%;
+	padding-top:5px;
+}
+.db_file_title {
+	width:100%;
+	float:left;
+}
+.db_file_title a{
+	font-size:13px; 
+	text-decoration:underline; 
+	color:#004D8F; 
+	font-weight:bold;
+}
+.db_file_title a:hover {
+	text-decoration:none;
+}
+.db_title{
+	float:left;
+	width:60%;
+	padding-right: 5px;
+	word-wrap: break-word;
+}
+.db_desc_icon{
+	float:left;
+	width:5%;
+	padding-top: 3px;
+}
+.db_donwload_icon{
+	float:left;
+	width:5%;
+}
+.db_delete_icon{
+	float:left;
+	width:28%;
+}
+.db_file_text{
+	float: left;
+	width:100%;
+	font-size: 11px;
+	padding:5px 0;
+}
+.submission_comments{
+ 	float: left;
+    height: 100%;
+    margin-bottom: 20px;
+    padding-left: 60px;
+    padding-top: 10px;
+    width: 100%;
+}
+/* CSS for Dropbox Files View */
+
+
+/*Phase2 styles*/
+.drp-file-cat-holder div, .drp-sub-status-holder div{
+	/*float:both; */
+	height:25px;
+	clear:right;
+}
+.drp-file-cat-place span, .drp-file-cat-place span a, div.drp-sub-status-place span {
+	float:left;
+}
+.drp-file-cat-place span a{
+	float:left;
+	margin:-2px 0px 0px 0px;
+}
+div.drp-file-cat-holder .drp-file-cat,
+div.drp-sub-status-holder .drp-sub-status,
+div.drp-sub-status-holder .drp-sub-status-new{
+	float:left;
+	margin-right:10px;
+	min-width:170px;
+}
+div.drp-sub-status-holder .drp-sub-status-abr,
+div.drp-sub-status-holder .drp-sub-status-newabr{
+	float:left;
+	margin-right:10px;
+	min-width:100px;
+}
+span.drp-sub-status-del{
+    background: url("../images/ico_8.png") no-repeat scroll center top;
+	cursor:pointer;
+    display: block;
+    height: 17px;
+	margin-top:-2px;
+}
+div#simplemodal-container.addcomment-container{
+	width:370px !important;
+	height:220px !important;
+	top:35px !important;
+}
+.browsemultifiles{
+	color:#FFF;
+	margin:4px 10px;
+	border:1px solid #000;
+	background-color:blue;
+}
+
+#ticket_results table td{
+	word-wrap:break-word;
+}
+
+/*-----Submission Details------------*/
+
+.submdet_det {
+	float: left;
+	padding-bottom:0px;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 736px;
+}
+.submdet_det_cont1{
+	float: left;
+	margin:0px;
+	padding:0px;
+	width: 210px;
+}
+
+.submdet_det_cont1_head{
+	float: left;
+	margin:0px;
+	padding:0px 10px;
+	width: 100px;
+	border-bottom:1px solid #FFF;
+	background-color:#ebebeb;
+	color: #4b4a4a;
+    font-weight: bold;
+    line-height:29px;
+}
+
+.submdet_det_cont1_text{
+	float: left;
+	margin:0px;
+	padding:0 10px;
+	width: 70px;
+	border-bottom:1px solid #FFF;
+	background-color:#f1f1f1;
+	color: #4b4a4a;
+	font-weight:normal;
+	line-height:29px;
+}
+
+.submdet_det_cont2{
+	float: left;
+	margin:0px;
+	padding:0px;
+	width: 235px;
+}
+
+.submdet_det_cont2_head{
+	float: left;
+	margin:0px;
+	padding:0px 10px;
+	width: 115px;
+	border-bottom:1px solid #FFF;
+	background-color:#ebebeb;
+	color: #4b4a4a;
+    font-weight: bold;
+    line-height:29px;
+}
+
+.submdet_det_cont2_text{
+	float: left;
+	margin:0px;
+	padding:0 10px;
+	width: 80px;
+	border-bottom:1px solid #FFF;
+	background-color:#f1f1f1;
+	color: #4b4a4a;
+	font-weight:normal;
+	line-height:29px;
+}
+
+.submdet_det_cont3{
+	float: left;
+	margin:0px;
+	padding:0px;
+	width: 290px;
+}
+
+.submdet_det_cont3_head{
+	float: left;
+	margin:0px;
+	padding:0px 10px;
+	width: 95px;
+	border-bottom:1px solid #FFF;
+	background-color:#ebebeb;
+	color: #4b4a4a;
+    font-weight: bold;
+    line-height:29px;
+}
+
+.submdet_det_cont3_text{
+	float: left;
+	margin:0px;
+	padding:0 10px;
+	width: 155px;
+	border-bottom:1px solid #FFF;
+	background-color:#f1f1f1;
+	color: #4b4a4a;
+	font-weight:normal;
+	line-height:29px;
+}
+
+.reg_inpt_new {
+	float: left;
+	padding-bottom:0px;
+	width: 450px;
+}
+
+.reg_inpt_new ul {
+    float: left;
+    width: 100%;
+}
+
+.reg_inpt_new ul li {
+    float: left;
+    padding: 2px 0 2px 0;
+    width: 100%;
+}
+
+
+.reg_inpt_new ul li a {line-height:20px; font-size: 12px; color:#4b4a4a; text-decoration:underline;}
+
+.submdet_det_comments {
+	float: left;
+	padding-bottom:15px;
+	padding-top: 0px;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 736px;
+}
+
+.comment_box{background: #f5f5f5; /* Old browsers */
+background: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+width: 714px;
+border:1px solid #c3c3c3;
+padding:10px 10px 5px 10px;
+margin:0px;
+float:left;
+}
+.comment_box_txt{ width:714px; float:left; padding-bottom:5px; margin:0px;}
+.comment_box_txt ul {
+    float: left;
+	margin:0;
+	padding:0px;
+	line-height:18px;
+	width:714px;
+}
+
+.comment_box_txt ul li {
+    float: left;
+	margin:0;
+	padding:0;
+}
+
+.comment_box_txt ul li.title {
+    float: left;
+	padding-right:10px;
+	margin:0px;
+	font-weight:bold;
+	color:#4b4a4a;
+	width:110px; /*86px;*/
+}
+
+.comment_box_txt ul li.normal {
+    float: left;
+	padding-right:6px;
+	margin:0px;
+	font-weight:normal;
+	color:#4b4a4a;
+
+}
+.comment_box_txt ul li.msg {
+    float: left;
+	padding-right:6px;
+	margin:0px;
+	font-weight:normal;
+	color:#4b4a4a;
+	width:610px;
+}
+
+.comment_box_txt_link{width:625px; float:right;}
+
+.comment_box_txt_link a {background-image:url(../images/ico_6.png); background-position: right -3px; background-repeat:no-repeat; padding-right:22px; line-height:20px; color:#4b4a4a; text-decoration:underline; font-size: 12px;}
+
+.submdet_det_comments .addcomment { float:right; color:#0024c0; font-size:12px; text-decoration:underline; text-align:right;}
+
+.submdet_det_comments .subdet_okbtn { width:100px; float:left; margin:0; padding:0;}
+
+.submdet_det_comments .subdet_pgn { width:360px; float:left; margin:0; padding-right:140px; text-align:center;}
+.submdet_det_comments .subdet_addcomm { width:136px; float:left; padding:0; margin-top: 6px; text-align:right;}
+.submdet_det_comments .subdet_addcomm a{ color:#0024c0; font-size:12px; text-decoration:underline;}
+
+.right_cont .submdet_head {
+	background:url(../images/heading_bg.jpg) repeat-x;
+	height:33px;
+	width: 768px;
+	
+}
+.right_cont .submdet_head h3 {padding-left:7px; width:400px; float:left;}
+.submdet_head span.topicon {
+	float:right;
+	margin-top: 6px;
+}
+.submdet_head span.topicon a {
+	margin:0 10px 0 0;
+}
+
+.reg_inpt_new ul li span {float:left; padding-right:5px;}
+
+.comment_box_txt ul li span{
+    float: left;
+	padding:0px;
+	margin:0px;
+}
+
+.comment_box_txt ul li.flor {
+    float: right;
+	padding:0px;
+	margin:0px;
+}
+
+/*-----Submission Details------------*/
+.submission_success_box {
+	color:#0024c0 !important; 
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#wf_mail {margin-top:5px;}

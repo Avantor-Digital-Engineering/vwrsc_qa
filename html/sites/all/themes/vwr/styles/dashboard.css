@@ -1,0 +1,60 @@
+/*dashboard css here*/
+ .configure_aln{
+	padding: 8px 11px 0 0;
+}
+.simplemodal-container.dashboardpopup-container{
+	height:auto !important;
+	top: 20px !important;
+	max-height: 590px !important;
+	width:520px !important; /*500px*/
+}
+.pages-list {
+	overflow: auto !important;
+	overflow-x: hidden !important;
+	max-height: 420px;
+}
+.dashboard-confirm-btn {
+	margin-left: 160px;
+	width: 340px;
+}
+
+/*    Jquery UI Dashboard css  */
+#ulQuestions, #ulAnswers, #questions { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; }
+#ulQuestions li, #ulAnswers li, #questions li { margin: 0 5px 5px 5px; padding: 5px; }
+
+.content_ht {
+    color: #363636;
+}
+.sortable li {
+	width:230px !important;
+	float:left;
+}
+.ui-state-highlight{
+border:solid 1px dotted;
+}
+#ulAnswers{
+height:auto !important;
+}
+.place{
+border: dotted 2px #CCCCCC;
+}
+.sortable{
+	width:auto;
+}
+.sortable ul li.drag-item-li{
+	/*height:285px;
+	#height:295px;*/
+	height: auto;
+}
+.dashboard-title {
+	font-size: 12px;
+	padding:0px 12px;
+	height: 33px;
+	background: url('../images/heading_bg.jpg') repeat-x scroll 0 0 transparent;
+}
+.dashboard-action-links {
+	float:right;
+	margin-top: 3px;
+	line-height: 25px;
+	font-weight:bold;
+}

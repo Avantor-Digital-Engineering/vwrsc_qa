@@ -1,0 +1,1976 @@
+<?php
+	drupal_add_js(drupal_get_path('module', 'vwr_dropbox') . '/js/datetimepicker.js');
+	$url = base_path();
+	function vwr_dropbox_permission()
+	{
+		return array(
+			'access vwr dropbox' => array(
+				'title' => t('View Vwr Dropbox'),
+				'description' => t('Permission for accessing Vwr Dropbox'),
+			),
+			'add vwr dropbox' => array(
+				'title' => t('Add/Edit/Delete Vwr Dropbox'),
+				'description' => t('Permission for adding Vwr Dropbox'),
+			),
+		);
+	}
+
+	function vwr_dropbox_menu()
+	{
+		$items = array();
+		$items['vwr_dropbox/add_dropbox'] = array(
+			'title' => 'Add/Edit Dropbox',
+			'page callback' => 'add_dropboxfrm',
+			'type' => MENU_NORMAL_ITEM,
+			'access arguments' => array('add vwr dropbox'),
+		);
+
+		$items['vwr_dropbox/dropbox_modalbox'] = array(
+			'title' => 'Dropbox Modal Box',
+			'page callback' => 'modalbox_popup',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('Add Pages, Users and Owners to Dropbox'),
+		);
+
+		$items['vwr_dropbox/dropbox_addusers_reload'] = array(
+			'title' => 'Dropbox Modal Box',
+			'page callback' => 'modalbox_addusers_reload',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+			'access arguments' => array('Add Pages, Users and Owners to Dropbox'),
+		);
+
+		$items['vwr_dropbox/updatedropbox'] = array(
+			'page callback' => 'update_add_dropboxfrm',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/viewdropbox'] = array(
+			'title' => 'View VWR Dropbox Internal User',
+			'page callback' => 'dropbox_view_vwrinternal',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwr_dropbox/dropbox_text_save'] = array(
+			'title' => 'View VWR Dropbox Internal User',
+			'page callback' => 'dropbox_text_save',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwr_dropbox/dropbox_inst_save'] = array(
+			'title' => 'View VWR Dropbox Internal User',
+			'page callback' => 'dropbox_inst_save',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/viewdropboxfiles/%'] = array(
+			'title' => 'View VWR Dropbox Files',
+			'page callback' => 'view_dropbox_files',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/mailtrigger/%'] = array(
+			'title' => 'Mail Trigger',
+			'page callback' => 'emailTriggerCommentUpdates',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/filedownloads'] = array(
+			'title' => 'vwr_dropbox_download_documents',
+			'page callback' => 'vwr_dropbox_download_documents',
+			'type' => MENU_CALLBACK,
+			'access callback' => TRUE,
+		);
+
+		$items['vwr_dropbox/viewsubmission/%'] = array(
+			'title' => 'View VWR Dropbox Submissions',
+			'page callback' => 'view_dropbox_submissions',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/movesubmissions/%'] = array(
+			'title' => 'Move VWR Dropbox Submissions',
+			'page callback' => 'move_dropbox_submissions',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['vwr_dropbox/movesubmissions/update'] = array(
+			'title' => 'Move VWR Dropbox Submissions',
+			'page callback' => 'move_dropbox_submissions_update',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+
+		$items['dropbox/submission/%/addcomment/%'] = array(
+			'title' => 'VWR Submissions Add Comment',
+			'page callback' => 'view_dropbox_submissions_addcomment',
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+		);
+		$items['vwr_dropbox/dropbox_logs'] = array(
+			'title' => t('Email Logs Export'),
+			'page callback' => 'vwr_dropboxlogs_export',
+			'type' => MENU_CALLBACK,
+			'access callback' => true,
+		);
+		$items['dropbox/removeFiles'] = array(
+			'title' => t('Remove files on reset/cancel'),
+			'page callback' => 'remove_comments_scan_files',
+			'type' => MENU_CALLBACK,
+			'access callback' => true,
+		);
+
+		return $items;
+	}
+	function move_dropbox_submissions_update()
+	{
+		global $user;
+		$submission_id = addslashes(htmlentities(trim($_POST['submission_id'])));
+		$dropbox_id = addslashes(htmlentities(trim($_POST['dropbox_id'])));
+		db_query("update {dropbox_files} set  dbox_id=:dropbox_id where submission_id=:submission_id", [':dropbox_id' => $dropbox_id, ':submission_id' => $submission_id]);
+
+		$select_user_name = db_query("SELECT ui.firstname, ui.lastname, u.mail, ui.supplier_org_name, u.status FROM {users} u, {users_info} ui where u.uid =:userid AND u.uid=ui.uid AND u.status='1'", [':userid' => $user->uid])->fetchObject();
+		$supplier_name = $select_user_name->firstname . " " . $select_user_name->lastname;
+		$supplier_org_name = getMasterSupplierOrgName($select_user_name->supplier_org_name);
+		$dropbox_details = db_query("SELECT ownerseu_email_id,title, owners_email_id, link_workflow_tool, workflow_email_id, created_date FROM {dropbox} WHERE id=:dropbox_id", [':dropbox_id' => $dropbox_id])->fetchObject();
+		$submission_details = db_query("SELECT title, message, vendor_no FROM {dropbox_files} WHERE submission_id=:submission_id", [':submission_id' => $submission_id])->fetchObject();
+		$expired_date = date('m/d/Y', $created_date + (30 * 86400));
+		$others_email = explode(";", $dropbox_details->owners_email_id);
+		$user_values = array();
+		foreach ($others_email as $others_details) {
+			$user_values[] = $others_details;
+		}
+
+		if ($dropbox_details->owners_email_id != $dropbox_details->ownerseu_email_id) {
+			$others_email_eu = explode(";", $dropbox_details->ownerseu_email_id);
+			$user_values_eu = array();
+			foreach ($others_email_eu as $otherseu_details) {
+				$user_values_eu[] = $otherseu_details;
+			}
+		} else {
+			$user_values_eu[] = '';
+		}
+		$title = $submission_details->title;
+		$message_desc = $submission_details->message;
+		$vendor_no = $submission_details->vendor_no;
+		$message_values = array(
+			"subject_line" => $title,
+			"supplier_org" => $supplier_org_name,
+			"vendor_num" => $vendor_no,
+			"supplier_name" => $supplier_name,
+			"email" => $select_user_name->mail,
+			"user_message" => $message_desc,
+			"created_date" => $dropbox_details->created_date,
+			"expiry_date" => $expired_date
+		);
+
+		$select_owners = db_query("SELECT do.owner_id, u.mail, ui.firstname, ui.lastname FROM {dropbox_owners} do, {users_info} ui, {users} u WHERE do.dropbox_id=:dropbox_id AND do.owner_id=ui.uid AND u.uid=do.owner_id AND u.status='1'", [':dropbox_id' => $dropbox_id]);
+		foreach ($select_owners as $users_details) {
+			$owner_name = $users_details->firstname . " " . $users_details->lastname;
+			$user_values[$owner_name] = $users_details->mail;
+		}
+		move_dropbox_workflow_mail_triggering($dropbox_id, $dropbox_details, $message_values, $submission_id, $user_values, $user_values_eu);
+		echo "success";
+		exit;
+	}
+
+	function move_dropbox_workflow_mail_triggering($dropbox_id, $dropbox_details, $messages, $submission_id, $owners, $euowners)
+	{
+		$reply_to = variable_get('submission_reply_to', '');
+		$dropbox_files = db_query("SELECT * FROM {submission_files} WHERE submission_id=:submission_id", [':submission_id' => $submission_id]);
+		foreach ($dropbox_files as $submission_files) {
+			if ($submission_id < 34370) {
+				$files[] = basename(realpath($_SERVER['DOCUMENT_ROOT'] . base_path() . conf_path() . '/files/docs_dropbox/' . $submission_id . '/' . $submission_files->file_name));
+			} else {
+				$files[] = basename(realpath($_SERVER['DOCUMENT_ROOT'] . base_path() . conf_path() . '/files/docs_dropbox2/' . $submission_id . '/' . $submission_files->file_name));
+			}
+			$file_name[] = $submission_files->file_name;
+			$submission_id = $submission_files->submission_id;
+		}
+		$dropbox = $dropbox_details;
+		$submissions = array_merge($messages, array('submission_id' => $submission_id));
+		$workflow_email_id = $dropbox_details->workflow_email_id;
+		$mail_content = theme('workflow_email', array('dropbox' => $dropbox, 'submissions' => $submissions));
+		// mail structure
+		$to = $workflow_email_id;
+		$from = $submissions['email'];
+		$supplier_org = $submissions['supplier_org'] ? $submissions['supplier_org'] : 'VWR';
+		$subject = (trim($supplier_org) ? $supplier_org : 'N/A') . " - " . $dropbox->title . " - ID" . $submission_id;
+		$message = $mail_content;
+		$headers = "From: $from" . "\n";
+		$headers .= "Reply-To: $reply_to" . "\n";
+
+		// boundary
+		$semi_rand = md5(time());
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+
+		// headers for attachment	
+		$headers .= "MIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+
+		// multipart boundary 
+		$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n";
+		$message .= "--{$mime_boundary}\n";
+
+		$all_file_size = 0;
+		for ($x = 0; $x < count($files); $x++) {
+			$all_file_size += filesize($files[$x]);
+		}
+		$check_filesizer = 1024 * 1024 * variable_get('max_email_file_size', 10); // 30MB : Email failure Prod issue;
+		$email_message = $message;
+		if ($all_file_size <= $check_filesizer) { // preparing attachments
+			for ($x = 0; $x < count($files); $x++) {
+				$fsize = filesize($files[$x]);
+				if ($fsize) {
+					$file = fopen($files[$x], "rb");
+					$data = fread($file, filesize($files[$x]));
+					fclose($file);
+					$data = chunk_split(base64_encode($data));
+					$name = $file_name[$x];
+					$message .= "Content-Type: {\"application/octet-stream\"};\n" .
+						"Content-Length: " . $fsize . "\n" .
+						" name=\"$files[$x]\"\n" .
+						"Content-Disposition: attachment;\n" . " filename=\"$name\"\n" .
+						"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+					$message .= "--{$mime_boundary}\n";
+				}
+			}
+		}
+		// triggering mail to dropbox owners only if mapped
+		$log_msg = 'New Submission: ID' . $submission_id;
+		$time = time();
+		if (count($owners)) {
+			foreach ($owners as $owner_name => $owner_mail) {
+				if (email_notify_check($owner_mail)) {
+					$mail = @mail($owner_mail, $subject, $message, $headers);
+					if (!$mail && ($all_file_size > ($check_filesizer / 2))) {  
+						$mail = @mail($owner_mail, $subject, $email_message, $headers);
+					}
+					$log_status = ($mail) ? 1 : 0;
+					email_logs('submission', $owner_mail, $subject, $log_msg, $log_status, $time);
+				}
+			}
+		}
+
+		if (count($euowners)) {
+			foreach ($euowners as $euowner_name => $euowner_mail) {
+				if (email_notify_check($euowner_mail)) {
+					$mail = @mail($euowner_mail, $subject, $message, $headers);
+					if (!$mail && ($all_file_size > ($check_filesizer / 2))) {  
+						$mail = @mail($euowner_mail, $subject, $email_message, $headers);
+					}
+					$log_status = ($mail) ? 1 : 0;
+					email_logs('submission', $euowner_mail, $subject, $log_msg, $log_status, $time);
+				}
+			}
+		}
+		// triggering mail to workflow tool only if linked
+		if ($dropbox_details->link_workflow_tool == 1) {
+			if (email_notify_check($to)) { //check if need this if condition;
+				$mail = @mail($to, $subject, $message, $headers);
+				$log_status = ($mail) ? 1 : 0;
+				email_logs('submission', $to, $subject, $log_msg, $log_status, $time);
+			}
+		}
+		echo "success";
+	}
+
+	function vwr_dropboxlogs_export()
+	{
+		$date = date("m-d-Y", time());
+		$filename = 'Dropbox_Logs_' . $date . '.xls';
+
+		$header = array('Dropbox Modified Date', 'Modified Dropbox', 'Modified User');
+		$output = '<table cellspacing="5" cellpadding="5" width="100%" align="center">
+								<tr style="background-color:#CCCCCC; font-size:12px;">';
+		foreach ($header as $heading) {
+			$output .= '<th>' . $heading . '</th>';
+		}
+		$output .= '</tr>';
+		$sql = db_query("SELECT * FROM {dropbox_revisions}");
+		foreach ($sql as $value) {
+			$output .= '<tr align="left">';
+			$output .= '<td>' . date("m/d/Y, G:i:s T", $value->changed_date) . '</td>';
+			$output .= '<td>' . db_query("select title from {dropbox} where id=$value->dropbox_id")->fetchColumn() . '</td>';
+			$output .= '<td>' . db_query("select CONCAT(firstname,lastname) from {users_info} where uid=$value->modified_user")->fetchColumn() . '</td>';
+			$output .= '</tr>';
+		}
+		$output .= '</table>';
+
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Content-Type: application/force-download");
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: application/download");;
+		header("Content-Disposition: attachment;filename=" . $filename);
+		header("Content-Transfer-Encoding: binary ");
+
+		echo $output;
+	}
+	function view_dropbox_submissions_addcomment()
+	{
+		if (arg(4) == 'save') {
+			global $user;
+			if ($user->uid != 0) {
+				$created_date = time();
+				$subm_id = strip_tags(trim($_POST['id']));
+				(!empty($_POST['status'])) ? $new_status = addslashes(strip_tags(trim($_POST['status']))) : $new_status = '';
+				$comment_post = addslashes(strip_tags(trim($_POST['comment'])));
+				if(isset($_POST["file_id"]) && !empty($_POST["file_id"])){
+					$file_id = explode(",",strip_tags($_POST["file_id"]));
+				}
+				if(isset($_POST["file_name"]) && !empty($_POST["file_name"])){
+					$file_name = explode(",",strip_tags($_POST["file_name"]));
+				}
+				//csrf token 
+				$token = isset($_SESSION['csrfToken']) ? $_SESSION['csrfToken'] : "";
+				if ($token && $_POST['token'] === $token) {
+					unset($_SESSION['csrfToken']);
+				} else {
+					echo json_encode(['msg' => "Required param is invalid."]);
+					exit();
+				}
+
+				$editFields = array();
+				$editFields['submission_id'] = $subm_id;
+				$editFields['comments'] = $comment_post;
+				$editFields['created_by'] = $user->uid;
+				$editFields['created_date'] = $created_date;
+				if ($new_status) {
+					$older_status = db_query("SELECT status from {dropbox_files} where submission_id = :subm_id", [':subm_id' => $subm_id])->fetchColumn();
+					if ($older_status != $new_status) {
+						//$editFields['from_status'] = ($older_status == 1) ? $older_status : 'New';
+						$editFields['from_status'] = $older_status; //(!empty($older_status)) ? $older_status : 'New';
+					}
+					$editFields['status'] = $new_status;
+				}
+
+				if ($editFields['created_by'] != 0) {
+					$auto_id = db_insert('submission_comments')->fields($editFields)->execute();
+				}
+				if ($auto_id && db_affected_rows) {
+					$editFields = array();
+					if ($new_status) {
+						//$editFields['status'] = ($new_status != 'undefined') ? $new_status : $older_status;
+						$editFields['status'] = $new_status;
+					}
+					$editFields['modified_by'] = $user->uid;
+					$editFields['modified_date'] = $created_date;
+					db_update('dropbox_files')->fields($editFields)->condition('submission_id', $subm_id)->execute();
+					//submit the file data against submission_id to submission_files and file_scan_details table
+					if(!empty($file_id)){
+						for($i = 0 ; $i < count($file_id) ; $i++) {
+							//insert files submission
+							$comment_id = addslashes(strip_tags(trim($auto_id)));
+							$editFields = array();
+							$editFields['submission_id'] = $subm_id;
+							$editFields['file_name'] = $timestamp . '_' . $file_name[$i];
+							$editFields['source'] = 'comments';
+							$editFields['comment_id'] = $comment_id;
+							//get the scan result 
+							$scanned_result = get_scanned_file($file_id[$i]);//
+							$scanned_status = ($scanned_result['status'] == 0 ? 'SCAN_COMPLETED' :  (($scanned_result['status'] == 255 || $scanned_result['status'] == 254) ? "In Progress" : "SCAN_FAILED"));
+							$file = ['file_name'=> $timestamp . '_' . $file_name[$i],'scan_status' => $scanned_status,'submission_type'=>'submission_files~comments','file_id'=>$file_id[$i],'submission_id'=>$subm_id];
+							if( $scanned_result['status'] == 0 ) {
+								//No threat detected
+								$moved = move_file_to_vwr_server($file, $scanned_result, "uploadv2");
+								/* if($moved != 'Copy success!') {
+									echo json_encode(['msg' => "Fail to move to server"]);
+								} */
+							} /* else if($scanned_result['status'] == 255  || $scanned_result['status'] == 254){
+								//scan in progress no action needed
+							} else{
+								echo json_encode(['msg' => "Status : " . $scanned_result['status'] . " Message : " . $scanned_result['message']]);
+							} */
+							
+							//scan fields
+							$editFields['scan_file_id'] = $file_id[$i];
+							$editFields['scan_file_status'] = $scanned_status;
+							$auto_file_id = db_insert('submission_files')->fields($editFields)->execute();
+
+							//scanfields
+							//$scanFields['file_id'] = $file_id[$i];
+							//$scanFields['file_name'] = $timestamp . '_' . $file_name[$i];
+							$scanFields['submission_type'] = 'submission_files~comments';
+							$scanFields['created_date'] = time();
+							$scanFields['scan_status'] = $scanned_status;
+							//$file_auto_id = db_insert('file_scan_details')->fields($scanFields)->execute();
+							db_update('file_scan_details')->fields($scanFields)->condition('file_id', $file_id[$i])->execute();
+						}
+					}
+					echo json_encode(['msg' => $auto_id]);
+				}
+			} else {
+				echo json_encode(['msg' => "Required param is invalid."]);
+			}
+		} else if (arg(4) == 'upload') {
+			$subm_id = trim(arg(2));
+			if ($subm_id < 34370) {
+				$uploaddir_parent = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs_dropbox/' . $subm_id;
+			} else {
+				$uploaddir_parent = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs_dropbox2/' . $subm_id;
+			}
+			if (!is_dir($uploaddir_parent)) {
+				mkdir($uploaddir_parent, 0777, true);
+			} else {
+				chmod($uploaddir_parent, 0777);
+			}
+
+			if ($subm_id < 34370) {
+				$uploaddir = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs_dropbox/' . $subm_id . '/comments';
+			} else {
+				$uploaddir = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/docs_dropbox2/' . $subm_id . '/comments';
+			}
+			if (!is_dir($uploaddir)) {
+				mkdir($uploaddir, 0777, true);
+			} else {
+				chmod($uploaddir, 0777);
+			}
+
+			//get seperate file data
+			$multiple_file = [];
+			$file = $_FILES["files"];
+
+			for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
+				$multiple_file[$i]["name"] = $file["name"][$i];
+				$multiple_file[$i]["type"] = $file["type"][$i];
+				$multiple_file[$i]["tmp_name"] = $file["tmp_name"][$i];
+				$multiple_file[$i]["size"] = $file["size"][$i];
+			}
+			// watchdog("File Upload", "Multiple-1. Files ready for upload <pre>" . print_r($multiple_file, true) . "</pre>");
+			$response_list = [];
+			$timestamp = time();
+			foreach ($multiple_file as $single_file) {
+				$duplicateFileCnt =	db_query("select count(*) from {file_scan_details} where file_name = :fname and scan_status = 'Uploaded_to_s3'", [':fname' => $single_file['name']])->fetchField();
+				if($duplicateFileCnt == 0){
+					//implementing server side validation for each file
+					$invalid_file_type = array(
+						'application/vnd.microsoft.portable-executable',
+						'image/svg+xml'
+					);
+					$response  = validate_doc_file($single_file, $invalid_file_type);
+					// watchdog("File Upload", "Multiple-2. File being processed for upload  <pre>" . print_r($single_file, true) . "</pre> Response recieved :" . $response['msg']);
+
+					$error_response = [
+						'Error in file upload',
+						'Sorry! uploaded file format is invalid',
+						'Image size should be less than 500MB',
+						'S3BucketUpload error',
+						'MetadefenderAPI error',
+						'Curl error'
+					];
+
+					if (!in_array($response['msg'], $error_response)) {
+						$response_list[] = ['file_name' => $single_file["name"], 'message' => $response['msg']];
+						$scanFields['file_id'] =  $response['msg'];
+						$scanFields['file_name'] = $single_file['name'];
+						$scanFields['scan_status'] = 'Uploaded_to_s3'; 
+						db_insert('file_scan_details')->fields($scanFields)->execute();
+					} else {
+						$response_list[] = ['file_name' => '', 'message' => $response['msg']];
+					}
+				}else{
+					$response_list[] = ['file_name' => '', 'message' => 'Duplicate found'];
+				}
+			}
+
+			echo json_encode($response_list);
+		} else if (arg(4) == 'download') {
+			if (arg(5) && is_numeric(arg(5))) {
+				$fid = trim(arg(5));
+				$file_name = db_query("SELECT file_name from {submission_files} where id=:fid", [':fid' => $fid])->fetchColumn();
+				if ($file_name) {
+					$subm_id = trim(arg(2));
+					if ($subm_id < 34370) {
+
+						$structure = 'sites/default/files/docs_dropbox/' . $subm_id . '/comments/';
+					} else {
+
+						$structure = 'sites/default/files/docs_dropbox2/' . $subm_id . '/comments/';
+					}
+					$file = $structure . $file_name;
+					if (file_exists($file)) {
+						$google_analytics = variable_get('google_analytics_UA');
+	?>
+						<script type="text/javascript">
+							var _gaq = _gaq || [];
+							_gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+							_gaq.push(['_trackPageview', 'File Download - Submission - ' + <?php echo htmlspecialchars($file_name); ?>]);
+
+							(function() {
+								var ga = document.createElement('script');
+								ga.type = 'text/javascript';
+								ga.async = true;
+								ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+								var s = document.getElementsByTagName('script')[0];
+								s.parentNode.insertBefore(ga, s);
+							})();
+						</script>
+					<?php
+						$file_name = substr($file_name, (stripos($file_name, '_') + 1), strlen($file_name)); //$file_name = strstr($file_name, '_');
+						$file_name = str_replace(";", "", $file_name);
+						$file_name = basename(str_replace(" ", "", $file_name));
+						header('Content-Description: File Transfer');
+						header('Content-Type: application/octet-stream');
+						header('Content-Disposition: attachment; filename="' . $file_name . '"');
+						header('Content-Transfer-Encoding: binary');
+						header('Expires: 0');
+						header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+						header('Pragma: public');
+						header('Content-Length: ' . filesize($file));
+						ob_clean();
+						flush();
+						@readfile($file);
+					} else {
+						$redirect = '';
+						if ($_REQUEST['redirect']) {
+							$redirect = addslashes(strip_tags(trim($_REQUEST['redirect'])));
+						}
+						drupal_goto("vwr_dropbox/viewsubmission/" . $redirect);
+					}
+					exit;
+				}
+			}
+		} else if (arg(4) == 'fdownload') {
+			$fid_param = trim(arg(5));
+			$subm_id = trim(arg(2));
+			if ($subm_id < 34370) {
+				$structure = 'sites/default/files/docs_dropbox/' . $subm_id . '/';
+			} else {
+				$structure = 'sites/default/files/docs_dropbox2/' . $subm_id . '/';
+			}
+			$file_name = '';
+			if ($fid_param && is_numeric($fid_param)) {
+				$fid = trim(arg(5));
+				if ($subm_id && $fid && is_numeric($fid) && is_numeric($subm_id)) {
+					$file_name = db_query("SELECT file_name from {submission_files} where id=:fid AND submission_id=:subm_id", [':fid' => $fid, ':subm_id' => $subm_id])->fetchColumn();
+				}
+				if ($file_name) {
+					$file = $structure . $file_name;
+					if (file_exists($file)) {
+						$google_analytics = variable_get('google_analytics_UA');
+					?>
+						<script type="text/javascript">
+							var _gaq = _gaq || [];
+							_gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+							_gaq.push(['_trackPageview', 'File Download - Submission - ' + <?php echo htmlspecialchars($file_name); ?>]);
+
+							(function() {
+								var ga = document.createElement('script');
+								ga.type = 'text/javascript';
+								ga.async = true;
+								ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+								var s = document.getElementsByTagName('script')[0];
+								s.parentNode.insertBefore(ga, s);
+							})();
+						</script>
+					<?php
+						$file_name = str_replace(";", "", $file_name);
+						$file_name = basename(str_replace(" ", "", $file_name));
+
+						header('Content-Description: File Transfer');
+						header('Content-Type: application/octet-stream');
+						header('Content-Disposition: attachment; filename="' . $file_name . '"');
+						header('Content-Transfer-Encoding: binary');
+						header('Expires: 0');
+						header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+						header('Pragma: public');
+						header('Content-Length: ' . filesize($file));
+						ob_clean();
+						flush();
+						@readfile($file);
+					} else {
+						$redirect = '';
+						if ($_REQUEST['redirect']) {
+							$redirect = addslashes(strip_tags(trim($_REQUEST['redirect'])));
+						}
+						drupal_goto("vwr_dropbox/viewsubmission/" . $redirect);
+					}
+					exit;
+				} else {
+					$redirect = $subm_id;
+					if ($_REQUEST['redirect']) {
+						$redirect = addslashes(strip_tags(trim($_REQUEST['redirect'])));
+					}
+					drupal_goto("vwr_dropbox/viewsubmission/" . $redirect);
+				}
+			} else if ($fid_param == 'all') {
+				//global $user;
+				 //var_dump(user_is_logged_in());exit;
+				if(user_is_logged_in()){
+					require_once("classes/Zip.php");
+					$zip = new Zip();
+					$file_names = db_query("SELECT file_name from {submission_files} where  submission_id=:subm_id AND source != 'comments' AND comment_id = '0' AND deleted = '0'", [':subm_id' => $subm_id]);
+					$flag_zipfile = 0;
+
+					ini_set('memory_limit', '500M');
+					ini_set('max_input_time', '220'); 
+
+					foreach ($file_names as $file_name) {
+						$file_name = $file_name->file_name;
+						$file = $structure . $file_name;
+						if (file_exists($file)) {
+							$zip->addFile(file_get_contents($file), $file_name, filectime($structure . $file));
+							$flag_zipfile++;
+						}
+					}
+					if ($flag_zipfile) {
+						$zip->sendZip('Submission_ID' . htmlspecialchars($subm_id) . '_documents.zip');
+					}
+				}else {
+					/* $redirect = $subm_id;
+					if ($_REQUEST['redirect']) {
+						$redirect = addslashes(strip_tags(trim($_REQUEST['redirect'])));
+					} */
+					drupal_goto("<front>");
+				}
+				exit;
+			}
+		} else if (arg(4) == 'fdelete') {
+			$fid = trim(arg(5));
+			$file_id = strip_tags(trim($_POST['id']));
+			$subm_id = strip_tags(trim($_POST['sub_id']));
+			if (is_numeric($file_id) && $file_id && $subm_id && is_numeric($subm_id)) {
+				db_query("DELETE FROM {submission_files} where id=:fileid AND submission_id=:subm_id AND source !='comments'", [':fileid' => $file_id, ':subm_id' => $subm_id]);
+				if (db_affected_rows) {
+					echo 'success';
+					exit;
+				}
+			}
+		} else if (arg(4) == 'cdelete') {
+			$fid = trim(arg(5));
+			$comment_id = strip_tags(trim($_POST['id']));
+			$subm_id = htmlspecialchars(strip_tags(trim($_POST['sub_id'])));
+			if (is_numeric($comment_id) && $comment_id && $subm_id && is_numeric($subm_id)) {
+				db_query("UPDATE {submission_comments} SET deleted='1' where id=:comment_id AND submission_id=:subm_id", [':comment_id' => $comment_id, ':subm_id' => $subm_id]);
+				if (db_affected_rows) {
+					echo base64_encode($subm_id);
+					exit;
+				}
+			}
+		} else {
+			print theme('dropbox_add_comment', array('action' => 'add'));
+		}
+		exit;
+	}
+	// remove scanned files when cancel and reset
+	function remove_comments_scan_files(){
+		if(isset($_REQUEST['fid']) && !empty($_REQUEST['fid'])){
+			$file_id =explode(",",addslashes(htmlentities($_REQUEST["fid"])));
+			$fileids = "'" . implode("', '", $file_id) ."'";
+			db_query("delete from {file_scan_details} where file_id in ($fileids)");
+			echo 'removed files';
+		}
+	}
+	function getMaxUploadLimit()
+	{
+		$POST_MAX_SIZE = ini_get('post_max_size');
+		$mul = substr($POST_MAX_SIZE, -1);
+		$mul = ($mul == 'M' ? 1048576 : ($mul == 'K' ? 1024 : ($mul == 'G' ? 1073741824 : 1)));
+		$max_post_size = $mul * (int)$POST_MAX_SIZE;
+
+		$UPLOAD_MAX_SIZE = ini_get('upload_max_filesize');
+		$mul = substr($UPLOAD_MAX_SIZE, -1);
+		$mul = ($mul == 'M' ? 1048576 : ($mul == 'K' ? 1024 : ($mul == 'G' ? 1073741824 : 1)));
+		$max_upload_size = $mul * (int)$UPLOAD_MAX_SIZE;
+		$max_post_upload = ($max_upload_size < $max_post_size) ? $max_upload_size : $max_post_size;
+		return $max_post_upload;
+	}
+	function has_submission_change_access($sub_id)
+	{
+		if (is_vwr_user_role()) {
+			return true;
+		} else {
+			global $user;
+			$result = db_query("SELECT created_by FROM {dropbox_files} WHERE submission_id=:sub_id ", [':sub_id' => $sub_id])->fetchField();
+			if ($result && is_numeric($result)) {
+				if ($result == $user->uid) {
+					return true;
+				} else {
+					$supplier_org_name = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid = (SELECT created_by FROM {dropbox_files} WHERE submission_id=:sub_id)", [':sub_id' => $sub_id])->fetchField();
+					$perm_suppl_user = db_query("SELECT uperm.uid FROM {user_permission_internal} uperm, {permission_list_internal} plist WHERE uperm.uid=:uid AND uperm.permission_id = plist.permission_id AND plist.permission_title = 'View Team' AND plist.deleted = 0", [':uid' => $user->uid])->fetchColumn();
+					if ($perm_suppl_user && $supplier_org_name) {
+						$user_allowed = db_query("SELECT uid FROM {users_info} WHERE supplier_org_name = :supplier_org_name AND uid = :perm_suppl_user", [':supplier_org_name' => $supplier_org_name, ':perm_suppl_user' => $perm_suppl_user])->fetchColumn();
+						if ($user_allowed) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	function get_category_id_name($cat_id)
+	{
+		$result_category_name = db_query("SELECT category_name FROM {category} where category_id = :cat_id", [':cat_id' => $cat_id])->fetchColumn();
+		return $result_category_name;
+	}
+
+	function getregionshortnamebyid($region_id)
+	{
+		$region_short_name = db_query("SELECT region_shortname FROM {manage_regions} where region_id =:region_id", [':region_id' => $region_id])->fetchColumn();
+		return $region_short_name;
+	}
+
+
+	function has_submission_self_access($sub_id)
+	{
+		if (is_vwr_user_role()) {
+			return true;
+		} else {
+			global $user;
+			$result = db_query("SELECT created_by FROM {dropbox_files} WHERE submission_id=:sub_id", [':sub_id' => $sub_id])->fetchField();
+			if ($result && is_numeric($result)) {
+				if ($result == $user->uid) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	function is_supplier_comment_block($sub_id)
+	{
+		$submission_status = '';
+		$status_array = array('completed', 'cancelled', 'denied', 'compl', 'cancld');
+		if ($sub_id && is_numeric($sub_id)) {
+			$submission_status = db_query("SELECT status FROM {dropbox_files} WHERE submission_id=:sub_id", [':sub_id' => $sub_id])->fetchColumn();
+			if (in_array(strtolower($submission_status), $status_array)) {
+				return false;
+			}
+			if ($submission_status && is_numeric($submission_status)) {
+				$status_name = db_query("SELECT status_name from {manage_status} where status_id=:submission_status", [':submission_status' => $submission_status])->fetchColumn();
+				if (in_array(strtolower($status_name), $status_array)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	function is_supplier_action_needed($sub_id)
+	{
+		$submission_status = '';
+		$submission_info = '';
+		if ($sub_id && is_numeric($sub_id)) {
+			$submission_info = db_query("SELECT status, created_by FROM {dropbox_files} WHERE submission_id=:sub_id", [':sub_id' => $sub_id])->fetchObject();
+			$submission_status = str_replace(' ', '', strtolower($submission_info->status));
+		}
+		global $user;
+		if ($submission_status == 'supplieractionneeded') {
+			if ($submission_info->created_by == $user->uid) {
+				return true;
+			}
+		} else if ($submission_status && is_numeric($submission_status)) {
+			$status_action = db_query("SELECT status_name from {manage_status} where status_id=:submission_status AND status_name='Supplier Action Needed' ", [':submission_status' => $submission_status])->fetchColumn();
+			if ($status_action) {
+				if ($submission_info->created_by == $user->uid) {
+					return true;
+				} else {
+					$suplorg_name = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid=:created_by", [':created_by' => $submission_info->created_by])->fetchColumn();
+					$suplorg_name_team = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid=:uid AND supplier_org_name =:suplorg_name ", [':uid' => $user->uid, ':suplorg_name' => $suplorg_name])->fetchColumn();
+					if ($suplorg_name_team && view_team_access($user->uid)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	function update_add_dropboxfrm()
+	{
+		if (arg(2) == 'check') {
+			$name = addslashes(strip_tags(trim($_REQUEST['name'])));
+			$dropbox_id = addslashes(strip_tags(trim($_REQUEST['dropbox_id'])));
+			if ($dropbox_id && is_numeric($dropbox_id)) {
+				$is_uniq = db_query("SELECT id FROM {dropbox} WHERE title = :title AND id != :dropbox_id and deleted != 1", [':title' => addslashes($name), ':dropbox_id' => $dropbox_id])->fetchColumn();
+			} else {
+				$is_uniq = db_query("SELECT id FROM {dropbox} WHERE title = :title and deleted != 1", [':title' => addslashes($name)])->fetchColumn();
+			}
+
+			if ($is_uniq && is_numeric($is_uniq) && $is_uniq != '') {
+				echo 'duplicate';
+			} else {
+				echo 'success';
+			}
+			exit;
+		}
+		global $user;
+		$name = addslashes(strip_tags(trim($_REQUEST['name'])));
+		$desc = addslashes(strip_tags($_REQUEST['desc']));
+		/* Explode */
+		$page = addslashes(strip_tags($_REQUEST['page']));
+		$page_ids  = $page;
+		$pieces = explode(",", $page_ids);
+		$cat_values  = array();
+		$topic_values = array();
+		$supplierorg = addslashes(strip_tags($_REQUEST['supplierorg']));
+		$check_vas_supplier = addslashes(strip_tags($_REQUEST['check_vas_supplier']));
+		$owners_id_na = addslashes(strip_tags(trim($_REQUEST['owners_id_NA'])));
+		$owners_email_na = addslashes(strip_tags($_REQUEST['owners_email_NA']));
+		$owners_id_eu = addslashes(strip_tags(trim($_REQUEST['owners_id_EU'])));
+		$owners_email_eu = addslashes(strip_tags($_REQUEST['owners_email_EU']));
+		$start_date = addslashes(strip_tags(strtotime($_REQUEST['start_date'])));
+		$end_date = addslashes(strip_tags(strtotime($_REQUEST['end_date'])));
+		$vendor_pn = addslashes(strip_tags($_REQUEST['vendor_pn']));
+		$dropbox_vas_id = addslashes(strip_tags($_REQUEST['dropbox_vas_id']));
+		$dropbox_supplier_id = addslashes(strip_tags($_REQUEST['dropbox_supplier_id']));
+		$dropbox_id = addslashes(strip_tags($_REQUEST['dropbox_id']));
+		$workflow_tool = addslashes(strip_tags($_REQUEST['workflow_tool']));
+		$workflow_email = addslashes(strip_tags($_REQUEST['workflow_email']));
+		$file_cat = addslashes(strip_tags(trim($_REQUEST['file_cat'])));
+		$allusers_page = $check_vas_supplier;
+		$created_by = $user->uid;
+		$created_date = strtotime(date('d-m-Y'));
+
+		$status_val = addslashes(strip_tags(trim($_REQUEST['status_val'])));
+		$status_notify_email = addslashes(strip_tags(trim($_REQUEST['status_notify_email'])));
+
+		if ($dropbox_id != "") {
+			//Update Dropbox Details
+			$query_param = [
+				':title' => $name,
+				':inst' => $desc,
+				':s_date' => $start_date,
+				':end_date' => $end_date,
+				':owners_email_na' => $owners_email_na,
+				':allusers_page' => $allusers_page,
+				':vendor_pn' => $vendor_pn,
+				':workflow_tool' => $workflow_tool,
+				':workflow_email' => $workflow_email,
+				':owners_email_eu' => $owners_email_eu,
+				':dropbox_id'	=>	$dropbox_id
+			];
+			db_query("UPDATE {dropbox} SET title=:title, instruction=:inst, start_date=:s_date, end_date=:end_date,  owners_email_id=:owners_email_na, allusers_page=:allusers_page, vendor_pn=:vendor_pn, link_workflow_tool=:workflow_tool, workflow_email_id=:workflow_email, ownerseu_email_id=:owners_email_eu WHERE id=:dropbox_id", $query_param);
+			//Deleter previous dropbox pages, vas and supplier access and Owners details
+			db_query("DELETE FROM {dropbox_category_mapping} WHERE dbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			db_query("DELETE FROM {dropbox_vas_access} WHERE dropbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			db_query("DELETE FROM {dropbox_supplier_access} WHERE dropbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			db_query("DELETE FROM {dropbox_owners} WHERE dropbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			db_query("DELETE FROM {dropbox_file_types} WHERE dropbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			db_query("DELETE FROM {dropbox_status_notifications} WHERE dbox_id=:dropbox_id", [':dropbox_id' => $dropbox_id]);
+			$val_dpbox = $dropbox_id;
+			//Code added for Dropbox Revisions
+			$dropboxeditrevisions = array();
+			$dropboxeditrevisions['dropbox_id'] = $val_dpbox;
+			$created_dropbox_date = strtotime(date('d-m-Y h:i:s'));
+			$dropboxeditrevisions['changed_date'] = $created_dropbox_date;
+			$dropboxeditrevisions['modified_user'] = $created_by;
+			$dropboxeditrevisions['message'] = 'Dropbox Edited Successfully';
+			db_insert('dropbox_revisions')->fields($dropboxeditrevisions)->execute();
+		} else {
+			//INSERT Dropbox Details
+			db_insert('dropbox')
+				->fields(
+					[
+						'title' => $name,
+						'instruction' => $desc,
+						'start_date' => $start_date,
+						'end_date' => $end_date,
+						'owners_email_id' => $owners_email_na,
+						'allusers_page' => $allusers_page,
+						'vendor_pn' => $vendor_pn,
+						'link_workflow_tool' => $workflow_tool,
+						'workflow_email_id' => $workflow_email,
+						'created_by' => $created_by,
+						'created_date' => $created_date,
+						'ownerseu_email_id' => $owners_email_eu,
+					]
+				)
+				->execute();
+			$SQL = db_query("SELECT MAX(id) as dropbox_id FROM {dropbox} WHERE deleted=0")->fetchobject();
+			$val_dpbox = $SQL->dropbox_id;
+			//Code added for Dropbox Revisions
+			$dropboxaddrevisions = array();
+			$dropboxaddrevisions['dropbox_id'] = $val_dpbox;
+			$created_dropbox_date = strtotime(date('d-m-Y h:i:s'));
+			$dropboxaddrevisions['changed_date'] = $created_dropbox_date;
+			$dropboxaddrevisions['modified_user'] = $user->uid;
+			$dropboxaddrevisions['message'] = 'Dropbox Added Successfully';
+			db_insert('dropbox_revisions')->fields($dropboxaddrevisions)->execute();
+		}
+		$categoriesids = array();
+		foreach ($pieces as $check_pieces) {
+			$check_values = explode("_", $check_pieces);
+			if (trim($check_values[0]) == 'c') {
+
+
+				$cat_names = explode("_", trim($check_values[2]) . "_" . trim($check_values[4]));
+				$catids = $cat_names[0];
+				$regionsdropbox = $cat_names[1];
+				db_insert('dropbox_category_mapping')
+					->fields(
+						[
+							'dbox_id' => $val_dpbox,
+							'cat_id' => $catids,
+							'topic_id' => '0',
+							'region_id' => $regionsdropbox
+						]
+					)
+					->execute();
+			}
+			if (trim($check_values[0]) == 't') {
+				$topic_values[trim($check_values[2])] = trim($check_values[2]) . "_" . trim($check_values[4]);
+				$topic_names = explode("_", trim($check_values[2]) . "_" . trim($check_values[4]));
+				$topicids = $topic_names[0];
+				$regionids = trim($check_values[4]);
+				$catids = db_query("select category_id from {content_regions} where content_id in (:topicids) and region_id in (:regionids)", [':topicids' => $topicids, ':regionids' => $regionids])->fetchColumn();
+				$regionsdropbox = $topic_names[1];
+				db_insert('dropbox_category_mapping')
+					->fields(
+						[
+							'dbox_id' => $val_dpbox,
+							'cat_id' => $catids,
+							'topic_id' => $topicids,
+							'region_id' => $regionsdropbox
+						]
+					)
+					->execute();
+				$categoriesids[] = $sel_cat_id;
+				$topicssupplieridsarray = '';
+			}
+		}
+
+
+		//Dropbox mapping with Vas/Supplier Organization	
+		if ($check_vas_supplier == 0) {
+			//Vas Values Insertion
+			$split_vas_values = explode(",", $dropbox_vas_id);
+			foreach ($split_vas_values as $vas_values) {
+				if ($vas_values != "") {
+					db_insert('dropbox_vas_access')
+						->fields(
+							[
+								'dropbox_id' => $val_dpbox,
+								'vas_id' => $vas_values
+							]
+						)
+						->execute();
+				}
+			}
+
+			$split_supplier_values = explode(",", $dropbox_supplier_id);
+			foreach ($split_supplier_values as $supplier_values) {
+				if ($supplier_values != "") {
+					db_insert('dropbox_supplier_access')
+						->fields(
+							[
+								'dropbox_id' => $val_dpbox,
+								'supplier_org_id' => $supplier_values,
+								'mapping' => '1'
+							]
+						)
+						->execute();
+				}
+			}
+		}
+		//Dropbox mapping with Vas/Supplier Organization
+
+		//Insert Dropbox Owners into separate table
+		$owners_selected_values_na = explode(",", $owners_id_na);
+		foreach ($owners_selected_values_na as $owners_values_na) {
+			if ($owners_values_na != "") {
+				db_insert('dropbox_owners')
+					->fields(
+						[
+							'dropbox_id' => $val_dpbox,
+							'owner_id' => $owners_values_na,
+							'region_id' => '1'
+						]
+					)
+					->execute();
+			}
+		}
+
+		$owners_selected_values_eu = explode(",", $owners_id_eu);
+		foreach ($owners_selected_values_eu as $owners_values_eu) {
+			if ($owners_values_eu != "") {
+				db_insert('dropbox_owners')
+					->fields(
+						[
+							'dropbox_id' => $val_dpbox,
+							'owner_id' => $owners_values_eu,
+							'region_id' => '2'
+						]
+					)
+					->execute();
+			}
+		}
+
+		$file_cat_types = explode(",", $file_cat);
+		foreach ($file_cat_types as $file_cat_type) {
+			if ($file_cat_type != "") {
+				$file_pref_name = explode("-", $file_cat_type, 2);
+				$file_title = trim($file_pref_name[1]);
+				$file_desc = trim($file_pref_name[0]);
+				if ($file_title && $file_desc) {
+					db_insert('dropbox_file_types')
+						->fields(
+							[
+								'dropbox_id' => $val_dpbox,
+								'file_type_title' => $file_title,
+								'file_type_desc' => $file_desc,
+								'created_date' => $created_date,
+							]
+						)
+						->execute();
+				}
+			}
+		}
+		if ($status_val && $status_notify_email) {
+			db_insert('dropbox_status_notifications')
+				->fields(
+					[
+						'dbox_id' => $val_dpbox,
+						'notify_status_id' => $status_val,
+						'notify_email' => $status_notify_email
+					]
+				)
+				->execute();
+		}
+
+		$pagesarray = array();
+		$dropboxcategorypages = addslashes(strip_tags($_REQUEST['page']));
+		$dropboxcategorypages = preg_replace("/\s+/", "", $dropboxcategorypages);
+		$pagesfordropxassoc = explode(",", $dropboxcategorypages);
+		for ($i = 0; $i < count($pagesfordropxassoc); $i++) {
+			$value = strrev($pagesfordropxassoc[$i]);
+			$pagesarray[] = $value[0];
+		}
+		$dropboxregionmapping = array_unique($pagesarray);
+
+		$dropboxid = $val_dpbox;
+		db_query("DELETE FROM {dropbox_regions} WHERE dropbox_id=:dropboxid", [':dropboxid' => $dropboxid]);
+		foreach ($dropboxregionmapping as $key => $val) {
+			db_insert('dropbox_regions')
+				->fields(
+					[
+						'region_id' => $val,
+						'dropbox_id' => $dropboxid,
+						'status' => 1
+					]
+				)
+				->execute();
+		}
+		$currentregions = db_query("select * from {dropbox_regions} where dropbox_id=:dropboxid", [':dropboxid' => $dropboxid]);
+		if ($currentregions->rowCount() == 1) {
+			$regiondropnaboxesregion = db_query("select region_id from {dropbox_regions} where dropbox_id=:dropboxid", [':dropboxid' => $dropboxid])->fetchColumn();
+			if ($check_vas_supplier == 1) {
+				$categoryid = db_query("SELECT c.category_id FROM {category} c join {category_regions} vc
+									on c.category_id=vc.category_id and vc.region_id=:regiondropnaboxesregion limit 1", [':regiondropnaboxesregion' => $regiondropnaboxesregion])->fetchColumn();
+				$cat_supplier_mapping = db_query("SELECT * FROM {category_useraccess_mapping} 
+									WHERE category_id=:categoryid and topic_id='0' and region_id=:regiondropnaboxesregion group by supplier_org_id", [':categoryid' => $categoryid, ':regiondropnaboxesregion' => $regiondropnaboxesregion]);
+				foreach ($cat_supplier_mapping as $supplier_mapping) {
+					db_insert('dropbox_supplier_access')
+						->fields(
+							[
+								'dropbox_id' => $dropboxid,
+								'supplier_org_id' => $supplier_mapping->supplier_org_id,
+								'mapping' => '1'
+							]
+						)
+						->execute();
+				}
+			}
+		}
+
+		if ($currentregions->rowCount() == 2) {
+			$categoryid = db_query("SELECT category_id from {category_regions} group by category_id having count(category_id) > 1 limit 1")->fetchColumn();
+			if ($check_vas_supplier == 1) {
+
+				$cat_supplier_mapping = db_query("SELECT * FROM {category_useraccess_mapping} 
+									WHERE category_id='$categoryid' and topic_id=0 group by supplier_org_id");
+				foreach ($cat_supplier_mapping as $supplier_mapping) {
+					db_insert('dropbox_supplier_access')
+						->fields(
+							[
+								'dropbox_id' => $dropboxid,
+								'supplier_org_id' => $supplier_mapping->supplier_org_id,
+								'mapping' => '1'
+							]
+						)
+						->execute();
+				}
+			}
+		}
+	}
+
+	function view_dropbox_files()
+	{
+
+		if ($_POST['delete_dropbox'] != "") {
+			$sub_id = addslashes(strip_tags(trim($_POST['delete_dropbox'])));
+			if ($sub_id && is_numeric($sub_id) && has_page_access('submissions')) {
+				db_query("UPDATE {dropbox_files} SET deleted=1 WHERE id=:delete_dropbox", [':delete_dropbox' => $sub_id]);
+				if (db_affected_rows) {
+					echo "success";
+				}
+			}
+		} else {
+			$sort_upload_date = addslashes(strip_tags($_REQUEST['sort_upload_date']));
+			$sort_date = addslashes(strip_tags($_REQUEST['sort_date']));
+			$sort_supplier = strip_tags($_REQUEST['sort_supplier']);
+			$dropbox_id = arg(2);
+			if ($sort_date != "") {
+				$sort_query = " ORDER BY created_date :sort_date";
+			} else {
+				$sort_query = " ORDER BY created_date DESC";
+			}
+			if ($sort_supplier != "") {
+				$add_query = " AND ui.supplier_org_name=:sort_supplier";
+			}
+			if ($dropbox_id != "") {
+				$query_param = [':dropbox_id' => $dropbox_id];
+				$dropbox_details = db_query("SELECT id, title, end_date FROM {dropbox} WHERE id=:dropbox_id", $query_param)->fetchobject();
+				$condition_query = "df.created_by=ui.uid AND deleted='0' AND dbox_id='" . $dropbox_id . "'" . $add_query . $sort_query;
+
+				if ($sort_date != "") {
+					$sort_param = [':sort_date' => $sort_date];
+					$query_param = array_merge($query_param, $sort_param);
+				}
+				if ($sort_supplier != "") {
+					$sort_param = [':sort_supplier' => addslashes($sort_supplier)];
+					$query_param = array_merge($query_param, $sort_param);
+				}
+				$select_dropbox_files = db_query("SELECT df.* FROM {dropbox_files} df, {users_info} ui WHERE " . $condition_query, $query_param);
+			}
+
+			$supplier_org_list = db_query("SELECT supplier_org_id FROM {vendor} WHERE deleted=0 GROUP BY supplier_org_id");
+
+			$output = theme('view_dropbox_files', array('dropbox_id' => $dropbox_id, 'dropbox_details' => $dropbox_details, 'total_dropbox_files' => $select_dropbox_files->rowCount(), 'select_dropbox_files' => $select_dropbox_files, 'supplier_org_list' => $supplier_org_list));
+			return $output;
+		}
+	}
+	// New Fucnction Created for Phase-II, to view submissions
+	function view_dropbox_submissions()
+	{
+		if (isset($sub_id) && $sub_id != "") {
+		} else {
+			return theme('view_dropbox_submissions', array('dropbox_id' => ''));
+		}
+	}
+
+	function move_dropbox_submissions()
+	{
+		return theme('move_dropbox_submissions', array('dropbox_id' => ''));
+	}
+
+	function vwr_dropbox_download_documents()
+	{
+
+		if (arg(2) && is_numeric(arg(2))) {
+			$fid = arg(2);
+			global $user;
+			$file_name = db_query("SELECT file from {dropbox_files} where id=:fid", [':fid' => $fid])->fetchColumn();
+			if ($file_name) {
+
+				$structure = 'sites/default/files/docs_dropbox/';
+				$file = $structure . $file_name;
+				if (file_exists($file)) {
+					$google_analytics = variable_get('google_analytics_UA');
+					?>
+					<script type="text/javascript">
+						var _gaq = _gaq || [];
+						_gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+						_gaq.push(['_trackPageview', 'File Download - Dropbox - ' + <?php echo htmlspecialchars($file_name); ?>]);
+
+						(function() {
+							var ga = document.createElement('script');
+							ga.type = 'text/javascript';
+							ga.async = true;
+							ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+							var s = document.getElementsByTagName('script')[0];
+							s.parentNode.insertBefore(ga, s);
+						})();
+					</script>
+	<?php
+					$file_name = str_replace(";", "", $file_name);
+
+					header('Content-Description: File Transfer');
+					header('Content-Type: text/plain');
+					header('Content-Disposition: attachment; filename=' . basename($file_name));
+					header('Content-Transfer-Encoding: binary');
+					header('Expires: 0');
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Pragma: public');
+					header('Content-Length: ' . filesize($file));
+					ob_clean();
+					flush();
+					@readfile($file);
+				} else {
+					$redirect = '';
+					if ($_REQUEST['redirect']) {
+						$redirect = addslashes(strip_tags(trim($_REQUEST['redirect'])));
+					}
+				}
+				exit;
+			}
+		}
+	}
+
+	/* Get Vas Id from Supplier Id */
+	function get_vas_id($supplier_id)
+	{		
+		$select_vas_id = db_query("SELECT vas_tier_id FROM {vas_tier_vendor_map} where vendor_id = :supplier_id", [':supplier_id' => $supplier_id])->fetchobject();
+		return $select_vas_id->vas_tier_id;
+	}
+
+	//Get Vas tier name using vas tier id
+	function get_vas_name($vas_id)
+	{
+		$result_vas = db_query("SELECT vas_tier_name FROM {vas_tier} where vas_tier_id =:vas_id", [':vas_id' => $vas_id]);
+		foreach ($result_vas as $vas) {
+			$tier_name = $vas->vas_tier_name;
+		}
+		return $tier_name;
+	}
+	//check whether the supplier is global
+	function get_global_supplier($supplier_org_id, $isvendor = 0)
+	{
+
+		$currentreginamequery = "";
+		$suplierregionquery = "";
+		$query_param = [];
+		if ($isvendor) {
+			$currentreginamequery = " INNER JOIN {supplier_org_regions} AS vwrsor on vwrsor.supplier_org_id=so.supplier_org_id and status=1 INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			$suplierregionquery = "SELECT count(so.supplier_org_id) as isglobal FROM {vendor} as v INNER JOIN {supplier_organization} as so ON so.supplier_org_id=v.supplier_org_id $currentreginamequery where v.vendor_id=:supplier_org_id ";
+			$query_param = [':supplier_org_id' => $supplier_org_id];
+		} else {
+			$suplierregionquery = "select count(vwrsor.supplier_org_id) as isglobal from  {supplier_org_regions} AS vwrsor where vwrsor.status=1 and vwrsor.supplier_org_id = :supplier_org_id ";
+			$query_param = [':supplier_org_id' => $supplier_org_id];
+		}
+		if ($supplier_org_id) {
+			$regioninfo = db_query($suplierregionquery, $query_param)->fetchObject();
+			return $regioninfo->isglobal;
+		}
+	}
+	function get_supplier_region($supplier_org_id)
+	{
+
+
+		$suplierregionquery = "";
+
+		$suplierregionquery = "select vwrsor.region_id  from  {supplier_org_regions} AS vwrsor where vwrsor.status=1 and vwrsor.supplier_org_id = :supplier_org_id ";
+		$query_param = [':supplier_org_id' => $supplier_org_id];
+		if ($supplier_org_id) {
+
+			$regioninfo = db_query($suplierregionquery, $query_param)->fetchObject();
+			return $regioninfo->region_id;
+		}
+	}
+	//Get supplier org name based on regions
+	function get_supplier_org_name_basedon_region($supplier_id, $issupplier = 0)
+	{
+		$currentreginamequery = "";
+		if ($supplier_id > 0) {
+			$currentreginamequery = " INNER JOIN {supplier_org_regions} AS vwrsor on vwrsor.supplier_org_id=so.supplier_org_id and status=1 INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			if ($issupplier) {
+				$result_supplier = db_query("SELECT so.supplier_org_id,so.supplier_org_name,vwrmr.region_shortname FROM {supplier_organization} as so $currentreginamequery where so.supplier_org_id=:supplier_id", [':supplier_id' => $supplier_id])->fetchObject();
+			} else {
+				$result_supplier = db_query("SELECT so.supplier_org_id,so.supplier_org_name,vwrmr.region_shortname FROM {vendor} as v INNER JOIN {supplier_organization} as so ON so.supplier_org_id=v.supplier_org_id $currentreginamequery where v.vendor_id=:supplier_id", [':supplier_id' => $supplier_id])->fetchObject();
+			}
+			if ($result_supplier->supplier_org_id > 0) {
+				$suplierregionquery = "select count(vwrsor.supplier_org_id) as isglobal from  {supplier_org_regions} AS vwrsor where vwrsor.status=1 and vwrsor.supplier_org_id = $result_supplier->supplier_org_id ";
+				$regioninfo = db_query($suplierregionquery)->fetchObject();
+				if ($supplier_id) {
+					if ($regioninfo->isglobal <= 1) {
+						return $result_supplier->supplier_org_name . '--' . $result_supplier->region_shortname;
+					} else {
+						return $result_supplier->supplier_org_name;
+					}
+				} else {
+					return $result_supplier->supplier_org_name;
+				}
+			}
+		}
+	}
+	function executestoreproceduredropboxsuppliersnamesdisplayeditpage($suppliervwr_id)
+	{
+		global $databases;
+		$dbname = $databases['default']['default']['database'];
+		$username = $databases['default']['default']['username'];
+		$password = $databases['default']['default']['password'];
+		$host = $databases['default']['default']['host'];
+		$dbh = new PDO('mysql:host=' . $host . ';dbname=' . $dbname, $username, $password);
+		$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		$stmt = $dbh->prepare("Call vwr_show_dropbox_suppliernames(?)");
+
+		if ($stmt->execute(array($suppliervwr_id))) {
+			$result_supplier_org = array();
+			while ($rows = $stmt->fetch()) {
+				$result_supplier_org[] = $rows;
+			}
+		}
+		return $result_supplier_org;
+	}
+	function get_supplier_name($supplier_id, $region_id = 0)
+	{
+		$currentreginamequery = "";
+		if ($region_id) {
+
+			$currentreginamequery = " INNER JOIN {supplier_org_regions} AS vwrsor on vwrsor.supplier_org_id=so.supplier_org_id and status=1 and vwrsor.region_id in ($region_id) INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			$region_shortname = " ,vwrmr.region_shortname ";
+		}
+
+		$result_supplier = db_query("SELECT so.supplier_org_id,so.supplier_org_name $region_shortname 
+		FROM {vendor} as v LEFT JOIN {supplier_organization} as so 
+		ON so.supplier_org_id = v.supplier_org_id $currentreginamequery where 
+		v.vendor_id = :supplier_id", [':supplier_id' => $supplier_id])->fetchObject();
+		$surorgid = $result_supplier->supplier_org_id;
+		if ($surorgid != '') {
+			$suplierregionquery = "select count(vwrsor.supplier_org_id) as isglobal 
+		from  {supplier_org_regions} AS vwrsor where vwrsor.status=1
+		and vwrsor.supplier_org_id = :surorgid";
+			$query_param = [':surorgid' => $surorgid];
+			$regioninfo = db_query($suplierregionquery, $query_param)->fetchObject();
+			if ($region_id) {
+				if ($regioninfo->isglobal <= 1) {
+					return $result_supplier->supplier_org_name . '--' . $result_supplier->region_shortname;
+				} else {
+					return $result_supplier->supplier_org_name;
+				}
+			} else {
+				return $result_supplier->supplier_org_name;
+			}
+		}
+	}
+	//Get supplier org name using vas supplier id
+	function get_supplier_name_dropbox($supplier_id, $region_id = 0)
+	{
+		$currentreginamequery = "";
+		if ($region_id) {
+
+			$currentreginamequery = " INNER JOIN {supplier_org_regions} AS vwrsor on vwrsor.supplier_org_id=so.supplier_org_id and status=1 and vwrsor.region_id in ($region_id) INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			$region_shortname = " ,vwrmr.region_shortname ";
+		}
+		$surorgid = executestoreproceduredropboxsuppliersnamesdisplayeditpage($supplier_id);
+		return $surorgid;
+	}
+
+	//Get supplier org name using vas supplier id
+	function get_user_supplierorg_name($user_id)
+	{
+		$result_name = db_query("SELECT supplier_org_name FROM {users_info} where uid = :uid", [':uid' => $user_id])->fetchObject();
+		return $result_name->supplier_org_name;
+	}
+
+	//Get supplier org unique Id using vas supplier id
+	function get_master_supplier_id($supplier_id)
+	{
+		$result_supplier = db_query("SELECT v.supplier_org_id FROM {vendor} as v LEFT JOIN {supplier_organization} as so ON so.supplier_org_id = v.supplier_org_id where v.vendor_id = :supplier_id AND v.deleted=0 AND so.deleted=0 ", [':supplier_id' => $supplier_id])->fetchObject();
+		return $result_supplier->supplier_org_id;
+	}
+
+
+	/* Select supplier org related to vas tier */
+	function get_vas_vendors($currentregion = 0)
+	{
+		$supplier_org_id = array();
+		if ($currentregion == 0) {
+			$currentregiontab = addslashes(strip_tags(trim($_COOKIE['currentregiontab'])));
+		} else {
+			$currentregiontab = addslashes(strip_tags(trim($currentregion)));
+		}
+		$select_related_org = db_query("SELECT DISTINCT vwrv.vendor_id  AS supplier,vwrvt.vas_tier_id  FROM vwr_vas_tier AS vwrvt
+										INNER JOIN vwr_vas_tier_vendor_map AS vwrvtm ON vwrvtm.vas_tier_id=vwrvt.vas_tier_id
+										INNER JOIN vwr_vendor AS vwrv ON vwrv.vendor_id=vwrvtm.vendor_id 
+										INNER JOIN vwr_supplier_org_regions as vwrsor on vwrsor.supplier_org_id=vwrv.supplier_org_id
+										and vwrsor.status=1 and vwrsor.region_id in (:currentregiontab) where vwrvtm.deleted='0' and vwrv.deleted='0'
+										order by vwrv.vendor_id asc ", [':currentregiontab' => $currentregiontab]);
+		foreach ($select_related_org as $related_org_list) {
+			$supplier_org_id[$related_org_list->vas_tier_id] .= $related_org_list->supplier . '_';
+		}
+		return $supplier_org_id;
+	}
+
+
+
+
+	/* Select supplier org related to vas tier */
+	function get_vas_related_supplier($vas_name)
+	{
+		$supplier_org_id = "";
+		$select_related_org = db_query("SELECT vendor_id FROM {vas_tier_vendor_map} WHERE deleted=0 AND vas_tier_id IN (SELECT vas_tier_id FROM {vas_tier} WHERE vas_tier_name=:vas_name AND deleted='0') ORDER BY vendor_id", [':vas_name' => $vas_name]);
+		foreach ($select_related_org as $related_org_list) {
+			//Get the related supplier org ids based on supplier name - Ex: Corning - 1209,1238,1284,1285
+			$supplier_org_master = get_master_supplier_id($related_org_list->vendor_id);
+			if ($supplier_org_master) {
+				$get_supplier_ids = db_query("SELECT DISTINCT vendor_id FROM {vendor} WHERE supplier_org_id=:orgname AND deleted=0 GROUP BY vendor_id", array(':orgname' => $supplier_org_master));
+				if ($get_supplier_ids) {
+					foreach ($get_supplier_ids as $supplier_org) {
+						if (!in_array($supplier_org->vendor_id, $supplier_org_array)) {
+							$supplier_org_id .= $supplier_org->vendor_id . "_";
+							$supplier_org_array[] = $supplier_org->vendor_id;
+						}
+					}
+				}
+			}
+		}
+		return $supplier_org_id;
+	}
+
+	function modalbox_addusers_reload()
+	{
+		$dropboxposition = strripos($_SERVER['HTTP_REFERER'], 'add_dropbox');
+		$catposition = strripos($_SERVER['HTTP_REFERER'], 'category');
+		$moved_supplier_values = addslashes(strip_tags(trim($_REQUEST['supplier_values'], "_")));
+		$left_supplier_org_list = addslashes(htmlentities(trim($_REQUEST['gbl_left_supplier_org_values'], "_")));
+		$currentregiontab = 0;
+		$currentregionquery = "";
+		if ($catposition) {
+			if (isset($_COOKIE['currentregiontab'])) {
+				$currentregiontab = addslashes(strip_tags(trim($_COOKIE['currentregiontab'])));
+				$currentregionquery = " INNER JOIN {supplier_org_regions} as vwrsor on vwrsor.supplier_org_id=sm.supplier_org_id  and vwrsor.status=1 and vwrsor.region_id in ($currentregiontab) INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			}
+		}
+		if ($dropboxposition) {
+			if (isset($_COOKIE['cookieregion_name'])) {
+				$currentregiontab = addslashes(strip_tags(trim($_COOKIE['cookieregion_name'])));
+				$currentregionquery = " INNER JOIN {supplier_org_regions} as vwrsor on vwrsor.supplier_org_id=sm.supplier_org_id  and vwrsor.status=1 and vwrsor.region_id in ($currentregiontab) INNER JOIN {manage_regions} as vwrmr on vwrmr.region_id=vwrsor.region_id and  vwrmr.region_status=1 ";
+			}
+		}
+		$activeregions = array();
+		$activeregionsprocess = array();
+		$activeregions = getregioninfo();
+		$activeregionsprocess = array_flip($activeregions);
+
+		$isglobalsupplierslist = executestoreprocedureis_global_supplier();
+		$supplierslist = executestoreproceduresupplierslist();
+		if ($moved_supplier_values != "" && $_REQUEST['flow'] != "newflow" && $_REQUEST['flow'] != "newflow1" && 0) {
+			$selected_supplier = explode("_", $moved_supplier_values);
+			$selected_supplier_values = array_unique($selected_supplier);
+			$result_supplier_org = db_query("SELECT s.vendor_id as supplier_org_id, sm.supplier_org_name FROM {vendor} as s LEFT JOIN {supplier_organization} as sm ON sm.supplier_org_id = s.supplier_org_id :currentregionquery WHERE s.deleted='0' AND sm.deleted = 0 GROUP BY sm.supplier_org_name ASC", [':currentregionquery' => $currentregionquery]);
+
+			/* Re-Generate Left Side List for remove the selected supplier - Start */
+			$left_supplier_values = '<select name="supplier_org_list1" id="supplier_org_list1" class="dropbox_list" multiple="multiple">';
+			foreach ($result_supplier_org as $supplier_list) {
+				if (!in_array($supplier_list->supplier_org_id, $selected_supplier_values)) {
+					$left_supplier_values .= '<option value="' . htmlspecialchars($supplier_list->supplier_org_id) . '">' . htmlspecialchars($supplier_list->supplier_org_name) . '</option>';
+				}
+			}
+			$left_supplier_values .= '</select>';
+			/* Re-Generate Left Side List for remove the selected supplier - End */
+
+
+			/* Generate Right Side List Based on Vas Selected - Start */
+			//Remove Supplier Org Duplicate Names
+
+			$right_supplier_array = array();
+			foreach ($selected_supplier_values as $supplier_list_selected) {
+				$region_short_name = '';
+				if ($supplier_list_selected != "") {
+
+					if (!$isglobalsupplierslist[$supplierslist[$supplier_list_selected]['supplier_org_id']]['isglobal']) {
+						$region_short_name = '--' . $activeregionsprocess[$isglobalsupplierslist[$supplierslist[$supplier_list_selected]['supplier_org_id']]['region_id']];
+					}
+					$right_supplier_array[$supplier_list_selected] = $supplierslist[$supplier_list_selected]['supplier_org_name'] . $region_short_name;
+				}
+			}
+
+
+			//Create Right Select Box Options with selected supplier org based on Vas
+			asort($right_supplier_array, SORT_STRING);
+			$selected_supplier_right = array_unique($right_supplier_array); //Sort Names
+
+			$right_supplier_values = '';
+			$right_supplier_values = '<select name="supplier_org_list2" id="supplier_org_list2" class="dropbox_list" multiple="multiple">';
+			foreach ($selected_supplier_right as $supplier_id => $supplier_name) {
+				$right_supplier_values .= '<option value="' . htmlspecialchars($supplier_id) . '">' . htmlspecialchars($supplier_name) . '</option>';
+			}
+			$right_supplier_values .= '</select>';
+			/* Generate Right Side List Based on Vas Selected - End */
+			echo $left_supplier_values . "_right_" . $right_supplier_values;
+		}
+
+		if (addslashes(htmlentities($_REQUEST['flow'])) == "leftflow") { //newflow
+			$selected_supplier_values = explode("_", $moved_supplier_values);
+			$vas_tier_id = $selected_supplier_values[0];
+			unset($selected_supplier_values[0]);
+			$selected_supplier_values = array_unique($selected_supplier_values);
+			$supplier_org_box2 = explode("_", addslashes(htmlentities(trim($_REQUEST['supplier_org_box2'], "_"))));
+			$top_right_unselected = explode("_", addslashes(strip_tags(trim($_REQUEST['sorg_right_unselect'], "_"))));
+			unset($top_right_unselected[0]);
+			$top_right_unselected = array_unique($top_right_unselected);
+			$left_global_array = array_merge(explode("_", $left_supplier_org_list), $supplier_org_box2);
+			$right_global_array = array_unique(array_merge(array_diff($supplier_org_box2, $selected_supplier_values), array_intersect($supplier_org_box2, $top_right_unselected)));
+
+			$right_supplier_values_array = array();
+			$left_supplier_values = '<select name="supplier_org_list1" id="supplier_org_list1" class="dropbox_list" multiple="multiple">';
+			foreach ($left_global_array as $left_sorg) {
+				$region_short_name = '';
+				if (trim($left_sorg) && is_numeric($left_sorg)) {
+					if (!$isglobalsupplierslist[$supplierslist[$left_sorg]['supplier_org_id']]['isglobal']) {
+						$region_short_name = '--' . $activeregionsprocess[$isglobalsupplierslist[$supplierslist[$left_sorg]['supplier_org_id']]['region_id']];
+					}
+
+					if (!in_array($left_sorg, $right_global_array)) {
+
+						$left_supplier_values .= '<option value="' . $left_sorg . '">' . htmlspecialchars($supplierslist[$left_sorg]['supplier_org_name']) . htmlspecialchars($region_short_name) . '</option>';
+					} else {
+
+						$right_supplier_values_array[$left_sorg] = $supplierslist[$left_sorg]['supplier_org_name'] . $region_short_name;
+					}
+				}
+			}
+			$left_supplier_values .= '</select>';
+
+			asort($right_supplier_values_array, SORT_STRING);
+			$right_supplier_values = '<select name="supplier_org_list2" id="supplier_org_list2" class="dropbox_list" multiple="multiple">';
+			foreach ($right_supplier_values_array as $supplier_org_id => $supplier_org_name) {
+				$right_supplier_values .= '<option value="' . htmlspecialchars($supplier_org_id) . '">' . htmlspecialchars($supplier_org_name) . '</option>';
+			}
+			$right_supplier_values .= '</select>';
+
+			echo $left_supplier_values . "_right_" . $right_supplier_values;
+			exit;
+		}
+
+		if (addslashes(strip_tags($_REQUEST['flow'])) == "rightflow") { //newflow1
+			$selected_supplier = explode("_", $moved_supplier_values);
+
+			$vas_tier_id = $selected_supplier[0];
+			unset($selected_supplier[0]);
+			$selected_supplier_values = array_unique($selected_supplier);
+
+			$supplier_org_box1 = $selected_supplier_values;
+			$supplier_org_box2 = explode("_", addslashes(strip_tags($_REQUEST['supplier_org_box2'])));
+
+			$right_supplier_org_list_array = array();
+			if (count($supplier_org_box2) > 1) {
+				foreach ($supplier_org_box2 as $supplier_list) {
+					$region_short_name = "";
+					if ($supplier_list && is_numeric($supplier_list)) {
+
+						if (!$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['isglobal']) {
+							$region_short_name = '--' . $activeregionsprocess[$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['region_id']];
+						}
+						$right_supplier_org_list_array[$supplier_list] = $supplierslist[$supplier_list]['supplier_org_name'] . $region_short_name;
+					}
+				}
+			}
+
+			$left_supplier_array = array_intersect($supplier_org_box1, $supplier_org_box2);
+			$right_supplier_array = array_diff($supplier_org_box2, $supplier_org_box1);
+
+			$combined_diff_array = array_unique(array_merge($left_supplier_array, $right_supplier_array));
+			if (count($combined_diff_array) > 0) {
+				foreach ($combined_diff_array as $supplier_list) {
+					$region_short_name = "";
+					if ($supplier_list && is_numeric($supplier_list)) {
+
+						if (!$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['isglobal']) {
+							$region_short_name = '--' . $activeregionsprocess[$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['region_id']];
+						}
+						$right_supplier_org_list_array[$supplier_list] = $supplierslist[$supplier_list]['supplier_org_name'] . $region_short_name;
+					}
+				}
+			}
+			$right_supplier_org_list_array = array_unique($right_supplier_org_list_array);
+
+			$left_supplier_org_list_id = explode("_", $left_supplier_org_list);
+			$left_supplier_org_list_array = array();
+			foreach ($left_supplier_org_list_id as $supplier_list) {
+				$region_short_name = '';
+				if ($supplier_list && is_numeric($supplier_list)) {
+					if (!$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['isglobal']) {
+						$region_short_name = '--' . $activeregionsprocess[$isglobalsupplierslist[$supplierslist[$supplier_list]['supplier_org_id']]['region_id']];
+					}
+
+					$left_supplier_org_list_array[$supplier_list] = $supplierslist[$supplier_list]['supplier_org_name'] . $region_short_name;
+				}
+			}
+			asort($left_supplier_org_list_array, SORT_STRING);
+			$right_supplier_values = '';
+			$left_supplier_values = '';
+			$right_supplier_values = '<select name="supplier_org_list2" id="supplier_org_list2" class="dropbox_list" multiple="multiple">';
+			$left_supplier_values = '<select name="supplier_org_list1" id="supplier_org_list1" class="dropbox_list" multiple="multiple">';
+			foreach ($right_supplier_org_list_array as $supplier_org_id => $supplier_org_name) {
+
+				$right_supplier_values .= '<option value="' . htmlspecialchars($supplier_org_id) . '">' . htmlspecialchars($supplier_org_name) . '</option>';
+			}
+			foreach ($left_supplier_org_list_array as $supplier_org_id => $supplier_org_name) {
+				if (in_array($supplier_org_id, $selected_supplier_values)) {
+					$right_supplier_values .= '<option value="' . htmlspecialchars($supplier_org_id) . '">' . htmlspecialchars($supplier_org_name) . '</option>';
+				} else {
+					$left_supplier_values .= '<option value="' . htmlspecialchars($supplier_org_id) . '">' . htmlspecialchars($supplier_org_name) . '</option>';
+				}
+			}
+			$right_supplier_values .= '</select>';
+			$left_supplier_values .= '</select>';
+			echo $left_supplier_values . "_right_" . $right_supplier_values;
+		}
+	}
+
+	function check_category_topic_expires($cat_id, $topic_id)
+	{
+		$current_date = strtotime(date('m/d/Y'));
+		if ($topic_id != 0) {
+			$result_topic = db_query("SELECT count(*) as total FROM {topic} where topic_id = :topic_id AND topic_status=1 AND expiry_date >=:current_date", array(':topic_id' => $topic_id, ':current_date' => $current_date))->fetchObject();
+			return $result_topic->total;
+		} elseif ($cat_id != "") {
+			$result_cat = db_query("SELECT count(*) as total FROM {category} where category_id = :cat_id AND category_status=1 AND expiry_date >=:current_date", array(':cat_id' => $cat_id, ':current_date' => $current_date))->fetchObject();
+			return $result_cat->total;
+		}
+	}
+
+	function check_category_topic_deleted($cat_id, $topic_id)
+	{
+		if ($topic_id != 0) {
+			$result_topic = db_query("SELECT count(*) as total FROM {topic} where topic_id = :topic_id AND topic_status=1", array(':topic_id' => $topic_id))->fetchObject();
+			return $result_topic->total;
+		} elseif ($cat_id != "") {
+			$result_cat = db_query("SELECT count(*) as total FROM {category} where category_id = :cat_id AND category_status=1", array(':cat_id' => $cat_id))->fetchObject();
+			return $result_cat->total;
+		}
+	}
+
+	function add_dropboxfrm()
+	{
+		return theme('add_dropboxfrm');
+	}
+	function fetch_user_emails()
+	{
+		return theme('fetch_user_emails');
+	}
+	function fetch_categories()
+	{
+		return theme('fetch_categories');
+	}
+	function dropbox_view_vwrinternal()
+	{
+		return theme('dropbox_view_vwrinternal');
+	}
+
+	function modalbox_popup()
+	{
+		print theme('modalbox_popup_theme', array('data' => '', 'level' => ''));
+	}
+
+	function fetch_dropboxfrm_submit($form, &$form_state)
+	{
+		$values = $form_state;
+		$name = $values['values']['name'];
+		drupal_goto($name, array('query' => array(
+			'err' => 'succ',
+			'data' => 'no'
+		)));
+	}
+
+	function vwr_dropbox_theme()
+	{
+		return array(
+			'add_dropboxfrm' => array(
+				'template' => 'vwr-add-dropbox',
+			),
+			'modalbox_popup_theme' => array(
+				'template' => 'vwr-dropbox-modalbox',
+			),
+			'dropbox_view_vwrinternal' => array(
+				'template' => 'vwr-view-dropbox',
+			),
+			'view_dropbox_files' => array(
+				'template' => 'vwr-view-dropbox-files',
+			),
+			'view_dropbox_files_results' => array(
+				'template' => 'view_dropbox_files',
+			),
+			'view_dropbox_submissions' => array(
+				'template' => 'vwr-view-submission-details',
+			),
+			'move_dropbox_submissions' => array(
+				'template' => 'vwr-move-submission-details',
+			),
+			'dropbox_add_comment' => array(
+				'arguments' => array('data' => NULL),
+				'template' => 'dropbox-add-comment',
+			),
+		);
+	}
+
+	function get_link_url($Topic_id)
+	{
+
+		if ($Topic_id != 0) {
+			$select_firstlevel_id = db_query("SELECT parent_topic_id,category_id FROM {topic} where topic_id = :Topic_id", [':Topic_id' => $Topic_id])->fetchobject();
+			$sel_Level_id = $select_firstlevel_id->parent_topic_id;
+			$topic = "topic";
+			$generate_cat_link = 'category/' . $select_firstlevel_id->category_id;
+		}
+
+		if ($sel_Level_id != 0) {
+			$select_secondlevel_id = db_query("SELECT parent_topic_id,topic_id FROM {topic} where topic_id = :sel_Level_id", [':sel_Level_id' => $sel_Level_id])->fetchobject();
+			$sel_SecLevel_id = $select_secondlevel_id->parent_topic_id;
+			$topic = "subtopic";
+		}
+
+		if ($sel_SecLevel_id != 0) {
+			$select_thirdlevel_id = db_query("SELECT parent_topic_id,topic_id FROM {topic} where topic_id = :Topic_id", [':Topic_id' => $Topic_id])->fetchobject();
+			$sel_thirdlevel_id = $select_thirdlevel_id->parent_topic_id;
+			$topic = "internaltopic";
+		}
+
+		if ($Topic_id != 0) {
+			$generate_page_link = $generate_cat_link . '/topic/' . $Topic_id;
+		}
+
+		if ($sel_Level_id != 0) {
+			$generate_page_link = $generate_cat_link . '/topic/' . $sel_Level_id . '/subtopic/' . $Topic_id;
+		}
+
+		if ($sel_SecLevel_id != 0) {
+			$generate_page_link = $generate_cat_link . '/topic/' . $sel_SecLevel_id . '/subtopic/' . $sel_thirdlevel_id . '/internaltopic/' . $Topic_id;
+		}
+
+		return $generate_page_link;
+	}
+
+	function dropbox_text_save()
+	{
+
+		global $user;
+
+		if (user_is_anonymous()) {
+			header("HTTP/1.1 401");
+			exit;
+		}
+
+		$uid = $user->uid;
+		$timestamp = strtotime(date("d-m-Y"));
+		$select_records = db_query("SELECT * FROM {dropbox_instructions}");
+		$drop_box_txt = addslashes(strip_tags($_REQUEST['drop_box_text']));
+		$drop_box_inst = addslashes(strip_tags($_REQUEST['drop_box_instruction']));
+		$user_Name = get_author_name($uid);
+
+		if ($select_records->rowCount() > 0) {
+			/********** Update *************/
+			if ($drop_box_txt != "") {
+				$query_values_txt = "`title`=:drop_box_txt";
+				$query_param = [':drop_box_txt' => $drop_box_txt];
+			}
+			if ($drop_box_inst != "") {
+				$query_values_txt .= "`instruction`=:drop_box_inst";
+				$query_param = [':drop_box_inst' => $drop_box_inst];
+			}
+			db_query("UPDATE {dropbox_instructions} SET $query_values_txt", $query_param);
+		} else {
+			/********* Insert *************/
+			db_insert('dropbox_instructions')
+				->fields(
+					[
+						'title' => $drop_box_txt,
+						'instruction' => $drop_box_inst,
+						'created_by' => $user_Name,
+						'uid' => $uid,
+						'created_date' => $timestamp,
+						'flag' => '1',
+					]
+				)
+				->execute();
+		}
+		if ($drop_box_txt != "") {
+			echo json_encode(['msg' => $drop_box_txt]);
+		} else {
+			echo json_encode(['msg' => $drop_box_inst]);
+		}
+	}
+
+	function emailTriggerCommentUpdates()
+	{
+
+		global $user;
+		$uid = $user->uid;
+		$update_from = arg(3);
+		$dropbox_id = '';
+		$commentid = '';
+		$mail_contents = new stdClass; // Create object to store all the content in one object;
+		if ($update_from == 'portalupdate') {
+			$submission_id = arg(2);
+			$mail_contents->comments = '';
+			$commentid = $result = db_query(
+				"SELECT id FROM {submission_comments} WHERE submission_id =:sid ORDER BY id DESC
+																			LIMIT 0 , 1",
+				array(':sid' => $submission_id)
+			)->fetchField();
+		} else {
+			$commentid = arg(2);
+			$query_submission = db_query("SELECT submission_id, comments from {submission_comments} where id = :id", array(":id" => $commentid))->fetchObject();
+			$submission_id = $query_submission->submission_id;
+			$mail_contents->comments = $query_submission->comments;
+
+			//file_status
+			$submission_files = db_query("SELECT scan_file_status, file_name from {submission_files} where comment_id = :id", array(":id" => $commentid))->fetchObject();
+			if ($submission_files->scan_file_status == "SCAN_FAILED") {
+				$infected_file_list[$submission_files->file_name] = $submission_files->scan_file_status;
+				$mail_content->infected_file_list = $infected_file_list;
+			}
+		}
+
+		$mail_contents->submission_id = $submission_id;
+		$mail_contents->commentid = $commentid;
+		$query_res = db_query("SELECT status, dbox_id, created_by from {dropbox_files} where submission_id = :submission_id", [':submission_id' => $submission_id])->fetchObject();
+		$dropbox_id = $query_res->dbox_id;
+		$mail_contents->submission_status = $query_res->status;
+		$mail_contents->submissionownerid = $query_res->created_by;
+
+		// code to store submission owner details
+		$query_sub_owner = db_select('users_info', 'uinfo');
+		$query_sub_owner->fields('uinfo', array('firstname', 'lastname', 'email', 'supplier_org_name'))
+			->condition('uinfo.uid', $user->uid, '=');
+		$users_owner = $query_sub_owner->execute();
+
+
+		$submission_owner_org = db_query("select supplier_org_name from {users_info} where uid = :created_by", [':created_by' => $query_res->created_by])->fetchObject();
+		$mail_contents->submission_supplierorg = getMasterSupplierOrgName($submission_owner_org->supplier_org_name);
+
+		$row = array();
+		while ($result = $users_owner->fetchAssoc()) {
+			$row[] = $result;
+		}
+
+
+		$mail_contents->submissionownername = ($row[0]['firstname'] != '') ? $row[0]['firstname'] . " " . $row[0]['lastname'] : 'VWR';
+		$mail_contents->submissionownermail = ($row[0]['email'] != '') ? $row[0]['email'] : $user->mail;
+		$dropbox_workflow_details = db_query("SELECT title,ownerseu_email_id,owners_email_id, link_workflow_tool, workflow_email_id FROM {dropbox} WHERE id=:id", array(':id' => $dropbox_id))->fetchObject();
+		$mail_contents->dropboxname = $dropbox_workflow_details->title;
+
+		if ($dropbox_workflow_details->ownerseu_email_id) {
+			$mail_contents->dropbox_other_owner_eu = $dropbox_workflow_details->ownerseu_email_id;
+		}
+
+		if ($dropbox_workflow_details->link_workflow_tool) {
+			//send mail to WFT
+			sc_comment_updates_to_wft($dropbox_workflow_details->workflow_email_id, $mail_contents);
+		}
+
+		// Mail to Suppliers and Dropbox owners starts here
+
+		// Retrieve User's id who all are made comments for particular submission
+		$query_user = db_select('submission_comments', 'subcomments');
+		$query_user->fields('subcomments', array('created_by'))
+			->distinct()
+			->condition(db_and()->condition('submission_id', $submission_id, '=')->condition('deleted', 0, '=')
+				->condition('created_by', 1, '<>')
+				->condition('created_by', $user->uid, '<>'));
+		$query_res = $query_user->execute();
+
+		$users_list_suppliers = array();
+		$users_list_owners = array();
+		while ($result_user = $query_res->fetchField()) {
+			if (getUsersRole($result_user) == "supplier") {
+				if ($uid != $result_user) {
+					$users_list_suppliers[] = $result_user;
+				}
+			} else {
+				if ($uid != $result_user) {
+					$users_list_owners[] = $result_user;
+				}
+			}
+		}
+		if ($uid != $mail_contents->submissionownerid) {
+			array_push($users_list_suppliers, $mail_contents->submissionownerid);
+		}
+
+		if ($users_list_suppliers) {
+			$users_list_suppliers = array_unique($users_list_suppliers);
+			sc_comment_updates_to_suppliers($users_list_suppliers, $mail_contents);  //mail for suppliers
+		}
+		sc_comment_updates_to_internals($users_list_owners, $mail_contents);
+
+		// Retrieve User's id who all are owner of the Dropbox()
+
+		// Mail to Suppliers and Dropbox owners end here
+		print "success";
+		if (function_exists('sc_status_change_email')) {
+			$mail_contents->submission_dropbox_id = $dropbox_id;
+			sc_status_change_email($mail_contents);
+		}
+		exit;
+	}
+
+	function checkSupplierPagesDropbox($dbox_id, $dropbox_category_topic)
+	{
+		$allow_flag = 0;
+		foreach ($dropbox_category_topic as $category_id => $topic_id) {
+			foreach ($topic_id as $topicid) {
+				$check_category_map = db_query("SELECT id FROM {dropbox_category_mapping} 
+				WHERE dbox_id=:dbox_id AND cat_id=:category_id AND topic_id=:topic_id", [':dbox_id' => $dbox_id, ':category_id' => $category_id, ':topic_id' => $topicid]);
+				if (check_category_topic_expires($category_id, $topicid) > 0 && $check_category_map->rowCount() > 0) {
+
+					if ($category_id != "") {
+						$get_cat_status = db_query("SELECT category_status FROM {category} WHERE category_id = :category_id", [':category_id' => $category_id])->fetchColumn();
+
+						if ($topicid == 0 && $get_cat_status == 1) {
+							$allow_flag++;
+							return true;
+						}
+					}
+					if ($topicid != 0 && $topicid) {
+						$allow_flag++;
+						return true;
+					}
+				}
+			}
+		}
+		if ($allow_flag == 0) {
+			return false;
+		}
+		return true;
+	}
+	function checkSupplierSubmDropbox($dbox_id)
+	{
+		$current_date = strtotime(date('m/d/Y'));
+		$check_category_map = db_query("SELECT cat_id, topic_id FROM {dropbox_category_mapping} WHERE dbox_id=:dbox_id AND cat_id > 0", [':dbox_id' => $dbox_id]);
+		foreach ($check_category_map as $cat_topic) {
+			if ($cat_topic->cat_id && !$cat_topic->topic_id) {
+				$result_cat = db_query("SELECT count(1) FROM {category} where category_id = :cat_id AND category_status=1 AND expiry_date >=:cdate", [':cat_id' => $cat_topic->cat_id, ':cdate' => $current_date])->fetchColumn();
+				if (trim($result_cat)) {
+					return true;
+				}
+			}
+			if ($cat_topic->topic_id) {
+				$result_top = db_query("SELECT count(1) FROM {topic} where topic_id = :topic_id AND category_id = :cat_id AND topic_status='1' AND expiry_date >=:cdate", [':topic_id' => $cat_topic->topic_id, ':cat_id' => $cat_topic->cat_id, ':cdate' => $current_date])->fetchColumn();
+				if (trim($result_top)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	function is_valid_supplierorg_user($userId)
+	{
+		global $user;
+		if ($userId) {
+			$updated_id = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid IN (SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = (SELECT rid FROM {role} WHERE NAME='supplier'))", [':uid' => $userId])->fetchColumn();
+			if ($updated_id) {
+				$user_sorg = db_query("SELECT supplier_org_name FROM {users_info} WHERE uid =:uid", [':uid' => $user->uid])->fetchColumn();
+				if (trimLowReplace($user_sorg) == trimLowReplace($updated_id)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	function trimLowReplace($string)
+	{
+		$replacer = array("'", '"');
+		return str_replace($replacer, "", strtolower(trim($string)));
+	}
+
+	function is_notexpired_date($date)
+	{
+		$timestamp = strtotime(date('m/d/Y'));
+		if ($date < $timestamp) {
+			return false;
+		}
+		return true;
+	}
+	function rtrimStringLines($str_trim)
+	{
+		return trim(rtrim(str_replace("\r\n", '', trim($str_trim)), '<br>'));
+	}

@@ -1,0 +1,983 @@
+<?php
+    function bulk_permission()
+    {
+        return array(
+            'Bulk Uploads' => array(
+                'title' => t('Bulk Uploads'),
+                'description' => t('Permission for add/edit bulk files'),
+            ),
+            'Bulk Reports' => array(
+                'title' => t('Bulk Reports'),
+                'description' => t('Permission for view and check supplier Reports'),
+            ),
+        );
+    }
+
+    /**
+     * Implements hook_menu
+     */
+    function bulk_menu()
+    {
+        $items = array();
+        $items['bulk/overview'] = array(
+            'title' => t('Bulk Overview'),
+            'page callback' => 'bulk_overview',
+            'type' => MENU_DEFAULT_LOCAL_TASK,
+            'access arguments' => array(
+                'Bulk Uploads'
+            ),
+        );
+        $items['bulk/create'] = array(
+            'title' => t('Bulk Upload'),
+            'page callback' => 'bulkupload_create_new',
+            'type' => MENU_CALLBACK,
+            'access arguments' => array(
+                'Bulk Uploads'
+            ),
+        );
+        $items['bulk/upload'] = array(
+            'title' => t('Bulk Upload'),
+            'page callback' => 'bulkupload_create_upload',
+            'type' => MENU_CALLBACK,
+            'access callback' => TRUE,
+        );
+        $items['bulk/view/%'] = array(
+            'title' => t('View Bulk Upload'),
+            'page callback' => 'bulkupload_view_record',
+            'type' => MENU_CALLBACK,
+            'access arguments' => array(
+                'Bulk Reports'
+            ),
+        );
+        $items['bulk/actions'] = array(
+            'title' => t('Bulk Upload'),
+            'page callback' => 'bulkupload_actions',
+            'type' => MENU_CALLBACK,
+            'access arguments' => array(
+                'Bulk Reports'
+            ),
+        );
+        $items['bulk/reports'] = array(
+            'title' => t('My Reports'),
+            'page callback' => 'bulk_overview',
+            'type' => MENU_CALLBACK,
+            'access arguments' => array(
+                'Bulk Reports'
+            ),
+        );
+        $items['bulk/notification'] = array(
+            'title' => t('Bulk Upload Notification'),
+            'page callback' => 'bulkupload_send_nofication',
+            'type' => MENU_CALLBACK,
+            'access arguments' => array(
+                'Bulk Uploads'
+            ),
+        );
+
+        return $items;
+    }
+    function bulk_overview()
+    {
+        if (is_vwr_user_role()) {
+            drupal_set_title('Bulk Upload Overview');
+            $_SESSION['google_analytics_page_name'] = "Bulk Upload Overview Page";
+        } else {
+            drupal_set_title('View Reports');
+            $_SESSION['google_analytics_page_name'] = "View Reports Page";
+        }
+        $output = theme('bulk_overview', array(
+            'data' => $result
+        ));
+        return $output;
+    }
+
+    function bulkupload_create_new()
+    {
+        $arg_2 = trim(arg(2));
+        if ($arg_2 == 'save') {
+            $bulk_title = addslashes(htmlentities(trim($_POST['bulk_title'])));
+            $bulk_department = addslashes(htmlentities(trim($_POST['bulk_department'])));
+            $bulk_desc = addslashes(htmlentities(trim($_POST['bulk_desc'])));
+            $bulk_expiry = strtotime(trim($_POST['bulk_expiry']));
+            $bulk_notification = addslashes(htmlentities(trim($_POST['bulk_notification'])));
+            $file_id=explode(",",addslashes(htmlentities($_POST["file_id"])));
+            $file_name=explode(",",addslashes(htmlentities($_POST["file_name"])));    
+            if ($bulk_title && $bulk_department && $bulk_desc && $bulk_expiry) {
+                global $user;
+                $timestamp = time();
+                $editFields = array();
+                $editFields['title'] = $bulk_title;
+                $editFields['department'] = $bulk_department;
+                $editFields['description'] = $bulk_desc;
+                $editFields['email_notification'] = $bulk_notification;
+                $editFields['expiry_date'] = $bulk_expiry;
+                $editFields['created_date'] = $timestamp;
+                $editFields['created_by'] = $user->uid;
+                $editFields['deleted'] = 0;
+                if($file_id != ""){
+                    for($i = 0 ; $i < count($file_id) ; $i++) {
+                    
+                        $timestamp_filename = $filename = trim($file_name[$i]);
+                        if (substr($filename, 0, 1) == '-')
+                        {
+                            $timestamp_filename = $filename = substr($filename, 1);
+                        }
+    
+                        if ($filename)
+                        {
+                            $name = explode('--', $filename, 2);
+                            if (count($name) >= 2)
+                            {    
+                                $supplier_org = trim($name[0]);
+                                $regionshortnames = array();
+                                $regionshortnames = getregionshortnames();
+                                $region = array();
+                                $region = explode("--", $name[1], 2);
+                                $region_id = $regionshortnames[$region[0]];
+                                // $region_id = addslashes(strip_tags(trim($_COOKIE['cookieregion_name'])));
+    
+                                $supplier_org_name = '';
+                                if ($supplier_org && is_numeric($supplier_org))
+                                {
+                                    $supplier_org_name = db_query("SELECT supplier_org_id from vwr_vendor where deleted='0' AND vendor_id = :supplier_org", [':supplier_org' => $supplier_org]);
+                                    foreach($supplier_org_name as $org) {
+                                        $supplier_org_name = $org->supplier_org_id;
+                                    }
+                                }
+                                else
+                                {
+                                    $supplier_org_name = db_query("SELECT supplier_org_id from vwr_supplier_organization where deleted='0' AND supplier_org_name = :supplier_org", [':supplier_org' => $supplier_org]);
+                                    foreach($supplier_org_name as $org) {
+                                        $supplier_org_name = $org->supplier_org_id;
+                                    }
+                                }
+                                $timestamp = time();
+                                $timestamp_filename = $timestamp . '_' . $timestamp_filename;
+                                $supplier_org_id = 0;
+                                $supplier_org_id = $supplier_org_name ? $supplier_org_name : $supplier_org;
+    
+                                global $user;
+                                $user_id = $user->uid ? $user->uid : addslashes(htmlentities(trim($_REQUEST['usrid'])));
+                                $editFields['modified_date'] = $timestamp;
+                                $editFields['modified_by'] = $user_id;
+                                $editFields['supplier_org'] = $supplier_org_name ? $supplier_org_name : $supplier_org;
+                                $editFields['filename'] = $timestamp_filename;
+                                //get the scan result 
+                                $scanned_result = get_scanned_file($file_id[$i]);
+                                $scanned_status = ($scanned_result['status'] == 0 ? 'SCAN_COMPLETED' :  (($scanned_result['status'] == 255 || $scanned_result['status'] == 254) ? "In Progress" : "SCAN_FAILED"));
+                                $file = ['file_name'=> $timestamp_filename,'scan_status' => $scanned_status,'submission_type'=>'bulk_upload_list','file_id'=>$file_id[$i]];
+                                if( $scanned_result['status'] == 0 ) {
+                                    //No threat detected
+                                    $moved = move_file_to_vwr_server($file, $scanned_result, "uploadv2");
+                                    if($moved != 'Copy success!') {
+                                        echo "fail to move to server";
+                                    }
+                                } 
+
+                                //scan fields
+                                $editFields['scan_file_id']= $file_id[0];
+                                $editFields['scan_file_status']= $scanned_status;
+    
+                                    // db_update('bulk_upload_list')->fields($editFields)->condition('bulk_id', $auto_id)->execute();
+                                    $bulk_id = db_insert('bulk_upload_list')->fields($editFields)->execute();
+                                    if (db_affected_rows)
+                                    {
+                                        db_query("DELETE FROM vwr_bulk_upload_list_regions WHERE bulk_id=:bulk_id",[':bulk_id' => $bulk_id]);
+                                        if ($supplier_org_id > 0)
+    
+                                        {
+                                            $supplier_regions = array();
+                                            $bulkeditFields = array();
+                                            $supplier_regions = getsupplier_org_names($supplier_org_id);
+                                            if (!empty($supplier_regions))
+                                            {
+                                                if (is_numeric($region_id))
+                                                {
+    
+                                                    if (in_array($region_id, $supplier_regions))
+                                                    {
+                                                        $bulkeditFields['region_id'] = $region_id;
+                                                        $bulkeditFields['bulk_id'] = $bulk_id;
+                                                        $bulkeditFields['status'] = 1;
+                                                        $internal_id = db_insert('bulk_upload_list_regions')->fields($bulkeditFields)->execute();
+                                                        //file_put_contents($file, 'insideifupdate'.$bulk_id, FILE_APPEND);
+                                                        
+                                                    }
+    
+                                                }
+                                                else
+                                                {
+                                                    foreach ($supplier_regions as $regionprocessid)
+                                                    {
+                                                        $bulkeditFields = array();
+                                                        $bulkeditFields['region_id'] = $regionprocessid;
+                                                        $bulkeditFields['bulk_id'] = $bulk_id;
+                                                        $bulkeditFields['status'] = 1;
+                                                        $internal_id = db_insert('bulk_upload_list_regions')->fields($bulkeditFields)->execute();
+                                                        //file_put_contents($file, 'insideelseupdate'.$bulk_id, FILE_APPEND);
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                         echo $bulk_id;
+                                    }
+    
+                                    //scanfields
+                                    $scanFields['file_id']= $file_id[0];
+                                    $scanFields['file_name']= $timestamp_filename;
+                                    $scanFields['submission_type']= 'bulk_upload_list';
+                                    $scanFields['created_date']= time();
+                                    $scanFields['scan_status'] = $scanned_status;
+                                    $file_auto_id = db_insert('file_scan_details')->fields($scanFields)->execute();
+                                    //log submission info
+                                    watchdog('File Upload',"Submission done for [%submission_type] with filename : %filename under bulk : %reference",['%submission_type' => 'bulk_upload_list', '%filename' => $timestamp_filename, '%reference' => $bulk_title], WATCHDOG_INFO);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        } else if ($arg_2 == 'update') {
+            $bulk_id = trim(arg(3));
+            $bulk_title = trim($_POST['bulk_title']);
+            $bulk_department = trim($_POST['bulk_department']);
+            $bulk_desc = trim($_POST['bulk_desc']);
+            $bulk_expiry = strtotime(trim($_POST['bulk_expiry']));
+            $bulk_notification = trim($_POST['bulk_notification']);
+            $file_id=explode(",",strip_tags($_POST["file_id"]));
+            $file_name=explode(",",strip_tags($_POST["file_name"]));
+            if ($bulk_title && $bulk_department && $bulk_desc && $bulk_expiry && $bulk_id && is_numeric($bulk_id) && is_vwr_user_role()) {
+                global $user;
+                $timestamp = time();
+                $editFields = array();
+                $editFields['title'] = $bulk_title;
+                $editFields['department'] = $bulk_department;
+                $editFields['description'] = $bulk_desc;
+                $editFields['email_notification'] = $bulk_notification;
+                $editFields['expiry_date'] = $bulk_expiry;
+                $editFields['modified_date'] = $timestamp;
+                $editFields['modified_by'] = $user->uid;
+
+                if($file_id != ""){
+                    for($i = 0 ; $i < count($file_id) ; $i++) {
+                        $timestamp_filename = $filename = trim($file_name[$i]);
+                        if (substr($filename, 0, 1) == '-')
+                        {
+                            $timestamp_filename = $filename = substr($filename, 1);
+                        }
+    
+                        if ($filename)
+                        {
+                            $name = explode('--', $filename, 2);
+                            if (count($name) >= 2)
+                            {
+                                $supplier_org = trim($name[0]);
+                                $regionshortnames = array();
+                                $regionshortnames = getregionshortnames();
+                                $region = array();
+                                $region = explode("--", $name[1], 2);
+                                $region_id = $regionshortnames[$region[0]];
+    
+                                $supplier_org_name = '';
+                                if ($supplier_org && is_numeric($supplier_org))
+                                {
+                                    $supplier_org_name = db_query("SELECT supplier_org_id from vwr_vendor where deleted='0' AND vendor_id = :supplier_org",[':supplier_org' => $supplier_org])->fetchColumn();
+                                }
+                                else
+                                {
+                                    $supplier_org_name = db_query("SELECT supplier_org_id from vwr_supplier_organization where deleted='0' AND supplier_org_name = :supplier_org",[':supplier_org' => $supplier_org])->fetchColumn();
+                                }
+                                $timestamp = time();
+                                $timestamp_filename = $timestamp . '_' . $timestamp_filename;
+                                $supplier_org_id = 0;
+                                $supplier_org_id = $supplier_org_name ? $supplier_org_name : $supplier_org;
+                                
+                                global $user;
+                                $user_id = $user->uid ? $user->uid : $_REQUEST['usrid'];
+                                
+                                $editFields['modified_date'] = $timestamp;
+                                $editFields['modified_by'] = $user_id;
+                                $editFields['supplier_org'] = $supplier_org_name ? $supplier_org_name : $supplier_org;
+                                $editFields['filename'] = $timestamp_filename;
+                                //get the scan result 
+                                $scanned_result = get_scanned_file($file_id[$i]);//
+                                $scanned_status = ($scanned_result['status'] == 0 ? 'SCAN_COMPLETED' :  (($scanned_result['status'] == 255 || $scanned_result['status'] == 254) ? "In Progress" : "SCAN_FAILED"));
+                                $file = ['file_name'=> $timestamp_filename,'scan_status' => $scanned_status,'submission_type'=>'bulk_upload_list','file_id'=>$file_id[$i]];
+                                if( $scanned_result['status'] == 0 ) {
+                                    //No threat detected
+                                    $moved = move_file_to_vwr_server($file, $scanned_result, "uploadv2");
+                                    if($moved != 'Copy success!') {
+                                        echo "fail to move to server";
+                                    }
+                                } 
+    
+                                //scan fields
+                                $editFields['scan_file_id']= $file_id[0];
+                                $editFields['scan_file_status']= $scanned_status;
+    
+                                db_update('bulk_upload_list')->fields($editFields)->condition('bulk_id', $bulk_id)->execute();
+                                if (db_affected_rows)
+                                {
+                                    db_query("DELETE FROM vwr_bulk_upload_list_regions WHERE bulk_id=" . $bulk_id);
+                                    if ($supplier_org_id > 0)
+
+                                    {
+                                        $supplier_regions = array();
+                                        $bulkeditFields = array();
+                                        $supplier_regions = getsupplier_org_names($supplier_org_id);
+                                        if (!empty($supplier_regions))
+                                        {
+                                            if (is_numeric($region_id))
+                                            {
+
+                                                if (in_array($region_id, $supplier_regions))
+                                                {
+                                                    $bulkeditFields['region_id'] = $region_id;
+                                                    $bulkeditFields['bulk_id'] = $bulk_id;
+                                                    $bulkeditFields['status'] = 1;
+                                                    $internal_id = db_insert('bulk_upload_list_regions')->fields($bulkeditFields)->execute();
+                                                    
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                foreach ($supplier_regions as $regionprocessid)
+                                                {
+                                                    $bulkeditFields = array();
+                                                    $bulkeditFields['region_id'] = $regionprocessid;
+                                                    $bulkeditFields['bulk_id'] = $bulk_id;
+                                                    $bulkeditFields['status'] = 1;
+                                                    $internal_id = db_insert('bulk_upload_list_regions')->fields($bulkeditFields)->execute();
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                    echo $bulk_id;
+                                }
+
+                                //scanfields
+                                $scanFields['file_id']= $file_id[0];
+                                $scanFields['file_name']= $timestamp_filename;
+                                $scanFields['submission_type']= 'bulk_upload_list';
+                                $scanFields['created_date']= time();
+                                $scanFields['scan_status'] = $scanned_status;
+                                $file_auto_id = db_insert('file_scan_details')->fields($scanFields)->execute();
+                                //log submission info
+                                watchdog('File Upload',"Submission done for [%submission_type] with filename : %filename under bulk : %reference",['%submission_type' => 'bulk_upload_list', '%filename' => $timestamp_filename, '%reference' => $bulk_title], WATCHDOG_INFO);
+                            }
+                        }
+                        
+                    }
+                } else{
+                    db_update('bulk_upload_list')
+                        ->fields($editFields)->condition('bulk_id', $bulk_id)->execute();
+                    if (db_affected_rows) {
+                        echo htmlspecialchars($bulk_id);
+                    }
+                }
+            }
+        } else if ($arg_2 == 'multidelete') {
+            if (is_vwr_user_role()) {
+                $multibulk_ids = addslashes(strip_tags(trim($_POST['bulk_id'])));
+                $success_flag = 0;
+                if ($multibulk_ids) {
+                    $bulkids = explode(',', $multibulk_ids);
+                    foreach ($bulkids as $bulk_id) {
+                        $bulk_id = trim($bulk_id);
+                        if ($bulk_id && is_numeric($bulk_id)) {
+                            db_query("UPDATE {bulk_upload_list} SET deleted = 1 WHERE bulk_id = :bulk_id", [':bulk_id' => $bulk_id]);
+                            $success_flag++;
+                        }
+                    }
+                }
+                if ($success_flag) {
+                    echo 'success';
+                }
+            }
+        } else if ($arg_2 == 'deletebulk') {
+            $bulk_id = addslashes(strip_tags(trim($_POST['bulk_id'])));
+            if ($bulk_id && is_numeric($bulk_id) && is_vwr_user_role()) {
+                db_query("UPDATE {bulk_upload_list} SET deleted = 1 WHERE bulk_id = :bulk_id", [':bulk_id' => $bulk_id]);
+                if (db_affected_rows) {
+                    echo 'success';
+                }
+            }
+        } else {
+            return theme('bulkupload_create_new', array(
+                'data' => ''
+            ));
+        }
+        exit;
+    }
+
+    function bulkupload_actions()
+    {
+        global $user;
+        $uid = $user->uid;
+        $bulk_id = trim(arg(3));
+        if (arg(2) == 'download' && $uid && $bulk_id && is_numeric($bulk_id)) {
+            $file_name = db_query("SELECT filename from {bulk_upload_list} where bulk_id=:bulk_id AND deleted = 0", ['bulk_id' => $bulk_id]);
+            foreach ($file_name as $fname) {
+                $file_name = $fname->filename;
+            }
+            if ($file_name) {
+
+                $structure = 'sites/default/files/bulk_uploads/';
+                $file = $structure . $file_name;
+                if (file_exists($file)) {
+                    $google_analytics = variable_get('google_analytics_UA');
+    ?>
+                    <script type="text/javascript">
+                        var _gaq = _gaq || [];
+                        _gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+                        _gaq.push(['_trackPageview', 'File Download - Reports -' + <?php echo htmlspecialchars($file_name); ?>]);
+
+                        (function() {
+                            var ga = document.createElement('script');
+                            ga.type = 'text/javascript';
+                            ga.async = true;
+                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(ga, s);
+                        })();
+                    </script>
+                <?php
+                    $file_name = function_exists('splitFileNameTimestamp') ? splitFileNameTimestamp($file_name) : $file_name;
+                    $timestamp = time();
+                    $editFields = array();
+                    $editFields['bulk_id'] = $bulk_id;
+                    $editFields['user_id'] = $uid;
+                    $editFields['download_date'] = $timestamp;
+                    $editFields['deleted'] = 0;
+                    $auto_id = db_insert('bulk_upload_history')->fields($editFields)->execute();
+                    header('Content-Description: File Transfer');
+                    header('Content-Type: application/octet-stream');
+                    header('Content-Disposition: attachment; filename=' . basename(str_replace(" ", "", $file_name)));
+                    header('Content-Transfer-Encoding: binary');
+                    header('Expires: 0');
+                    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                    header('Pragma: public');
+                    header('Content-Length: ' . filesize($file));
+                    ob_clean();
+                    flush();
+                    @readfile($file);
+                } else {
+                    $redirect = '';
+                    if ($_REQUEST['redirect']) {
+                        $redirect = trim($_REQUEST['redirect']);
+                    }
+                    if (arg(4) == 'view') {
+                        drupal_goto("bulk/view/" . $bulk_id);
+                    }
+                    if (is_vwr_user_role()) {
+                        drupal_goto("bulk/overview/" . $redirect);
+                    } else {
+                        drupal_goto("bulk/reports/" . $redirect);
+                    }
+                }
+                exit;
+            }
+        } else if (arg(2) == 'export') {
+            if (is_vwr_user_role()) {
+                $export_bulks = addslashes(htmlentities(trim($_POST['selected_bulks'])));
+                $excelHeadings = "<table cellspacing='5' cellpadding='5' width='100%' align='center'>
+                                    <tr style='background-color:#CCCCCC; font-size:12px;'>
+                                        <th>Report Name</th>	<th>Department</th>	<th>Description</th>
+                                        <th>Date Provided</th>	<th>Expiration Date</th>
+                                        <th>Supplier Org</th>	<th>Vendor Numbers</th>
+                                        <th>File Name</th>	<th>Last Download By</th>
+                                    </tr>";
+                $excelData = "";
+                $filename = "bulkreport_Selected_" . date("m-d-Y") . ".xls";
+                if ($export_bulks) {
+                    $bulk_list = db_query("SELECT * from {bulk_upload_list} where bulk_id IN (:export_bulks) AND deleted=0 ORDER BY bulk_id DESC ", [':export_bulks' => $export_bulks]);
+                    foreach ($bulk_list as $bulk_item) {
+                        $vendor_ids = '';
+                        if ($bulk_item->supplier_org) {
+                            $supplier_orgs = db_query("SELECT DISTINCT vendor_id FROM {vendor} WHERE deleted=0 AND supplier_org_id = :supplier_org", [':supplier_org' => $bulk_item->supplier_org])
+                                ->fetchCol();
+                            $vendor_ids = $supplier_orgs ? implode(", ", $supplier_orgs) : '';
+                        }
+                        $bulk_hist = db_query("SELECT i.firstname, i.lastname, i.email, h.download_date FROM {bulk_upload_history} AS h LEFT JOIN {users_info} AS i ON i.uid = h.user_id WHERE h.bulk_id= :bulk_item_id AND h.deleted=0 ORDER BY h.download_date DESC", [':bulk_item_id' => $bulk_item->bulk_id])
+                            ->fetchObject();
+                        $hist_downloaded_user = $bulk_hist->firstname ? $bulk_hist->firstname . ' ' . $bulk_hist->lastname . ' (' . date("m/d/Y", $bulk_hist->download_date) . ')' : 'None';
+
+                        $excelData .= "<tr align='left'>	<td>" . $bulk_item->title . "</td>
+                                        <td>" . $bulk_item->department . "</td> 
+                                        <td>" . $bulk_item->description . "</td> 
+                                        <td>" . date('m/d/Y', $bulk_item->created_date) . "</td>
+                                        <td>" . date('m/d/Y', $bulk_item->expiry_date) . "</td>
+                                        <td>" . ($bulk_item->supplier_org ? getMasterSupplierOrgName($bulk_item->supplier_org) : 'N/A') . "</td>
+                                        <td>" . $vendor_ids . "</td>
+                                        <td>" . (function_exists('splitFileNameTimestamp') ? splitFileNameTimestamp($bulk_item->filename) : $bulk_item->filename) . "</td>
+                                        <td>" . $hist_downloaded_user . "</td>
+                                    </tr>";
+                    }
+                } else {
+                    $bulk_list = db_query("SELECT * from {bulk_upload_list} where deleted='0' ORDER BY bulk_id DESC ");
+                    foreach ($bulk_list as $bulk_item) {
+                        $vendor_ids = '';
+                        if ($bulk_item->supplier_org) {
+                            $supplier_orgs = db_query("SELECT DISTINCT vendor_id from {vendor} where deleted=0 AND supplier_org_id = :supplier_org ", [':supplier_org' => $bulk_item->supplier_org])
+                                ->fetchCol();
+                            $vendor_ids = $supplier_orgs ? implode(", ", $supplier_orgs) : '';
+                        }
+                        if ($vendor_ids) {
+                            $bulk_hist = db_query("SELECT i.firstname, i.lastname, i.email, h.download_date FROM {bulk_upload_history} AS h LEFT JOIN {users_info} AS i ON i.uid = h.user_id WHERE h.bulk_id=:bulk_id AND h.deleted='0' ORDER BY h.download_date DESC", [':bulk_id' => $bulk_item->bulk_id])
+                                ->fetchObject();
+                            $hist_downloaded_user = $bulk_hist->firstname ? $bulk_hist->firstname . ' ' . $bulk_hist->lastname . ' (' . date("m/d/Y", $bulk_hist->download_date) . ')' : 'None';
+
+                            $excelData .= "<tr align='left'>	<td>" . $bulk_item->title . "</td>
+                                            <td>" . $bulk_item->department . "</td> 
+                                            <td>" . $bulk_item->description . "</td> 
+                                            <td>" . date('m/d/Y', $bulk_item->created_date) . "</td>
+                                            <td>" . date('m/d/Y', $bulk_item->expiry_date) . "</td>
+                                            <td>" . ($bulk_item->supplier_org ? getMasterSupplierOrgName($bulk_item->supplier_org) : 'N/A') . "</td>
+                                            <td>" . $vendor_ids . "</td>
+                                            <td>" . (function_exists('splitFileNameTimestamp') ? splitFileNameTimestamp($bulk_item->filename) : $bulk_item->filename) . "</td>
+                                            <td>" . $hist_downloaded_user . "</td>
+                                        </tr>";
+                        }
+                    }
+                    $filename = "bulkreport_All_" . date("m-d-Y") . ".xls";
+                }
+                $google_analytics = variable_get('google_analytics_UA');
+                ?>
+                <script type="text/javascript">
+                    var _gaq = _gaq || [];
+                    _gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+                    _gaq.push(['_trackPageview', 'Reports export']);
+
+                    (function() {
+                        var ga = document.createElement('script');
+                        ga.type = 'text/javascript';
+                        ga.async = true;
+                        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(ga, s);
+                    })();
+                </script>
+            <?php
+                $excelFooter = "</table>";
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                header("Content-Type: application/force-download");
+                header("Content-Type: application/octet-stream");
+                header("Content-Disposition: attachment;filename=$filename");
+                header("Content-Transfer-Encoding: binary ");
+                echo $excelHeadings . $excelData . $excelFooter;
+                exit;
+            }
+        } else if (arg(2) == 'repexport') {
+            if (is_vwr_user_role()) {
+                $report_bulk = addslashes(htmlentities(trim($_REQUEST['selected_bulkreport'])));
+                $excelHeadings = "<table cellspacing='5' cellpadding='5' width='100%' align='center'>
+                                    <tr style='background-color:#CCCCCC; font-size:12px;'>
+                                        <th>Report Name</th>	<th>Department</th>
+                                        <th>Supplier Org</th>	<th>File Name</th>
+                                        <th>Downloaded By</th>	<th>Email Id</th>
+                                        <th>Date</th>	<th>Time</th>
+                                    </tr>";
+                $excelData = "";
+                $filename = "bulkreport_downloaded_" . date("m-d-Y") . ".xls";
+                if ($report_bulk && is_numeric($report_bulk)) {
+                    $bulk_list = db_query("SELECT * FROM {bulk_upload_history} AS h LEFT JOIN {users_info} AS i ON i.uid = h.user_id WHERE h.bulk_id= :report_bulk AND h.deleted='0' ORDER BY h.download_date DESC", [':report_bulk' => $report_bulk]);
+                    $bulk_info = db_query("SELECT title, department, supplier_org, filename from {bulk_upload_list} where bulk_id = :report_bulk AND deleted=0 ", [':report_bulk' => $report_bulk])->fetchObject();
+                    $bulk_filename = function_exists('splitFileNameTimestamp') ? splitFileNameTimestamp($bulk_info->filename) : $bulk_info->filename;
+                    foreach ($bulk_list as $bulk_item) {
+                        $excelData .= "<tr align='left'>
+                                        <td>" . $bulk_info->title . "</td> 
+                                        <td>" . $bulk_info->department . "</td> 
+                                        <td>" . getMasterSupplierOrgName($bulk_info->supplier_org) . "</td> 
+                                        <td>" . $bulk_filename . "</td> 
+                                        <td>" . $bulk_item->firstname . ' ' . $bulk_item->lastname . "</td>
+                                        <td>" . $bulk_item->email . "</td> 
+                                        <td>" . date('m/d/Y', $bulk_item->download_date) . "</td>
+                                        <td>" . date('G:i T', $bulk_item->download_date) . "</td>
+                                    </tr>";
+                    }
+                }
+                $excelFooter = "</table>";
+                $google_analytics = variable_get('google_analytics_UA');
+            ?>
+                <script type="text/javascript">
+                    var _gaq = _gaq || [];
+                    _gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+                    _gaq.push(['_trackPageview', 'Reports export']);
+
+                    (function() {
+                        var ga = document.createElement('script');
+                        ga.type = 'text/javascript';
+                        ga.async = true;
+                        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(ga, s);
+                    })();
+                </script>
+    <?php
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                header("Content-Type: application/force-download");
+                header("Content-Type: application/octet-stream");
+                header("Content-Disposition: attachment;filename=$filename");
+                header("Content-Transfer-Encoding: binary ");
+                echo $excelHeadings . $excelData . $excelFooter;
+                exit;
+            }
+        } else if (arg(2) == 'sorg') {
+            $i_count = addslashes(htmlentities(trim($_POST['i_count'])));
+            $file_name = str_replace('"', '', trim($_POST['filename']));
+            $file_shortname = (strlen($file_name) > 28) ? substr($file_name, 0, 25) . '...' : $file_name;
+            $sorg_array = explode("--", $file_name, 2);
+            $sorg_prefix = trim($sorg_array[0]);
+            $regionshortnames = array();
+            $regionshortnames = getregionshortnames();
+            $region = array();
+            $region = explode("--", $sorg_array[1], 2);
+            $region_id = $regionshortnames[$region[0]];
+
+            if ($sorg_prefix && is_vwr_user_role()) {
+                if (is_numeric($sorg_prefix)) {
+                    $supplier_org = db_query("SELECT supplier_org_id from vwr_vendor where deleted=0 AND vendor_id = :sorg_prefix ", array(':sorg_prefix' => $sorg_prefix))->fetchColumn();
+                } else {
+                    $supplier_org = db_query("SELECT so.supplier_org_id from vwr_supplier_organization as so where so.deleted=0 AND so.supplier_org_name = :sorg_prefix", array(':sorg_prefix' => $sorg_prefix))->fetchColumn();
+                }
+            }
+            if ($supplier_org > 0) {
+                $supplier_regions = getsupplier_org_names($supplier_org);
+            }
+            $isvalidregion = true;
+            if (!empty($supplier_regions)) {
+                if (is_numeric($region_id)) {
+
+                    if (!in_array($region_id, $supplier_regions)) {
+                        $isvalidregion = false;
+                    }
+                }
+            }
+            if ($supplier_org && trim($sorg_array[1]) && $isvalidregion) {
+                echo json_encode(['status' => 'success', 'file_id' => $i_count, 'file_name' => $file_name, 'file_shortname' => $file_shortname]);
+            } else {
+                echo json_encode(['status' => 'fail', 'file_id' => $i_count, 'file_name' => $file_name, 'file_shortname' => $file_shortname]);
+            }
+        } else if (arg(2) == 'search') {
+            echo theme('bulk_search_actions', array(
+                'data' => ''
+            ));
+        }
+        exit;
+    }
+    function getsupplier_org_names($supplier_org_id)
+    {
+        $resultset = db_query("SELECT region_id FROM vwr_supplier_org_regions WHERE STATUS=1 AND supplier_org_id=:supplier_org_id", array(':supplier_org_id' => $supplier_org_id));
+        $regions = array();
+        while ($row = $resultset->fetchAssoc()) {
+            $regions[$row['region_id']] = $row['region_id'];
+        }
+        return $regions;
+    }
+    function getregionshortnames()
+    {
+        $resultset = db_query("SELECT region_id,region_shortname FROM vwr_manage_regions WHERE region_status=1");
+        $regions = array();
+        while ($row = $resultset->fetchAssoc()) {
+            $regions[$row['region_shortname']] = $row['region_id'];
+        }
+        return $regions;
+    }
+    function bulkupload_create_upload()
+    {
+
+        if (isset($_POST)) {
+            $uploaddir = basename(realpath($_SERVER['DOCUMENT_ROOT'] . base_path() . 'sites/default/files/bulk_uploads'));
+            if (!is_dir($uploaddir)) {
+                mkdir($uploaddir, 0777, true);
+            } else {
+                chmod($uploaddir, 0777);
+            }
+            //get seperate file data
+            $multiple_file = [];
+            
+            $file = $_FILES["multifileupload"];
+
+            for ($i = 0; $i < count($file['name']); $i++) {
+                $multiple_file[$i]["name"] = $file["name"][$i];
+                $multiple_file[$i]["type"] = $file["type"][$i];
+                $multiple_file[$i]["tmp_name"] = $file["tmp_name"][$i];
+                $multiple_file[$i]["size"] = $file["size"][$i];
+            }
+            // watchdog("File Upload", "Bulk Multiple-1. Files ready for upload <pre>" . print_r($multiple_file, true) . "</pre>");
+            $response_list = [];
+
+            foreach ($multiple_file as $single_file) {
+
+                $fname = $single_file['name'];
+                $tmp_name = $single_file['tmp_name'];
+
+                //implementing server side validation for each file
+                $invalid_file_type = array(
+                    'application/vnd.microsoft.portable-executable',
+                    'image/svg+xml'
+                );
+                $response  = validate_doc_file($single_file, $invalid_file_type);
+                // watchdog("File Upload", "Bulk Multiple-2. File being processed for upload  <pre>" . print_r($single_file, true) . "</pre> Response recieved :" . $response['msg']);
+
+                $error_response = [
+                    'Error in file upload',
+                    'Sorry! uploaded file format is invalid',
+                    'Image size should be less than 500MB',
+                    'S3BucketUpload error',
+                    'MetadefenderAPI error',
+                    'Curl error'
+                ];
+
+                if(!in_array($response['msg'],$error_response)) {
+                    $response_list[] = ['file_name' => $single_file["name"] , 'message' => $response['msg']]; 
+                }else {
+                    $response_message = ($response["statusCode"] != '' ? " Statuscode : ". $response['statusCode'] : "");
+                    $response_list[] = ['file_name' => '' , 'message' => $response['msg'] . $response_message]; 			
+                }
+            }
+
+            echo json_encode($response_list);
+        }
+    }
+    function bulkupload_send_nofication()
+    {
+        $result_flag = 0;
+        $timestamp_created = intval(time()) - (40 * 60);        
+        $bulk_title = trim($_REQUEST['bulk_title']);
+        $bulk_department = trim($_REQUEST['bulk_department']);
+        $bulk_desc = trim($_REQUEST['bulk_desc']);
+        $bulk_expiry = strtotime(trim($_REQUEST['bulk_expiry']));
+        $bulk_notification = trim($_REQUEST['bulk_notification']);
+        $bulk_req_id = trim($_REQUEST['id']);        
+        if ($bulk_notification && (!$bulk_req_id || !is_numeric($bulk_req_id))) {
+            try {
+
+                $query = "SELECT 
+                            bulk_id, supplier_org,filename 
+                        FROM 
+                            {bulk_upload_list} 
+                        WHERE 
+                            deleted='0' 
+                        AND 
+                            title = :bulk_title
+                        AND 
+                            department = :bulk_department
+                        AND 
+                            expiry_date = :bulk_expiry
+                            AND 
+                                created_date > '$timestamp_created' 
+                            AND 
+                                email_notification = '1' 
+                            AND 
+                                filename != '' 
+                            AND 
+                                supplier_org != '' 
+                            AND 
+                                bulk_id > 0  
+                            GROUP BY 
+                                supplier_org  
+                            ORDER BY 
+                                bulk_id DESC";
+                $query_param = [':bulk_title' => $bulk_title, ':bulk_department' => $bulk_department, ':bulk_expiry' => $bulk_expiry];
+                $bulk_info = db_query($query, $query_param);
+                
+                global $base_url;
+
+                $path = drupal_get_path('theme', 'vwr');
+                $body = file_get_contents($path . '/email_templates/bulk_upload_notification.tpl.php');
+                $base_url_img = str_replace("https://", "http://", $base_url);
+                $body = str_replace("{base_path}", $base_url_img . '/' . $path, $body);
+                $body = str_replace("{Title}", $bulk_title, $body);
+                $body = str_replace("{Department}", $bulk_department, $body);
+                $body = str_replace("{Description}", $bulk_desc, $body);
+                $body = str_replace("{ExpiryDate}", date("m/d/Y", $bulk_expiry), $body);
+
+                $subject = "VWR Supplier Central: New Report Uploaded";
+
+                $headers = 'MIME-Version: 1.0' . "\r\n"; // To send HTML mail, the Content-type header must be set
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $headers .= "From: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+                $headers .= "Reply-To: VWR Supplier Central <VWRsuppliercentral@vwrsuppliercentral.com>" . "\r\n";
+                $prev_supl_org = '';
+                foreach ($bulk_info as $bulk_item) {
+                    $current_sorg = $bulk_item->supplier_org;
+                    $filename = $bulk_item->filename;
+                    $query = "SELECT 
+                                    bulk_id 
+                            from {bulk_upload_list} 
+                            where deleted='0' 
+                            AND title = :bulk_title
+                            AND department = :bulk_department
+                            AND expiry_date = :bulk_expiry
+                            AND created_date > $timestamp_created 
+                            AND email_notification = '1' AND filename != '' 
+                            AND supplier_org = :current_sorg
+                            AND bulk_id > 0 ORDER BY bulk_id DESC";
+                    $query_param = [':bulk_title' => $bulk_title, ':bulk_department' => $bulk_department, ':bulk_expiry' => $bulk_expiry, ':current_sorg' => $current_sorg];
+
+                    $bulk_notify_id = db_query($query, $query_param)->fetchCol();
+                    if ($bulk_notify_id && $current_sorg) {
+                        $group_ids_link = '';
+                        foreach ($bulk_notify_id as $bulk_id) {
+                            $group_ids_link .= "<br />" . $base_url . '/bulk/view/' . base64_encode($bulk_id);
+                        }
+                        $refbody = str_replace("{Link}", $group_ids_link, $body);
+                        $refbody = str_replace("{SupplierOrg}", getMasterSupplierOrgName($current_sorg), $refbody);
+                        $naonly = strpos($filename, '--NA--');
+                        $euonly = strpos($filename, '--EU--');
+                        if ($naonly != 0) {
+                            $query = "SELECT i.email, i.firstname, 
+                            i.lastname FROM {users_info} AS i LEFT JOIN {users} AS 
+                            u ON u.uid = i.uid WHERE u.uid in(select user_id from {user_defaulttab_settings} where region_id=1) and i.`supplier_org_name` = :current_sorg AND u.status='1'";
+                            $query_param = [':current_sorg' => $current_sorg];
+                            $select_users = db_query($query, $query_param)->fetchAll();
+                            foreach ($select_users as $current_user) {
+                                $to = $current_user->email;
+                                if (email_notify_check($to)) {
+                                    $sendbody = str_replace("{UserName}", $current_user->firstname . ' ' . $current_user->lastname, $refbody);
+                                    $sendbody = preg_replace("[\\\]", '', $sendbody);
+                                    $mail = mail($to, $subject, $sendbody, $headers);
+                                    $result_flag++;
+                                    // email logs
+                                    $log_msg = 'Report notification';
+                                    $log_status = ($mail) ? 1 : 0;
+                                    $time = time();
+                                    email_logs('report notification', $to, $subject, $log_msg, $log_status, $time);
+                                }
+                            }
+                        }
+
+                        if ($euonly != 0) {
+                            $select_users = db_query("SELECT i.email, i.firstname, 
+                                i.lastname FROM {users_info} AS i LEFT JOIN {users} AS 
+                                u ON u.uid = i.uid WHERE u.uid in(select user_id from {user_defaulttab_settings} where region_id=2) and i.`supplier_org_name` = :current_sorg AND u.status='1'", [':current_sorg' => addslashes($current_sorg)])->fetchAll();
+
+                            foreach ($select_users as $current_user) {
+                                $to = $current_user->email;
+                                if (email_notify_check($to)) {
+                                    $sendbody = str_replace("{UserName}", $current_user->firstname . ' ' . $current_user->lastname, $refbody);
+                                    $sendbody = preg_replace("[\\\]", '', $sendbody);
+                                    $mail = mail($to, $subject, $sendbody, $headers);
+                                    $result_flag++;
+                                    // email logs
+                                    $log_msg = 'Report notification';
+                                    $log_status = ($mail) ? 1 : 0;
+                                    $time = time();
+                                    email_logs('report notification', $to, $subject, $log_msg, $log_status, $time);
+                                }
+                            }
+                        }
+                        if (($euonly == 0) && ($naonly == 0)) {
+                            $select_users = db_query("SELECT i.email, i.firstname, i.lastname FROM {users_info} AS i LEFT JOIN {users} AS u ON u.uid = i.uid WHERE i.`supplier_org_name` = :current_sorg AND u.status='1'", [':current_sorg' => addslashes($current_sorg)])->fetchAll();
+
+                            foreach ($select_users as $current_user) {
+                                $to = $current_user->email;
+                                if (email_notify_check($to)) {
+                                    $sendbody = str_replace("{UserName}", $current_user->firstname . ' ' . $current_user->lastname, $refbody);
+                                    $sendbody = preg_replace("[\\\]", '', $sendbody);
+                                    $mail = mail($to, $subject, $sendbody, $headers);
+                                    $result_flag++;
+                                    // email logs
+                                    $log_msg = 'Report notification';
+                                    $log_status = ($mail) ? 1 : 0;
+                                    $time = time();
+                                    email_logs('report notification', $to, $subject, $log_msg, $log_status, $time);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception $ex) {
+                echo " Exception:" . $ex->getMessage();
+            }
+        }
+        echo 'success';
+        exit;
+    }
+
+    function bulkupload_view_record()
+    {
+        return theme('bulkupload_view', array(
+            'data' => ''
+        ));
+    }
+
+    function bulk_theme()
+    {
+        return array(
+            'bulk_overview' => array(
+                'arguments' => array(
+                    'result' => NULL
+                ),
+                'template' => 'bulk-overview',
+            ),
+            'test_upload' => array(
+                'arguments' => array(
+                    'result' => NULL
+                ),
+                'template' => 'test-upload',
+            ),
+            'ticketmanager_submission_details' => array(
+                'arguments' => array(
+                    'result' => NULL
+                ),
+                'template' => 'submission-view',
+            ),
+            'supplier_workspace_view_team' => array(
+                'variables' => array(
+                    'team' => NULL
+                ),
+                'template' => 'supplier-workspace-view-team',
+            ),
+            'supplier_workspace_team' => array(
+                'variables' => array(
+                    'suppliers' => NULL
+                ),
+                'template' => 'supplier-workspace-team',
+            ),
+            'submissions_ticket_actions' => array(
+                'variables' => array(
+                    'data' => NULL
+                ),
+                'template' => 'submissions-ticket-actions',
+            ),
+            'deactivate_supplier_user' => array(
+                'variables' => array(
+                    'supplier_uid' => NULL
+                ),
+                'template' => 'deactivate-supplier-user',
+            ),
+            'ticketmanager_manage_status' => array(
+                'variables' => array(
+                    'data' => NULL
+                ),
+                'template' => 'manage-status-list',
+            ),
+            'bulkupload_create_new' => array(
+                'variables' => array(
+                    'data' => NULL
+                ),
+                'template' => 'bulkupload-create-new',
+            ),
+            'bulkupload_view' => array(
+                'variables' => array(
+                    'data' => NULL
+                ),
+                'template' => 'bulkupload-view',
+            ),
+            'bulk_search_actions' => array(
+                'variables' => array(
+                    'data' => NULL
+                ),
+                'template' => 'bulk-search-actions',
+            ),
+        );
+    }

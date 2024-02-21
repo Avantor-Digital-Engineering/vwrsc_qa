@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the new_relic_rpm module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function new_relic_rpm_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  // We do not verify the extension at install time, to allow for testing when
+  // it is not present.
+  if ($phase == 'runtime') {
+    $new_relic_loaded = extension_loaded('newrelic');
+    $requirements['newrelic'] = array(
+      'title' => $t('New Relic PHP Library'),
+      'value' => $new_relic_loaded ? $t('Exists') : $t('Not loaded'),
+      'severity' => $new_relic_loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    );
+    $requirements['newrelic_apikey'] = array(
+      'title' => $t('New Relic API key'),
+      'value' => (variable_get('new_relic_rpm_api_key', 0) == '' ? $t('Not set') : $t('Available')) . ' (' . l(t('Configure'), 'admin/config/development/new-relic-rpm') . ')',
+      'severity' => variable_get('new_relic_rpm_api_key', 0) == '' ? REQUIREMENT_INFO : REQUIREMENT_OK,
+    );
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function new_relic_rpm_install() {
+  // Set New Relic RPM module's weight to very low so we can trigger job state
+  // changes early. This can be important in cases like hook_cron().
+  db_update('system')
+    ->fields(array(
+      'weight' => -20,
+    ))
+    ->condition('name', 'new_relic_rpm')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function new_relic_rpm_uninstall() {
+
+  // Remove variables.
+  variable_del('new_relic_rpm_add_manual_rum_instrumentation');
+  variable_del('new_relic_rpm_track_cron');
+  variable_del('new_relic_rpm_ignore_urls');
+  variable_del('new_relic_rpm_ignored_roles');
+  variable_del('new_relic_rpm_bg_urls');
+  variable_del('new_relic_rpm_exclusive_urls');
+  variable_del('new_relic_rpm_api_key');
+  variable_del('new_relic_rpm_module_deployment');
+  variable_del('new_relic_rpm_app_name');
+  variable_del('new_relic_rpm_use_menu_item_as_transaction');
+  variable_del('new_relic_rpm_add_node_type_to_node_page_paths');
+  variable_del('new_relic_rpm_override_exception_handler');
+  variable_del('new_relic_rpm_track_drush');
+  variable_del('new_relic_rpm_watchdog_severities');
+  variable_del('new_relic_rpm_suppress_module_not_enabled_error_always');
+  variable_del('new_relic_rpm_suppress_module_not_enabled_error_on_cli');
+  variable_del('new_relic_rpm_disable_autorum');
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function new_relic_rpm_update_last_removed() {
+  return 6002;
+}
